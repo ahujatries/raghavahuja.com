@@ -78,7 +78,7 @@
         <button class="vs-handle" data-vs="LiveActivity" title="view source" aria-label="view source">{ }</button>
         <div class="live-head">
           <span class="label-chrome" id="live-heading"><span class="live-dot"></span>live · github.com/ahujatries</span>
-          <span class="label-chrome">refreshes every 60s · edge cached · tick <span id="tick">0</span></span>
+          <span class="label-chrome">refreshes every 60s · <span id="tick">loading…</span></span>
         </div>
         <div class="live-row"><span class="repo">arqo</span><span class="commit-msg">fix: paginator widow suppression on dual dialogue</span><span class="when">12m ago</span></div>
         <div class="live-row"><span class="repo">futbolis</span><span class="commit-msg">perf: reduce mapbox marker churn on 60s refresh</span><span class="when">2h ago</span></div>
@@ -108,7 +108,7 @@
       <div class="work-grid">
         <a href="case-study.html?slug=arqo" class="work-card">
           <button class="vs-handle" data-vs="WorkCard" title="view source" aria-label="view source">{ }</button>
-          <div class="meta-row"><span>01 · 2025</span><span>case study ↗</span></div>
+          <div class="meta-row"><span>01 · 2026</span><span>case study ↗</span></div>
           <h3>Arqo</h3>
           <p>Mobile-first screenwriting app. Shipped solo in 9 days after work. Deterministic paginator, lossless FDX v2 round-trip, Liveblocks + Yjs CRDT collab, 777-script AI library with pgvector. Studio-tier parity.</p>
           <div class="pills">
@@ -143,31 +143,31 @@
         <a href="lab.html" class="label-chrome" style="color: var(--accent);">all → /lab</a>
       </div>
       <div class="lab-grid">
-        <a href="lab.html?slug=grid-overlay" class="lab-card">
-          <div class="lab-title">Grid overlay toggle</div>
+        <div class="lab-card lab-card--wip" aria-disabled="true">
+          <div class="lab-title">Grid overlay toggle <span class="wip">live on this page</span></div>
           <div class="lab-desc">Hold <code>g</code> anywhere on the site. 12-col + 4px baseline become visible as hairlines.</div>
           <div class="pills"><span class="pill">css</span><span class="pill">keyboard</span></div>
-        </a>
-        <a href="lab.html?slug=view-source" class="lab-card">
-          <div class="lab-title">View-source drawer</div>
-          <div class="lab-desc">Every component has a { } handle. Click to see the actual JSX that rendered it.</div>
+        </div>
+        <div class="lab-card lab-card--wip" aria-disabled="true">
+          <div class="lab-title">View-source drawer <span class="wip">live on this page</span></div>
+          <div class="lab-desc">Every component has a <code>{ }</code> handle. Click to see the actual JSX that rendered it.</div>
           <div class="pills"><span class="pill">react</span><span class="pill">jsx-to-string</span></div>
-        </a>
-        <a href="lab.html?slug=tz-dates" class="lab-card">
-          <div class="lab-title">Timezone-aware dates</div>
+        </div>
+        <div class="lab-card lab-card--wip" aria-disabled="true">
+          <div class="lab-title">Timezone-aware dates <span class="wip">live on this page</span></div>
           <div class="lab-desc">Every timestamp on this site renders in your local timezone. No server roundtrip.</div>
           <div class="pills"><span class="pill">intl</span><span class="pill">ssr</span></div>
-        </a>
-        <a href="lab.html?slug=chai" class="lab-card">
-          <div class="lab-title">ASCII chai dispenser</div>
+        </div>
+        <div class="lab-card lab-card--wip" aria-disabled="true">
+          <div class="lab-title">ASCII chai dispenser <span class="wip">try ⌘K → chai</span></div>
           <div class="lab-desc">Type <code>chai</code> in the command palette. You'll see.</div>
           <div class="pills"><span class="pill">easter</span></div>
-        </a>
-        <a href="lab.html?slug=konami" class="lab-card">
-          <div class="lab-title">नमस्ते mode</div>
-          <div class="lab-desc">Konami code flips the accent to CRT green and drops a devanagari greeting. Only for people who look.</div>
+        </div>
+        <div class="lab-card lab-card--wip" aria-disabled="true">
+          <div class="lab-title">नमस्ते mode <span class="wip">konami code</span></div>
+          <div class="lab-desc">↑↑↓↓←→←→ba flips the accent to CRT green and drops a devanagari greeting. Only for people who look.</div>
           <div class="pills"><span class="pill">keyboard</span><span class="pill">css-vars</span></div>
-        </a>
+        </div>
       </div>
     </section>
 
@@ -178,11 +178,11 @@
         <a href="notes.html" class="label-chrome" style="color: var(--accent);">all → /notes</a>
       </div>
       <div>
-        <a href="notes.html?slug=edge-caching" class="note-row"><span class="date">2026-04-10</span><span>A $19/month infrastructure ceiling</span><span class="tag">infra · 6 min</span></a>
-        <a href="notes.html?slug=paginator" class="note-row"><span class="date">2026-03-22</span><span>Why I wrote a screenplay paginator from scratch</span><span class="tag">arqo · 11 min</span></a>
-        <a href="notes.html?slug=fdx-roundtrip" class="note-row"><span class="date">2026-02-14</span><span>Lossless round-trip is a unit test, not a feature</span><span class="tag">arqo · 4 min</span></a>
-        <a href="notes.html?slug=mobile-first" class="note-row"><span class="date">2026-01-30</span><span>Mobile-first doesn't mean "responsive-later"</span><span class="tag">craft · 5 min</span></a>
-        <a href="notes.html?slug=de-transition" class="note-row"><span class="date">2025-12-18</span><span>Notes on becoming a design engineer</span><span class="tag">career · 7 min</span></a>
+        <div class="note-row note-row--wip"><span class="date">soon</span><span>A $19/month infrastructure ceiling</span><span class="tag">infra · draft</span></div>
+        <div class="note-row note-row--wip"><span class="date">soon</span><span>Why I wrote a screenplay paginator from scratch</span><span class="tag">arqo · draft</span></div>
+        <div class="note-row note-row--wip"><span class="date">soon</span><span>Lossless round-trip is a unit test, not a feature</span><span class="tag">arqo · draft</span></div>
+        <div class="note-row note-row--wip"><span class="date">soon</span><span>Mobile-first doesn't mean "responsive-later"</span><span class="tag">craft · draft</span></div>
+        <div class="note-row note-row--wip"><span class="date">soon</span><span>Notes on becoming a design engineer</span><span class="tag">career · draft</span></div>
       </div>
     </section>
 
@@ -199,8 +199,8 @@
         </div>
       </div>
       <div class="right">
-        <div>build <span style="color: var(--accent);">a7c7be0</span></div>
-        <div>deployed 2026-04-24 EDT</div>
+        <div>build <span id="build-sha" style="color: var(--accent);">—</span></div>
+        <div id="build-deployed">shipped recently</div>
         <div style="color: var(--fg-dim);" id="reader-tz"></div>
       </div>
     </footer>

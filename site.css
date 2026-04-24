@@ -26,7 +26,7 @@ body { margin: 0; min-height: 100vh; }
 .kbd { font-family: var(--font-mono); font-size: 11px; padding: 2px 5px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 2px; background: var(--bg-raise); color: var(--fg); }
 
 /* status bar */
-.status-bar { display: flex; justify-content: space-between; align-items: center; padding: 6px 24px; border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--fg-dim); background: #070707; }
+.status-bar { display: flex; justify-content: space-between; align-items: center; padding: 6px 24px; border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--fg-dim); background: var(--bg-sink); }
 .sb-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--live); box-shadow: 0 0 8px var(--live); margin-right: 6px; vertical-align: 1px; }
 .sb-clocks { display: flex; gap: 20px; }
 .sb-clocks span { color: var(--fg-muted); }
@@ -157,10 +157,24 @@ body { margin: 0; min-height: 100vh; }
 @media (max-width: 960px) { .lab-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .lab-grid { grid-template-columns: 1fr; } }
 .lab-card { display: block; border: 1px solid var(--line); padding: 20px; text-decoration: none; color: inherit; transition: border-color 120ms var(--ease-out); }
-.lab-card:hover { border-color: var(--accent); }
-.lab-title { font-family: var(--font-display); font-weight: 600; font-size: 20px; line-height: 28px; margin-bottom: 6px; color: var(--fg); }
+.lab-card:not(.lab-card--wip):hover { border-color: var(--accent); }
+.lab-card--wip { cursor: default; }
+.lab-title { font-family: var(--font-display); font-weight: 600; font-size: 20px; line-height: 28px; margin-bottom: 6px; color: var(--fg); display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .lab-desc { color: var(--fg-muted); font-size: 14px; line-height: 20px; }
 .lab-card code { font-size: 0.92em; }
+.wip {
+  font-family: var(--font-mono); font-weight: 400; font-size: 11px;
+  letter-spacing: 0.04em; text-transform: lowercase;
+  color: var(--accent); border: 1px solid var(--accent-dim);
+  padding: 1px 6px; border-radius: var(--r-2);
+}
+.note-row--wip {
+  color: var(--fg-dim);
+  cursor: default;
+}
+.note-row--wip:hover { background: transparent; }
+.note-row--wip .date { color: var(--accent); }
+.note-row--wip .tag { color: var(--fg-dim); }
 
 /* responsive work grid */
 @media (max-width: 800px) { .work-card { grid-column: span 12; } }

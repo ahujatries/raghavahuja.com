@@ -53,8 +53,8 @@
           '</div>' +
         '</div>' +
         '<div class="right">' +
-          '<div>build <span style="color: var(--accent);">a7c7be0</span></div>' +
-          '<div>deployed 2026-04-24 EDT</div>' +
+          '<div>build <span id="build-sha" style="color: var(--accent);">—</span></div>' +
+          '<div id="build-deployed">shipped recently</div>' +
           '<div style="color: var(--fg-dim);" id="reader-tz"></div>' +
         '</div>' +
       '</footer>';
@@ -175,11 +175,128 @@
     }
   }
 
-  // ---------- live activity tick ----------
+  // ---------- live activity (real GitHub events) ----------
+  const liveSection = document.querySelector('.live-activity');
   const tickEl = document.getElementById('tick');
-  if (tickEl) {
-    let n = 0;
-    setInterval(() => { n++; tickEl.textContent = String(n); }, 60000);
+
+  function relTime(iso) {
+    const d = (Date.now() - new Date(iso).getTime()) / 1000;
+    if (d < 60)   return Math.max(1, Math.floor(d)) + 's';
+    if (d < 3600) return Math.floor(d / 60) + 'm';
+    if (d < 86400) return Math.floor(d / 3600) + 'h';
+    return Math.floor(d / 86400) + 'd';
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  }
+
+  async function fetchGitHubEvents() {
+    const cacheKey = 'gh:events';
+    const cacheTtlMs = 60 * 1000;
+    try {
+      const cached = sessionStorage.getItem(cacheKey);
+      if (cached) {
+        const { at, data } = JSON.parse(cached);
+        if (Date.now() - at < cacheTtlMs) return data;
+      }
+    } catch (e) {}
+
+    const res = await fetch('https://api.github.com/users/ahujatries/events/public', {
+      headers: { 'Accept': 'application/vnd.github+json' },
+    });
+    if (!res.ok) throw new Error('gh ' + res.status);
+    const events = await res.json();
+    const commits = [];
+    for (const ev of events) {
+      if (ev.type !== 'PushEvent') continue;
+      const repo = ev.repo.name.split('/').pop();
+      for (const c of (ev.payload.commits || []).slice(0, 1)) {
+        commits.push({ repo, msg: c.message.split('\n')[0], when: ev.created_at });
+        if (commits.length >= 5) break;
+      }
+      if (commits.length >= 5) break;
+    }
+    try { sessionStorage.setItem(cacheKey, JSON.stringify({ at: Date.now(), data: commits })); } catch (e) {}
+    return commits;
+  }
+
+  function renderCommits(commits) {
+    if (!liveSection || !commits || !commits.length) return;
+    const rows = liveSection.querySelectorAll('.live-row');
+    rows.forEach((r) => r.remove());
+    const head = liveSection.querySelector('.live-head');
+    const frag = document.createDocumentFragment();
+    for (const c of commits) {
+      const row = document.createElement('div');
+      row.className = 'live-row';
+      row.innerHTML =
+        '<span class="repo">' + escapeHtml(c.repo) + '</span>' +
+        '<span class="commit-msg">' + escapeHtml(c.msg) + '</span>' +
+        '<span class="when">' + escapeHtml(relTime(c.when)) + ' ago</span>';
+      frag.appendChild(row);
+    }
+    (head ? head.after(frag) : liveSection.appendChild(frag));
+  }
+
+  function updateTickLabel(ts) {
+    if (!tickEl) return;
+    const d = (Date.now() - ts) / 1000;
+    tickEl.textContent = d < 60 ? 'just now' : Math.floor(d / 60) + 'm ago';
+  }
+
+  if (liveSection) {
+    let lastFetchAt = 0;
+    async function refresh() {
+      try {
+        const commits = await fetchGitHubEvents();
+        if (commits && commits.length) {
+          renderCommits(commits);
+          lastFetchAt = Date.now();
+          updateTickLabel(lastFetchAt);
+        }
+      } catch (e) {
+        // silent — leave the static fallback rows as-is
+        if (tickEl) tickEl.textContent = 'cached';
+      }
+    }
+    refresh();
+    setInterval(refresh, 60000);
+    if (tickEl) setInterval(() => { if (lastFetchAt) updateTickLabel(lastFetchAt); }, 15000);
+  }
+
+  // ---------- footer: real commit SHA for this repo ----------
+  async function fetchSiteSha() {
+    const cacheKey = 'gh:sha';
+    const cacheTtlMs = 5 * 60 * 1000;
+    try {
+      const cached = sessionStorage.getItem(cacheKey);
+      if (cached) {
+        const { at, data } = JSON.parse(cached);
+        if (Date.now() - at < cacheTtlMs) return data;
+      }
+    } catch (e) {}
+    const res = await fetch('https://api.github.com/repos/ahujatries/raghavahuja.com/commits?per_page=1', {
+      headers: { 'Accept': 'application/vnd.github+json' },
+    });
+    if (!res.ok) throw new Error('gh ' + res.status);
+    const [c] = await res.json();
+    const data = { sha: c.sha.slice(0, 7), url: c.html_url, when: c.commit.author.date };
+    try { sessionStorage.setItem(cacheKey, JSON.stringify({ at: Date.now(), data })); } catch (e) {}
+    return data;
+  }
+
+  const shaEl = document.getElementById('build-sha');
+  const deployedEl = document.getElementById('build-deployed');
+  if (shaEl || deployedEl) {
+    fetchSiteSha().then((c) => {
+      if (shaEl) {
+        shaEl.innerHTML = '<a href="' + c.url + '" style="color: var(--accent);">' + c.sha + '</a>';
+      }
+      if (deployedEl) deployedEl.textContent = 'shipped ' + relTime(c.when) + ' ago';
+    }).catch(() => {
+      // silently keep placeholder
+    });
   }
 
   // ---------- grid overlay ----------
@@ -289,7 +406,7 @@
     { label: 'copy email', path: 'work.raghavahuja@gmail.com', kind: 'cmd', action: 'email' },
     { label: 'github · ahujatries', path: 'github.com/ahujatries', href: 'https://github.com/ahujatries', kind: 'cmd' },
     { label: 'linkedin · raghav-ahuja', path: 'linkedin.com/in/raghav-ahuja', href: 'https://linkedin.com/in/raghav-ahuja', kind: 'cmd' },
-    { label: 'tryarqo.com', path: 'arqo.app', href: 'https://tryarqo.com', kind: 'cmd' },
+    { label: 'tryarqo.com', path: 'tryarqo.com', href: 'https://tryarqo.com', kind: 'cmd' },
     { label: 'futbolis.live', path: 'futbolis.live', href: 'https://futbolis.live', kind: 'cmd' },
     { label: 'chai', path: '☕', kind: 'easter', action: 'chai' },
   ];
