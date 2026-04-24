@@ -434,6 +434,32 @@ body { margin: 0; min-height: 100vh; }
   .case-meta { grid-template-columns: repeat(4, 1fr); }
 }
 
+/* stack receipts — grep-able deps with versions */
+.case-stack {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+.case-stack .label {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-dim); letter-spacing: 0.12em;
+  text-transform: uppercase; margin-bottom: 14px;
+}
+.case-stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 4px 24px;
+  font-family: var(--font-mono); font-size: 12.5px;
+}
+.case-stack-row {
+  display: grid; grid-template-columns: 1fr auto;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--line-soft);
+  color: var(--fg);
+}
+.case-stack-row:last-child { border-bottom: 0; }
+.case-stack-row .dep { color: var(--fg); }
+.case-stack-row .ver { color: var(--accent); }
+
 /* body — editorial reader */
 .case-body { padding: 40px 0; max-width: 68ch; }
 .case-body > *:first-child { margin-top: 0; }
