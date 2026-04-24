@@ -41,7 +41,7 @@
     <div id="nav-mount"></div>
 
     <main id="main">
-    <div class="case-layout">
+    <div class="case-layout" id="case-layout">
       <aside class="case-spine" id="case-spine">case study</aside>
       <div class="case-content">
 <header class="case-head">
@@ -59,6 +59,10 @@
 
         <nav class="case-nav" id="cs-nav" aria-label="case study nav"></nav>
       </div>
+      <aside class="case-toc" id="case-toc" aria-label="in this study">
+        <div class="label">in this study</div>
+        <ol id="case-toc-list"></ol>
+      </aside>
     </div>
     </main>
 
@@ -775,6 +779,44 @@ useEffect(() =&gt; {
       ? `<a href="case-study.html?slug=${next}"><span class="label">next →</span>${CASES[next].title}</a>`
       : `<a href="contact.html" style="color: var(--accent);"><span class="label">end</span>say hi →</a>`;
     nav.innerHTML = prevLink + nextLink;
+
+    // ===== table of contents (desktop only, auto-generated from h2s) =====
+    (function buildToc() {
+      const bodyEl = document.getElementById('cs-body');
+      const tocList = document.getElementById('case-toc-list');
+      const tocWrap = document.getElementById('case-toc');
+      const layout = document.getElementById('case-layout');
+      // Wait a tick for the body template to be injected first.
+      requestAnimationFrame(() => {
+        const headings = Array.from(bodyEl.querySelectorAll('h2'));
+        if (headings.length < 3) return; // short pages (EF gate, social-booth) don't need a TOC
+        headings.forEach((h, i) => {
+          const id = 'sec-' + (h.textContent || ('section-' + i))
+            .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+          h.id = id;
+          const li = document.createElement('li');
+          li.dataset.id = id;
+          li.innerHTML = `<a href="#${id}">${h.textContent}</a>`;
+          tocList.appendChild(li);
+        });
+        layout.classList.add('has-toc');
+        // active-section highlight via IntersectionObserver
+        const lis = Array.from(tocList.querySelectorAll('li'));
+        const byId = new Map(lis.map((li) => [li.dataset.id, li]));
+        const io = new IntersectionObserver((entries) => {
+          // Find the topmost entry whose top is above 30% viewport
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+          if (visible.length) {
+            lis.forEach((li) => li.classList.remove('active'));
+            const active = byId.get(visible[0].target.id);
+            if (active) active.classList.add('active');
+          }
+        }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+        headings.forEach((h) => io.observe(h));
+      });
+    })();
 
     // reading progress + fire read-complete once per case per session
     const progressBar = document.getElementById('case-progress-bar');

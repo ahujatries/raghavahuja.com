@@ -381,7 +381,7 @@ body { margin: 0; min-height: 100vh; }
 }
 @media (prefers-reduced-motion: reduce) { .case-progress .bar { transition: none; } }
 
-/* layout — centered column + optional vertical spine on left */
+/* layout — centered column + optional vertical spine + optional TOC rail */
 .case-layout {
   display: grid;
   grid-template-columns: 56px 1fr 56px;
@@ -389,6 +389,63 @@ body { margin: 0; min-height: 100vh; }
   max-width: var(--grid-max);
   margin: 0 auto;
 }
+@media (min-width: 1100px) {
+  .case-layout.has-toc {
+    grid-template-columns: 56px minmax(0, 1fr) 200px;
+  }
+}
+
+/* sticky table of contents rail — only on desktop */
+.case-toc {
+  display: none;
+}
+@media (min-width: 1100px) {
+  .case-layout.has-toc .case-toc {
+    display: block;
+    position: sticky;
+    top: 32px;
+    align-self: start;
+    padding-top: 80px;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+  }
+}
+.case-toc .label {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--fg-dim); letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.case-toc ol {
+  list-style: none; padding: 0; margin: 0;
+  counter-reset: toc;
+}
+.case-toc li {
+  counter-increment: toc;
+  padding: 4px 0 4px 28px;
+  position: relative;
+  font-family: var(--font-display); font-size: 14px; line-height: 1.4;
+  border-left: 1px solid var(--line);
+}
+.case-toc li::before {
+  content: counter(toc, decimal-leading-zero);
+  position: absolute; left: 8px; top: 6px;
+  font-family: var(--font-mono); font-size: 9px;
+  color: var(--fg-dim); letter-spacing: 0.04em;
+}
+.case-toc a {
+  color: var(--fg-muted); text-decoration: none;
+  display: block; padding: 2px 0;
+  transition: color 120ms var(--ease-out);
+}
+.case-toc a:hover { color: var(--accent); }
+.case-toc li.active {
+  border-left-color: var(--accent);
+}
+.case-toc li.active a {
+  color: var(--fg);
+}
+.case-toc li.active::before { color: var(--accent); }
 .case-spine {
   font-family: var(--font-mono); font-size: 11px; color: var(--fg-dim);
   letter-spacing: 0.12em; text-transform: uppercase;
