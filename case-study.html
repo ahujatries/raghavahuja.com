@@ -638,6 +638,21 @@ useEffect(() =&gt; {
     if (!CASES[slug]) window.location.replace('/doesnotexist');
     const c = CASES[slug] || CASES.arqo;
 
+    // per-case OG image + title + canonical
+    (function swapOg() {
+      const url = `https://raghavahuja.com/og/${slug}.png`;
+      const title = `${c.title} · case study · raghav ahuja`;
+      const desc = c.subtitle;
+      document.querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]')
+        .forEach((m) => m.setAttribute('content', url));
+      document.querySelectorAll('meta[property="og:title"], meta[name="twitter:title"]')
+        .forEach((m) => m.setAttribute('content', title));
+      document.querySelectorAll('meta[property="og:description"], meta[name="twitter:description"]')
+        .forEach((m) => m.setAttribute('content', desc));
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute('href', `https://raghavahuja.com/case-study?slug=${slug}`);
+    })();
+
     // head
     document.getElementById('cs-kicker').textContent = `case study · no. ${c.n} · ${c.year}`;
     document.getElementById('cs-title').textContent = c.title;
