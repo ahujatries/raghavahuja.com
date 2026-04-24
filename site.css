@@ -1107,6 +1107,99 @@ body { margin: 0; min-height: 100vh; }
   font: inherit; color: var(--fg);
 }
 
+/* ====================================================
+   PRINT — case studies + docs print like real editorial
+   ==================================================== */
+@media print {
+  @page { margin: 2cm 2cm 2.5cm 2cm; }
+
+  /* paper-white, ink-black — don't burn through a print cartridge */
+  html, body {
+    background: #fff !important;
+    background-image: none !important;
+    color: #111 !important;
+    font-size: 11pt;
+    line-height: 1.55;
+  }
+
+  /* strip all chrome */
+  .status-bar, .nav, .footer, .footer *,
+  #grid-overlay, .skip-link,
+  .cmdk-overlay, .vs-scrim, .vs-drawer, .konami-toast,
+  .case-progress, .case-spine, .doc-spine,
+  .case-nav, .doc-nav,
+  .vs-handle, .vs-hint,
+  .signal-bar, .sb-clocks { display: none !important; }
+
+  .wrap { max-width: 100%; padding: 0; }
+  main, .case-layout, .doc-layout { display: block; }
+  .case-content { max-width: 100%; }
+
+  /* editorial type in print */
+  h1, h2, h3, h4 { color: #111 !important; }
+  a { color: #111 !important; text-decoration: none; }
+  a[href^="http"]::after,
+  a[href^="mailto:"]::after {
+    content: " (" attr(href) ")";
+    font-family: var(--font-mono);
+    font-size: 9pt;
+    color: #555;
+    word-break: break-all;
+  }
+
+  /* accent survives — in CMYK-safe terracotta */
+  .em-serif, .kicker, .case-head .kicker, .doc-head .kicker,
+  .case-body h2::before, .doc-body h2::before,
+  .case-body ul li::before, .doc-body ul li::before,
+  .case-stat .n, blockquote, .case-stack-row .ver {
+    color: #A84A2E !important;
+  }
+  blockquote { border-left: 2px solid #A84A2E !important; }
+
+  /* hairlines print as thin grey rules */
+  .case-head, .case-meta, .case-stack,
+  .doc-head, .doc-meta,
+  .case-body ul li, .case-body ol li,
+  .doc-body ul li, .doc-body ol li,
+  .case-stack-row, .live-row, .work-row,
+  .lab-row, .note-row {
+    border-color: #ccc !important;
+  }
+
+  /* page breaks before major sections */
+  .case-body h2, .doc-body h2 { page-break-before: auto; break-before: auto; }
+  .case-body h2 + *, .doc-body h2 + * { page-break-before: avoid; break-before: avoid; }
+  .case-body blockquote, .doc-body blockquote { page-break-inside: avoid; }
+  .case-body pre, .doc-body pre { page-break-inside: avoid; }
+  .case-stat-row { page-break-inside: avoid; border-color: #ccc !important; }
+
+  /* hide the EF password gate in print */
+  .ef-gate, .ef-gate-err, #ef-gate-form { display: none !important; }
+
+  /* hero section on case-study gets a proper top margin */
+  .case-head { padding-top: 0; }
+
+  /* hide non-essential stuff on non-case pages */
+  body[data-page="home"] .hero .signal-bar,
+  body[data-page="home"] .ship-log,
+  body[data-page="home"] .now-block { display: none !important; }
+
+  /* show a small URL header on every printed page via title */
+  .case-head h1::before,
+  .doc-head h1::before {
+    content: "raghavahuja.com · ";
+    font-family: var(--font-mono);
+    font-size: 10pt;
+    color: #888;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.04em;
+    text-transform: lowercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+}
+
 /* signal bar (decorative hero stripe) */
 .signal-bar { height: 2px; margin-top: 56px; background: var(--line); position: relative; overflow: hidden; }
 .signal-fill {
