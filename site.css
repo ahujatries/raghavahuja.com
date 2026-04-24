@@ -358,25 +358,63 @@ body { margin: 0; min-height: 100vh; }
 }
 @media (prefers-reduced-motion: reduce) { .case-progress .bar { transition: none; } }
 
-/* layout — centered column + optional vertical spine on left */
+/* layout — centered column + sticky TOC + vertical spine on left */
 .case-layout {
   display: grid;
-  grid-template-columns: 56px 1fr 56px;
+  grid-template-columns: 180px 1fr;
   gap: 32px;
   max-width: var(--grid-max);
   margin: 0 auto;
+}
+.case-left-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 .case-spine {
   font-family: var(--font-mono); font-size: 11px; color: var(--fg-dim);
   letter-spacing: 0.12em; text-transform: uppercase;
   writing-mode: vertical-rl; transform: rotate(180deg);
-  padding-top: 80px;
+  padding-top: 40px;
   white-space: nowrap;
+  align-self: flex-start;
 }
 .case-content { min-width: 0; }
+
+/* sticky table of contents */
+.case-toc {
+  position: sticky;
+  top: 80px;
+  width: 100%;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  margin-bottom: 32px;
+}
+.case-toc::-webkit-scrollbar { display: none; }
+.case-toc-label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--fg-dim);
+  padding-bottom: 10px; margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+.case-toc ol { list-style: none; padding: 0; margin: 0; }
+.case-toc a {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-dim); text-decoration: none;
+  display: block; padding: 5px 0 5px 10px;
+  border-left: 2px solid transparent;
+  line-height: 1.45; letter-spacing: 0.02em;
+  transition: color 120ms var(--ease-out), border-color 120ms var(--ease-out);
+}
+.case-toc a:hover { color: var(--fg-muted); border-left-color: var(--line-strong); }
+.case-toc a.active { color: var(--accent); border-left-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .case-toc a { transition: none; } }
+
 @media (max-width: 860px) {
   .case-layout { grid-template-columns: 1fr; gap: 0; }
-  .case-spine { display: none; }
+  .case-left-col { display: none; }
 }
 
 /* head block */
@@ -762,4 +800,171 @@ body { margin: 0; min-height: 100vh; }
   .cta-hint { display: none; }
   .hero-ctas { gap: 10px; }
   .cta { padding: 10px 14px; font-size: 12.5px; }
+}
+
+/* ====================================================
+   PRINT — case study as finished essay
+   ==================================================== */
+@media print {
+  /* page geometry */
+  @page { size: A4; margin: 22mm 22mm 28mm; }
+  @page :first { margin-top: 28mm; }
+
+  /* kill all backgrounds, shadows, transitions */
+  *, *::before, *::after {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* paper tones */
+  html, body {
+    background: #fff !important;
+    color: #111 !important;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  /* hide all chrome */
+  .skip-link,
+  .case-progress,
+  .nav, #nav-mount,
+  .status-bar,
+  .case-left-col,
+  .case-nav,
+  .footer, #footer-mount,
+  #cmdk,
+  .vs-handle, .vs-hint, .vs-scrim, .vs-drawer,
+  .grid-overlay,
+  .konami-toast,
+  .signal-bar { display: none !important; }
+
+  /* layout — full width, no grid gap */
+  .wrap { max-width: 100%; padding: 0; margin: 0; }
+  .case-layout { display: block; }
+  .case-content { min-width: 0; }
+
+  /* ---- case head ---- */
+  .case-head {
+    padding: 0 0 20pt;
+    border-bottom: 1.5pt solid #111;
+  }
+  .case-head .kicker {
+    font-size: 8pt; letter-spacing: 0.12em; color: #666;
+  }
+  .case-head h1 {
+    font-size: 34pt; line-height: 1.1;
+    color: #111; margin: 6pt 0 0;
+    letter-spacing: -0.015em;
+  }
+  .case-head .subtitle {
+    font-size: 13pt; color: #444;
+    margin-top: 8pt; font-style: italic;
+  }
+  .case-meta {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 10pt 24pt; padding: 14pt 0;
+    border-top: 0.5pt solid #bbb;
+    border-bottom: 0.5pt solid #bbb;
+    margin-top: 18pt;
+  }
+  .case-meta .k { font-size: 7pt; letter-spacing: 0.08em; color: #666; margin-bottom: 2pt; }
+  .case-meta > div > div:last-child { font-size: 9pt; color: #111; line-height: 1.45; }
+
+  /* ---- body text ---- */
+  .case-body {
+    padding: 20pt 0; max-width: 100%;
+    font-size: 11pt; line-height: 1.5; color: #111;
+  }
+  .case-body > *:first-child { margin-top: 0; }
+  .case-body p { font-size: 11pt; line-height: 1.5; color: #111; margin: 8pt 0; }
+
+  /* drop cap — scaled for print */
+  .case-body .drop-cap::first-letter {
+    font-size: 52pt; line-height: 0.82;
+    color: #B0391F; padding: 4pt 8pt 0 0;
+  }
+
+  /* ---- headings ---- */
+  .case-body h2 {
+    font-size: 20pt; line-height: 1.15; color: #111;
+    margin: 0 0 10pt; letter-spacing: -0.01em;
+    page-break-before: always; break-before: page;
+    page-break-after: avoid;  break-after: avoid;
+  }
+  /* first h2 doesn't need a forced page break */
+  .case-body > h2:first-of-type { page-break-before: avoid; break-before: avoid; }
+  .case-body h2::before { color: #B0391F; }
+
+  .case-body h3 {
+    font-size: 14pt; color: #111; font-style: italic;
+    margin: 14pt 0 5pt;
+    page-break-after: avoid; break-after: avoid;
+  }
+  .case-body h4 {
+    font-size: 8pt; letter-spacing: 0.09em; text-transform: uppercase;
+    color: #666; margin: 10pt 0 3pt;
+    page-break-after: avoid; break-after: avoid;
+  }
+
+  /* ---- blockquote ---- */
+  .case-body blockquote {
+    border-left: 3pt solid #B0391F;
+    padding: 4pt 0 4pt 14pt; margin: 14pt 0;
+    font-size: 13pt; line-height: 1.45; color: #444; font-style: italic;
+    page-break-inside: avoid; break-inside: avoid;
+  }
+  .case-body blockquote p { font-size: inherit; color: inherit; margin: 0; }
+
+  /* ---- lists ---- */
+  .case-body ul, .case-body ol { font-size: 11pt; line-height: 1.5; color: #111; }
+  .case-body ul li::before { color: #B0391F; }
+  .case-body ol li::before { color: #666; }
+
+  /* ---- links — print the URL ---- */
+  .case-body a { color: #B0391F; text-decoration: underline; }
+  .case-body a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt; color: #666; font-style: normal; font-family: var(--font-mono);
+  }
+  /* skip hash anchors and javascript: */
+  .case-body a[href^="#"]::after,
+  .case-body a[href^="javascript"]::after { content: ""; }
+
+  /* ---- code ---- */
+  .case-body pre {
+    font-size: 8pt; line-height: 1.5;
+    border: 0.5pt solid #ccc; padding: 10pt;
+    background: #f5f5f5 !important; color: #111;
+    white-space: pre-wrap; word-break: break-all;
+    page-break-inside: avoid; break-inside: avoid;
+  }
+  .case-body code:not(pre code) {
+    font-size: 8.5pt;
+    background: #f0f0f0 !important;
+    border: 0.5pt solid #ccc; color: #111;
+  }
+
+  /* ---- tables ---- */
+  .case-body table {
+    font-size: 9pt; width: 100%;
+    page-break-inside: avoid; break-inside: avoid;
+  }
+  .case-body table th { color: #666; border-bottom: 1pt solid #aaa; }
+  .case-body table td { border-bottom: 0.5pt solid #ddd; }
+  .case-body table td.accent, .case-body table td.check { color: #B0391F; }
+  .case-body table td.dash { color: #aaa; }
+
+  /* ---- stat callouts — kept but quieter ---- */
+  .case-stat-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 14pt; padding: 14pt 0;
+    border-top: 0.5pt solid #bbb; border-bottom: 0.5pt solid #bbb;
+    margin: 20pt 0;
+    page-break-inside: avoid; break-inside: avoid;
+  }
+  .case-stat .n { font-size: 30pt; line-height: 1; color: #B0391F; }
+  .case-stat .l { font-size: 8pt; color: #666; margin-top: 5pt; letter-spacing: 0.04em; }
 }
