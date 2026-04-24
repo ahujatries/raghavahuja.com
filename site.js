@@ -15,8 +15,8 @@
       sb.innerHTML =
         '<span class="sb-left"><span class="sb-dot"></span> vol. iv · no. 2 · <span class="em-accent">portfolio · night ed.</span></span>' +
         '<span class="sb-clocks">' +
-          '<span>mumbai <b id="clk-mum">--:--</b></span>' +
-          '<span>new york <b id="clk-nyc">--:--</b></span>' +
+          '<span>jamanapaar <b id="clk-mum">--:--</b></span>' +
+          '<span>brooklyn <b id="clk-nyc">--:--</b></span>' +
         '</span>';
       document.body.insertBefore(sb, document.body.firstChild);
     }
