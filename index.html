@@ -34,16 +34,23 @@
     <nav class="nav" aria-label="primary">
       <div class="nav-left">
         <a href="index.html" class="brand">raghavahuja<span class="caret">_</span></a>
-        <a href="work.html">work</a>
-        <a href="lab.html">lab</a>
-        <a href="notes.html">notes</a>
-        <a href="about.html">about</a>
-        <a href="contact.html">contact</a>
+        <div class="nav-links">
+          <a href="work.html">work</a>
+          <a href="lab.html">lab</a>
+          <a href="notes.html">notes</a>
+          <a href="about.html">about</a>
+          <a href="contact.html">contact</a>
+        </div>
       </div>
       <div class="nav-right">
         <button id="cmdk-trigger" class="nav-search" aria-label="Open command palette">
           <span class="label-chrome">search</span>
           <kbd class="kbd">⌘</kbd><kbd class="kbd">K</kbd>
+        </button>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
         </button>
       </div>
     </nav>
