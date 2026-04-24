@@ -26,6 +26,7 @@
     if (navMount) {
       const items = [
         ['work','work.html'],
+        ['docs','docs.html'],
         ['lab','lab.html'],
         ['writing','notes.html','notes'],  // label 'writing', but page is 'notes'
         ['about','about.html'],
@@ -447,6 +448,12 @@
     { label: 'EF education first · case study', path: '/work/ef', href: 'case-study.html?slug=ef', kind: 'route' },
     { label: 'zulily · case study', path: '/work/zulily', href: 'case-study.html?slug=zulily', kind: 'route' },
     { label: 'the social booth · case study', path: '/work/social-booth', href: 'case-study.html?slug=social-booth', kind: 'route' },
+    { label: 'the library · docs', path: '/docs', href: 'docs.html', kind: 'route' },
+    { label: 'CtB framework', path: '/docs/ctb', href: 'docs.html?d=ctb', kind: 'route' },
+    { label: 'MIND research synthesis', path: '/docs/mind', href: 'docs.html?d=mind', kind: 'route' },
+    { label: 'direction A · brand doc', path: '/docs/direction-a', href: 'docs.html?d=direction-a', kind: 'route' },
+    { label: 'colophon · how this site is built', path: '/docs/colophon', href: 'docs.html?d=colophon', kind: 'route' },
+    { label: 'ADR · $19/mo edge cache', path: '/docs/adr-edge-cache', href: 'docs.html?d=adr-edge-cache', kind: 'route' },
     { label: 'lab', path: '/lab', href: 'lab.html', kind: 'route' },
     { label: 'notes', path: '/notes', href: 'notes.html', kind: 'route' },
     { label: 'about', path: '/about', href: 'about.html', kind: 'route' },
