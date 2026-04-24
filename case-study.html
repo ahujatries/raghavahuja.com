@@ -9,8 +9,6 @@
   <link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin>
-    <script defer data-domain="raghavahuja.com" src="https://plausible.io/js/script.outbound-links.file-downloads.tagged-events.js"></script>
-  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
   <link rel="stylesheet" href="site.css">
   <link rel="canonical" href="https://raghavahuja.com/case-study">
   <meta property="og:type" content="article">
@@ -313,7 +311,10 @@ Paginator responsibilities:
   <!-- ==============================================
        FUTBOLIS.LIVE
        ============================================== -->
-  <template id="case-futbolis">
+<template id="case-futbolis">
+    <aside style="margin: 0 0 32px; padding: 14px 18px; border: 1px dashed var(--line); font-family: var(--font-mono); font-size: 12px; color: var(--fg-muted); letter-spacing: 0.04em;">
+      <strong style="color: var(--fg); font-style: normal;">moved to <a href="lab.html">/lab</a> ·</strong> the full case study lives here. for the short version, see <a href="lab.html">/lab</a>. for the long version, keep reading.
+    </aside>
     <section>
       <p class="drop-cap"><strong>Futbolis.live is proof</strong> that solo design engineers armed with modern AI-assisted tooling can ship production-scale consumer products end-to-end in three weeks. The entire stack — product vision, visual system, geocoding engine, caching architecture, mobile and desktop experiences, motion design — was built by one person in the evenings.</p>
       <p>The headline engineering achievements are not decorative. A 60-second server-side cache on the <code>/api/matches</code> route means the site serves 100,000 concurrent users on a $19/month base-tier sports API, because every user hits one API call per minute regardless of traffic. A four-tier geocoding fallback ensures every match plots correctly even when the upstream API doesn't provide stadium coordinates. A mobile architecture built from scratch (not a responsive desktop) gives phone users a bottom-sheet carousel that feels native.</p>
@@ -485,6 +486,111 @@ useEffect(() =&gt; {
     <blockquote>The product is small. The craft is not. That is the point.</blockquote>
   </template>
 
+<!-- ==============================================
+       JMNPR Labs
+       ============================================== -->
+  <template id="case-jmnpr-labs">
+    <section>
+      <p class="drop-cap"><strong>JMNPR Labs is what happens when you stop asking permission.</strong> After thirteen years of shipping inside other people's roadmaps, I started a studio in my evenings to ship the tools I kept waiting for someone else to build. The thesis is narrow and the catalog is broad: production-grade, self-serve tools for the creators and craftspeople the category has under-served. One brand. Many verticals. Honest pricing. No sales motion.</p>
+      <p>Arqo is one expression of the studio — the consumer surface. This case study is about everything else. What's live, what's on deck, and the architectural bet underneath the whole thing: that a single solo operator, with AI-native tooling and fifteen years of accumulated taste, can now ship the kind of product catalog that previously required a twelve-person company.</p>
+      <p>The studio is named <em>Jamanapaar</em> — Hindi for <em>"the other side of the Yamuna."</em> East Delhi, where I grew up, and the side of the river outsiders looked down on. Brooklyn, where I live now, on the other side of a different river. The studio is named for the posture.</p>
+    </section>
+
+    <div class="case-stat-row">
+      <div class="case-stat"><div class="n">1</div><div class="l">shipped tool in market — JMNPR Story Kit</div></div>
+      <div class="case-stat"><div class="n">5</div><div class="l">flagship tools on deck — infra built, GTM next</div></div>
+      <div class="case-stat"><div class="n">$0</div><div class="l">enterprise deals, by design</div></div>
+    </div>
+
+    <h2>Single brand, many verticals.</h2>
+    <p>Every tools studio I respect — Obsidian, Linear, Pieter Levels' catalog, Ghost, early Figma — shares one trait: a single brand that can carry many products, because the brand is the <em>worldview</em>, not the SKU.</p>
+    <p>JMNPR Labs is built the same way. The consumer sees one studio with a consistent posture: craft-forward, self-serve, PPP-priced, honest about what's shipped. The catalog underneath can span screenwriting, scheduling, design tokens, realtime infra, and standards work — and still read as one coherent thing. Because it is.</p>
+
+    <h2>Self-serve, by design.</h2>
+    <p>No enterprise contracts. No sales calls. No discovery decks. Every tool is live, priced, and checkout-ready. Every asset downloadable. Every spec public. The studio's operating leverage comes from <em>not</em> running a sales motion — not from replacing one.</p>
+    <blockquote>This is a deliberate constraint. A one-person studio that sells enterprise is a one-person studio that stops shipping. The moment the catalog needs sales, the catalog stops growing. I'd rather ship ten more tools than close one six-figure contract.</blockquote>
+
+    <h2>AI-native velocity.</h2>
+    <p>Every tool in the catalog is built with Claude Code, Cursor, and v0 in agentic-dev workflows. This is not decoration. It is the reason the catalog can exist. Solo-velocity at studio-quality is a very recent possibility, and the studio is built to press on that edge rather than pretend it doesn't exist.</p>
+
+    <h2>In Market</h2>
+
+    <h3>JMNPR Story Kit</h3>
+    <p>A showrunner-grade toolkit for writers who want to move from blank page to shootable draft without buying a $500 masterclass or subscribing to yet another Notion template farm.</p>
+    <p>Fourteen story-structure worktables. Four craft worksheets. A showrunner-grade bible, a prompt deck, a craft drills set, and a fully wired Obsidian vault. Three tiers at <strong>$29 / $79 / $149</strong>, sold through Lemon Squeezy, rendered out of a typed React-PDF pipeline that reads from a published <code>@jmnpr/craft</code> package.</p>
+    <p>The pipeline is the reusable bit. <em>Every future PDF-native tool in the catalog ships off the same infrastructure.</em> Story Kit happens to be the first.</p>
+
+    <h4>at a glance</h4>
+<pre><code>price        $29 · $79 · $149 (PPP-indexed)
+format       typed React-PDF · Obsidian vault · Lemon Squeezy
+status       live · v1.4</code></pre>
+
+    <h2>On Deck — Five Flagships</h2>
+    <p>These are the five products the studio is shipping next. Infra is built or mostly-built on all of them. GTM is the next step. I'm naming them here because the catalog's credibility depends on telling you what's coming, not just what's done.</p>
+
+    <h3>01 — Realtime Viz Starter</h3>
+    <p>The infra that ran Futbolis.live at 100k concurrent users on $19/month, extracted as an npm starter. Edge caching, marker lifecycle, geocoding fallback, mobile-first architecture — packaged as a Next.js starter with a full case-study writeup.</p>
+    <ul>
+      <li><strong>For</strong> — solo devs and small teams shipping realtime dashboards without a cloud bill.</li>
+      <li><strong>Status</strong> — infra live, starter extraction in progress.</li>
+    </ul>
+
+    <h3>02 — Token Lab</h3>
+    <p>A Figma plugin + CLI + drift dashboard that keeps design tokens honest across Figma and code. The plugin you wish your design system had. Built after replacing Storybook in-house at a global EdTech platform and realizing the token layer was the actual bottleneck, not the component one.</p>
+    <ul>
+      <li><strong>For</strong> — design systems teams, multi-brand product orgs, the founder who's tired of token drift PRs.</li>
+      <li><strong>Status</strong> — plugin live in private beta, public Q2.</li>
+    </ul>
+
+    <h3>03 — Stripboard</h3>
+    <p>A real-time scheduling app for indie 1st ADs, built on a constraint solver with cast-hold logic and simulated annealing. Movie Magic should have been replaced ten years ago. Nobody did it. Stripboard does.</p>
+    <ul>
+      <li><strong>For</strong> — indie 1st ADs, production coordinators, line producers on projects that can't justify Movie Magic's enterprise pricing.</li>
+      <li><strong>Status</strong> — constraint solver shipped, UI in build.</li>
+    </ul>
+
+    <h3>04 — Beats</h3>
+    <p>A hosted beat-board with Yjs CRDT collab, presence, and first-class motion. Studio-quality real-time editor for writers' rooms and solo writers alike. Shares the collab stack with Arqo; same engine, different surface.</p>
+    <ul>
+      <li><strong>For</strong> — writers' rooms, indie teams, solo writers who want a beat-board that doesn't fight them.</li>
+      <li><strong>Status</strong> — collab layer battle-tested in Arqo, standalone surface in build.</li>
+    </ul>
+
+    <h3>05 — .jmpr</h3>
+    <p>An open container format for end-to-end filmmaking projects. Script, beats, shot list, schedule, assets, manifests — one signed, spec'd container. The format the industry has been missing and nobody's been willing to publish. Standards-layer work, given away free.</p>
+    <ul>
+      <li><strong>For</strong> — every tool in the filmmaking pipeline, starting with JMNPR's own — but open on purpose.</li>
+      <li><strong>Status</strong> — spec drafted, reference implementation in build.</li>
+    </ul>
+
+    <h2>Staff-Level Decisions</h2>
+    <table>
+      <thead><tr><th>decision</th><th>chose</th><th>rejected</th><th>why</th></tr></thead>
+      <tbody>
+        <tr><td>business model</td><td class="accent">self-serve, PPP-indexed</td><td>enterprise + sales</td><td>sales motion kills catalog velocity</td></tr>
+        <tr><td>brand strategy</td><td class="accent">single brand, many verts</td><td>sub-brand per product</td><td>one worldview scales further than one SKU</td></tr>
+        <tr><td>tooling</td><td class="accent">claude code + cursor + v0</td><td>classic solo-dev stack</td><td>agentic-dev is the reason the catalog exists</td></tr>
+        <tr><td>distribution</td><td class="accent">free tools + free spec</td><td>paywall everything</td><td>public goods seed every paid conversation</td></tr>
+        <tr><td>infra</td><td class="accent">shared @jmnpr/* packages</td><td>per-product codebases</td><td>the pipelines are the product</td></tr>
+        <tr><td>standards</td><td class="accent">publish .jmpr openly</td><td>keep the format private</td><td>standards grow the category; the category grows me</td></tr>
+        <tr><td>customer</td><td class="accent">creators + indies + DEs</td><td>studios + enterprises</td><td>under-served audiences ship faster than bureaucracies</td></tr>
+      </tbody>
+    </table>
+
+    <h2>What I'm Deliberately Not Building</h2>
+    <ul>
+      <li><strong>No enterprise contracts.</strong> No SSO-gated pricing. No sales calls.</li>
+      <li><strong>No AI-generates-your-script tools.</strong> JMNPR does not ship one-click generation of human creative work. Ever.</li>
+      <li><strong>No subscription-by-default.</strong> Some tools are one-time. Some are subscription where it earns the model. No subscription as lock-in.</li>
+      <li><strong>No studio deals that require an NDA</strong> to look at the product.</li>
+      <li><strong>No competing with my own employer.</strong> EF's surface stays EF's.</li>
+    </ul>
+
+    <h2>Why Now</h2>
+    <p>Solo-velocity at studio-quality is a new thing. It's been possible for maybe eighteen months and it'll be the default in five years. The window where a single operator with taste and agentic-dev tooling can ship a tools catalog that would've required a Series A team is open right now. JMNPR Labs is built to ride that window.</p>
+    <blockquote>If you're building something that touches creators, filmmaking, design tokens, realtime infra, or standards work — I'd love fifteen minutes. <a href="mailto:work.raghavahuja@gmail.com?subject=JMNPR">work.raghavahuja@gmail.com</a>.</blockquote>
+  </template>
+
   <!-- ==============================================
        EF — password-locked (AES-GCM + PBKDF2 via Web Crypto)
        Plaintext lives only in scripts/cases/ef.plain.html (gitignored).
@@ -582,9 +688,25 @@ useEffect(() =&gt; {
           ['stripe', '15.0.0'], ['zustand', '4.5.2'],
         ],
       },
+'jmnpr-labs': {
+        n: '02', year: '2026', title: 'JMNPR Labs',
+        subtitle: 'A one-person studio shipping production-grade tools for creators, indie filmmakers, and design engineers. Single brand, many verticals. Self-serve, no enterprise deals.',
+        meta: {
+          timeline: '2026 · founder · ongoing',
+          role: 'Founder, design engineer — product vision, brand, packaging, infra, GTM',
+          stack: '@jmnpr/craft · React-PDF · Lemon Squeezy · Yjs CRDT · Mapbox · Next.js · Vercel',
+          live: 'jmnpr.com ↗',
+        },
+        stack: [
+          ['@jmnpr/craft', 'v1.4'], ['@jmnpr/fdx', 'v0.9'],
+          ['@jmnpr/realtime-viz', 'extracting'], ['@jmnpr/tokens', 'private beta'],
+          ['react-pdf', '4.0.0'], ['next', '14.x'],
+          ['yjs', '13.6.x'], ['lemon-squeezy/api', '2.x'],
+        ],
+      },
       futbolis: {
-        n: '02', year: '2026', title: 'Futbolis.live',
-        subtitle: 'Visualizing the global pulse of football, one match at a time.',
+        n: 'L·01', year: '2026', title: 'Futbolis.live',
+        subtitle: 'Visualizing the global pulse of football, one match at a time. Lab project — full case study still here, indexed under /lab.',
         meta: {
           timeline: '3 weeks — solo build, nights and weekends',
           role: 'Sole design engineer — product vision, UX/UI, front-end, back-end',
@@ -637,7 +759,7 @@ useEffect(() =&gt; {
         stack: null,
       },
     };
-    const ORDER = ['arqo', 'futbolis', 'ef', 'zulily', 'social-booth'];
+    const ORDER = ['arqo', 'jmnpr-labs', 'ef', 'futbolis', 'zulily', 'social-booth'];
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('slug') || 'arqo';
@@ -752,16 +874,13 @@ useEffect(() =&gt; {
         err.textContent = '';
         const pw = input.value.trim();
         if (!pw) { err.textContent = 'enter the password'; return; }
-        if (window.plausible) window.plausible('ef:unlock-attempt');
         try {
           const html = await decryptLocked('ef', pw);
           try { sessionStorage.setItem('ef:unlocked', html); } catch (e) {}
           bodyEl.innerHTML = html;
-          if (window.plausible) window.plausible('ef:unlock-success');
         } catch (_) {
           err.textContent = 'wrong password — check the email';
           input.select();
-          if (window.plausible) window.plausible('ef:unlock-fail');
         }
       });
       requestAnimationFrame(() => input.focus());
@@ -827,10 +946,6 @@ useEffect(() =&gt; {
       const max = h.scrollHeight - h.clientHeight;
       const pct = max > 0 ? Math.min(100, (scrolled / max) * 100) : 0;
       progressBar.style.width = pct + '%';
-      if (!readFired && pct >= 92 && window.plausible) {
-        readFired = true;
-        window.plausible('case:read-complete', { props: { slug } });
-      }
     }
     document.addEventListener('scroll', onScroll, { passive: true });
     onScroll();

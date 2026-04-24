@@ -5,15 +5,8 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const active = document.body.getAttribute('data-page') || '';
 
-  // ---------- analytics helper ----------
-  // Safe even when Plausible is blocked (queue flushes on load).
-  function track(name, props) {
-    try {
-      if (typeof window.plausible === 'function') {
-        window.plausible(name, props ? { props } : undefined);
-      }
-    } catch (e) {}
-  }
+  // analytics removed — kept the noop for any code still calling track()
+  function track() {}
 
   // ---------- shared chrome injection ----------
   function mountChrome() {
@@ -23,7 +16,7 @@
       sb.className = 'status-bar';
       sb.setAttribute('role', 'status');
       sb.innerHTML =
-        '<span class="sb-left"><span class="sb-dot"></span> vol. iv · no. 2 · <span class="em-accent">portfolio · night ed.</span></span>' +
+        '<span class="sb-left"><span class="sb-dot"></span> vol. iv · no. 3 · <span class="em-accent">portfolio · night ed.</span></span>' +
         '<span class="sb-clocks">' +
           '<span>jamanapaar <b id="clk-mum">--:--</b></span>' +
           '<span>brooklyn <b id="clk-nyc">--:--</b></span>' +
@@ -70,7 +63,7 @@
       footMount.outerHTML = '<footer class="footer">' +
         '<div>' +
           '<div class="brand-line">raghav ahuja</div>' +
-          '<div>design engineer · senior product designer · new york</div>' +
+          '<div>design engineer · staff-track · brooklyn</div>' +
           '<div style="margin-top: 10px;">' +
             '<a href="mailto:work.raghavahuja@gmail.com">work.raghavahuja@gmail.com</a> · ' +
             '<a href="https://github.com/ahujatries">github</a> · ' +
@@ -459,10 +452,10 @@
     { label: 'home', path: '/', href: 'index.html', kind: 'route' },
     { label: 'work', path: '/work', href: 'work.html', kind: 'route' },
     { label: 'arqo · case study', path: '/work/arqo', href: 'case-study.html?slug=arqo', kind: 'route' },
-    { label: 'futbolis · case study', path: '/work/futbolis', href: 'case-study.html?slug=futbolis', kind: 'route' },
+    { label: 'JMNPR Labs · case study', path: '/work/jmnpr-labs', href: 'case-study.html?slug=jmnpr-labs', kind: 'route' },
     { label: 'EF education first · case study', path: '/work/ef', href: 'case-study.html?slug=ef', kind: 'route' },
-    { label: 'zulily · case study', path: '/work/zulily', href: 'case-study.html?slug=zulily', kind: 'route' },
-    { label: 'the social booth · case study', path: '/work/social-booth', href: 'case-study.html?slug=social-booth', kind: 'route' },
+    { label: 'futbolis · lab · case study', path: '/lab/futbolis', href: 'case-study.html?slug=futbolis', kind: 'route' },
+    { label: 'headway · lab', path: '/lab/headway', href: 'lab.html', kind: 'route' },
     { label: 'the library · docs', path: '/docs', href: 'docs.html', kind: 'route' },
     { label: 'CtB framework', path: '/docs/ctb', href: 'docs.html?d=ctb', kind: 'route' },
     { label: 'MIND research synthesis', path: '/docs/mind', href: 'docs.html?d=mind', kind: 'route' },
@@ -480,6 +473,7 @@
     { label: 'github · ahujatries', path: 'github.com/ahujatries', href: 'https://github.com/ahujatries', kind: 'cmd' },
     { label: 'linkedin · raghav-ahuja', path: 'linkedin.com/in/raghav-ahuja', href: 'https://linkedin.com/in/raghav-ahuja', kind: 'cmd' },
     { label: 'tryarqo.com', path: 'tryarqo.com', href: 'https://tryarqo.com', kind: 'cmd' },
+    { label: 'jmnpr.com', path: 'jmnpr.com', href: 'https://jmnpr.com', kind: 'cmd' },
     { label: 'futbolis.live', path: 'futbolis.live', href: 'https://futbolis.live', kind: 'cmd' },
     { label: 'chai', path: '☕', kind: 'easter', action: 'chai' },
   ];

@@ -30,14 +30,14 @@ CASES = [
      'Shipped solo in 9 days. Lossless FDX. CRDT collab. 777-script AI library.',
      'next.js 14 · supabase · pgvector',
      'liveblocks · yjs · tauri · capacitor'),
-    ('futbolis',
+    ('jmnpr-labs',
      'FOLIO 02 · CASE STUDY · NO. 02 · 2026',
-     'Futbolis.live.',
-     'global pulse of football,',
-     'one match at a time.',
-     '100k concurrent on $19/mo infra. 4-tier geocoding. Real-time globe.',
-     'next.js 16 · react 19 · mapbox gl',
-     'vercel edge'),
+     'JMNPR Labs.',
+     'a one-person studio,',
+     'many verticals.',
+     'Story Kit live. Five flagship tools on deck. Self-serve, no enterprise deals.',
+     '@jmnpr/craft · react-pdf',
+     'lemon squeezy · vercel'),
     ('ef',
      'FOLIO 02 · CASE STUDY · NO. 03 · 2022—now',
      'EF Education First.',
@@ -46,8 +46,16 @@ CASES = [
      'Gated. Email work.raghavahuja@gmail.com for password.',
      'senior product designer',
      '50+ countries'),
+    ('futbolis',
+     'FOLIO 03 · LAB · NO. 01 · 2026',
+     'Futbolis.live.',
+     'global pulse of football,',
+     'one match at a time.',
+     '100k concurrent on $19/mo infra. 4-tier geocoding. Real-time globe.',
+     'next.js 16 · react 19 · mapbox gl',
+     'vercel edge'),
     ('zulily',
-     'FOLIO 02 · CASE STUDY · NO. 04 · 2021—22',
+     'CASE STUDY · NO. 04 · 2021—22',
      'Zulily.',
      'growth,',
      'personalization, lifecycle.',
@@ -55,7 +63,7 @@ CASES = [
      'react · experiment design',
      'data-science partnership'),
     ('social-booth',
-     'FOLIO 02 · CASE STUDY · NO. 05 · 2016—20',
+     'CASE STUDY · NO. 05 · 2016—20',
      'The Social Booth.',
      'creative direction,',
      'Mumbai.',
@@ -94,8 +102,8 @@ def draw_case(slug, kicker, title, accent_word, tail, subtitle, stack_l, stack_r
     d.rectangle([0, 0, W, 42], fill=(15, 11, 8))
     d.rectangle([0, 42, W, 43], fill=LINE_A)
     d.ellipse([50, 18, 58, 26], fill=(51, 255, 102))
-    d.text((68, 14), 'vol. iv · no. 2 · ', font=fonts['mono_sm'], fill=FG_MUTED)
-    lead_w = fonts['mono_sm'].getlength('vol. iv · no. 2 · ')
+    d.text((68, 14), 'vol. iv · no. 3 · ', font=fonts['mono_sm'], fill=FG_MUTED)
+    lead_w = fonts['mono_sm'].getlength('vol. iv · no. 3 · ')
     d.text((68 + lead_w, 14), 'portfolio · night ed.', font=fonts['mono_sm'], fill=ACCENT)
     d.text((W - 310, 14), 'mumbai  23:47   new york  14:17', font=fonts['mono_sm'], fill=FG_MUTED)
 
