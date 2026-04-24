@@ -63,7 +63,7 @@
       footMount.outerHTML = '<footer class="footer">' +
         '<div>' +
           '<div class="brand-line">raghav ahuja</div>' +
-          '<div>design engineer · staff-track · brooklyn</div>' +
+          '<div>design engineer · brooklyn</div>' +
           '<div style="margin-top: 10px;">' +
             '<a href="mailto:work.raghavahuja@gmail.com">work.raghavahuja@gmail.com</a> · ' +
             '<a href="https://github.com/ahujatries">github</a> · ' +
