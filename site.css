@@ -7,6 +7,53 @@
 * { box-sizing: border-box; }
 body { margin: 0; min-height: 100vh; }
 
+/* skip-link — invisible until focused */
+.skip-link {
+  position: absolute; top: -100px; left: 0;
+  background: var(--accent); color: #fff !important;
+  font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.04em;
+  padding: 10px 16px;
+  z-index: 999;
+  text-decoration: none;
+  transition: top 120ms var(--ease-out);
+}
+.skip-link:focus { top: 0; outline: 2px solid #fff; outline-offset: -2px; }
+
+/* view-source first-time hint — floats near the first handle for 8s */
+.vs-hint {
+  position: absolute; top: 10px; right: 44px;
+  background: var(--accent); color: #fff !important;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
+  padding: 5px 10px; border-radius: var(--r-2);
+  cursor: pointer;
+  z-index: 5;
+  opacity: 0; transform: translateX(6px);
+  animation: vs-hint-in 200ms var(--ease-out) 900ms forwards;
+  box-shadow: 0 4px 16px rgba(0,112,243,0.3);
+}
+.vs-hint code { background: rgba(255,255,255,0.15); border: 0; color: #fff; padding: 0 4px; }
+.vs-hint::after {
+  content: ""; position: absolute; top: 50%; right: -4px; transform: translateY(-50%) rotate(45deg);
+  width: 6px; height: 6px; background: var(--accent);
+}
+.vs-hint--gone { opacity: 0; transform: translateX(-4px); transition: all 300ms var(--ease-out); }
+@keyframes vs-hint-in { to { opacity: 1; transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .vs-hint { animation: none; opacity: 1; transform: none; } }
+
+/* view-source handle — show full label on hover for discoverability */
+.vs-handle { position: relative; }
+.vs-handle::after {
+  content: "see the source";
+  position: absolute; right: calc(100% + 8px); top: 50%; transform: translateY(-50%);
+  background: var(--bg-raise); border: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
+  color: var(--fg-muted); padding: 3px 8px;
+  white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity 120ms var(--ease-out);
+}
+.vs-handle:hover::after { opacity: 1; }
+
 .wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 .mono { font-family: var(--font-mono); }
 .kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }

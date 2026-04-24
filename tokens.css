@@ -3,7 +3,22 @@
    Dark default, light polished alternate, vercel blue accent.
    ============================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+/* self-hosted — no render-blocking CDN round-trip. Geist + JBM are both
+   variable-font woff2 under the hood; one file serves all weights. */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('./fonts/Geist.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('./fonts/JetBrainsMono.woff2') format('woff2');
+}
 
 :root {
   /* ---------- TYPE FAMILIES ---------- */
