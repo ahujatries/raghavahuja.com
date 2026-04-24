@@ -9,8 +9,6 @@
       <link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin>
-    <script defer data-domain="raghavahuja.com" src="https://plausible.io/js/script.outbound-links.file-downloads.tagged-events.js"></script>
-  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
   <link rel="stylesheet" href="site.css">
   <link rel="canonical" href="https://raghavahuja.com/lab">
   <meta property="og:type" content="website">
@@ -39,47 +37,71 @@
 
     <main id="main">
 
-    <section style="padding: 72px 0 40px;">
+<section style="padding: 72px 0 40px;">
       <div class="kicker">folio 03 — the lab</div>
-      <h1 style="margin-top: 28px; margin-bottom: 32px; max-width: 18ch;">
-        Small pieces, <span class="em-serif">loosely joined.</span>
+      <h1 style="margin-top: 28px; margin-bottom: 32px; max-width: 14ch;">
+        <span class="em-serif">Lab.</span>
       </h1>
-      <p class="sub" style="font-family: var(--font-display); font-size: 20px; line-height: 1.55; color: var(--fg-muted); max-width: 60ch; margin-bottom: 8px;">
-        Every entry is a working demo, not a screenshot. Hold <span class="kbd">g</span> to see the grid. Press <span class="kbd">⌘K</span> to jump.
+      <p class="sub" style="font-family: var(--font-display); font-size: 20px; line-height: 1.55; color: var(--fg-muted); max-width: 60ch; margin-bottom: 12px;">
+        Smaller things. Weekend builds. Experiments that were too fun not to ship. Some of these became products. Some are just receipts that I build for love, not just for work.
+      </p>
+      <p style="font-family: var(--font-mono); font-size: 11px; color: var(--fg-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 24px;">
+        index → <a href="work.html" style="color: var(--accent);">/work</a> · for bigger projects
       </p>
     </section>
 
     <section class="section">
+      <a href="case-study.html?slug=futbolis" class="work-row">
+        <span class="n">01</span>
+        <div>
+          <h3>Futbolis.live</h3>
+          <p class="sub">Visualizing the global pulse of football, one match at a time — 100k concurrent on $19/mo infra. Solo build in 3 weeks, nights and weekends. The infra from this is becoming the JMNPR Realtime Viz Starter.</p>
+        </div>
+        <div class="meta">
+          <div>2026 · 3 weeks · live</div>
+          <div>sole design engineer</div>
+        </div>
+        <div class="year">read full case study →</div>
+      </a>
+      <a href="https://github.com/ahujatries" class="work-row">
+        <span class="n">02</span>
+        <div>
+          <h3>Headway</h3>
+          <p class="sub">Live MTA tracking for individual train cars — per-car stats, real-time positions, the kind of transit viz a subway nerd wishes the MTA shipped. Built for kicks, over a weekend.</p>
+        </div>
+        <div class="meta">
+          <div>2026 · weekend build · live</div>
+          <div>solo</div>
+        </div>
+        <div class="year">open →</div>
+      </a>
+    </section>
+
+    <section class="section">
+      <div class="kicker" style="margin-bottom: 20px;">site internals · live on this page</div>
+      <p style="font-family: var(--font-display); font-size: 17px; color: var(--fg-muted); max-width: 60ch; margin-bottom: 24px;">
+        Smaller mechanisms wired into the site itself. Each is a working demo, not a screenshot. The page you're reading is the documentation.
+      </p>
       <div class="lab-list">
         <div class="lab-row lab-row--wip">
-          <time datetime="2026-04-24" class="date">26·04·24</time>
-          <span class="title">Grid overlay toggle <span class="wip-tag">live on this page</span></span>
+          <span class="date">always</span>
+          <span class="title">Grid overlay <span class="wip-tag">hold <code>g</code></span></span>
           <span class="tag">css · keyboard</span>
         </div>
         <div class="lab-row lab-row--wip">
-          <time datetime="2026-04-24" class="date">26·04·24</time>
-          <span class="title">View-source drawer <span class="wip-tag">live on this page</span></span>
-          <span class="tag">react · jsx</span>
+          <span class="date">always</span>
+          <span class="title">View-source drawer <span class="wip-tag">click <code>{ }</code></span></span>
+          <span class="tag">jsx · drawer</span>
         </div>
         <div class="lab-row lab-row--wip">
-          <time datetime="2026-04-24" class="date">26·04·24</time>
-          <span class="title">Timezone-aware dates <span class="wip-tag">live on this page</span></span>
-          <span class="tag">intl · ssr</span>
-        </div>
-        <div class="lab-row lab-row--wip">
-          <time datetime="2026-04-24" class="date">26·04·24</time>
-          <span class="title">ASCII chai dispenser <span class="wip-tag">try ⌘K → chai</span></span>
+          <span class="date">always</span>
+          <span class="title">ASCII chai dispenser <span class="wip-tag">⌘K → <code>chai</code></span></span>
           <span class="tag">easter</span>
         </div>
         <div class="lab-row lab-row--wip">
-          <time datetime="2026-04-24" class="date">26·04·24</time>
-          <span class="title">नमस्ते mode <span class="wip-tag">konami</span></span>
-          <span class="tag">keyboard</span>
-        </div>
-        <div class="lab-row lab-row--wip">
-          <span class="date">soon</span>
-          <span class="title">NYC subway tracker <span class="wip-tag">coming soon</span></span>
-          <span class="tag">gtfs-rt · mapbox</span>
+          <span class="date">always</span>
+          <span class="title">नमस्ते mode <span class="wip-tag">konami code</span></span>
+          <span class="tag">keyboard · easter</span>
         </div>
       </div>
     </section>
