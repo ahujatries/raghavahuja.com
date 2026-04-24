@@ -476,34 +476,42 @@ useEffect(() =&gt; {
   </template>
 
   <!-- ==============================================
-       EF (shorter)
+       EF — password-locked (AES-GCM + PBKDF2 via Web Crypto)
+       Plaintext lives only in scripts/cases/ef.plain.html (gitignored).
+       Re-encrypt via: node scripts/encrypt-case.mjs ef 'new-password'
        ============================================== -->
-  <template id="case-ef">
-    <section>
-      <p class="drop-cap"><strong>Senior product designer at EF Education First</strong>, Aug 2022 – present. Leading insurance, checkout, and quoting experiences for a global EdTech platform with eight-figure annual GMV and advisors in 50+ countries.</p>
+  <template id="case-ef-gate">
+    <section style="padding: 32px 0 24px;">
+      <p class="drop-cap"><strong>This case study is gated.</strong> It contains work I'm shipping at a current employer — metrics, framework names, and front-end specifics that are fine to share in a hiring conversation but that I'd rather not have my colleagues stumble onto by accident.</p>
+      <p>If you're a hiring partner or recruiter and you'd like the password, email <a href="mailto:work.raghavahuja@gmail.com?subject=case%20study%20access">work.raghavahuja@gmail.com</a> and I'll send it. It's one short phrase; it unlocks on any device and stays unlocked on this browser for the session.</p>
     </section>
-    <div class="case-stat-row">
-      <div class="case-stat"><div class="n">+10%</div><div class="l">insurance take-rate on 8-figure GMV</div></div>
-      <div class="case-stat"><div class="n">+31%</div><div class="l">checkout velocity via progressive disclosure</div></div>
-      <div class="case-stat"><div class="n">+8%</div><div class="l">quoting volume across 50+ countries</div></div>
-    </div>
 
-    <h2>Insurance Redesign — +10% Take-Rate</h2>
-    <p>Led the redesign of the insurance add-on flow, lifting take-rate <strong>+10%</strong> on a product with eight-figure annual GMV. Ran the full loop: qualitative discovery, quantitative event instrumentation, design-system contributions, and front-end implementation alongside engineering.</p>
+    <form id="ef-gate-form" class="ef-gate">
+      <label for="ef-gate-pw" class="label">password</label>
+      <input
+        id="ef-gate-pw"
+        type="password"
+        autocomplete="off"
+        spellcheck="false"
+        aria-describedby="ef-gate-err"
+        placeholder="enter password"
+      >
+      <button type="submit" class="cta cta-primary">unlock →</button>
+      <div id="ef-gate-err" class="ef-gate-err" role="alert" aria-live="polite"></div>
+    </form>
 
-    <h2>Checkout — +31% Velocity</h2>
-    <p>Rebuilt the checkout step sequence into a single-page progressive disclosure pattern, cutting time-to-complete by <strong>31%</strong> and pulling forward the moment of commitment.</p>
-
-    <h2>Quoting — +8% Volume</h2>
-    <p>Shipped a quoting-tool redesign that lifted quoting volume <strong>+8%</strong> by removing cognitive-load dead ends in the advisor dashboard. Rolled out to advisors across 50+ countries.</p>
-    <blockquote>Contributed production React / Next.js / Tailwind code to the design-system library; trusted to ship changes without engineering handoff for component-level updates.</blockquote>
-
-    <h2>Frameworks Authored</h2>
-    <ul>
-      <li><em>Confidence-to-Book (CtB)</em> — a five-stage model plotting where an advisor-assisted prospect sits between curiosity and committed booking. Shared vocabulary for every advisor-flow review.</li>
-      <li><em>MIND</em> — a synthesis method for mixed-method research (mine · inventory · name · decide). Turns a week of interviews into a one-page artefact a team can argue against.</li>
-    </ul>
+    <section style="padding: 32px 0 0; max-width: 60ch;">
+      <h2>What the case study covers</h2>
+      <ul>
+        <li>Insurance add-on redesign — the full loop: discovery → instrumentation → design-system contribution → ship with engineering.</li>
+        <li>Checkout rebuild — step sequence into a single-page progressive disclosure pattern.</li>
+        <li>Quoting-tool redesign — advisor dashboard simplification, rolled across 50+ countries.</li>
+        <li>Two frameworks I authored that are used across the design org.</li>
+      </ul>
+    </section>
   </template>
+
+  <template id="case-ef-reader"><div id="ef-plaintext-target"></div></template>
 
   <!-- ==============================================
        ZULILY
@@ -624,9 +632,80 @@ useEffect(() =&gt; {
     ).join('');
 
     // body — clone the template
-    const tpl = document.getElementById(`case-${slug}`);
     const body = document.getElementById('cs-body');
-    if (tpl) body.appendChild(tpl.content.cloneNode(true));
+    if (slug === 'ef') {
+      mountEfGate(body);
+    } else {
+      const tpl = document.getElementById(`case-${slug}`);
+      if (tpl) body.appendChild(tpl.content.cloneNode(true));
+    }
+
+    // ================= EF password gate (AES-GCM + PBKDF2) =================
+    // Ciphertext generated by scripts/encrypt-case.mjs — decryption happens
+    // entirely client-side. Wrong password => Web Crypto throws, nothing renders.
+    const LOCKED = {
+      ef: {
+        iv: '5oIj3OXFaz28CEO7',
+        salt: 'OWdncLgCWsLrcxL4IMbw4Q==',
+        ciphertext: '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',
+      },
+    };
+
+    function b64ToBytes(b64) {
+      const bin = atob(b64);
+      const out = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+      return out;
+    }
+
+    async function decryptLocked(slug, password) {
+      const { iv, salt, ciphertext } = LOCKED[slug];
+      const baseKey = await crypto.subtle.importKey(
+        'raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey'],
+      );
+      const key = await crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt: b64ToBytes(salt), iterations: 250000, hash: 'SHA-256' },
+        baseKey,
+        { name: 'AES-GCM', length: 256 },
+        false,
+        ['decrypt'],
+      );
+      const plainBuf = await crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv: b64ToBytes(iv) },
+        key,
+        b64ToBytes(ciphertext),
+      );
+      return new TextDecoder().decode(plainBuf);
+    }
+
+    function mountEfGate(bodyEl) {
+      // Try session-cached decryption first — stays unlocked across navigation in the same tab.
+      const cached = sessionStorage.getItem('ef:unlocked');
+      if (cached) {
+        bodyEl.innerHTML = cached;
+        return;
+      }
+      const gateTpl = document.getElementById('case-ef-gate');
+      bodyEl.appendChild(gateTpl.content.cloneNode(true));
+      const form = document.getElementById('ef-gate-form');
+      const input = document.getElementById('ef-gate-pw');
+      const err = document.getElementById('ef-gate-err');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        err.textContent = '';
+        const pw = input.value.trim();
+        if (!pw) { err.textContent = 'enter the password'; return; }
+        try {
+          const html = await decryptLocked('ef', pw);
+          try { sessionStorage.setItem('ef:unlocked', html); } catch (e) {}
+          bodyEl.innerHTML = html;
+        } catch (_) {
+          err.textContent = 'wrong password — check the email';
+          input.select();
+        }
+      });
+      requestAnimationFrame(() => input.focus());
+    }
 
     // prev / next case nav
     const idx = ORDER.indexOf(slug);
