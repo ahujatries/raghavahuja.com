@@ -94,9 +94,28 @@ body { margin: 0; min-height: 100vh; }
 .vs-handle:hover { color: var(--accent); border-color: var(--accent); }
 
 /* cmdk */
-.cmdk-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: none; align-items: flex-start; justify-content: center; padding-top: 18vh; z-index: 100; }
-.cmdk-overlay.open { display: flex; }
-.cmdk { width: min(640px, 92vw); background: var(--bg-raise); border: 1px solid var(--line-strong); box-shadow: 0 8px 32px rgba(0,0,0,0.48); }
+.cmdk-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+  display: flex; align-items: flex-start; justify-content: center; padding-top: 18vh; z-index: 100;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 120ms var(--ease-out), visibility 0s linear 120ms;
+}
+.cmdk-overlay.open {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transition: opacity 120ms var(--ease-out), visibility 0s;
+}
+.cmdk {
+  width: min(640px, 92vw); background: var(--bg-raise); border: 1px solid var(--line-strong);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.48);
+  transform: translateY(-6px) scale(0.985);
+  transition: transform 160ms var(--ease-out);
+}
+.cmdk-overlay.open .cmdk { transform: translateY(0) scale(1); }
+@media (prefers-reduced-motion: reduce) {
+  .cmdk-overlay, .cmdk-overlay.open, .cmdk, .cmdk-overlay.open .cmdk {
+    transition: none !important; transform: none !important;
+  }
+}
 .cmdk input { width: 100%; background: transparent; border: 0; outline: 0; padding: 14px 16px; font-family: var(--font-mono); font-size: 14px; color: var(--fg); border-bottom: 1px solid var(--line); }
 .cmdk-results { max-height: 320px; overflow-y: auto; }
 .cmdk-row { display: flex; justify-content: space-between; padding: 10px 16px; font-family: var(--font-mono); font-size: 13px; color: var(--fg-muted); cursor: pointer; }

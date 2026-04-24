@@ -71,7 +71,7 @@
     if (!document.getElementById('cmdk')) {
       const cm = document.createElement('div');
       cm.id = 'cmdk'; cm.className = 'cmdk-overlay';
-      cm.setAttribute('role', 'dialog'); cm.setAttribute('aria-modal', 'true'); cm.setAttribute('aria-label', 'Command palette');
+      cm.setAttribute('role', 'dialog'); cm.setAttribute('aria-modal', 'true'); cm.setAttribute('aria-hidden', 'true'); cm.setAttribute('aria-label', 'Command palette');
       cm.innerHTML = '<div class="cmdk" role="combobox" aria-expanded="true">' +
         '<input id="cmdk-input" type="text" placeholder="type a route, command, or `chai`…" autocomplete="off" spellcheck="false" aria-label="Command input">' +
         '<div id="cmdk-results" class="cmdk-results" role="listbox"></div>' +
@@ -462,13 +462,16 @@
 
   function openCmdk() {
     overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
     sel = 0;
     input.value = '';
     render();
-    setTimeout(() => input.focus(), 0);
+    // defer focus until after visibility flip so the browser grants it
+    requestAnimationFrame(() => input.focus());
   }
   function closeCmdk() {
     overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
   }
 
   function run(item) {
