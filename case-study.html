@@ -40,7 +40,10 @@
 
     <main id="main">
     <div class="case-layout">
-      <aside class="case-spine" id="case-spine">case study</aside>
+      <div class="case-left-col">
+        <nav class="case-toc" id="cs-toc" aria-label="Table of contents" hidden></nav>
+        <aside class="case-spine" id="case-spine">case study</aside>
+      </div>
       <div class="case-content">
         <header class="case-head">
           <div class="kicker" id="cs-kicker">case study · no. 01 · 2026</div>
@@ -651,6 +654,69 @@ useEffect(() =&gt; {
     }
     document.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
+    // table of contents — generated from h2s in the case body
+    (function buildTOC() {
+      const toc = document.getElementById('cs-toc');
+      const body = document.getElementById('cs-body');
+      const headings = Array.from(body.querySelectorAll('h2'));
+      if (!headings.length) return;
+
+      // assign stable IDs to headings that lack them
+      const seen = {};
+      headings.forEach(function(h) {
+        if (!h.id) {
+          let base = h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+          let id = base, n = 1;
+          while (seen[id]) id = base + '-' + (++n);
+          h.id = id;
+        }
+        seen[h.id] = true;
+        h.setAttribute('tabindex', '-1');
+      });
+
+      // "contents" label
+      const label = document.createElement('div');
+      label.className = 'case-toc-label';
+      label.setAttribute('aria-hidden', 'true');
+      label.textContent = 'contents';
+      toc.appendChild(label);
+
+      // link list
+      const ol = document.createElement('ol');
+      headings.forEach(function(h) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          history.pushState(null, '', '#' + h.id);
+          h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          h.focus({ preventScroll: true });
+        });
+        li.appendChild(a);
+        ol.appendChild(li);
+      });
+      toc.appendChild(ol);
+      toc.removeAttribute('hidden');
+
+      // IntersectionObserver — highlight active section as user scrolls
+      let activeLink = null;
+      const io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          const link = toc.querySelector('a[href="#' + entry.target.id + '"]');
+          if (!link) return;
+          if (entry.isIntersecting) {
+            if (activeLink) activeLink.classList.remove('active');
+            link.classList.add('active');
+            activeLink = link;
+          }
+        });
+      }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+      headings.forEach(function(h) { io.observe(h); });
+    })();
   </script>
 
   <script src="site.js" defer></script>

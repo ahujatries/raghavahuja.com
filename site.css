@@ -358,25 +358,63 @@ body { margin: 0; min-height: 100vh; }
 }
 @media (prefers-reduced-motion: reduce) { .case-progress .bar { transition: none; } }
 
-/* layout — centered column + optional vertical spine on left */
+/* layout — centered column + sticky TOC + vertical spine on left */
 .case-layout {
   display: grid;
-  grid-template-columns: 56px 1fr 56px;
+  grid-template-columns: 180px 1fr;
   gap: 32px;
   max-width: var(--grid-max);
   margin: 0 auto;
+}
+.case-left-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 .case-spine {
   font-family: var(--font-mono); font-size: 11px; color: var(--fg-dim);
   letter-spacing: 0.12em; text-transform: uppercase;
   writing-mode: vertical-rl; transform: rotate(180deg);
-  padding-top: 80px;
+  padding-top: 40px;
   white-space: nowrap;
+  align-self: flex-start;
 }
 .case-content { min-width: 0; }
+
+/* sticky table of contents */
+.case-toc {
+  position: sticky;
+  top: 80px;
+  width: 100%;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  margin-bottom: 32px;
+}
+.case-toc::-webkit-scrollbar { display: none; }
+.case-toc-label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--fg-dim);
+  padding-bottom: 10px; margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+.case-toc ol { list-style: none; padding: 0; margin: 0; }
+.case-toc a {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-dim); text-decoration: none;
+  display: block; padding: 5px 0 5px 10px;
+  border-left: 2px solid transparent;
+  line-height: 1.45; letter-spacing: 0.02em;
+  transition: color 120ms var(--ease-out), border-color 120ms var(--ease-out);
+}
+.case-toc a:hover { color: var(--fg-muted); border-left-color: var(--line-strong); }
+.case-toc a.active { color: var(--accent); border-left-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .case-toc a { transition: none; } }
+
 @media (max-width: 860px) {
   .case-layout { grid-template-columns: 1fr; gap: 0; }
-  .case-spine { display: none; }
+  .case-left-col { display: none; }
 }
 
 /* head block */
