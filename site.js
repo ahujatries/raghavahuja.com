@@ -119,6 +119,12 @@
 
   mountChrome();
 
+  // ---------- home brand active state ----------
+  if (active === 'home') {
+    const brand = document.querySelector('.nav .brand');
+    if (brand) brand.classList.add('active');
+  }
+
   // ---------- mobile nav toggle ----------
   const navEl = document.querySelector('.nav');
   const navToggle = document.querySelector('.nav-toggle');
@@ -195,17 +201,20 @@
       function step() {
         const word = ROLES[i % ROLES.length];
         if (!del && txt === word) {
-          setTimeout(() => { del = true; step(); }, 1400);
+          // hold proportional to word length so every phrase gets a chance to be read.
+          // 900ms base + ~45ms per char, clamped.
+          const hold = Math.min(2400, 900 + word.length * 45);
+          setTimeout(() => { del = true; step(); }, hold);
           return;
         }
         if (del && txt === '') {
           del = false; i++;
-          setTimeout(step, 120);
+          setTimeout(step, 180);
           return;
         }
         txt = del ? word.slice(0, txt.length - 1) : word.slice(0, txt.length + 1);
         typer.textContent = txt;
-        setTimeout(step, del ? 38 : 75);
+        setTimeout(step, del ? 30 : 70);
       }
       step();
     }
@@ -324,12 +333,14 @@
 
   const shaEl = document.getElementById('build-sha');
   const deployedEl = document.getElementById('build-deployed');
-  if (shaEl || deployedEl) {
+  const heroMarkerShaEl = document.getElementById('hero-marker-sha');
+  if (shaEl || deployedEl || heroMarkerShaEl) {
     fetchSiteSha().then((c) => {
       if (shaEl) {
         shaEl.innerHTML = '<a href="' + c.url + '" style="color: var(--accent);">' + c.sha + '</a>';
       }
       if (deployedEl) deployedEl.textContent = 'shipped ' + relTime(c.when) + ' ago';
+      if (heroMarkerShaEl) heroMarkerShaEl.textContent = c.sha + ' · shipped ' + relTime(c.when) + ' ago';
     }).catch(() => {
       // silently keep placeholder
     });
@@ -418,10 +429,37 @@
       e.preventDefault();
       e.stopPropagation();
       openVS(btn.getAttribute('data-vs'));
+      try { localStorage.setItem('vs:seen', '1'); } catch (e) {}
+      document.querySelector('.vs-hint')?.remove();
     });
   });
   vsScrim?.addEventListener('click', closeVS);
   vsClose?.addEventListener('click', closeVS);
+
+  // ---------- first-time view-source hint ----------
+  try {
+    const seen = localStorage.getItem('vs:seen');
+    if (!seen && !reduceMotion) {
+      const firstHandle = document.querySelector('.vs-handle');
+      if (firstHandle) {
+        const hint = document.createElement('div');
+        hint.className = 'vs-hint';
+        hint.setAttribute('role', 'note');
+        hint.innerHTML = 'click <code>{ }</code> to see the source';
+        firstHandle.parentElement && getComputedStyle(firstHandle.parentElement).position === 'static'
+          && (firstHandle.parentElement.style.position = 'relative');
+        (firstHandle.parentElement || document.body).appendChild(hint);
+        // auto-dismiss after 8s
+        setTimeout(() => { hint.classList.add('vs-hint--gone'); }, 8000);
+        setTimeout(() => { hint.remove(); }, 8400);
+        // click to dismiss
+        hint.addEventListener('click', () => {
+          try { localStorage.setItem('vs:seen', '1'); } catch (e) {}
+          hint.remove();
+        });
+      }
+    }
+  } catch (e) {}
 
   // ---------- command palette ----------
   const CMDK_ITEMS = [
@@ -496,7 +534,9 @@
     countEl.textContent = currentFiltered.length + ' result' + (currentFiltered.length === 1 ? '' : 's');
   }
 
+  let lastFocusEl = null;
   function openCmdk() {
+    lastFocusEl = document.activeElement;
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
     sel = 0;
@@ -508,6 +548,9 @@
   function closeCmdk() {
     overlay.classList.remove('open');
     overlay.setAttribute('aria-hidden', 'true');
+    // restore focus to what opened us (e.g. the ⌘K button) for keyboard users
+    if (lastFocusEl && typeof lastFocusEl.focus === 'function') lastFocusEl.focus();
+    lastFocusEl = null;
   }
 
   function run(item) {
@@ -567,6 +610,13 @@
     if (e.key === 'ArrowDown') { e.preventDefault(); sel = Math.min(sel + 1, currentFiltered.length - 1); render(); }
     if (e.key === 'ArrowUp')   { e.preventDefault(); sel = Math.max(sel - 1, 0); render(); }
     if (e.key === 'Enter')     { e.preventDefault(); run(currentFiltered[sel]); }
+    // focus trap — keep tab inside the palette while open
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      // only the input is a real focusable inside the palette; keeping focus there
+      // is the simplest and most natural trap.
+      input.focus();
+    }
   });
 
   // ---------- konami ----------
