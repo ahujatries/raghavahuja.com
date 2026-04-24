@@ -44,17 +44,17 @@
       footMount.outerHTML = '<footer class="footer">' +
         '<div>' +
           '<div style="color: var(--fg);">raghav ahuja</div>' +
-          '<div>senior design engineer · nyc</div>' +
+          '<div>design engineer · senior product designer · nyc</div>' +
           '<div style="margin-top: 8px;">' +
-            '<a href="mailto:hi@raghavahuja.com">hi@raghavahuja.com</a> · ' +
+            '<a href="mailto:work.raghavahuja@gmail.com">work.raghavahuja@gmail.com</a> · ' +
             '<a href="https://github.com/ahujatries">github</a> · ' +
-            '<a href="#">twitter</a> · ' +
-            '<a href="/resume.pdf">resume</a>' +
+            '<a href="https://linkedin.com/in/raghav-ahuja">linkedin</a> · ' +
+            '<a href="resume.pdf">resume</a>' +
           '</div>' +
         '</div>' +
         '<div class="right">' +
-          '<div>build <span style="color: var(--accent);">a3f2e91</span></div>' +
-          '<div>deployed 2026-04-23 09:12 PST</div>' +
+          '<div>build <span style="color: var(--accent);">a7c7be0</span></div>' +
+          '<div>deployed 2026-04-24 EDT</div>' +
           '<div style="color: var(--fg-dim);" id="reader-tz"></div>' +
         '</div>' +
       '</footer>';
@@ -144,10 +144,11 @@
   // ---------- typewriter ----------
   const ROLES = [
     'design systems',
-    'performant UIs',
-    'realtime products',
+    'conversion-critical UIs',
+    'realtime collab',
     'editor engines',
     'map experiences',
+    'quoting & checkout flows',
   ];
   const typer = document.getElementById('typer');
   if (typer) {
@@ -275,16 +276,21 @@
     { label: 'work', path: '/work', href: 'work.html', kind: 'route' },
     { label: 'arqo · case study', path: '/work/arqo', href: 'case-study.html?slug=arqo', kind: 'route' },
     { label: 'futbolis · case study', path: '/work/futbolis', href: 'case-study.html?slug=futbolis', kind: 'route' },
-    { label: 'subway · case study', path: '/work/subway', href: 'case-study.html?slug=subway', kind: 'route' },
+    { label: 'EF education first · case study', path: '/work/ef', href: 'case-study.html?slug=ef', kind: 'route' },
+    { label: 'zulily · case study', path: '/work/zulily', href: 'case-study.html?slug=zulily', kind: 'route' },
+    { label: 'the social booth · case study', path: '/work/social-booth', href: 'case-study.html?slug=social-booth', kind: 'route' },
     { label: 'lab', path: '/lab', href: 'lab.html', kind: 'route' },
     { label: 'notes', path: '/notes', href: 'notes.html', kind: 'route' },
     { label: 'about', path: '/about', href: 'about.html', kind: 'route' },
     { label: 'contact', path: '/contact', href: 'contact.html', kind: 'route' },
     { label: 'toggle theme', path: 't', kind: 'cmd', action: 'theme' },
     { label: 'toggle grid overlay', path: 'g', kind: 'cmd', action: 'grid' },
-    { label: 'open resume (pdf)', path: '/resume.pdf', href: '/resume.pdf', kind: 'cmd' },
-    { label: 'copy email', path: 'hi@raghavahuja.com', kind: 'cmd', action: 'email' },
+    { label: 'open resume (pdf)', path: '/resume.pdf', href: 'resume.pdf', kind: 'cmd' },
+    { label: 'copy email', path: 'work.raghavahuja@gmail.com', kind: 'cmd', action: 'email' },
     { label: 'github · ahujatries', path: 'github.com/ahujatries', href: 'https://github.com/ahujatries', kind: 'cmd' },
+    { label: 'linkedin · raghav-ahuja', path: 'linkedin.com/in/raghav-ahuja', href: 'https://linkedin.com/in/raghav-ahuja', kind: 'cmd' },
+    { label: 'tryarqo.com', path: 'arqo.app', href: 'https://tryarqo.com', kind: 'cmd' },
+    { label: 'futbolis.live', path: 'futbolis.live', href: 'https://futbolis.live', kind: 'cmd' },
     { label: 'chai', path: '☕', kind: 'easter', action: 'chai' },
   ];
 
@@ -355,7 +361,7 @@
     } else if (item.action === 'grid') {
       gridEl?.classList.toggle('on');
     } else if (item.action === 'email') {
-      navigator.clipboard?.writeText('hi@raghavahuja.com').catch(() => {});
+      navigator.clipboard?.writeText('work.raghavahuja@gmail.com').catch(() => {});
     } else if (item.action === 'chai') {
       showChai(); return;
     } else if (item.href) {

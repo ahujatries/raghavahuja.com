@@ -41,23 +41,26 @@
   <script>
     const CASES = {
       arqo: {
-        n: '01', year: '2025', title: 'Arqo',
-        tagline: 'The mobile-first, script-led filmmaking tool for every creator on the planet.',
-        role: 'sole design engineer', timeline: '14 weeks to studio-tier parity', stack: 'next · supabase · yjs · tauri', live: 'arqo.app',
+        n: '01', year: '2026', title: 'Arqo',
+        tagline: 'A mobile-first, neobrutalist screenwriting app. Shipped solo in 9 days after work.',
+        role: 'solo design + engineering', timeline: '~9 days, two after-work sprints', stack: 'next.js · supabase · liveblocks · yjs · tauri · capacitor · pgvector · claude code', live: 'tryarqo.com',
         sections: [
           { h: 'The Script as Operating System', p: [
             'Every Arqo document is a structured AST, not a blob of text. Each element has a typed node. Every downstream artefact — shot list, teleprompter, NLE export, production report — is a projection of the AST, not a parallel representation. Edit a line of dialogue, the shot list updates. Move a scene, every downstream report updates.',
-          ], quote: 'This is the single architectural bet that lets a solo-to-lean team serve a 7–14M TAM.' },
-          { h: 'Mobile-First, Not Mobile-Later', p: [
-            'Final Draft has three touch targets smaller than a fingertip. Fade In is unusable on a phone. Celtx went mobile by cramming a desktop tree into a viewport. Arqo treats the phone as the primary authoring surface — one-handed editing, thumb-zone element switcher, swipe between scenes.',
-            'The contenteditable core was rewritten from scratch. No CKEditor, no TipTap. A typed AST, a deterministic paginator, a CRDT overlay for collab. 14 weeks, solo, to studio-tier parity.',
+          ], quote: 'Competitive position: studio-tier parity (Final Draft / WriterDuet replacement) on a 14-week critical path, with async collab primitives no competitor ships.' },
+          { h: 'The 9-Day Ship', p: [
+            'Shipped a production-grade screenwriter stack in two after-work sprints: deterministic line-by-line paginator with web-worker offload, Courier-12 industry-standard PDF export, lossless FDX v2 round-trip (runs, dual dialogue, locked scene numbers + A/B, revision stamps), offline-first IndexedDB mirror with NDA-grade private-draft local-only project type, Liveblocks + Yjs CRDT collab, Tauri desktop shell, Capacitor mobile.',
+            'Three synchronized editor surfaces on mobile — Flow (beatboard), Beats (structure), Pages (industry-formatted) — a combination no peer ships (Final Draft, WriterDuet, Arc Studio, Celtx, Highland 2, Fade In, Sudowrite).',
+          ]},
+          { h: 'AI as Co-Writer, Not Autopilot', p: [
+            'Suggest Rewrite, Continuity Reader, and Voice Fingerprint using pgvector embeddings over a 777-script Library and 12+ story-structure frameworks. Whole-script context. Cost caps enforced at the route layer — no runaway bills.',
           ]},
         ],
       },
       futbolis: {
-        n: '02', year: '2025', title: 'Futbolis.live',
-        tagline: 'Visualizing the global pulse of football, one match at a time.',
-        role: 'sole design engineer', timeline: '3 weeks', stack: 'next · mapbox · vercel edge', live: 'futbolis.live',
+        n: '02', year: '2026', title: 'Futbolis.live',
+        tagline: 'An ad-free live-football map, built for World Cup 2026.',
+        role: 'solo design + engineering', timeline: 'solo build 2026', stack: 'next.js 16 · react 19 · tailwind v4 · mapbox gl js · vercel', live: 'futbolis.live',
         sections: [
           { h: 'The Problem', p: [
             "Modern football apps — FlashScore, FotMob, ESPN — present matches as data rows. They're optimized for speed and density, but they strip away something fundamental: the sense that football is a global, living phenomenon.",
@@ -65,17 +68,53 @@
           ]},
           { h: 'The $19/Month Fix', p: [
             'The football data API charges per request. A viral moment during the World Cup could mean 100,000 users hitting the site simultaneously — thousands of dollars in overage fees per hour.',
-            "The solution: server-side caching with 60-second revalidation on the Next.js route. Every user hits the Vercel Edge cache, not the upstream API. At 100,000 concurrent users, the upstream API sees one request per minute. Cost scales with time, not traffic. $19/month is a flat ceiling, not a floor.",
+            "The solution: 60-second server-side cache revalidation on the /api/matches route. Every user hits the Vercel Edge cache, not the upstream API. At 100,000 concurrent users, the upstream sees one request per minute. Cost scales with time, not traffic. $19/month is a flat ceiling, not a floor.",
           ], quote: "Most engineers would reach for a Redis cache or a Cloudflare Worker. I specifically chose Next.js's built-in revalidate because it's the minimum viable caching layer — no extra infrastructure, no new failure mode, no additional bill." },
+          { h: 'Four-Tier Geocoding Fallback', p: [
+            'Upstream venue data is unreliable. I built a four-tier fallback: static cache of ~500 stadium coordinates → city geocode → country centroid → home-team capital for internationals. Every match plots accurately even when the feed lies.',
+            'Macro-to-micro navigation: dark Mapbox UI with a glassmorphic sidebar, fly-to camera animations with bold environmental typography, density-aware cluster color temperatures, deep-dive match view with possession bars and event timeline. Mobile uses an independent bottom-sheet MobileCarousel with snap behavior — not a shrunk-down sidebar.',
+          ]},
         ],
       },
-      subway: {
-        n: '03', year: '2025', title: 'NYC Subway Tracker',
-        tagline: 'A live MTA tracker, built because the MTA app ships worse every year.',
-        role: 'sole design engineer', timeline: 'in progress', stack: 'react · gtfs-realtime · mapbox', live: 'coming soon',
+      ef: {
+        n: '03', year: '2022—now', title: 'EF Education First',
+        tagline: 'Insurance, checkout, and quoting experiences for a global EdTech platform.',
+        role: 'senior product designer', timeline: 'Aug 2022 – present · Boston / Remote', stack: 'react · next.js · tailwind · design-system contributions', live: 'ef.com',
         sections: [
-          { h: 'Overview', p: [
-            "Full write-up coming. In short: the MTA's GTFS-Realtime feed is public. The MTA's own app is adversarial. A good tracker should tell you, in one glance, when your train is coming, which line is melting down, and why. Nothing else.",
+          { h: 'Insurance Redesign — +10% Take-Rate', p: [
+            'Led the redesign of the insurance add-on flow, lifting take-rate +10% on a product with eight-figure annual GMV. Ran the full loop: qualitative discovery, quantitative event instrumentation, design-system contributions, and front-end implementation alongside engineering.',
+          ]},
+          { h: 'Checkout — +31% Velocity', p: [
+            'Rebuilt the checkout step sequence into a single-page progressive disclosure pattern, cutting time-to-complete by 31% and pulling forward the moment of commitment.',
+          ]},
+          { h: 'Quoting Tool — +8% Volume', p: [
+            'Shipped a quoting-tool redesign that lifted quoting volume +8% by removing cognitive-load dead ends in the advisor dashboard. Rolled out to advisors across 50+ countries.',
+            'Authored internal strategic frameworks used across the design org — Confidence-to-Book (CtB) for advisor-assisted funnels and MIND for user-research synthesis.',
+          ], quote: 'Contributed production React / Next.js / Tailwind code to the design-system library; trusted to ship changes without engineering handoff for component-level updates.' },
+        ],
+      },
+      zulily: {
+        n: '04', year: '2021—22', title: 'Zulily',
+        tagline: 'Growth, personalization, and lifecycle for 16M+ daily shoppers.',
+        role: 'senior UX designer, growth & personalization', timeline: 'Apr 2021 – Aug 2022 · Seattle / Remote', stack: 'react · experiment design · data-science partnership', live: 'zulily.com',
+        sections: [
+          { h: 'Growth Experiments at 16M+ Daily Sends', p: [
+            'Owned UX for growth experiments on a surface driving 16M+ daily personalized sends. Designed, shipped, and iterated on acquisition and re-engagement flows against conversion, revenue-per-send, and retention metrics.',
+          ]},
+          { h: 'Stepped In as Front-End', p: [
+            'Stepped in as front-end developer during a staffing gap to ship a revamped onboarding funnel in React. Owned the handoff, the implementation, and the post-launch experiment analysis.',
+            'Partnered with data science on a personalization ranking pilot; defined the interaction model and the evaluation UX so analysts could inspect model outputs against human judgment.',
+          ]},
+        ],
+      },
+      'social-booth': {
+        n: '05', year: '2016—20', title: 'The Social Booth',
+        tagline: 'Creative director, Mumbai. Scaled a design team 1 → 10+. Campaigns for Ducati, Audi, and 20+ enterprise clients across APAC.',
+        role: 'creative director', timeline: '2016 – 2020 · Mumbai', stack: 'brand systems · campaigns · retail activations · launch films', live: '—',
+        sections: [
+          { h: 'Team and Practice', p: [
+            'Scaled the design team from 1 to 10+. Built the brand practice. Owned end-to-end creative direction — brand systems, digital campaigns, launch films, and retail activations — across 20+ concurrent clients.',
+            'Campaigns for Ducati (500% online-sales lift in-market), Audi, and other enterprise brands across APAC. Prior: Senior Designer & Producer at Adwita (2015–16).',
           ]},
         ],
       },

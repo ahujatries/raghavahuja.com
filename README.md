@@ -1,6 +1,6 @@
 # raghavahuja.com
 
-Personal site — senior design engineer. Static HTML/CSS/JS, no build step.
+Personal site — design engineer & senior product designer. Static HTML/CSS/JS, no build step.
 
 ## Pages
 
