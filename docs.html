@@ -9,6 +9,8 @@
   <link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin>
+    <script defer data-domain="raghavahuja.com" src="https://plausible.io/js/script.outbound-links.file-downloads.tagged-events.js"></script>
+  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
   <link rel="stylesheet" href="site.css">
   <link rel="canonical" href="https://raghavahuja.com/docs">
   <meta property="og:type" content="website">
@@ -201,6 +203,14 @@
       <li><strong>Live activity</strong> fetches <code>api.github.com/users/ahujatries/events/public</code> client-side with a 60s sessionStorage cache and a static fallback. One call per visitor per minute.</li>
       <li><strong>Build SHA + shipped-ago</strong> fetched once per session from <code>api.github.com/repos/ahujatries/raghavahuja.com/commits</code>. 5-minute sessionStorage cache.</li>
       <li><strong>Vercel edge cache</strong> serves everything else.</li>
+    </ul>
+
+    <h2>Privacy</h2>
+    <ul>
+      <li><strong>Analytics</strong> — Plausible. Cookieless, no cross-site tracking, no PII, no fingerprint. Just page views + a handful of named events (<code>cmdk:open</code>, <code>vs:open</code>, <code>theme:toggle</code>, <code>case:read-complete</code>, <code>ef:unlock-*</code>, <code>doc:open</code>).</li>
+      <li><strong>No third-party embeds</strong> beyond Plausible and the GitHub events API.</li>
+      <li><strong>localStorage</strong> stores your theme preference and whether you've dismissed the view-source hint. That's it.</li>
+      <li><strong>sessionStorage</strong> caches the GitHub events payload (60s) and, if you've unlocked the EF case study, the decrypted HTML for that tab.</li>
     </ul>
 
     <h2>Accessibility</h2>
@@ -429,6 +439,7 @@ export async function GET() {
       const tpl = document.getElementById(`doc-${slug}`);
       const body = document.getElementById('doc-body');
       if (tpl) body.appendChild(tpl.content.cloneNode(true));
+      if (window.plausible) window.plausible('doc:open', { props: { slug } });
 
       // prev / next
       const i = ORDER.indexOf(slug);

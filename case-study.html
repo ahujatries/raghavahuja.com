@@ -9,6 +9,8 @@
   <link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin>
+    <script defer data-domain="raghavahuja.com" src="https://plausible.io/js/script.outbound-links.file-downloads.tagged-events.js"></script>
+  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
   <link rel="stylesheet" href="site.css">
   <link rel="canonical" href="https://raghavahuja.com/case-study">
   <meta property="og:type" content="article">
@@ -39,20 +41,28 @@
     <div id="nav-mount"></div>
 
     <main id="main">
-    <div class="case-layout">
+    <div class="case-layout" id="case-layout">
       <aside class="case-spine" id="case-spine">case study</aside>
       <div class="case-content">
-        <header class="case-head">
+<header class="case-head">
           <div class="kicker" id="cs-kicker">case study · no. 01 · 2026</div>
           <h1 id="cs-title">Arqo</h1>
           <p class="subtitle" id="cs-subtitle">The mobile-first, script-led filmmaking tool for every creator on the planet.</p>
           <div class="case-meta" id="cs-meta"></div>
+          <div class="case-stack" id="cs-stack" hidden>
+            <div class="label">stack receipts</div>
+            <div class="case-stack-grid" id="cs-stack-grid"></div>
+          </div>
         </header>
 
         <article class="case-body" id="cs-body"></article>
 
         <nav class="case-nav" id="cs-nav" aria-label="case study nav"></nav>
       </div>
+      <aside class="case-toc" id="case-toc" aria-label="in this study">
+        <div class="label">in this study</div>
+        <ol id="case-toc-list"></ol>
+      </aside>
     </div>
     </main>
 
@@ -563,6 +573,14 @@ useEffect(() =&gt; {
           stack: 'Next.js 14 · Supabase · Postgres + pgvector · TypeScript · Tailwind · Liveblocks + Yjs · Tauri · Capacitor · custom contenteditable · FDX parser/writer · Stripe · Vercel',
           live: 'tryarqo.com ↗',
         },
+        stack: [
+          ['next', '14.2.3'], ['react', '18.3.1'], ['typescript', '5.4.5'],
+          ['@supabase/supabase-js', '2.43.0'], ['pgvector', '0.8.0'],
+          ['@liveblocks/client', '1.12.0'], ['yjs', '13.6.14'],
+          ['tauri', '1.6.2'], ['@capacitor/core', '6.0.0'],
+          ['tailwindcss', '3.4.3'], ['pdf-lib', '1.17.1'],
+          ['stripe', '15.0.0'], ['zustand', '4.5.2'],
+        ],
       },
       futbolis: {
         n: '02', year: '2026', title: 'Futbolis.live',
@@ -573,6 +591,11 @@ useEffect(() =&gt; {
           stack: 'Next.js 16 · React 19 · TypeScript · Tailwind v4 · Mapbox GL JS · Framer Motion · Vercel Edge',
           live: 'futbolis.live ↗',
         },
+        stack: [
+          ['next', '16.0.0'], ['react', '19.0.0'], ['typescript', '5.5.4'],
+          ['tailwindcss', '4.0.0-beta'], ['mapbox-gl', '3.4.0'],
+          ['framer-motion', '11.3.19'], ['@vercel/analytics', '1.3.1'],
+        ],
       },
       ef: {
         n: '03', year: '2022—now', title: 'EF Education First',
@@ -583,6 +606,10 @@ useEffect(() =&gt; {
           stack: 'React · Next.js · Tailwind · design-system contributions · event instrumentation',
           live: 'ef.com ↗',
         },
+        stack: [
+          ['react', '18.x'], ['next', '14.x'], ['typescript', '5.x'],
+          ['tailwindcss', '3.x'], ['figma', 'advanced · auto-layout · variables'],
+        ],
       },
       zulily: {
         n: '04', year: '2021—22', title: 'Zulily',
@@ -593,6 +620,10 @@ useEffect(() =&gt; {
           stack: 'React · experiment design · data-science partnership',
           live: 'zulily.com ↗',
         },
+        stack: [
+          ['react', '17.x'], ['experiment platform', 'internal'],
+          ['figma', 'growth system'],
+        ],
       },
       'social-booth': {
         n: '05', year: '2016—20', title: 'The Social Booth',
@@ -603,6 +634,7 @@ useEffect(() =&gt; {
           stack: 'Brand systems · campaigns · retail activations · launch films',
           live: '—',
         },
+        stack: null,
       },
     };
     const ORDER = ['arqo', 'futbolis', 'ef', 'zulily', 'social-booth'];
@@ -611,6 +643,21 @@ useEffect(() =&gt; {
     const slug = params.get('slug') || 'arqo';
     if (!CASES[slug]) window.location.replace('/doesnotexist');
     const c = CASES[slug] || CASES.arqo;
+
+    // per-case OG image + title + canonical
+    (function swapOg() {
+      const url = `https://raghavahuja.com/og/${slug}.png`;
+      const title = `${c.title} · case study · raghav ahuja`;
+      const desc = c.subtitle;
+      document.querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]')
+        .forEach((m) => m.setAttribute('content', url));
+      document.querySelectorAll('meta[property="og:title"], meta[name="twitter:title"]')
+        .forEach((m) => m.setAttribute('content', title));
+      document.querySelectorAll('meta[property="og:description"], meta[name="twitter:description"]')
+        .forEach((m) => m.setAttribute('content', desc));
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute('href', `https://raghavahuja.com/case-study?slug=${slug}`);
+    })();
 
     // head
     document.getElementById('cs-kicker').textContent = `case study · no. ${c.n} · ${c.year}`;
@@ -630,6 +677,16 @@ useEffect(() =&gt; {
     metaEl.innerHTML = metaRows.map(([k, v]) =>
       `<div><div class="k">${k}</div><div${k === 'live' ? ' style="color: var(--accent);"' : ''}>${v}</div></div>`
     ).join('');
+
+    // stack receipts — grep-able deps with versions
+    if (c.stack && c.stack.length) {
+      const stackWrap = document.getElementById('cs-stack');
+      const stackGrid = document.getElementById('cs-stack-grid');
+      stackGrid.innerHTML = c.stack.map(([dep, ver]) =>
+        `<div class="case-stack-row"><span class="dep">${dep}</span><span class="ver">${ver}</span></div>`
+      ).join('');
+      stackWrap.hidden = false;
+    }
 
     // body — clone the template
     const body = document.getElementById('cs-body');
@@ -695,13 +752,16 @@ useEffect(() =&gt; {
         err.textContent = '';
         const pw = input.value.trim();
         if (!pw) { err.textContent = 'enter the password'; return; }
+        if (window.plausible) window.plausible('ef:unlock-attempt');
         try {
           const html = await decryptLocked('ef', pw);
           try { sessionStorage.setItem('ef:unlocked', html); } catch (e) {}
           bodyEl.innerHTML = html;
+          if (window.plausible) window.plausible('ef:unlock-success');
         } catch (_) {
           err.textContent = 'wrong password — check the email';
           input.select();
+          if (window.plausible) window.plausible('ef:unlock-fail');
         }
       });
       requestAnimationFrame(() => input.focus());
@@ -720,13 +780,57 @@ useEffect(() =&gt; {
       : `<a href="contact.html" style="color: var(--accent);"><span class="label">end</span>say hi →</a>`;
     nav.innerHTML = prevLink + nextLink;
 
-    // reading progress
+    // ===== table of contents (desktop only, auto-generated from h2s) =====
+    (function buildToc() {
+      const bodyEl = document.getElementById('cs-body');
+      const tocList = document.getElementById('case-toc-list');
+      const tocWrap = document.getElementById('case-toc');
+      const layout = document.getElementById('case-layout');
+      // Wait a tick for the body template to be injected first.
+      requestAnimationFrame(() => {
+        const headings = Array.from(bodyEl.querySelectorAll('h2'));
+        if (headings.length < 3) return; // short pages (EF gate, social-booth) don't need a TOC
+        headings.forEach((h, i) => {
+          const id = 'sec-' + (h.textContent || ('section-' + i))
+            .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+          h.id = id;
+          const li = document.createElement('li');
+          li.dataset.id = id;
+          li.innerHTML = `<a href="#${id}">${h.textContent}</a>`;
+          tocList.appendChild(li);
+        });
+        layout.classList.add('has-toc');
+        // active-section highlight via IntersectionObserver
+        const lis = Array.from(tocList.querySelectorAll('li'));
+        const byId = new Map(lis.map((li) => [li.dataset.id, li]));
+        const io = new IntersectionObserver((entries) => {
+          // Find the topmost entry whose top is above 30% viewport
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+          if (visible.length) {
+            lis.forEach((li) => li.classList.remove('active'));
+            const active = byId.get(visible[0].target.id);
+            if (active) active.classList.add('active');
+          }
+        }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+        headings.forEach((h) => io.observe(h));
+      });
+    })();
+
+    // reading progress + fire read-complete once per case per session
     const progressBar = document.getElementById('case-progress-bar');
+    let readFired = false;
     function onScroll() {
       const h = document.documentElement;
       const scrolled = h.scrollTop;
       const max = h.scrollHeight - h.clientHeight;
-      progressBar.style.width = max > 0 ? Math.min(100, (scrolled / max) * 100) + '%' : '0%';
+      const pct = max > 0 ? Math.min(100, (scrolled / max) * 100) : 0;
+      progressBar.style.width = pct + '%';
+      if (!readFired && pct >= 92 && window.plausible) {
+        readFired = true;
+        window.plausible('case:read-complete', { props: { slug } });
+      }
     }
     document.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
