@@ -9,3 +9,4 @@ dist/
 
 # plaintext sources for password-locked cases — NEVER commit
 scripts/cases/*.plain.html
+.claude/
