@@ -1,0 +1,424 @@
+// raghavahuja.com — site interactions
+(function () {
+  'use strict';
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const active = document.body.getAttribute('data-page') || '';
+
+  // ---------- shared chrome injection ----------
+  function mountChrome() {
+    // status bar
+    if (!document.querySelector('.status-bar')) {
+      const sb = document.createElement('div');
+      sb.className = 'status-bar';
+      sb.setAttribute('role', 'status');
+      sb.innerHTML = '<span><span class="sb-dot"></span> online · v1.0.3 · lighthouse 98</span>' +
+        '<span class="sb-clocks">' +
+        '<span>MUM <time id="clk-mum">--:--:--</time></span>' +
+        '<span>NYC <time id="clk-nyc">--:--:--</time></span>' +
+        '<span>SFO <time id="clk-sfo">--:--:--</time></span>' +
+        '</span>';
+      document.body.insertBefore(sb, document.body.firstChild);
+    }
+
+    // nav — inject into placeholder if present
+    const navMount = document.getElementById('nav-mount');
+    if (navMount) {
+      const items = [['work','work.html'],['lab','lab.html'],['notes','notes.html'],['about','about.html'],['contact','contact.html']];
+      navMount.outerHTML = '<nav class="nav" aria-label="primary">' +
+        '<div class="nav-left">' +
+          '<a href="index.html" class="brand">raghavahuja<span class="caret">_</span></a>' +
+          items.map(([l,h]) => `<a href="${h}"${active===l?' class="active"':''}>${l}</a>`).join('') +
+        '</div>' +
+        '<div class="nav-right">' +
+          '<button id="cmdk-trigger" class="nav-search" aria-label="Open command palette">' +
+            '<span class="label-chrome">search</span><kbd class="kbd">⌘</kbd><kbd class="kbd">K</kbd>' +
+          '</button>' +
+        '</div>' +
+      '</nav>';
+    }
+
+    // footer
+    const footMount = document.getElementById('footer-mount');
+    if (footMount) {
+      footMount.outerHTML = '<footer class="footer">' +
+        '<div>' +
+          '<div style="color: var(--fg);">raghav ahuja</div>' +
+          '<div>senior design engineer · nyc</div>' +
+          '<div style="margin-top: 8px;">' +
+            '<a href="mailto:hi@raghavahuja.com">hi@raghavahuja.com</a> · ' +
+            '<a href="https://github.com/ahujatries">github</a> · ' +
+            '<a href="#">twitter</a> · ' +
+            '<a href="/resume.pdf">resume</a>' +
+          '</div>' +
+        '</div>' +
+        '<div class="right">' +
+          '<div>build <span style="color: var(--accent);">a3f2e91</span></div>' +
+          '<div>deployed 2026-04-23 09:12 PST</div>' +
+          '<div style="color: var(--fg-dim);" id="reader-tz"></div>' +
+        '</div>' +
+      '</footer>';
+    }
+
+    // grid overlay
+    if (!document.getElementById('grid-overlay')) {
+      const go = document.createElement('div');
+      go.id = 'grid-overlay'; go.className = 'grid-overlay'; go.setAttribute('aria-hidden', 'true');
+      document.body.insertBefore(go, document.body.firstChild);
+    }
+
+    // cmdk
+    if (!document.getElementById('cmdk')) {
+      const cm = document.createElement('div');
+      cm.id = 'cmdk'; cm.className = 'cmdk-overlay';
+      cm.setAttribute('role', 'dialog'); cm.setAttribute('aria-modal', 'true'); cm.setAttribute('aria-label', 'Command palette');
+      cm.innerHTML = '<div class="cmdk" role="combobox" aria-expanded="true">' +
+        '<input id="cmdk-input" type="text" placeholder="type a route, command, or `chai`…" autocomplete="off" spellcheck="false" aria-label="Command input">' +
+        '<div id="cmdk-results" class="cmdk-results" role="listbox"></div>' +
+        '<div class="cmdk-foot">' +
+          '<span><kbd class="kbd">↑↓</kbd> nav</span>' +
+          '<span><kbd class="kbd">↵</kbd> open</span>' +
+          '<span><kbd class="kbd">esc</kbd> close</span>' +
+          '<span id="cmdk-count" style="margin-left:auto;"></span>' +
+        '</div>' +
+      '</div>';
+      document.body.appendChild(cm);
+    }
+
+    // view-source drawer
+    if (!document.getElementById('vs-drawer')) {
+      const vsS = document.createElement('div');
+      vsS.id = 'vs-scrim'; vsS.className = 'vs-scrim'; vsS.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(vsS);
+      const vs = document.createElement('aside');
+      vs.id = 'vs-drawer'; vs.className = 'vs-drawer';
+      vs.setAttribute('aria-hidden', 'true'); vs.setAttribute('aria-label', 'View source');
+      vs.innerHTML = '<div class="vs-head">' +
+        '<span class="label-chrome">view source · <span id="vs-name">component</span></span>' +
+        '<button id="vs-close" class="vs-close" aria-label="Close">esc</button>' +
+      '</div>' +
+      '<pre class="vs-pre"><code id="vs-code"></code></pre>';
+      document.body.appendChild(vs);
+    }
+
+    // konami toast
+    if (!document.getElementById('konami-toast')) {
+      const kt = document.createElement('div');
+      kt.id = 'konami-toast'; kt.className = 'konami-toast';
+      kt.setAttribute('role', 'status'); kt.setAttribute('aria-live', 'polite');
+      kt.hidden = true;
+      kt.textContent = 'नमस्ते · crt mode enabled';
+      document.body.appendChild(kt);
+    }
+  }
+
+  mountChrome();
+
+  // ---------- clocks ----------
+  const clocks = [
+    ['clk-mum', 'Asia/Kolkata'],
+    ['clk-nyc', 'America/New_York'],
+    ['clk-sfo', 'America/Los_Angeles'],
+  ];
+  function tickClocks() {
+    const now = new Date();
+    for (const [id, tz] of clocks) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+      el.textContent = new Intl.DateTimeFormat('en-GB', {
+        timeZone: tz, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+      }).format(now);
+    }
+  }
+  tickClocks();
+  setInterval(tickClocks, 1000);
+
+  // ---------- reader timezone in footer ----------
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const now = new Date().toLocaleString('sv-SE', { timeZone: tz }).replace('T', ' ').slice(0, 16);
+    const rt = document.getElementById('reader-tz');
+    if (rt) rt.textContent = `you: ${now} ${tz}`;
+  } catch (e) {}
+
+  // ---------- typewriter ----------
+  const ROLES = [
+    'design systems',
+    'performant UIs',
+    'realtime products',
+    'editor engines',
+    'map experiences',
+  ];
+  const typer = document.getElementById('typer');
+  if (typer) {
+    if (reduceMotion) {
+      typer.textContent = ROLES[0];
+    } else {
+      let i = 0, txt = '', del = false;
+      function step() {
+        const word = ROLES[i % ROLES.length];
+        if (!del && txt === word) {
+          setTimeout(() => { del = true; step(); }, 1400);
+          return;
+        }
+        if (del && txt === '') {
+          del = false; i++;
+          setTimeout(step, 120);
+          return;
+        }
+        txt = del ? word.slice(0, txt.length - 1) : word.slice(0, txt.length + 1);
+        typer.textContent = txt;
+        setTimeout(step, del ? 38 : 75);
+      }
+      step();
+    }
+  }
+
+  // ---------- live activity tick ----------
+  const tickEl = document.getElementById('tick');
+  if (tickEl) {
+    let n = 0;
+    setInterval(() => { n++; tickEl.textContent = String(n); }, 60000);
+  }
+
+  // ---------- grid overlay ----------
+  const gridEl = document.getElementById('grid-overlay');
+  if (gridEl && !gridEl.children.length) {
+    for (let k = 0; k < 12; k++) {
+      const d = document.createElement('div');
+      gridEl.appendChild(d);
+    }
+  }
+
+  function isTypingTarget(t) {
+    return t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (isTypingTarget(e.target)) return;
+    if (e.key === 'g') gridEl?.classList.add('on');
+    if (e.key === 'G') gridEl?.classList.toggle('on');
+  });
+  document.addEventListener('keyup', (e) => {
+    if (e.key === 'g') gridEl?.classList.remove('on');
+  });
+
+  // ---------- theme toggle ----------
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  }
+  document.addEventListener('keydown', (e) => {
+    if (isTypingTarget(e.target)) return;
+    if (e.key === 't') toggleTheme();
+  });
+
+  // ---------- view-source drawer ----------
+  const SOURCES = {
+    LiveActivity: `function LiveActivity() {
+  const commits = await fetch('/api/commits', {
+    next: { revalidate: 60 }          // 60s edge cache —
+  });                                   // N users = 1 upstream req.
+  return (
+    <section>
+      <Header dot="live" subtitle="ahujatries" />
+      {commits.map(c => <Row {...c} />)}
+    </section>
+  );
+}`,
+    WorkCard: `function WorkCard({ item }) {
+  return (
+    <a href={\`/work/\${item.slug}\`} className="work-card">
+      <Meta n={item.n} year={item.year} />
+      <h3>{item.title}</h3>
+      <p>{item.tagline}</p>
+      <Pills tech={item.tech} />
+    </a>
+  );
+}`,
+  };
+
+  const vsScrim = document.getElementById('vs-scrim');
+  const vsDrawer = document.getElementById('vs-drawer');
+  const vsName = document.getElementById('vs-name');
+  const vsCode = document.getElementById('vs-code');
+  const vsClose = document.getElementById('vs-close');
+
+  function openVS(which) {
+    vsName.textContent = which || 'component';
+    vsCode.textContent = SOURCES[which] || '// source for this component is not wired yet';
+    vsDrawer.classList.add('open');
+    vsScrim.classList.add('open');
+    vsDrawer.setAttribute('aria-hidden', 'false');
+  }
+  function closeVS() {
+    vsDrawer.classList.remove('open');
+    vsScrim.classList.remove('open');
+    vsDrawer.setAttribute('aria-hidden', 'true');
+  }
+
+  document.querySelectorAll('.vs-handle').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openVS(btn.getAttribute('data-vs'));
+    });
+  });
+  vsScrim?.addEventListener('click', closeVS);
+  vsClose?.addEventListener('click', closeVS);
+
+  // ---------- command palette ----------
+  const CMDK_ITEMS = [
+    { label: 'home', path: '/', href: 'index.html', kind: 'route' },
+    { label: 'work', path: '/work', href: 'work.html', kind: 'route' },
+    { label: 'arqo · case study', path: '/work/arqo', href: 'case-study.html?slug=arqo', kind: 'route' },
+    { label: 'futbolis · case study', path: '/work/futbolis', href: 'case-study.html?slug=futbolis', kind: 'route' },
+    { label: 'subway · case study', path: '/work/subway', href: 'case-study.html?slug=subway', kind: 'route' },
+    { label: 'lab', path: '/lab', href: 'lab.html', kind: 'route' },
+    { label: 'notes', path: '/notes', href: 'notes.html', kind: 'route' },
+    { label: 'about', path: '/about', href: 'about.html', kind: 'route' },
+    { label: 'contact', path: '/contact', href: 'contact.html', kind: 'route' },
+    { label: 'toggle theme', path: 't', kind: 'cmd', action: 'theme' },
+    { label: 'toggle grid overlay', path: 'g', kind: 'cmd', action: 'grid' },
+    { label: 'open resume (pdf)', path: '/resume.pdf', href: '/resume.pdf', kind: 'cmd' },
+    { label: 'copy email', path: 'hi@raghavahuja.com', kind: 'cmd', action: 'email' },
+    { label: 'github · ahujatries', path: 'github.com/ahujatries', href: 'https://github.com/ahujatries', kind: 'cmd' },
+    { label: 'chai', path: '☕', kind: 'easter', action: 'chai' },
+  ];
+
+  function fuzzy(q, s) {
+    q = q.toLowerCase(); s = s.toLowerCase();
+    let i = 0;
+    for (const c of s) if (c === q[i]) i++;
+    return i === q.length;
+  }
+
+  const overlay = document.getElementById('cmdk');
+  const input = document.getElementById('cmdk-input');
+  const results = document.getElementById('cmdk-results');
+  const countEl = document.getElementById('cmdk-count');
+  let sel = 0;
+  let currentFiltered = [];
+
+  function filter(q) {
+    if (!q) return CMDK_ITEMS.filter((i) => i.kind !== 'easter');
+    return CMDK_ITEMS.filter((i) => fuzzy(q, i.label) || fuzzy(q, i.path));
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  }
+
+  function highlight(text, q) {
+    if (!q) return escapeHtml(text);
+    const idx = text.toLowerCase().indexOf(q.toLowerCase());
+    if (idx < 0) return escapeHtml(text);
+    return escapeHtml(text.slice(0, idx)) +
+      '<span class="hit">' + escapeHtml(text.slice(idx, idx + q.length)) + '</span>' +
+      escapeHtml(text.slice(idx + q.length));
+  }
+
+  function render() {
+    const q = input.value.trim();
+    currentFiltered = filter(q);
+    if (sel >= currentFiltered.length) sel = Math.max(0, currentFiltered.length - 1);
+    if (currentFiltered.length === 0) {
+      results.innerHTML = '<div class="cmdk-row" style="color: var(--fg-dim);">no match. try `work`, `arqo`, `theme`</div>';
+    } else {
+      results.innerHTML = currentFiltered.map((item, i) =>
+        `<div class="cmdk-row ${i === sel ? 'selected' : ''}" data-i="${i}" role="option">
+          <span>${highlight(item.label, q)}</span>
+          <span class="path">${escapeHtml(item.path)}</span>
+        </div>`
+      ).join('');
+    }
+    countEl.textContent = currentFiltered.length + ' result' + (currentFiltered.length === 1 ? '' : 's');
+  }
+
+  function openCmdk() {
+    overlay.classList.add('open');
+    sel = 0;
+    input.value = '';
+    render();
+    setTimeout(() => input.focus(), 0);
+  }
+  function closeCmdk() {
+    overlay.classList.remove('open');
+  }
+
+  function run(item) {
+    if (!item) return;
+    if (item.action === 'theme') {
+      toggleTheme();
+    } else if (item.action === 'grid') {
+      gridEl?.classList.toggle('on');
+    } else if (item.action === 'email') {
+      navigator.clipboard?.writeText('hi@raghavahuja.com').catch(() => {});
+    } else if (item.action === 'chai') {
+      showChai(); return;
+    } else if (item.href) {
+      if (item.href.startsWith('http')) window.open(item.href, '_blank', 'noopener');
+      else window.location.href = item.href;
+    }
+    closeCmdk();
+  }
+
+  function showChai() {
+    results.innerHTML = `<pre style="margin:0; padding:16px; color: var(--accent); font-size:12px; line-height:14px;">      ( (
+       ) )
+    .______.
+    |      |]   masala chai — poured.
+    \\      /
+     \`----'</pre>`;
+    setTimeout(() => { if (overlay.classList.contains('open')) render(); }, 2800);
+  }
+
+  document.getElementById('cmdk-trigger')?.addEventListener('click', openCmdk);
+  overlay?.addEventListener('click', (e) => { if (e.target === overlay) closeCmdk(); });
+  input?.addEventListener('input', () => { sel = 0; render(); });
+  results?.addEventListener('click', (e) => {
+    const row = e.target.closest('.cmdk-row');
+    if (!row) return;
+    const i = parseInt(row.getAttribute('data-i'), 10);
+    if (!isNaN(i)) run(currentFiltered[i]);
+  });
+  results?.addEventListener('mousemove', (e) => {
+    const row = e.target.closest('.cmdk-row');
+    if (!row) return;
+    const i = parseInt(row.getAttribute('data-i'), 10);
+    if (!isNaN(i) && i !== sel) { sel = i; render(); }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (overlay.classList.contains('open')) closeCmdk(); else openCmdk();
+      return;
+    }
+    if (e.key === 'Escape') {
+      if (overlay.classList.contains('open')) closeCmdk();
+      if (vsDrawer.classList.contains('open')) closeVS();
+    }
+    if (!overlay.classList.contains('open')) return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); sel = Math.min(sel + 1, currentFiltered.length - 1); render(); }
+    if (e.key === 'ArrowUp')   { e.preventDefault(); sel = Math.max(sel - 1, 0); render(); }
+    if (e.key === 'Enter')     { e.preventDefault(); run(currentFiltered[sel]); }
+  });
+
+  // ---------- konami ----------
+  const code = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  const buf = [];
+  const toast = document.getElementById('konami-toast');
+  document.addEventListener('keydown', (e) => {
+    buf.push(e.key);
+    if (buf.length > code.length) buf.shift();
+    if (buf.join(',') === code.join(',')) {
+      document.documentElement.style.setProperty('--accent', '#33FF66');
+      document.documentElement.style.setProperty('--accent-hover', '#66FF99');
+      document.documentElement.style.setProperty('--accent-press', '#22CC44');
+      if (toast) { toast.hidden = false; }
+    }
+  });
+})();

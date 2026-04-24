@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="raghav ahuja — lab. Experiments and small pieces.">
+  <meta name="theme-color" content="#0A0A0A">
+  <title>lab · raghav ahuja</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body data-page="lab">
+  <script>try { var s = localStorage.getItem('theme'); if (s) document.documentElement.setAttribute('data-theme', s); } catch (e) {}</script>
+
+  <div class="wrap">
+    <div id="nav-mount"></div>
+
+    <section class="section">
+      <div class="kicker" style="margin-bottom: 12px;">lab · experiments</div>
+      <h1 style="font-size: 56px; line-height: 60px; letter-spacing: -0.02em; max-width: 18ch; margin-bottom: 16px;">Small pieces, loosely joined.</h1>
+      <p class="sub" style="max-width: 60ch; margin-bottom: 40px;">Every entry is a working demo, not a screenshot. Toggle <span class="kbd">g</span> to see the grid. Press <span class="kbd">⌘</span><span class="kbd">K</span> to jump.</p>
+
+      <div class="lab-grid">
+        <a href="lab.html?slug=grid-overlay" class="lab-card">
+          <div class="lab-title">Grid overlay toggle</div>
+          <div class="lab-desc">Hold <code>g</code> anywhere on the site. 12-col + 4px baseline become visible as hairlines.</div>
+          <div class="pills"><span class="pill">css</span><span class="pill">keyboard</span></div>
+        </a>
+        <a href="lab.html?slug=view-source" class="lab-card">
+          <div class="lab-title">View-source drawer</div>
+          <div class="lab-desc">Every component has a { } handle. Click to see the actual JSX that rendered it.</div>
+          <div class="pills"><span class="pill">react</span><span class="pill">jsx-to-string</span></div>
+        </a>
+        <a href="lab.html?slug=tz-dates" class="lab-card">
+          <div class="lab-title">Timezone-aware dates</div>
+          <div class="lab-desc">Every timestamp on this site renders in your local timezone. No server roundtrip.</div>
+          <div class="pills"><span class="pill">intl</span><span class="pill">ssr</span></div>
+        </a>
+        <a href="lab.html?slug=chai" class="lab-card">
+          <div class="lab-title">ASCII chai dispenser</div>
+          <div class="lab-desc">Type <code>chai</code> in the command palette. You'll see.</div>
+          <div class="pills"><span class="pill">easter</span></div>
+        </a>
+        <a href="lab.html?slug=konami" class="lab-card">
+          <div class="lab-title">नमस्ते mode</div>
+          <div class="lab-desc">Konami code flips the accent to CRT green and drops a devanagari greeting. Only for people who look.</div>
+          <div class="pills"><span class="pill">keyboard</span><span class="pill">css-vars</span></div>
+        </a>
+        <a href="lab.html?slug=subway" class="lab-card">
+          <div class="lab-title">NYC subway tracker</div>
+          <div class="lab-desc">Real-time MTA tracker. Line status, next-train times, service alerts. Built because the MTA app ships worse every year.</div>
+          <div class="pills"><span class="pill">gtfs-realtime</span><span class="pill">mapbox</span></div>
+        </a>
+      </div>
+    </section>
+
+    <div id="footer-mount"></div>
+  </div>
+
+  <script src="site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="raghav ahuja — senior design engineer. I design and build systems end-to-end: product vision, visual system, front-end, back-end.">
+  <meta name="theme-color" content="#0A0A0A">
+  <title>raghav ahuja · senior design engineer</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <script>
+    // boot theme early — no flash
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    } catch (e) {}
+  </script>
+
+  <div id="grid-overlay" class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- status bar -->
+  <div class="status-bar" role="status" aria-live="off">
+    <span><span class="sb-dot"></span> online · v1.0.3 · lighthouse 98</span>
+    <span class="sb-clocks">
+      <span>MUM <time id="clk-mum">--:--:--</time></span>
+      <span>NYC <time id="clk-nyc">--:--:--</time></span>
+      <span>SFO <time id="clk-sfo">--:--:--</time></span>
+    </span>
+  </div>
+
+  <div class="wrap">
+    <!-- nav -->
+    <nav class="nav" aria-label="primary">
+      <div class="nav-left">
+        <a href="index.html" class="brand">raghavahuja<span class="caret">_</span></a>
+        <a href="work.html">work</a>
+        <a href="lab.html">lab</a>
+        <a href="notes.html">notes</a>
+        <a href="about.html">about</a>
+        <a href="contact.html">contact</a>
+      </div>
+      <div class="nav-right">
+        <button id="cmdk-trigger" class="nav-search" aria-label="Open command palette">
+          <span class="label-chrome">search</span>
+          <kbd class="kbd">⌘</kbd><kbd class="kbd">K</kbd>
+        </button>
+      </div>
+    </nav>
+
+    <!-- hero -->
+    <section class="hero">
+      <div class="hero-marker">
+        <span>01 / index</span>
+        <span>raghavahuja.com</span>
+      </div>
+      <div class="kicker" style="margin-top:32px; margin-bottom:20px;">
+        senior design engineer · prev. arqo · futbolis
+      </div>
+      <h1>
+        I design &amp; build<br>
+        <span class="accent"><span id="typer"></span><span class="type-caret" aria-hidden="true">▊</span></span>
+      </h1>
+      <p class="sub">
+        The code is part of the craft, not a handoff. I ship end-to-end — product vision, visual system, front-end, back-end — at studio quality and solo velocity.
+      </p>
+      <div class="hero-ctas">
+        <a href="work.html" class="cta cta-primary">selected work →</a>
+        <a href="mailto:hi@raghavahuja.com" class="cta">get in touch</a>
+        <span class="cta-hint">or press <span class="kbd">⌘</span> <span class="kbd">K</span></span>
+      </div>
+      <div class="signal-bar"><div class="signal-fill"></div></div>
+    </section>
+
+    <!-- live + now -->
+    <div class="two-col">
+      <section class="live-activity" aria-labelledby="live-heading">
+        <button class="vs-handle" data-vs="LiveActivity" title="view source" aria-label="view source">{ }</button>
+        <div class="live-head">
+          <span class="label-chrome" id="live-heading"><span class="live-dot"></span>live · github.com/ahujatries</span>
+          <span class="label-chrome">refreshes every 60s · edge cached · tick <span id="tick">0</span></span>
+        </div>
+        <div class="live-row"><span class="repo">arqo</span><span class="commit-msg">fix: paginator widow suppression on dual dialogue</span><span class="when">12m ago</span></div>
+        <div class="live-row"><span class="repo">futbolis</span><span class="commit-msg">add: extra-time indicator on carousel cards</span><span class="when">2h ago</span></div>
+        <div class="live-row"><span class="repo">futbolis</span><span class="commit-msg">perf: reduce mapbox marker churn on 60s refresh</span><span class="when">5h ago</span></div>
+        <div class="live-row"><span class="repo">subway</span><span class="commit-msg">feat: line status sidebar w/ service alerts</span><span class="when">1d ago</span></div>
+        <div class="live-row"><span class="repo">site</span><span class="commit-msg">chore: bump typography scale, add now-block</span><span class="when">2d ago</span></div>
+      </section>
+
+      <section class="now-block" aria-labelledby="now-heading">
+        <div class="now-head">
+          <span class="label-chrome" id="now-heading"><span class="live-dot"></span>now · updated manually, not by an LLM</span>
+          <span class="label-chrome">last edit · 2d ago</span>
+        </div>
+        <div class="now-row"><span class="now-k">building</span><span class="now-v">a subway tracker for nyc</span><a class="now-link" href="lab.html">→ /lab/subway</a></div>
+        <div class="now-row"><span class="now-k">reading</span><span class="now-v">rauno.me/craft &amp; vercel design</span><span></span></div>
+        <div class="now-row"><span class="now-k">listening</span><span class="now-v">ali sethi — pasoori (on repeat)</span><span></span></div>
+        <div class="now-row"><span class="now-k">location</span><span class="now-v">mumbai, india · 28°c · clear</span><span></span></div>
+      </section>
+    </div>
+
+    <!-- selected work -->
+    <section class="section" aria-labelledby="work-heading">
+      <div class="section-head">
+        <h2 id="work-heading">Selected work</h2>
+        <a href="work.html" class="label-chrome" style="color: var(--accent);">index → /work</a>
+      </div>
+      <div class="work-grid">
+        <a href="case-study.html?slug=arqo" class="work-card">
+          <button class="vs-handle" data-vs="WorkCard" title="view source" aria-label="view source">{ }</button>
+          <div class="meta-row"><span>01 · 2025</span><span>case study ↗</span></div>
+          <h3>Arqo</h3>
+          <p>Mobile-first, script-led filmmaking tool. Custom contenteditable editor, deterministic paginator, lossless FDX round-trip, CRDT collab, Tauri + Capacitor multi-platform.</p>
+          <div class="pills">
+            <span class="pill">next.js 14</span><span class="pill">supabase</span><span class="pill">pgvector</span><span class="pill">yjs</span><span class="pill">liveblocks</span><span class="pill">tauri</span>
+          </div>
+        </a>
+        <a href="case-study.html?slug=futbolis" class="work-card">
+          <button class="vs-handle" data-vs="WorkCard" title="view source" aria-label="view source">{ }</button>
+          <div class="meta-row"><span>02 · 2025</span><span>case study ↗</span></div>
+          <h3>Futbolis.live</h3>
+          <p>Real-time global football visualization. 3D map where every live match pulses at its geographic location. $19/mo infrastructure at 100k concurrent users via edge caching.</p>
+          <div class="pills">
+            <span class="pill">next.js 16</span><span class="pill">react 19</span><span class="pill">mapbox gl</span><span class="pill">framer motion</span><span class="pill">vercel edge</span>
+          </div>
+        </a>
+        <a href="case-study.html?slug=subway" class="work-card">
+          <button class="vs-handle" data-vs="WorkCard" title="view source" aria-label="view source">{ }</button>
+          <div class="meta-row"><span>03 · 2025</span><span>case study ↗</span></div>
+          <h3>NYC Subway Tracker</h3>
+          <p>A live MTA tracker. Real-time line status, next-train times, service alerts. Built because the MTA app ships worse every year.</p>
+          <div class="pills">
+            <span class="pill">react</span><span class="pill">gtfs-realtime</span><span class="pill">mapbox</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- lab -->
+    <section class="section" aria-labelledby="lab-heading">
+      <div class="section-head">
+        <h2 id="lab-heading">From the lab</h2>
+        <a href="lab.html" class="label-chrome" style="color: var(--accent);">all → /lab</a>
+      </div>
+      <div class="lab-grid">
+        <a href="lab.html?slug=grid-overlay" class="lab-card">
+          <div class="lab-title">Grid overlay toggle</div>
+          <div class="lab-desc">Hold <code>g</code> anywhere on the site. 12-col + 4px baseline become visible as hairlines.</div>
+          <div class="pills"><span class="pill">css</span><span class="pill">keyboard</span></div>
+        </a>
+        <a href="lab.html?slug=view-source" class="lab-card">
+          <div class="lab-title">View-source drawer</div>
+          <div class="lab-desc">Every component has a { } handle. Click to see the actual JSX that rendered it.</div>
+          <div class="pills"><span class="pill">react</span><span class="pill">jsx-to-string</span></div>
+        </a>
+        <a href="lab.html?slug=tz-dates" class="lab-card">
+          <div class="lab-title">Timezone-aware dates</div>
+          <div class="lab-desc">Every timestamp on this site renders in your local timezone. No server roundtrip.</div>
+          <div class="pills"><span class="pill">intl</span><span class="pill">ssr</span></div>
+        </a>
+        <a href="lab.html?slug=chai" class="lab-card">
+          <div class="lab-title">ASCII chai dispenser</div>
+          <div class="lab-desc">Type <code>chai</code> in the command palette. You'll see.</div>
+          <div class="pills"><span class="pill">easter</span></div>
+        </a>
+        <a href="lab.html?slug=konami" class="lab-card">
+          <div class="lab-title">नमस्ते mode</div>
+          <div class="lab-desc">Konami code flips the accent to CRT green and drops a devanagari greeting. Only for people who look.</div>
+          <div class="pills"><span class="pill">keyboard</span><span class="pill">css-vars</span></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- notes -->
+    <section class="section" aria-labelledby="notes-heading">
+      <div class="section-head">
+        <h2 id="notes-heading">Recent notes</h2>
+        <a href="notes.html" class="label-chrome" style="color: var(--accent);">all → /notes</a>
+      </div>
+      <div>
+        <a href="notes.html?slug=edge-caching" class="note-row"><span class="date">2026-04-10</span><span>A $19/month infrastructure ceiling</span><span class="tag">infra · 6 min</span></a>
+        <a href="notes.html?slug=paginator" class="note-row"><span class="date">2026-03-22</span><span>Why I wrote a screenplay paginator from scratch</span><span class="tag">arqo · 11 min</span></a>
+        <a href="notes.html?slug=fdx-roundtrip" class="note-row"><span class="date">2026-02-14</span><span>Lossless round-trip is a unit test, not a feature</span><span class="tag">arqo · 4 min</span></a>
+        <a href="notes.html?slug=mobile-first" class="note-row"><span class="date">2026-01-30</span><span>Mobile-first doesn't mean "responsive-later"</span><span class="tag">craft · 5 min</span></a>
+        <a href="notes.html?slug=de-transition" class="note-row"><span class="date">2025-12-18</span><span>Notes on becoming a design engineer</span><span class="tag">career · 7 min</span></a>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="footer">
+      <div>
+        <div style="color: var(--fg);">raghav ahuja</div>
+        <div>senior design engineer · nyc</div>
+        <div style="margin-top: 8px;">
+          <a href="mailto:hi@raghavahuja.com">hi@raghavahuja.com</a> ·
+          <a href="https://github.com/ahujatries">github</a> ·
+          <a href="#">twitter</a> ·
+          <a href="/resume.pdf">resume</a>
+        </div>
+      </div>
+      <div class="right">
+        <div>build <span style="color: var(--accent);">a3f2e91</span></div>
+        <div>deployed 2026-04-23 09:12 PST</div>
+        <div style="color: var(--fg-dim);" id="reader-tz"></div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- command palette -->
+  <div id="cmdk" class="cmdk-overlay" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="cmdk" role="combobox" aria-expanded="true">
+      <input id="cmdk-input" type="text" placeholder="type a route, command, or `chai`…" autocomplete="off" spellcheck="false" aria-label="Command input">
+      <div id="cmdk-results" class="cmdk-results" role="listbox"></div>
+      <div class="cmdk-foot">
+        <span><kbd class="kbd">↑↓</kbd> nav</span>
+        <span><kbd class="kbd">↵</kbd> open</span>
+        <span><kbd class="kbd">esc</kbd> close</span>
+        <span id="cmdk-count" style="margin-left:auto;"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- view-source drawer -->
+  <div id="vs-scrim" class="vs-scrim" aria-hidden="true"></div>
+  <aside id="vs-drawer" class="vs-drawer" aria-hidden="true" aria-label="View source">
+    <div class="vs-head">
+      <span class="label-chrome">view source · <span id="vs-name">component</span></span>
+      <button id="vs-close" class="vs-close" aria-label="Close">esc</button>
+    </div>
+    <pre class="vs-pre"><code id="vs-code"></code></pre>
+  </aside>
+
+  <!-- konami toast -->
+  <div id="konami-toast" class="konami-toast" role="status" aria-live="polite" hidden>नमस्ते · crt mode enabled</div>
+
+  <script src="site.js" defer></script>
+</body>
+</html>
