@@ -171,6 +171,29 @@ body { margin: 0; min-height: 100vh; }
 /* ====================================================
    HERO — editorial, serif-forward
    ==================================================== */
+
+/* entrance stagger — eyebrow → h1 → sub → ctas fade + rise into place */
+.hero .eyebrow,
+.hero h1,
+.hero .sub,
+.hero-ctas {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: hero-in 420ms var(--ease-out) forwards;
+}
+.hero .eyebrow   { animation-delay:   0ms; }
+.hero h1         { animation-delay:  80ms; }
+.hero .sub       { animation-delay: 180ms; }
+.hero-ctas       { animation-delay: 280ms; }
+@keyframes hero-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero .eyebrow, .hero h1, .hero .sub, .hero-ctas {
+    animation: none; opacity: 1; transform: none;
+  }
+}
+
 .hero { padding: 72px 0 56px; position: relative; }
 .hero-marker {
   display: flex; justify-content: space-between;
