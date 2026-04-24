@@ -5,6 +5,16 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const active = document.body.getAttribute('data-page') || '';
 
+  // ---------- analytics helper ----------
+  // Safe even when Plausible is blocked (queue flushes on load).
+  function track(name, props) {
+    try {
+      if (typeof window.plausible === 'function') {
+        window.plausible(name, props ? { props } : undefined);
+      }
+    } catch (e) {}
+  }
+
   // ---------- shared chrome injection ----------
   function mountChrome() {
     // status bar — editorial masthead
@@ -355,6 +365,7 @@
     const next = cur === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch (e) {}
+    track('theme:toggle', { to: next });
   }
   document.addEventListener('keydown', (e) => {
     if (isTypingTarget(e.target)) return;
@@ -398,6 +409,7 @@
     vsDrawer.classList.add('open');
     vsScrim.classList.add('open');
     vsDrawer.setAttribute('aria-hidden', 'false');
+    track('vs:open', { component: which || 'unknown' });
   }
   function closeVS() {
     vsDrawer.classList.remove('open');
@@ -531,6 +543,7 @@
     render();
     // defer focus until after visibility flip so the browser grants it
     requestAnimationFrame(() => input.focus());
+    track('cmdk:open');
   }
   function closeCmdk() {
     overlay.classList.remove('open');
@@ -542,12 +555,14 @@
 
   function run(item) {
     if (!item) return;
+    track('cmdk:run', { item: item.label });
     if (item.action === 'theme') {
       toggleTheme();
     } else if (item.action === 'grid') {
       gridEl?.classList.toggle('on');
     } else if (item.action === 'email') {
       navigator.clipboard?.writeText('work.raghavahuja@gmail.com').catch(() => {});
+      track('contact:copy-email');
     } else if (item.action === 'chai') {
       showChai(); return;
     } else if (item.href) {

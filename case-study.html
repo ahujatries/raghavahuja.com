@@ -9,6 +9,8 @@
   <link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin>
+    <script defer data-domain="raghavahuja.com" src="https://plausible.io/js/script.outbound-links.file-downloads.tagged-events.js"></script>
+  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
   <link rel="stylesheet" href="site.css">
   <link rel="canonical" href="https://raghavahuja.com/case-study">
   <meta property="og:type" content="article">
@@ -746,13 +748,16 @@ useEffect(() =&gt; {
         err.textContent = '';
         const pw = input.value.trim();
         if (!pw) { err.textContent = 'enter the password'; return; }
+        if (window.plausible) window.plausible('ef:unlock-attempt');
         try {
           const html = await decryptLocked('ef', pw);
           try { sessionStorage.setItem('ef:unlocked', html); } catch (e) {}
           bodyEl.innerHTML = html;
+          if (window.plausible) window.plausible('ef:unlock-success');
         } catch (_) {
           err.textContent = 'wrong password — check the email';
           input.select();
+          if (window.plausible) window.plausible('ef:unlock-fail');
         }
       });
       requestAnimationFrame(() => input.focus());
@@ -771,13 +776,19 @@ useEffect(() =&gt; {
       : `<a href="contact.html" style="color: var(--accent);"><span class="label">end</span>say hi →</a>`;
     nav.innerHTML = prevLink + nextLink;
 
-    // reading progress
+    // reading progress + fire read-complete once per case per session
     const progressBar = document.getElementById('case-progress-bar');
+    let readFired = false;
     function onScroll() {
       const h = document.documentElement;
       const scrolled = h.scrollTop;
       const max = h.scrollHeight - h.clientHeight;
-      progressBar.style.width = max > 0 ? Math.min(100, (scrolled / max) * 100) + '%' : '0%';
+      const pct = max > 0 ? Math.min(100, (scrolled / max) * 100) : 0;
+      progressBar.style.width = pct + '%';
+      if (!readFired && pct >= 92 && window.plausible) {
+        readFired = true;
+        window.plausible('case:read-complete', { props: { slug } });
+      }
     }
     document.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
