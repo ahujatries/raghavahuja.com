@@ -7,6 +7,12 @@
   <url><loc>https://raghavahuja.com/case-study?slug=ef</loc><priority>0.8</priority></url>
   <url><loc>https://raghavahuja.com/case-study?slug=zulily</loc><priority>0.7</priority></url>
   <url><loc>https://raghavahuja.com/case-study?slug=social-booth</loc><priority>0.7</priority></url>
+  <url><loc>https://raghavahuja.com/docs</loc><priority>0.8</priority></url>
+  <url><loc>https://raghavahuja.com/docs?d=ctb</loc><priority>0.7</priority></url>
+  <url><loc>https://raghavahuja.com/docs?d=mind</loc><priority>0.7</priority></url>
+  <url><loc>https://raghavahuja.com/docs?d=direction-a</loc><priority>0.7</priority></url>
+  <url><loc>https://raghavahuja.com/docs?d=colophon</loc><priority>0.7</priority></url>
+  <url><loc>https://raghavahuja.com/docs?d=adr-edge-cache</loc><priority>0.7</priority></url>
   <url><loc>https://raghavahuja.com/about</loc><priority>0.8</priority></url>
   <url><loc>https://raghavahuja.com/contact</loc><priority>0.8</priority></url>
   <url><loc>https://raghavahuja.com/lab</loc><priority>0.6</priority></url>
