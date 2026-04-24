@@ -6,12 +6,12 @@
   <meta name="description" content="raghav ahuja — case study.">
   <meta name="theme-color" content="#15110D">
   <title>case study · raghav ahuja</title>
-      <link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css">
   <link rel="canonical" href="https://raghavahuja.com/case-study">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
   <meta property="og:url" content="https://raghavahuja.com/case-study">
   <meta property="og:title" content="case study · raghav ahuja">
   <meta property="og:description" content="Case study from raghav ahuja — design engineer & senior product designer.">
@@ -25,148 +25,632 @@
   <meta name="twitter:title" content="case study · raghav ahuja">
   <meta name="twitter:description" content="Case study from raghav ahuja — design engineer & senior product designer.">
   <meta name="twitter:image" content="https://raghavahuja.com/og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22 fill=%22%230070F3%22%3E_%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%23E86A4E%22%3E.%3C/text%3E%3C/svg%3E">
 </head>
 <body data-page="work">
   <script>try { var s = localStorage.getItem('theme'); if (s) document.documentElement.setAttribute('data-theme', s); } catch (e) {}</script>
 
   <a href="#main" class="skip-link">skip to content</a>
 
+  <!-- reading progress -->
+  <div class="case-progress" aria-hidden="true"><div class="bar" id="case-progress-bar"></div></div>
+
   <div class="wrap">
     <div id="nav-mount"></div>
 
     <main id="main">
+    <div class="case-layout">
+      <aside class="case-spine" id="case-spine">case study</aside>
+      <div class="case-content">
+        <header class="case-head">
+          <div class="kicker" id="cs-kicker">case study · no. 01 · 2026</div>
+          <h1 id="cs-title">Arqo</h1>
+          <p class="subtitle" id="cs-subtitle">The mobile-first, script-led filmmaking tool for every creator on the planet.</p>
+          <div class="case-meta" id="cs-meta"></div>
+        </header>
 
-    <header class="case-head">
-      <div class="kicker" id="cs-kicker">case study · no. 01 · 2026</div>
-      <h1 id="cs-title">Arqo</h1>
-      <p class="tagline" id="cs-tagline">The mobile-first, script-led filmmaking tool for every creator on the planet.</p>
-      <div class="case-meta">
-        <div><div class="k">role</div><div id="cs-role">sole design engineer</div></div>
-        <div><div class="k">timeline</div><div id="cs-timeline">14 weeks to studio-tier parity</div></div>
-        <div><div class="k">stack</div><div id="cs-stack">next · supabase · yjs · tauri</div></div>
-        <div><div class="k">live</div><div style="color: var(--accent);" id="cs-live">arqo.app ↗</div></div>
+        <article class="case-body" id="cs-body"></article>
+
+        <nav class="case-nav" id="cs-nav" aria-label="case study nav"></nav>
       </div>
-    </header>
-
-    <article class="case-body" id="cs-body">
-      <!-- populated by script below -->
-    </article>
-
-    <nav aria-label="case study nav" style="border-top: 1px solid var(--line); padding: 24px 0 48px; display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 13px;">
-      <a href="work.html" style="color: var(--fg-muted);">← all work</a>
-      <a href="contact.html" style="color: var(--accent);">hire me →</a>
-    </nav>
-
+    </div>
     </main>
 
     <div id="footer-mount"></div>
   </div>
 
+  <!-- ==============================================
+       ARQO
+       ============================================== -->
+  <template id="case-arqo">
+    <section>
+      <p class="drop-cap"><strong>Arqo is what happens when you refuse to accept</strong> that screenwriting software should look like it did in 1999. In nine days of focused after-work building — in an agentic-dev workflow using Claude Code — I shipped a custom contenteditable screenplay editor, a deterministic line-by-line paginator running in a web worker, a lossless FDX v2 parser and writer that round-trips against the Final Draft and WriterDuet fixtures, an offline-first IndexedDB architecture with an autosave outbox, a real-time collaboration layer built on Liveblocks + Yjs CRDTs, three synchronized editor surfaces on mobile (Flow, Beats, Pages) that no competitor ships, a 777-script Library embedded with pgvector for Voice Fingerprint and Continuity Reader AI, a Tauri desktop shell, and Capacitor mobile scaffolding.</p>
+      <p>Arqo is not a Final Draft clone with AI stapled on. It is a re-architecture of the entire pre-production workflow — writing, structure, shot-listing, teleprompter, NLE export — around the premise that every film, in every language, starts with a script, and no existing tool treats the script as the source of truth across the full pipeline.</p>
+      <p>This case study documents the architectural decisions, the trade-offs I made explicit before writing code, the pivots I made when reality pushed back, and the things I deliberately did not build — because the product's discipline is at least as important as its feature list.</p>
+    </section>
+
+    <div class="case-stat-row">
+      <div class="case-stat"><div class="n">9<span style="font-size:0.6em;"> days</span></div><div class="l">to shippable MVP engine — after-work sprints</div></div>
+      <div class="case-stat"><div class="n">777</div><div class="l">scripts embedded with pgvector for voice-tuned AI</div></div>
+      <div class="case-stat"><div class="n">7–14<span style="font-size:0.6em;">M</span></div><div class="l">paying creators as the real addressable TAM</div></div>
+    </div>
+
+    <h2>The Problem</h2>
+
+    <h3>Screenwriting software is stuck in 1992</h3>
+    <p>Final Draft has shipped the same mental model for thirty years: one view of the document, one file format (FDX), desktop-only, $250 one-time, UI that reads like a 1999 newsroom tool. It has ~150K active users globally and runs at roughly $30M ARR — a genuinely good business on a category that has stopped evolving.</p>
+    <p>WriterDuet moved to the browser but punted on mobile. Arc Studio ships a beautiful beatboard but can't export a studio-grade PDF. Celtx has effectively abandoned modern UX. Highland 2 is Mac-only. Sudowrite Muse is AI-first but not actually a screenwriting tool.</p>
+    <p>None of them serve the writer who opens their laptop, their phone on the subway, and their iPad at a coffee shop in the same day. None of them serve the filmmaking creator who isn't a union screenwriter but scripts every video. None of them serve the writing partner in Mumbai whose collaborator is in Los Angeles. The category has a fifteen-year feature debt.</p>
+
+    <h3>The mobile gap is where the next generation of creators lives</h3>
+    <p>There are ~150K professional screenwriters globally. There are 2–4M paying filmmaking creators. That second number is the real TAM. Every existing tool treats the phone as a review surface, never a writing surface — and that's where a whole generation of creators is already working.</p>
+
+    <h3>The multilingual gap is larger than the English gap</h3>
+    <p>Every competitor ships English-first, with locale packs as an afterthought. The real addressable creator base across nine languages (EN, ES, FR, PT, Hindi, Indonesian, Turkish, Mandarin-diaspora, Cantonese) is 7–14M paying users, not 2–4M. Hindi, Spanish, and Portuguese alone are ~4–7M of that. No competitor serves them seriously.</p>
+
+    <h3>The AI gap is a values question, not a feature question</h3>
+    <p>Every AI screenwriting product I looked at frames AI as a replacement — paste a prompt, get a scene, copy it into your document, watch your voice vanish into GPT mean. That is the easiest product to build and the worst product to ship, because creators know it flattens voice and because without humans there is no product. The opportunity is AI as an amplifier — operating on what the human wrote, surfacing craft patterns, proposing alternatives in the writer's own voice. Nobody in category is executing this well.</p>
+
+    <blockquote>What if the script were the operating system of the filmmaking workflow, not just a deliverable? What if every downstream surface — shot list, teleprompter, edit, thumbnail, production schedule — traced back to a line in the script, with zero double-entry and zero loss of fidelity?</blockquote>
+
+    <h2>The Solution</h2>
+
+    <h3>1. The script as single source of truth</h3>
+    <p>Every Arqo document is a structured AST, not a blob of text. Each element (scene heading, action, character, parenthetical, dialogue, transition) has a typed node. Every downstream artefact — shot list entry, teleprompter line, NLE export marker, production report row — is a projection of the AST, not a parallel representation. Edit a line of dialogue, the shot list updates. Move a scene, every downstream report updates.</p>
+    <p>This is the architectural decision that makes everything else possible. It's also the decision that makes Arqo categorically different from every competitor, which treats the script as one format among many with import/export boundaries between surfaces.</p>
+
+    <h3>2. Three synchronized editor surfaces on mobile — the only tool that does this</h3>
+    <p><strong>Flow</strong> — the beatboard. Cards for every beat, draggable, filterable, colour-coded by act. Where the story is shaped.</p>
+    <p><strong>Beats</strong> — the structure view. The same document mapped against a chosen framework (Save the Cat, Story Circle, Three-Act, Hero's Journey, 8 more) with live percentage markers. Where structure is audited.</p>
+    <p><strong>Pages</strong> — the industry-format view. Courier 12, 55 lines/page, MORE/CONT'D, dual dialogue, locked scene numbers + A/B, revision marks in the Blue → Pink → Yellow → Green → Goldenrod → Buff → Salmon → Cherry rotation. What prints and what exports.</p>
+    <p>All three on mobile. All three on the same document. No competitor ships this combination anywhere, let alone on phones.</p>
+
+    <h3>3. Professional and creator tiers in one product</h3>
+    <p>Same codebase, same document model, different feature surfacing. A WGA screenwriter uses Pages, FDX export, revision marks, locked scene numbers, and collab. A YouTuber uses Flow, teleprompter, shot list, NLE export, and Creator AI. The underlying engine is identical. The tier surfaces what each audience needs. This is the single architectural bet that lets a solo-to-lean team serve a 7–14M TAM.</p>
+
+    <h3>4. Global from day one</h3>
+    <p>i18n is not an afterthought. The editor, paginator, PDF generator, and FDX layer all accept locale presets (Indian code-switch between Devanagari and Latin, European-French vs. creator-French conventions, Traditional vs. Simplified Chinese). Pricing is PPP-indexed from launch. Payment rails include Stripe, Razorpay (India), PIX (Brazil), and Mada (intended for later Gulf expansion, deferred).</p>
+
+    <h2>Product Architecture</h2>
+
+    <h4>document model</h4>
+<pre><code>ScreenplayDocument
+├── meta (title, author, draft version, revision colour, locked flag)
+├── structure
+│   ├── acts[]
+│   ├── beats[]        → references to nodes
+│   └── framework      (optional — Save the Cat, Story Circle, etc.)
+├── elements[]
+│   ├── SceneHeading   { int_ext, location, time, number, locked }
+│   ├── Action         { text: RichText }
+│   ├── Character      { name, extension }
+│   ├── Parenthetical  { text }
+│   ├── Dialogue       { text: RichText, dual: DialogueRef | null }
+│   └── Transition     { text }
+├── revisions[]        // immutable revision stamps
+├── shotList[]         → references to elements
+└── production         (DOOD, locations, characters, actors)</code></pre>
+    <p>Every element carries a stable ID. Revisions are immutable — a revision doesn't mutate the element, it creates a stamp that layers over it. The FDX exporter walks the AST and emits valid Final Draft XML. The PDF exporter walks the same AST through the paginator.</p>
+
+    <h3>View composition</h3>
+    <p>Each of Flow, Beats, and Pages is a stateless projection of the AST. Opening a second view doesn't duplicate state — it subscribes to the same document store. Edits propagate through a single write path; every view re-derives its render. This is the "one state, many views" pattern most apps pay lip service to and then violate. Arqo enforces it at the type level.</p>
+
+    <h3>Sync layer</h3>
+    <p>The editor state lives locally (Zustand store), mirrored into IndexedDB (for offline), and for shared projects into a Yjs CRDT running through a Liveblocks provider. Writes are local-first; a background queue reconciles with the server when online. Conflict resolution is handled by the CRDT — no manual merge UI required for element-level edits.</p>
+
+    <h2>Engineering Deep-Dives</h2>
+
+    <h3>1. The Custom Contenteditable Editor</h3>
+    <h4>why custom, not lexical / prosemirror / slate</h4>
+    <p>I evaluated all three. ProseMirror's collaborative model is excellent, but its schema ergonomics for a fixed set of screenplay element types felt over-general and under-tuned. Lexical's plugin model is better but its paginator story is weak — pagination requires deterministic layout knowledge the editor doesn't natively expose. Slate is too unopinionated for the kind of input-mode cycling I needed (TAB to cycle element types, ENTER to infer next element from current). The screenplay-element input grammar — TAB on empty line cycles SCENE→ACTION→CHARACTER→DIALOGUE→TRANSITION; ENTER after CHARACTER goes to DIALOGUE; ENTER after DIALOGUE goes to ACTION — is idiosyncratic enough that I wanted direct control over the keydown pipeline.</p>
+    <h4>the actual implementation</h4>
+    <p>A contenteditable root, a normalised input layer that intercepts every keydown and translates to an action (<code>insertElement</code>, <code>cycleElementType</code>, <code>splitAt</code>, <code>mergeWith</code>), and a React render layer that reconciles the DOM from the AST rather than letting contenteditable's native behaviour drift. The input normalisation layer handles TAB cycling, ENTER inference, scene-heading and character auto-caps, smart parenthetical wrapping, paste normalisation (pasted text is typed, element types inferred from content patterns), and iOS keyboard quirks (which drove ~2 days of bug-fixing alone).</p>
+    <blockquote>The cost is ~2,000 lines of editor code I now own forever. The benefit is a deterministic contract between editor and paginator that will save orders of magnitude of bugs downstream.</blockquote>
+
+    <h3>2. The Deterministic Line-by-Line Paginator</h3>
+    <p>Every production-grade screenwriting peer ships a line-by-line paginator. My original <code>words ÷ 250</code> shortcut worked for prototypes and broke on real scripts — scene headings, dialogue blocks, and dual-dialogue tables each have their own line-budgeting rules that word-count approximations destroy.</p>
+<pre><code>AST → Paginator Worker → Laid-out Pages → Renderer
+
+Paginator responsibilities:
+1. Walk every element in order
+2. Apply Courier-12 metrics (60 chars/line body, per-type widths)
+3. Element-specific layout rules:
+   - Scene headings: 1 line, no break
+   - Action: word-wrap at 60, break allowed
+   - Character: 1 line, NEVER break before next dialogue
+   - Dialogue: wrap at 34, break emits (MORE)/(CONT'D)
+   - Dual dialogue: two cols, budgeted separately
+   - Parentheticals: 26 char wrap
+4. Budget against 55 lines/page
+5. Widow/orphan suppression
+6. Emit (MORE) at page bottom, (CONT'D) at next page top
+7. Emit page numbers, scene numbers, revision marks</code></pre>
+    <h4>why a web worker</h4>
+    <p>The paginator runs on every keystroke in a long document. On a 120-page script with 2,000+ elements, running on the main thread drops frames. Offloading to a worker — with transferable AST snapshots to avoid serialisation cost — keeps the editor at 60fps even during cold-start re-pagination.</p>
+    <p>Snapshot testing: the paginator is validated against a hand-verified 120-page screenplay fixture. Every change runs the fixture and diffs page boundaries. Regressions that would silently break real scripts are caught in CI.</p>
+
+    <h3>3. Lossless FDX v2 Round-Trip</h3>
+    <p>FDX is the XML format every studio accepts. Like most XML formats that matured over 20 years, it is a minefield of undocumented edge cases. Arqo's parser and writer preserve:</p>
+    <ul>
+      <li>Formatting runs (bold, italic, underline) nested inside elements.</li>
+      <li><code>&lt;DualDialogue&gt;</code> pairs with correct column assignment and turn order.</li>
+      <li><code>&lt;SceneProperties Locked Number&gt;</code> for production scripts, including A/B/AA/AB scene numbers.</li>
+      <li><code>&lt;Text RevisionID&gt;</code> stamps that cite the revision colour they belong to.</li>
+      <li>Title page metadata, character extensions (V.O., O.S., CONT'D), custom transitions.</li>
+      <li>Action-line images and inline notes.</li>
+    </ul>
+    <p>The round-trip test: Arqo document → FDX export → parse back → diff against original AST. If the diff is non-empty, the round-trip failed. Same test runs against real studio-generated FDX files (the WriterDuet interchange fixture and two production scripts I have access to under NDA).</p>
+    <blockquote>Instead of writing a parser for each Final Draft version, I wrote a tolerant parser that accepts any conformant FDX and normalises it into the Arqo AST; the writer always emits FDX 12. Every document that enters Arqo leaves Arqo in a modern format.</blockquote>
+
+    <h3>4. Real-Time Collaboration: Liveblocks + Yjs</h3>
+    <p>Liveblocks provides the infrastructure I didn't want to build — WebSocket server, auth, presence primitives, room lifecycle. Yjs provides the CRDT guarantees — element-level concurrent edits, conflict-free merge, multi-user undo/redo. Liveblocks has native Yjs integration, so I get both without writing the provider from scratch.</p>
+    <p>The migration threshold is pre-designed. For Team-tier indie writers Liveblocks is fine; for Studio-tier customers that demand collab data inside their VPC, swapping Liveblocks for a self-hosted Yjs provider (y-websocket or Hocuspocus) is a provider swap, not a data migration. I documented the threshold criteria in <code>docs/collab-decision.md</code> so the decision isn't left to founder panic later.</p>
+    <p>Presence without leaking context: cursor position is a Liveblocks presence update. Current selection is presence. <em>Current view</em> (Flow / Beats / Pages) is presence — so when a collaborator is in Beats mode, their cursor is shown as a beat-card highlight, not a phantom cursor in Pages. This cross-view presence model is unique to Arqo and only works because the document is a single AST, not three parallel representations.</p>
+
+    <h3>5. Offline-First Architecture</h3>
+    <p>Writers write on planes. Writers write on subways. Writers write in cafés with bad WiFi. Any tool that's online-only immediately fails a real-world usability test.</p>
+    <p>Every write goes to IndexedDB first. A background autosave outbox reconciles with the server when online. For the offline-only use case (NDA-grade scripts that the server is never allowed to see), I shipped a "Private Draft" project type — local-only, encrypted at rest, never synced. No competitor tells this story because none of them architected for it.</p>
+    <p>The IndexedDB schema has separate object stores for documents, pending_writes, revisions, and local_only_drafts. Cursor-based pagination over the pending queue means replay after a long offline session is O(n) in pending writes, not O(n²).</p>
+
+    <h3>6. PDF Generation — Industry-Standard Output</h3>
+    <p>Agents reject non-standard PDFs. "Close to Final Draft" will bounce. The bar is: Courier 12, exact margins (1.5" left, 1" elsewhere), 55 lines per page, proper element positioning, MORE/CONT'D at breaks, page numbers in header, scene numbers in both gutters for production scripts.</p>
+    <p>I walked the paginator output through <code>pdf-lib</code>, rendering each element at computed coordinates. Courier was embedded as a Type 1 font (not system Courier — output must be identical across OS) so the PDF renders identically on a reviewer's Mac, PC, and Linux machine. Revision marks are rendered as asterisks in the right gutter, coloured to match the revision colour.</p>
+
+    <h3>7. AI Architecture with pgvector</h3>
+    <p>AI works on what the writer has already written. No AI surface generates content from scratch. Every AI interaction is an interview the writer chooses to accept, reject, or edit.</p>
+    <ul>
+      <li><strong>Voice Fingerprint</strong> — Embeds every scene the writer has written into pgvector (OpenAI <code>text-embedding-3-large</code>). When the writer asks for a rewrite, we retrieve the 20 most voice-similar scenes as context, then prompt the LLM with "rewrite this line in the voice demonstrated by these examples." Output stays in the writer's register.</li>
+      <li><strong>Continuity Reader</strong> — Whole-script pass that flags character inconsistencies, missing setups/payoffs, timeline violations. Chunks the script into scene-granular embeddings, retrieves semantically related scenes for each candidate issue. Rate-limited to 1 pass per session with explicit cost caps in the route handler.</li>
+      <li><strong>Scene Surgeon</strong> — Targeted beat-level rewrites that preserve character voice (via Voice Fingerprint) and act position (via the Beats framework).</li>
+      <li><strong>Creator Mode AI</strong> — Hook generator, retention-beat analyzer (flags where audience retention drops at 30s / 60s / 90s marks), CTA optimiser. All three operate on the script; none generate from scratch.</li>
+    </ul>
+    <p>Cost governance: every AI route has a per-user daily cap, a per-request token cap, and an organisation-level monthly ceiling. Cost caps are enforced in the route handler, not in the prompt — because prompt-side cost caps are not real cost caps. Usage metadata is written to a separate telemetry table so I can investigate cost spikes without touching the critical-path database.</p>
+
+    <h3>8. Multi-Platform — Tauri + Capacitor</h3>
+    <p>Same codebase, four surfaces. Web (Next.js on Vercel, primary). Mac + Windows (Tauri wrapper, signed, in the stores — studio IT approves installables before URLs). iOS + Android (Capacitor, native container with proper lifecycle hooks).</p>
+    <p><strong>Why Tauri over Electron</strong>: 10MB binary vs. 150MB. Native WebView rather than bundled Chromium. <strong>Why Capacitor over React Native</strong>: I already have a web app. React Native means re-implementing the editor in a different rendering model. Capacitor lets me ship the web app as a native container; performance is indistinguishable from native for text editing.</p>
+
+    <h2>AI Design Philosophy</h2>
+    <blockquote>The script comes first. Everything else follows. AI amplifies, never authors.</blockquote>
+    <p>Not marketing copy — product constraint:</p>
+    <ul>
+      <li>No one-click "generate my script." Ever. The day Arqo ships that, we have abandoned the human-led ethos and become a commodity LLM wrapper.</li>
+      <li>No auto-apply on AI suggestions. Every AI output is a proposal the human accepts, rejects, or edits.</li>
+      <li>No AI-authored content in Library examples. The 777-script Library is all human-written work, curated.</li>
+      <li>Cost caps enforced at the route layer. Not in prompts. Not in UI. Hard limits the user cannot accidentally bypass.</li>
+    </ul>
+
+    <h2>Staff-Level Decisions</h2>
+    <table>
+      <thead><tr><th>decision</th><th>chose</th><th>rejected</th><th>why</th></tr></thead>
+      <tbody>
+        <tr><td>collab infrastructure</td><td class="accent">Liveblocks wrapping Yjs</td><td>in-house Yjs provider day 1</td><td>shipping in weeks; Yjs migration path pre-designed</td></tr>
+        <tr><td>rich-text editor</td><td class="accent">custom contenteditable</td><td>Lexical / ProseMirror / Slate</td><td>element-cycling + paginator contract need direct keydown control</td></tr>
+        <tr><td>pagination</td><td class="accent">deterministic web-worker</td><td>approximate words ÷ 250</td><td>every downstream artefact depends on page math</td></tr>
+        <tr><td>offline</td><td class="accent">first-class day 1</td><td>online-only v1</td><td>writers write offline — shipping online-only is category failure</td></tr>
+        <tr><td>AI</td><td class="accent">RAG on user's own writing</td><td>generic LLM prompting</td><td>generic prompts flatten voice; Voice Fingerprint is the moat</td></tr>
+        <tr><td>multi-platform</td><td class="accent">Tauri + Capacitor day 1</td><td>web-only MVP</td><td>studio IT demands installables; creators demand real mobile</td></tr>
+        <tr><td>languages</td><td class="accent">9-language plan with i18n infra</td><td>English-first, localise later</td><td>localising after launch is 10× the effort</td></tr>
+        <tr><td>pricing</td><td class="accent">PPP-indexed Wave 1</td><td>flat-USD $9 global</td><td>flat kills India, LatAm, SEA — Netflix playbook</td></tr>
+        <tr><td>AI content</td><td class="accent">amplify, never author</td><td>full generation features</td><td>without humans, no product — the discipline is the product</td></tr>
+      </tbody>
+    </table>
+
+    <h2>What I Deliberately Didn't Build</h2>
+    <ul>
+      <li><strong>No thumbnail image generation.</strong> Wrong category. Creators who care already have Photoshop / Canva.</li>
+      <li><strong>No video editing inside Arqo.</strong> We stop at the edit's front door — NLE export. The user opens Premiere / FCP / Resolve / CapCut for the cut itself.</li>
+      <li><strong>No one-click scene generation. Ever.</strong></li>
+      <li><strong>No auto-apply on AI suggestions.</strong> Every output is a proposal.</li>
+      <li><strong>No Arabic / mainland China through 2030.</strong> Arabic's RTL + dialectal complexity is a 3–4 week tax per feature; mainland China is a parallel legal + infrastructure build. Both deferred deliberately, not skipped accidentally.</li>
+      <li><strong>No native CapCut project writer.</strong> Undocumented format, against their ToS. We ship a clipboard-friendly formatted export instead.</li>
+    </ul>
+    <p>The brand holds because of what it says no to.</p>
+
+    <h2>Pivots & Trade-offs</h2>
+    <ol>
+      <li><strong>Paginator off the main thread.</strong> Built main-thread first. At ~40 pages it dropped frames. Moved to a web worker with transferable AST snapshots. Cost: 3 days. Benefit: smooth typing on 120-page scripts.</li>
+      <li><strong>FDX writer emits FDX 12 always.</strong> Originally tried to round-trip each version's quirks. Switched to "parse anything, emit current."</li>
+      <li><strong>Presence across views, not just Pages.</strong> First version had presence only in Pages. Collaborators in Beats were invisible. Rewrote presence as a cross-view concept.</li>
+      <li><strong>Creator tier pulled from "phase 3" to next sprint.</strong> The TAM math made the priority obvious.</li>
+      <li><strong>Global from day 1, not English-first.</strong> Retrofitting i18n after English launch is 10× the cost.</li>
+    </ol>
+
+    <h2>Performance</h2>
+    <ul>
+      <li>Editor latency: &lt; 16ms per keystroke on a 2,000-element doc (60fps maintained).</li>
+      <li>Paginator cold start: ~200ms on a 120-page doc, runs in worker.</li>
+      <li>PDF export: ~1.2s for 120 pages including embedded Courier rendering.</li>
+      <li>FDX round-trip: ~80ms for a full parse + re-emit on 120 pages.</li>
+      <li>Offline → online sync: ~300ms median for a 50-edit backlog.</li>
+      <li>Initial load (web): ~85KB critical path gzipped. Editor code lazy-loaded.</li>
+      <li>Mobile Lighthouse target: ≥90 Perf, A11y, Best Practices.</li>
+    </ul>
+
+    <h2>Competitive Positioning</h2>
+    <table>
+      <thead><tr><th>dimension</th><th>arqo</th><th>final draft</th><th>writerduet</th><th>arc studio</th><th>celtx</th><th>highland 2</th><th>sudowrite</th></tr></thead>
+      <tbody>
+        <tr><td>industry PDF</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="dash">—</td><td class="check">✓</td><td class="check">✓</td><td class="dash">—</td></tr>
+        <tr><td>lossless FDX</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td></tr>
+        <tr><td>revision marks</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+        <tr><td>structure view</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+        <tr><td>beatboard</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+        <tr><td>real-time collab</td><td class="check">✓</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+        <tr><td>offline-first</td><td class="check">✓</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td></tr>
+        <tr><td>mobile (real)</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+        <tr><td>three views on mobile</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+        <tr><td>voice-tuned AI</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+        <tr><td>creator-tier features</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+        <tr><td>9-language i18n</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      </tbody>
+    </table>
+
+    <h2>What I'd Do Differently</h2>
+    <ol>
+      <li><strong>Ship the Creator tier on day one.</strong> I built Pro-first and bolted Creator on. Had I started with Creator, product-market-fit signals would have come faster.</li>
+      <li><strong>PPP pricing in the first launch, not as a patch.</strong> Hard to retrofit pricing tables cleanly after launch.</li>
+      <li><strong>Talk to three WGA writers and three YouTubers before writing the first line of code.</strong> Most of my strong opinions were right. Some were wrong in expensive ways that writer interviews would have caught.</li>
+      <li><strong>Write the ADRs before writing the code, not as I went.</strong> The 40% of decisions I made without writing them down are the ones I revisit and second-guess now.</li>
+    </ol>
+
+    <h2>Conclusion</h2>
+    <p>Arqo is the product I would have wanted to exist when I was 19 and trying to write short films on my phone on the subway. It is the product a WGA writer needs on a Friday night when the studio wants a revised PDF by Monday. It is the product a 22-year-old in Mumbai needs when they're scripting YouTube videos in Hinglish and can't find a tool that respects the code-switch.</p>
+    <p>It is also the most technically ambitious thing I have ever built — a custom contenteditable editor, a deterministic paginator, a CRDT-based collab layer, an offline-first sync architecture, an AI retrieval system, four platform targets, nine-language readiness, and a brand ethos that says no to the easy features and yes to the hard ones.</p>
+    <blockquote>The surface is production-grade. The discipline is staff-grade. The ambition is to be the category-winner in a space that has not had one for a decade.</blockquote>
+  </template>
+
+  <!-- ==============================================
+       FUTBOLIS.LIVE
+       ============================================== -->
+  <template id="case-futbolis">
+    <section>
+      <p class="drop-cap"><strong>Futbolis.live is proof</strong> that solo design engineers armed with modern AI-assisted tooling can ship production-scale consumer products end-to-end in three weeks. The entire stack — product vision, visual system, geocoding engine, caching architecture, mobile and desktop experiences, motion design — was built by one person in the evenings.</p>
+      <p>The headline engineering achievements are not decorative. A 60-second server-side cache on the <code>/api/matches</code> route means the site serves 100,000 concurrent users on a $19/month base-tier sports API, because every user hits one API call per minute regardless of traffic. A four-tier geocoding fallback ensures every match plots correctly even when the upstream API doesn't provide stadium coordinates. A mobile architecture built from scratch (not a responsive desktop) gives phone users a bottom-sheet carousel that feels native.</p>
+    </section>
+
+    <div class="case-stat-row">
+      <div class="case-stat"><div class="n">$19<span style="font-size:0.55em;">/mo</span></div><div class="l">flat infra cost at 100k concurrent users</div></div>
+      <div class="case-stat"><div class="n">3<span style="font-size:0.6em;"> weeks</span></div><div class="l">solo build, nights &amp; weekends</div></div>
+      <div class="case-stat"><div class="n">4<span style="font-size:0.6em;">-tier</span></div><div class="l">geocoding fallback, 95%+ accuracy</div></div>
+    </div>
+
+    <h2>The Problem</h2>
+
+    <h3>The geographic disconnect</h3>
+    <p>Modern football apps — FlashScore, FotMob, ESPN — present matches as data rows. They're optimized for speed and density, but they strip away something fundamental: the sense that football is a global, living phenomenon.</p>
+    <p>At any given moment, there might be 50+ professional matches happening simultaneously across the planet. A user checking scores sees:</p>
+<pre><code>Slovakia 3. Liga - East
+SPO 4 - 1 RAS</code></pre>
+    <p>What they don't feel is that this match is happening in <em>Spišské Podhradie</em>, a town of 3,800 people at the foot of a medieval castle in eastern Slovakia. That geographic context — the human context, the texture of the global game — is completely lost.</p>
+
+    <h3>The 2026 opportunity</h3>
+    <p>The 2026 FIFA World Cup will be the first hosted across three countries (USA, Canada, Mexico). Matches will span five time zones simultaneously. The list paradigm cannot carry geographic scale. The map can.</p>
+
+    <h3>The ad-tech problem</h3>
+    <p>Every major football score site is increasingly hostile — gambling ads, sign-up walls, dark-pattern cookie banners. Futbolis is ad-free by design and will stay that way. The point is not to monetize a captive audience. The point is to remember what the internet felt like when it was built for people.</p>
+
+    <blockquote>What if scores weren't consumed — they were explored? What if checking live matches felt like surveying a living, breathing planet of football activity?</blockquote>
+
+    <h2>The Solution</h2>
+
+    <h3>Macro-to-micro navigation</h3>
+    <p>The core UX pattern is progressive disclosure through geography:</p>
+    <ul>
+      <li><strong>World view (macro)</strong> — entire globe with clustered match markers. Density indicates activity: South America glows during evening kickoffs, Europe during afternoon matches.</li>
+      <li><strong>Region view (meso)</strong> — individual match markers, showing team codes (e.g., "STR vs OLI") and pulsing to indicate live status.</li>
+      <li><strong>City view (micro)</strong> — selecting a match triggers a fly-to animation that drops the user into the host city. Bold environmental typography overlays the city name (e.g., "Capiata, Paraguay" in 120px white text) to ground the experience geographically.</li>
+    </ul>
+
+    <h3>Mobile: a complete rethink, not a shrunk-down desktop</h3>
+    <p>Desktop patterns fail on mobile. A sidebar consumes too much real estate. Vertical scrolling competes with map interaction. Most sports apps ship mobile as "responsive desktop" and pay for it in user retention.</p>
+    <p>Solution: a bottom-sheet carousel. Horizontal swipeable cards anchored to the bottom of the screen. Swiping a card into center focus triggers a map fly-to automatically. Tapping an active card expands it to a full detail view, hiding others to reduce cognitive load.</p>
+    <blockquote>Building mobile as a separate architecture (a distinct MobileCarousel component, not a media-query on the sidebar) is the decision that made the phone experience feel native. It's more code. It was the right call.</blockquote>
+
+    <h2>Engineering Deep-Dive</h2>
+
+    <h3>The $19/month fix — intelligent edge caching</h3>
+    <p>The football data API charges per request. A viral World Cup moment could mean 100,000 users hitting the site simultaneously — thousands of dollars in overage fees per hour. On a solo, ad-free project, that is bankruptcy.</p>
+<pre><code>// app/api/matches/route.ts
+export const revalidate = 60
+
+export async function GET() {
+  const response = await fetch(
+    'https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all',
+    {
+      headers: {
+        'X-RapidAPI-Key': process.env.RAPIDAPI_KEY!,
+        'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+      },
+      next: { revalidate: 60 },
+    }
+  )
+  const payload = await response.json()
+  return Response.json(transformFixtures(payload))
+}</code></pre>
+    <p>Every user on the site hits the Vercel Edge cache, not the upstream API. The Edge fetches fresh data once per 60 seconds and serves the same cached payload to everyone in between. At 100,000 concurrent users, the upstream API sees one request per minute. Cost scales with time, not traffic.</p>
+    <blockquote>Most engineers would reach for a Redis cache or a Cloudflare Worker. I specifically chose Next.js's built-in revalidate because it's the minimum viable caching layer — no extra infrastructure, no new failure mode, no additional bill.</blockquote>
+
+    <h3>The 4-tier geocoding fallback</h3>
+    <p>The API provides stadium names but not coordinates. <em>"Estadio Erico Galeano"</em> means nothing to Mapbox without lat/lng. Without coordinates, we cannot plot the match. Without plotting, no product.</p>
+<pre><code>async function resolveMatchLocation(match: Match): Promise&lt;ResolvedLocation&gt; {
+  // Tier 1: Stadium coordinates cache (~500 major venues)
+  const stadiumCoords = STADIUM_DATABASE[match.venue.id]
+  if (stadiumCoords) return { ...stadiumCoords, source: 'stadium', approximate: false }
+
+  // Tier 2: City-level geocoding via Mapbox
+  const cityCoords = await geocodeCity(match.venue.city, match.country)
+  if (cityCoords) return { ...cityCoords, source: 'city', approximate: true }
+
+  // Tier 3: Country centroid
+  const countryCoords = COUNTRY_CENTROIDS[match.countryCode]
+  if (countryCoords) return { ...countryCoords, source: 'country', approximate: true }
+
+  // Tier 4: National team logic (international friendlies)
+  if (isNationalTeam(match.homeTeam)) {
+    const capitalCoords = CAPITAL_CITIES[match.homeTeam.country]
+    return { ...capitalCoords, source: 'national-team', approximate: true }
+  }
+
+  return { ...FALLBACK_COORDS, source: 'unresolved', approximate: true }
+}</code></pre>
+    <p>Each match carries a <code>locationApproximate</code> boolean. The UI displays "Location is approximate / Ubicación aproximada" when true. <em>Lying to the user about precision is worse than admitting imprecision.</em></p>
+    <p>Building the 500-stadium database was ~2 days of manual curation. The top 500 venues account for ~70% of match volume on any given day. Quality concentrates in the top of the distribution. Invest there first.</p>
+
+    <h3>Mapbox marker lifecycle</h3>
+    <p>Markers are created and destroyed as matches start and end. Improper cleanup leaks memory over a long session — exactly the kind of bug that only manifests on a user watching a full Saturday card.</p>
+<pre><code>const markersRef = useRef&lt;Map&lt;string, mapboxgl.Marker&gt;&gt;(new Map())
+
+useEffect(() =&gt; {
+  const activeIds = new Set(matches.map(m =&gt; m.id))
+
+  // Remove markers for ended matches
+  for (const [id, marker] of markersRef.current) {
+    if (!activeIds.has(id)) {
+      marker.remove()
+      markersRef.current.delete(id)
+    }
+  }
+
+  // Add markers for new matches
+  for (const match of matches) {
+    if (!markersRef.current.has(match.id)) {
+      const marker = buildMarker(match).addTo(map)
+      markersRef.current.set(match.id, marker)
+    }
+  }
+}, [matches, map])</code></pre>
+    <p>Mapbox markers are imperative DOM nodes owned by the Mapbox runtime. You cannot declare them with JSX and trust React's reconciliation. The ref-based diff-and-reconcile pattern is the only correct way to manage them.</p>
+
+    <h2>Visual System</h2>
+    <h3>Colour palette</h3>
+    <ul>
+      <li><strong>Background</strong> <code>#0a0a0a</code> — reads as "premium, respects your eyes at night"</li>
+      <li><strong>Card surfaces</strong> <code>rgba(255,255,255,0.05)</code> with backdrop-blur — glassmorphic, legible over any map terrain</li>
+      <li><strong>Primary accent</strong> amber <code>#f59e0b</code> — warm, not alert-red</li>
+      <li><strong>Live indicator</strong> green <code>#22c55e</code> — pulsing dot animation</li>
+    </ul>
+
+    <h3>Motion</h3>
+    <ul>
+      <li><strong>Fly-to</strong> 1.5s ease-out with pitch tilt for cinematic entry.</li>
+      <li><strong>Live pulse</strong> 2s infinite on marker dots — slow enough to feel like a heartbeat, not a warning light.</li>
+      <li><strong>Goal celebration</strong> confetti + "GOAL!" flash on expanded cards only.</li>
+      <li><code>prefers-reduced-motion</code> bypass disables fly-to (jumps directly) and pulse.</li>
+    </ul>
+
+    <h2>Staff-Level Decisions</h2>
+    <table>
+      <thead><tr><th>decision</th><th>chose</th><th>rejected</th><th>why</th></tr></thead>
+      <tbody>
+        <tr><td>data source</td><td class="accent">$19/mo API + aggressive caching</td><td>premium tiers ($200+/mo)</td><td>caching is free; API tier is not</td></tr>
+        <tr><td>caching layer</td><td class="accent">Next.js route revalidate</td><td>Redis, Cloudflare KV, custom</td><td>minimum viable — no new infra, no new failure mode</td></tr>
+        <tr><td>geocoding</td><td class="accent">4-tier fallback, user-visible</td><td>perfect coords or nothing</td><td>transparent imprecision &gt; silent failure</td></tr>
+        <tr><td>mobile architecture</td><td class="accent">separate MobileCarousel</td><td>responsive desktop sidebar</td><td>mobile-as-native &gt; mobile-as-compromise</td></tr>
+        <tr><td>i18n</td><td class="accent">inline bilingual EN/ES v1</td><td>locale routing day 1</td><td>don't over-engineer phase 1</td></tr>
+        <tr><td>ad monetization</td><td class="accent">none, ever</td><td>display ads</td><td>the product's promise is ad-free</td></tr>
+        <tr><td>user accounts</td><td class="accent">none for v1</td><td>sign-in, favorites</td><td>ship anonymous; add when notifications actually exist</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Performance</h2>
+    <ul>
+      <li><strong>Edge caching</strong> — API responses cached 60s, flat cost regardless of traffic.</li>
+      <li><strong>Code splitting</strong> — mobile and desktop components loaded conditionally. Phone users don't download sidebar code, desktop users don't download carousel code.</li>
+      <li><strong>Bundle size</strong> — ~180KB gzipped initial load. Critical path ~85KB.</li>
+      <li><strong>Mobile Lighthouse</strong> — 92 Perf · 98 A11y · 100 Best Practices.</li>
+      <li><strong>FCP</strong> — ~1.1s on median mobile connection. TTI ~2.4s — map tiles drive most of the remainder.</li>
+    </ul>
+
+    <h2>What I'd Do Differently</h2>
+    <ol>
+      <li><strong>Proper i18n from day 1.</strong> Inline bilingual strings will be refactor tax when Portuguese and French land.</li>
+      <li><strong>Analytics on day 1.</strong> I shipped without it and lost a week of usage signal. Cheap upfront, painful to retrofit.</li>
+      <li><strong>Stadium database collaboratively.</strong> A simple "suggest a correction" form in the UI would have let the community close gaps over time.</li>
+      <li><strong>Structured event logging from the start.</strong> Goals, cards, subs — logging them from day 1 would have given retention data to tune the celebration moments against.</li>
+    </ol>
+
+    <h2>Conclusion</h2>
+    <p>Futbolis.live is a proof of concept for a broader thesis: that solo design engineers with the right tooling can ship production-scale consumer products in weeks, not quarters, without sacrificing craft. The visual system is confident. The caching architecture is minimum-viable. The mobile experience is built, not adapted. The ad-free promise is architecturally protected (no user accounts, no tracking, no monetization hooks to rip out later).</p>
+    <blockquote>The product is small. The craft is not. That is the point.</blockquote>
+  </template>
+
+  <!-- ==============================================
+       EF (shorter)
+       ============================================== -->
+  <template id="case-ef">
+    <section>
+      <p class="drop-cap"><strong>Senior product designer at EF Education First</strong>, Aug 2022 – present. Leading insurance, checkout, and quoting experiences for a global EdTech platform with eight-figure annual GMV and advisors in 50+ countries.</p>
+    </section>
+    <div class="case-stat-row">
+      <div class="case-stat"><div class="n">+10%</div><div class="l">insurance take-rate on 8-figure GMV</div></div>
+      <div class="case-stat"><div class="n">+31%</div><div class="l">checkout velocity via progressive disclosure</div></div>
+      <div class="case-stat"><div class="n">+8%</div><div class="l">quoting volume across 50+ countries</div></div>
+    </div>
+
+    <h2>Insurance Redesign — +10% Take-Rate</h2>
+    <p>Led the redesign of the insurance add-on flow, lifting take-rate <strong>+10%</strong> on a product with eight-figure annual GMV. Ran the full loop: qualitative discovery, quantitative event instrumentation, design-system contributions, and front-end implementation alongside engineering.</p>
+
+    <h2>Checkout — +31% Velocity</h2>
+    <p>Rebuilt the checkout step sequence into a single-page progressive disclosure pattern, cutting time-to-complete by <strong>31%</strong> and pulling forward the moment of commitment.</p>
+
+    <h2>Quoting — +8% Volume</h2>
+    <p>Shipped a quoting-tool redesign that lifted quoting volume <strong>+8%</strong> by removing cognitive-load dead ends in the advisor dashboard. Rolled out to advisors across 50+ countries.</p>
+    <blockquote>Contributed production React / Next.js / Tailwind code to the design-system library; trusted to ship changes without engineering handoff for component-level updates.</blockquote>
+
+    <h2>Frameworks Authored</h2>
+    <ul>
+      <li><em>Confidence-to-Book (CtB)</em> — a five-stage model plotting where an advisor-assisted prospect sits between curiosity and committed booking. Shared vocabulary for every advisor-flow review.</li>
+      <li><em>MIND</em> — a synthesis method for mixed-method research (mine · inventory · name · decide). Turns a week of interviews into a one-page artefact a team can argue against.</li>
+    </ul>
+  </template>
+
+  <!-- ==============================================
+       ZULILY
+       ============================================== -->
+  <template id="case-zulily">
+    <section>
+      <p class="drop-cap"><strong>Senior UX designer, Growth &amp; Personalization at Zulily</strong>, Apr 2021 – Aug 2022. Designed, shipped, and iterated on acquisition and re-engagement flows for 16M+ daily shoppers.</p>
+    </section>
+
+    <h2>Growth Experiments at 16M+ Daily Sends</h2>
+    <p>Owned UX for growth experiments on a surface driving <strong>16M+ daily personalized sends</strong>. Designed, shipped, and iterated on acquisition and re-engagement flows against conversion, revenue-per-send, and retention metrics.</p>
+
+    <h2>Stepped in as Front-End</h2>
+    <p>During a staffing gap, I shipped a revamped onboarding funnel in React end-to-end. Owned the handoff, the implementation, and the post-launch experiment analysis.</p>
+
+    <h2>Personalization Ranking Pilot</h2>
+    <p>Partnered with data science on a personalization ranking pilot; defined the interaction model and the evaluation UX so analysts could inspect model outputs against human judgment.</p>
+  </template>
+
+  <!-- ==============================================
+       SOCIAL BOOTH
+       ============================================== -->
+  <template id="case-social-booth">
+    <section>
+      <p class="drop-cap"><strong>Creative director at The Social Booth</strong>, Mumbai, 2016 – 2020. Scaled a design team 1 → 10+, shipped campaigns for Ducati (+500% online-sales lift), Audi, and 20+ concurrent enterprise clients across APAC.</p>
+    </section>
+
+    <h2>Team &amp; Practice</h2>
+    <p>Scaled the design team from 1 to 10+. Built the brand practice. Owned end-to-end creative direction — brand systems, digital campaigns, launch films, retail activations — across 20+ concurrent clients.</p>
+
+    <h2>Campaigns</h2>
+    <p>Shipped work for <strong>Ducati</strong> (<strong>+500% online-sales lift in-market</strong>), <strong>Audi</strong>, and other enterprise brands across APAC.</p>
+
+    <h2>Prior</h2>
+    <p>Senior Designer &amp; Producer at Adwita (2015 – 2016) — brand identity and campaign production for consumer and retail clients.</p>
+  </template>
+
+  <!-- command palette (injected by site.js) -->
+  <div id="cmdk" class="cmdk-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Command palette"></div>
+
   <script>
     const CASES = {
       arqo: {
         n: '01', year: '2026', title: 'Arqo',
-        tagline: 'A mobile-first, neobrutalist screenwriting app. Shipped solo in 9 days after work.',
-        role: 'solo design + engineering', timeline: '~9 days, two after-work sprints', stack: 'next.js · supabase · liveblocks · yjs · tauri · capacitor · pgvector · claude code', live: 'tryarqo.com',
-        sections: [
-          { h: 'The Script as Operating System', p: [
-            'Every Arqo document is a structured AST, not a blob of text. Each element has a typed node. Every downstream artefact — shot list, teleprompter, NLE export, production report — is a projection of the AST, not a parallel representation. Edit a line of dialogue, the shot list updates. Move a scene, every downstream report updates.',
-          ], quote: 'Competitive position: studio-tier parity (Final Draft / WriterDuet replacement) on a 14-week critical path, with async collab primitives no competitor ships.' },
-          { h: 'The 9-Day Ship', p: [
-            'Shipped a production-grade screenwriter stack in two after-work sprints: deterministic line-by-line paginator with web-worker offload, Courier-12 industry-standard PDF export, lossless FDX v2 round-trip (runs, dual dialogue, locked scene numbers + A/B, revision stamps), offline-first IndexedDB mirror with NDA-grade private-draft local-only project type, Liveblocks + Yjs CRDT collab, Tauri desktop shell, Capacitor mobile.',
-            'Three synchronized editor surfaces on mobile — Flow (beatboard), Beats (structure), Pages (industry-formatted) — a combination no peer ships (Final Draft, WriterDuet, Arc Studio, Celtx, Highland 2, Fade In, Sudowrite).',
-          ]},
-          { h: 'AI as Co-Writer, Not Autopilot', p: [
-            'Suggest Rewrite, Continuity Reader, and Voice Fingerprint using pgvector embeddings over a 777-script Library and 12+ story-structure frameworks. Whole-script context. Cost caps enforced at the route layer — no runaway bills.',
-          ]},
-        ],
+        subtitle: 'The mobile-first, script-led filmmaking tool for every creator on the planet.',
+        meta: {
+          timeline: '9 days to MVP engine · 14 weeks to studio-tier parity · ongoing',
+          role: 'Sole design engineer — product vision, UX, front-end, back-end, AI integration, native shells, billing',
+          stack: 'Next.js 14 · Supabase · Postgres + pgvector · TypeScript · Tailwind · Liveblocks + Yjs · Tauri · Capacitor · custom contenteditable · FDX parser/writer · Stripe · Vercel',
+          live: 'tryarqo.com ↗',
+        },
       },
       futbolis: {
         n: '02', year: '2026', title: 'Futbolis.live',
-        tagline: 'An ad-free live-football map, built for World Cup 2026.',
-        role: 'solo design + engineering', timeline: 'solo build 2026', stack: 'next.js 16 · react 19 · tailwind v4 · mapbox gl js · vercel', live: 'futbolis.live',
-        sections: [
-          { h: 'The Problem', p: [
-            "Modern football apps — FlashScore, FotMob, ESPN — present matches as data rows. They're optimized for speed and density, but they strip away something fundamental: the sense that football is a global, living phenomenon.",
-            "At any given moment, there might be 50+ professional matches happening simultaneously across the planet. What users don't feel is that a match is happening in Spišské Podhradie, a town of 3,800 people at the foot of a medieval castle in eastern Slovakia.",
-          ]},
-          { h: 'The $19/Month Fix', p: [
-            'The football data API charges per request. A viral moment during the World Cup could mean 100,000 users hitting the site simultaneously — thousands of dollars in overage fees per hour.',
-            "The solution: 60-second server-side cache revalidation on the /api/matches route. Every user hits the Vercel Edge cache, not the upstream API. At 100,000 concurrent users, the upstream sees one request per minute. Cost scales with time, not traffic. $19/month is a flat ceiling, not a floor.",
-          ], quote: "Most engineers would reach for a Redis cache or a Cloudflare Worker. I specifically chose Next.js's built-in revalidate because it's the minimum viable caching layer — no extra infrastructure, no new failure mode, no additional bill." },
-          { h: 'Four-Tier Geocoding Fallback', p: [
-            'Upstream venue data is unreliable. I built a four-tier fallback: static cache of ~500 stadium coordinates → city geocode → country centroid → home-team capital for internationals. Every match plots accurately even when the feed lies.',
-            'Macro-to-micro navigation: dark Mapbox UI with a glassmorphic sidebar, fly-to camera animations with bold environmental typography, density-aware cluster color temperatures, deep-dive match view with possession bars and event timeline. Mobile uses an independent bottom-sheet MobileCarousel with snap behavior — not a shrunk-down sidebar.',
-          ]},
-        ],
+        subtitle: 'Visualizing the global pulse of football, one match at a time.',
+        meta: {
+          timeline: '3 weeks — solo build, nights and weekends',
+          role: 'Sole design engineer — product vision, UX/UI, front-end, back-end',
+          stack: 'Next.js 16 · React 19 · TypeScript · Tailwind v4 · Mapbox GL JS · Framer Motion · Vercel Edge',
+          live: 'futbolis.live ↗',
+        },
       },
       ef: {
         n: '03', year: '2022—now', title: 'EF Education First',
-        tagline: 'Insurance, checkout, and quoting experiences for a global EdTech platform.',
-        role: 'senior product designer', timeline: 'Aug 2022 – present · Boston / Remote', stack: 'react · next.js · tailwind · design-system contributions', live: 'ef.com',
-        sections: [
-          { h: 'Insurance Redesign — +10% Take-Rate', p: [
-            'Led the redesign of the insurance add-on flow, lifting take-rate +10% on a product with eight-figure annual GMV. Ran the full loop: qualitative discovery, quantitative event instrumentation, design-system contributions, and front-end implementation alongside engineering.',
-          ]},
-          { h: 'Checkout — +31% Velocity', p: [
-            'Rebuilt the checkout step sequence into a single-page progressive disclosure pattern, cutting time-to-complete by 31% and pulling forward the moment of commitment.',
-          ]},
-          { h: 'Quoting Tool — +8% Volume', p: [
-            'Shipped a quoting-tool redesign that lifted quoting volume +8% by removing cognitive-load dead ends in the advisor dashboard. Rolled out to advisors across 50+ countries.',
-            'Authored internal strategic frameworks used across the design org — Confidence-to-Book (CtB) for advisor-assisted funnels and MIND for user-research synthesis.',
-          ], quote: 'Contributed production React / Next.js / Tailwind code to the design-system library; trusted to ship changes without engineering handoff for component-level updates.' },
-        ],
+        subtitle: 'Insurance, checkout, and quoting experiences for a global EdTech platform.',
+        meta: {
+          timeline: 'Aug 2022 – present · Boston / Remote',
+          role: 'Senior product designer',
+          stack: 'React · Next.js · Tailwind · design-system contributions · event instrumentation',
+          live: 'ef.com ↗',
+        },
       },
       zulily: {
         n: '04', year: '2021—22', title: 'Zulily',
-        tagline: 'Growth, personalization, and lifecycle for 16M+ daily shoppers.',
-        role: 'senior UX designer, growth & personalization', timeline: 'Apr 2021 – Aug 2022 · Seattle / Remote', stack: 'react · experiment design · data-science partnership', live: 'zulily.com',
-        sections: [
-          { h: 'Growth Experiments at 16M+ Daily Sends', p: [
-            'Owned UX for growth experiments on a surface driving 16M+ daily personalized sends. Designed, shipped, and iterated on acquisition and re-engagement flows against conversion, revenue-per-send, and retention metrics.',
-          ]},
-          { h: 'Stepped In as Front-End', p: [
-            'Stepped in as front-end developer during a staffing gap to ship a revamped onboarding funnel in React. Owned the handoff, the implementation, and the post-launch experiment analysis.',
-            'Partnered with data science on a personalization ranking pilot; defined the interaction model and the evaluation UX so analysts could inspect model outputs against human judgment.',
-          ]},
-        ],
+        subtitle: 'Growth, personalization, and lifecycle for 16M+ daily shoppers.',
+        meta: {
+          timeline: 'Apr 2021 – Aug 2022 · Seattle / Remote',
+          role: 'Senior UX designer, Growth & Personalization',
+          stack: 'React · experiment design · data-science partnership',
+          live: 'zulily.com ↗',
+        },
       },
       'social-booth': {
         n: '05', year: '2016—20', title: 'The Social Booth',
-        tagline: 'Creative director, Mumbai. Scaled a design team 1 → 10+. Campaigns for Ducati, Audi, and 20+ enterprise clients across APAC.',
-        role: 'creative director', timeline: '2016 – 2020 · Mumbai', stack: 'brand systems · campaigns · retail activations · launch films', live: '—',
-        sections: [
-          { h: 'Team and Practice', p: [
-            'Scaled the design team from 1 to 10+. Built the brand practice. Owned end-to-end creative direction — brand systems, digital campaigns, launch films, and retail activations — across 20+ concurrent clients.',
-            'Campaigns for Ducati (500% online-sales lift in-market), Audi, and other enterprise brands across APAC. Prior: Senior Designer & Producer at Adwita (2015–16).',
-          ]},
-        ],
+        subtitle: 'Creative direction, Mumbai — campaigns for Ducati, Audi, and 20+ enterprise clients across APAC.',
+        meta: {
+          timeline: '2016 – 2020 · Mumbai',
+          role: 'Creative director',
+          stack: 'Brand systems · campaigns · retail activations · launch films',
+          live: '—',
+        },
       },
     };
+    const ORDER = ['arqo', 'futbolis', 'ef', 'zulily', 'social-booth'];
 
-    function escapeHtml(s) { return s.replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
-    const slug = new URLSearchParams(location.search).get('slug') || 'arqo';
-    if (!CASES[slug]) {
-      // unknown slug — redirect to 404 so URL state matches what's rendered
-      window.location.replace('/doesnotexist');
-    }
+    const params = new URLSearchParams(location.search);
+    const slug = params.get('slug') || 'arqo';
+    if (!CASES[slug]) window.location.replace('/doesnotexist');
     const c = CASES[slug] || CASES.arqo;
 
+    // head
     document.getElementById('cs-kicker').textContent = `case study · no. ${c.n} · ${c.year}`;
     document.getElementById('cs-title').textContent = c.title;
-    document.getElementById('cs-tagline').textContent = c.tagline;
-    document.getElementById('cs-role').textContent = c.role;
-    document.getElementById('cs-timeline').textContent = c.timeline;
-    document.getElementById('cs-stack').textContent = c.stack;
-    document.getElementById('cs-live').textContent = c.live + ' ↗';
+    document.getElementById('cs-subtitle').textContent = c.subtitle;
+    document.getElementById('case-spine').textContent = `case study · no. ${c.n} · ${c.title.toLowerCase()} · ${c.year}`;
     document.title = `${c.title} · case study · raghav ahuja`;
 
-    document.getElementById('cs-body').innerHTML = c.sections.map(s =>
-      `<h2>${escapeHtml(s.h)}</h2>` +
-      s.p.map(p => `<p>${escapeHtml(p)}</p>`).join('') +
-      (s.quote ? `<blockquote>${escapeHtml(s.quote)}</blockquote>` : '')
+    // meta block
+    const metaEl = document.getElementById('cs-meta');
+    const metaRows = [
+      ['timeline', c.meta.timeline],
+      ['role', c.meta.role],
+      ['stack', c.meta.stack],
+      ['live', c.meta.live],
+    ];
+    metaEl.innerHTML = metaRows.map(([k, v]) =>
+      `<div><div class="k">${k}</div><div${k === 'live' ? ' style="color: var(--accent);"' : ''}>${v}</div></div>`
     ).join('');
+
+    // body — clone the template
+    const tpl = document.getElementById(`case-${slug}`);
+    const body = document.getElementById('cs-body');
+    if (tpl) body.appendChild(tpl.content.cloneNode(true));
+
+    // prev / next case nav
+    const idx = ORDER.indexOf(slug);
+    const prev = idx > 0 ? ORDER[idx - 1] : null;
+    const next = idx >= 0 && idx < ORDER.length - 1 ? ORDER[idx + 1] : null;
+    const nav = document.getElementById('cs-nav');
+    const prevLink = prev
+      ? `<a href="case-study.html?slug=${prev}"><span class="label">← previous</span>${CASES[prev].title}</a>`
+      : `<a href="work.html" style="color: var(--fg-muted);"><span class="label">← index</span>all work</a>`;
+    const nextLink = next
+      ? `<a href="case-study.html?slug=${next}"><span class="label">next →</span>${CASES[next].title}</a>`
+      : `<a href="contact.html" style="color: var(--accent);"><span class="label">end</span>hire me →</a>`;
+    nav.innerHTML = prevLink + nextLink;
+
+    // reading progress
+    const progressBar = document.getElementById('case-progress-bar');
+    function onScroll() {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop;
+      const max = h.scrollHeight - h.clientHeight;
+      progressBar.style.width = max > 0 ? Math.min(100, (scrolled / max) * 100) + '%' : '0%';
+    }
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   </script>
 
   <script src="site.js" defer></script>
