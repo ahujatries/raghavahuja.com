@@ -253,7 +253,10 @@
     for (const c of commits) {
       const row = document.createElement('div');
       row.className = 'live-row';
+      const iso = new Date(c.when).toISOString().slice(0, 10);          // 2026-04-24
+      const short = iso.slice(2).replace(/-/g, '·');                    // 26·04·24
       row.innerHTML =
+        '<time datetime="' + iso + '" class="date">' + short + '</time>' +
         '<span class="repo">' + escapeHtml(c.repo) + '</span>' +
         '<span class="commit-msg">' + escapeHtml(c.msg) + '</span>' +
         '<span class="when">' + escapeHtml(relTime(c.when)) + ' ago</span>';
