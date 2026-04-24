@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="raghav ahuja — design engineer & senior product designer. 13 years shipping conversion-critical products. Currently at EF Education First. Solo-built Arqo + Futbolis.live.">
-  <meta name="theme-color" content="#0A0A0A">
+  <meta name="description" content="raghav ahuja — design engineer & senior product designer. The code is part of the craft, not a handoff. 13 years shipping conversion-critical products.">
+  <meta name="theme-color" content="#15110D">
   <title>raghav ahuja · design engineer &amp; senior product designer</title>
-    <link rel="preload" href="fonts/Geist.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css">
   <link rel="canonical" href="https://raghavahuja.com/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://raghavahuja.com/">
   <meta property="og:title" content="raghav ahuja — design engineer & senior product designer">
-  <meta property="og:description" content="raghav ahuja — design engineer & senior product designer. 13 years shipping conversion-critical products. Currently at EF Education First. Solo-built Arqo + Futbolis.live.">
+  <meta property="og:description" content="The code is part of the craft, not a handoff. 13 years shipping conversion-critical products.">
   <meta property="og:image" content="https://raghavahuja.com/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -22,30 +23,25 @@
   <meta name="twitter:site" content="@ahujatries">
   <meta name="twitter:creator" content="@ahujatries">
   <meta name="twitter:title" content="raghav ahuja — design engineer & senior product designer">
-  <meta name="twitter:description" content="raghav ahuja — design engineer & senior product designer. 13 years shipping conversion-critical products. Currently at EF Education First. Solo-built Arqo + Futbolis.live.">
+  <meta name="twitter:description" content="The code is part of the craft, not a handoff. 13 years shipping conversion-critical products.">
   <meta name="twitter:image" content="https://raghavahuja.com/og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22 fill=%22%230070F3%22%3E_%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%23E86A4E%22%3E.%3C/text%3E%3C/svg%3E">
 </head>
 <body data-page="home">
   <script>
-    // boot theme early — no flash
-    try {
-      var saved = localStorage.getItem('theme');
-      if (saved) document.documentElement.setAttribute('data-theme', saved);
-    } catch (e) {}
+    try { var s = localStorage.getItem('theme'); if (s) document.documentElement.setAttribute('data-theme', s); } catch (e) {}
   </script>
 
   <a href="#main" class="skip-link">skip to content</a>
 
   <div id="grid-overlay" class="grid-overlay" aria-hidden="true"></div>
 
-  <!-- status bar -->
+  <!-- status strip — masthead for the night edition -->
   <div class="status-bar" role="status" aria-live="off">
-    <span><span class="sb-dot"></span> online · v1.0.3 · lighthouse 98</span>
+    <span class="sb-left"><span class="sb-dot"></span> vol. iv · no. 2 · <span class="em-accent">portfolio · night ed.</span></span>
     <span class="sb-clocks">
-      <span>MUM <time id="clk-mum">--:--:--</time></span>
-      <span>NYC <time id="clk-nyc">--:--:--</time></span>
-      <span>SFO <time id="clk-sfo">--:--:--</time></span>
+      <span>mumbai <b id="clk-mum">--:--</b></span>
+      <span>new york <b id="clk-nyc">--:--</b></span>
     </span>
   </div>
 
@@ -53,19 +49,19 @@
     <!-- nav -->
     <nav class="nav" aria-label="primary">
       <div class="nav-left">
-        <a href="index.html" class="brand">raghavahuja<span class="caret">_</span></a>
+        <a href="index.html" class="brand">raghav ahuja<span class="caret">.</span></a>
         <div class="nav-links">
           <a href="work.html">work</a>
           <a href="lab.html">lab</a>
-          <a href="notes.html">notes</a>
+          <a href="notes.html">writing</a>
           <a href="about.html">about</a>
           <a href="contact.html">contact</a>
         </div>
       </div>
       <div class="nav-right">
         <button id="cmdk-trigger" class="nav-search" aria-label="Open command palette">
-          <span class="label-chrome">search</span>
-          <kbd class="kbd">⌘</kbd><kbd class="kbd">K</kbd>
+          <span class="label-chrome">go anywhere</span>
+          <kbd class="kbd">⌘K</kbd>
         </button>
         <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
           <span class="nav-toggle-bar"></span>
@@ -75,152 +71,103 @@
       </div>
     </nav>
 
-    <!-- hero -->
     <main id="main">
-    <section class="hero">
-      <div class="hero-marker">
-        <span>raghavahuja.com</span>
-        <span><span id="hero-marker-sha">—</span></span>
-      </div>
-      <div class="kicker" style="margin-top:32px; margin-bottom:20px;">
-        design engineer · senior product designer · nyc
-      </div>
-      <h1>
-        I design &amp; build<br>
-        <span class="accent"><span id="typer"></span><span class="type-caret" aria-hidden="true">▊</span></span>
-      </h1>
-      <p class="sub">
-        The code is part of the craft, not a handoff. 13 years shipping conversion-critical products across EdTech, e-commerce, and consumer — I close the loop from user research to production code. Currently scaling insurance &amp; quoting at EF Education First.
-      </p>
-      <div class="hero-ctas">
-        <a href="work.html" class="cta cta-primary">selected work →</a>
-        <a href="mailto:work.raghavahuja@gmail.com" class="cta">get in touch</a>
-        <span class="cta-hint">or press <span class="kbd">⌘</span> <span class="kbd">K</span></span>
-      </div>
-      <div class="signal-bar"><div class="signal-fill"></div></div>
-    </section>
+      <!-- hero -->
+      <section class="hero">
+        <div class="eyebrow">folio 01 — the design engineer · read after dark</div>
+        <h1>
+          I design systems <span class="em-serif">and</span> build them.
+        </h1>
+        <p class="sub">
+          The code is part of the craft, not a handoff. 13 years shipping conversion-critical products across EdTech, e-commerce, and consumer — I ship end-to-end, from research and visual system to front-end and back-end, at studio quality and solo velocity. Currently scaling insurance &amp; quoting at EF Education First.
+        </p>
+        <div class="hero-ctas">
+          <a href="work.html" class="cta cta-primary">read the case studies →</a>
+          <a href="mailto:work.raghavahuja@gmail.com" class="cta">get in touch</a>
+          <span class="cta-hint">or press <span class="kbd">⌘K</span></span>
+        </div>
+        <div class="signal-bar"><div class="signal-fill"></div></div>
+      </section>
 
-    <!-- live + now -->
-    <div class="two-col">
-      <section class="live-activity" aria-labelledby="live-heading">
+      <!-- ship log (live activity) -->
+      <section class="ship-log" aria-labelledby="shiplog-heading">
         <button class="vs-handle" data-vs="LiveActivity" title="view source" aria-label="view source">{ }</button>
-        <div class="live-head">
-          <span class="label-chrome" id="live-heading"><span class="live-dot"></span>live · github.com/ahujatries</span>
-          <span class="label-chrome">refreshes every 60s · <span id="tick">loading…</span></span>
+        <div class="section-eyebrow">
+          <span id="shiplog-heading">the ship log · updated automatically from git</span>
+          <span class="meta">refreshes every 60s · <span id="tick">loading…</span></span>
         </div>
-        <div class="live-row"><span class="repo">arqo</span><span class="commit-msg">fix: paginator widow suppression on dual dialogue</span><span class="when">12m ago</span></div>
-        <div class="live-row"><span class="repo">futbolis</span><span class="commit-msg">perf: reduce mapbox marker churn on 60s refresh</span><span class="when">2h ago</span></div>
-        <div class="live-row"><span class="repo">arqo</span><span class="commit-msg">feat: voice-fingerprint over 777-script library</span><span class="when">5h ago</span></div>
-        <div class="live-row"><span class="repo">futbolis</span><span class="commit-msg">feat: geocoding fallback tier 4 (home-team capital)</span><span class="when">1d ago</span></div>
-        <div class="live-row"><span class="repo">raghavahuja.com</span><span class="commit-msg">init: home, work, case-study, lab, notes, about, 404</span><span class="when">2d ago</span></div>
+        <div class="live-row"><span class="date">26·04·24</span><span class="repo">arqo</span><span class="commit-msg">fix: paginator widow suppression on dual dialogue</span><span class="when">12m ago</span></div>
+        <div class="live-row"><span class="date">26·04·24</span><span class="repo">futbolis</span><span class="commit-msg">perf: reduce mapbox marker churn on 60s refresh</span><span class="when">2h ago</span></div>
+        <div class="live-row"><span class="date">26·04·23</span><span class="repo">arqo</span><span class="commit-msg">feat: voice-fingerprint over 777-script library</span><span class="when">5h ago</span></div>
+        <div class="live-row"><span class="date">26·04·23</span><span class="repo">futbolis</span><span class="commit-msg">feat: geocoding fallback tier 4 (home-team capital)</span><span class="when">1d ago</span></div>
+        <div class="live-row"><span class="date">26·04·22</span><span class="repo">raghavahuja.com</span><span class="commit-msg">init: direction A · burnt ink + terracotta · night ed.</span><span class="when">2d ago</span></div>
       </section>
 
+      <!-- now -->
       <section class="now-block" aria-labelledby="now-heading">
-        <div class="now-head">
-          <span class="label-chrome" id="now-heading"><span class="live-dot"></span>now · updated manually, not by an LLM</span>
-          <span class="label-chrome">last edit · 2d ago</span>
+        <div class="section-eyebrow">
+          <span id="now-heading">what i'm up to · hand-edited</span>
+          <span class="meta">last push · recently</span>
         </div>
-        <div class="now-row"><span class="now-k">shipping</span><span class="now-v">insurance &amp; quoting at EF Education First</span><span></span></div>
-        <div class="now-row"><span class="now-k">building</span><span class="now-v">Arqo — mobile-first screenwriting</span><a class="now-link" href="case-study.html?slug=arqo">→ /work/arqo</a></div>
-        <div class="now-row"><span class="now-k">tooling</span><span class="now-v">claude code · cursor · v0 · claude design</span><span></span></div>
-        <div class="now-row"><span class="now-k">location</span><span class="now-v">new york, ny</span><span></span></div>
+        <div class="now-grid">
+          <div class="now-row"><span class="now-k">shipping</span><span class="now-v">insurance <em>&amp;</em> quoting at EF Education First</span></div>
+          <div class="now-row"><span class="now-k">building</span><span class="now-v">Arqo, a mobile-first screenwriting app <em>— shipped solo in 9 days</em></span></div>
+          <div class="now-row"><span class="now-k">tooling</span><span class="now-v">claude code, cursor, v0 <em>— agentic workflows</em></span></div>
+          <div class="now-row"><span class="now-k">where</span><span class="now-v">new york, ny <em>— open to full-time roles</em></span></div>
+        </div>
       </section>
-    </div>
 
-    <!-- selected work -->
-    <section class="section" aria-labelledby="work-heading">
-      <div class="section-head">
-        <h2 id="work-heading">Selected work</h2>
-        <a href="work.html" class="label-chrome" style="color: var(--accent);">index → /work</a>
-      </div>
-      <div class="work-grid">
-        <a href="case-study.html?slug=arqo" class="work-card">
-          <button class="vs-handle" data-vs="WorkCard" title="view source" aria-label="view source">{ }</button>
-          <div class="meta-row"><span>01 · 2026</span><span>case study ↗</span></div>
-          <h3>Arqo</h3>
-          <p>Mobile-first screenwriting app. Shipped solo in 9 days after work. Deterministic paginator, lossless FDX v2 round-trip, Liveblocks + Yjs CRDT collab, 777-script AI library with pgvector. Studio-tier parity.</p>
-          <div class="pills">
-            <span class="pill">next.js</span><span class="pill">supabase</span><span class="pill">pgvector</span><span class="pill">yjs</span><span class="pill">liveblocks</span><span class="pill">tauri</span><span class="pill">capacitor</span>
+      <!-- selected work -->
+      <section class="section" aria-labelledby="work-heading">
+        <div class="section-head">
+          <h2 id="work-heading">Selected work</h2>
+          <a href="work.html">index → /work</a>
+        </div>
+        <a href="case-study.html?slug=arqo" class="work-row">
+          <span class="n">01</span>
+          <div>
+            <h3>Arqo</h3>
+            <p class="sub">A mobile-first, script-led filmmaking tool — shipped solo in 9 days after work.</p>
           </div>
-        </a>
-        <a href="case-study.html?slug=futbolis" class="work-card">
-          <button class="vs-handle" data-vs="WorkCard" title="view source" aria-label="view source">{ }</button>
-          <div class="meta-row"><span>02 · 2026</span><span>case study ↗</span></div>
-          <h3>Futbolis.live</h3>
-          <p>Ad-free live-football map for World Cup 2026. Bilingual globe plotting 50+ simultaneous matches from Slovakia's 3. Liga to Ghana's Division One. 100k+ concurrent users on a $19/mo API via 60s edge revalidation.</p>
-          <div class="pills">
-            <span class="pill">next.js 16</span><span class="pill">react 19</span><span class="pill">mapbox gl</span><span class="pill">tailwind v4</span><span class="pill">vercel</span>
+          <div class="meta">
+            <div>sole design engineer</div>
+            <div>9-day MVP · ongoing</div>
           </div>
+          <div class="year">2026 →</div>
         </a>
-        <a href="case-study.html?slug=ef" class="work-card">
-          <button class="vs-handle" data-vs="WorkCard" title="view source" aria-label="view source">{ }</button>
-          <div class="meta-row"><span>03 · 2022—now</span><span>case study ↗</span></div>
-          <h3>EF Education First</h3>
-          <p>Insurance, checkout, and quoting for a global EdTech platform. +10% insurance take-rate on 8-figure GMV, +31% checkout velocity, +8% quoting volume across 50+ countries. Ship production React alongside engineering.</p>
-          <div class="pills">
-            <span class="pill">react</span><span class="pill">next.js</span><span class="pill">tailwind</span><span class="pill">design systems</span>
+        <a href="case-study.html?slug=futbolis" class="work-row">
+          <span class="n">02</span>
+          <div>
+            <h3>Futbolis.live</h3>
+            <p class="sub">Visualizing the global pulse of football, one match at a time — 100k concurrent on $19/mo infra.</p>
           </div>
+          <div class="meta">
+            <div>sole design engineer</div>
+            <div>3 weeks · shipped</div>
+          </div>
+          <div class="year">2026 →</div>
         </a>
-      </div>
-    </section>
-
-    <!-- lab -->
-    <section class="section" aria-labelledby="lab-heading">
-      <div class="section-head">
-        <h2 id="lab-heading">From the lab</h2>
-        <a href="lab.html" class="label-chrome" style="color: var(--accent);">all → /lab</a>
-      </div>
-      <div class="lab-grid">
-        <div class="lab-card lab-card--wip" aria-disabled="true">
-          <div class="lab-title">Grid overlay toggle <span class="wip">live on this page</span></div>
-          <div class="lab-desc">Hold <code>g</code> anywhere on the site. 12-col + 4px baseline become visible as hairlines.</div>
-          <div class="pills"><span class="pill">css</span><span class="pill">keyboard</span></div>
-        </div>
-        <div class="lab-card lab-card--wip" aria-disabled="true">
-          <div class="lab-title">View-source drawer <span class="wip">live on this page</span></div>
-          <div class="lab-desc">Every component has a <code>{ }</code> handle. Click to see the actual JSX that rendered it.</div>
-          <div class="pills"><span class="pill">react</span><span class="pill">jsx-to-string</span></div>
-        </div>
-        <div class="lab-card lab-card--wip" aria-disabled="true">
-          <div class="lab-title">Timezone-aware dates <span class="wip">live on this page</span></div>
-          <div class="lab-desc">Every timestamp on this site renders in your local timezone. No server roundtrip.</div>
-          <div class="pills"><span class="pill">intl</span><span class="pill">ssr</span></div>
-        </div>
-        <div class="lab-card lab-card--wip" aria-disabled="true">
-          <div class="lab-title">ASCII chai dispenser <span class="wip">try ⌘K → chai</span></div>
-          <div class="lab-desc">Type <code>chai</code> in the command palette. You'll see.</div>
-          <div class="pills"><span class="pill">easter</span></div>
-        </div>
-        <div class="lab-card lab-card--wip" aria-disabled="true">
-          <div class="lab-title">नमस्ते mode <span class="wip">konami code</span></div>
-          <div class="lab-desc">↑↑↓↓←→←→ba flips the accent to CRT green and drops a devanagari greeting. Only for people who look.</div>
-          <div class="pills"><span class="pill">keyboard</span><span class="pill">css-vars</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- notes -->
-    <section class="section" aria-labelledby="notes-heading">
-      <div class="section-head">
-        <h2 id="notes-heading">Recent notes</h2>
-        <a href="notes.html" class="label-chrome" style="color: var(--accent);">all → /notes</a>
-      </div>
-      <div>
-        <div class="note-row note-row--wip"><span class="date">soon</span><span>A $19/month infrastructure ceiling</span><span class="tag">infra · draft</span></div>
-        <div class="note-row note-row--wip"><span class="date">soon</span><span>Why I wrote a screenplay paginator from scratch</span><span class="tag">arqo · draft</span></div>
-        <div class="note-row note-row--wip"><span class="date">soon</span><span>Lossless round-trip is a unit test, not a feature</span><span class="tag">arqo · draft</span></div>
-        <div class="note-row note-row--wip"><span class="date">soon</span><span>Mobile-first doesn't mean "responsive-later"</span><span class="tag">craft · draft</span></div>
-        <div class="note-row note-row--wip"><span class="date">soon</span><span>Notes on becoming a design engineer</span><span class="tag">career · draft</span></div>
-      </div>
-    </section>
+        <a href="case-study.html?slug=ef" class="work-row">
+          <span class="n">03</span>
+          <div>
+            <h3>EF Education First</h3>
+            <p class="sub">Insurance, checkout, quoting for a global EdTech platform — +10% take-rate on 8-figure GMV.</p>
+          </div>
+          <div class="meta">
+            <div>senior product designer</div>
+            <div>2022 — present</div>
+          </div>
+          <div class="year">2022 →</div>
+        </a>
+      </section>
     </main>
 
-    <!-- footer -->
+    <!-- footer — signed -->
     <footer class="footer">
       <div>
-        <div style="color: var(--fg);">raghav ahuja</div>
-        <div>design engineer · senior product designer · nyc</div>
-        <div style="margin-top: 8px;">
+        <div class="brand-line">raghav ahuja</div>
+        <div>design engineer · senior product designer · new york</div>
+        <div style="margin-top: 10px;">
           <a href="mailto:work.raghavahuja@gmail.com">work.raghavahuja@gmail.com</a> ·
           <a href="https://github.com/ahujatries">github</a> ·
           <a href="https://linkedin.com/in/raghav-ahuja">linkedin</a> ·
@@ -228,8 +175,9 @@
         </div>
       </div>
       <div class="right">
-        <div>build <span id="build-sha" style="color: var(--accent);">—</span></div>
-        <div id="build-deployed">shipped recently</div>
+        <div class="sign">— written, designed, shipped by one person. night edition.</div>
+        <div style="margin-top: 10px;">set in Instrument Serif &amp; JetBrains Mono</div>
+        <div style="color: var(--fg-dim);">build <span id="build-sha" style="color: var(--accent);">—</span> · <span id="build-deployed">shipped recently</span></div>
         <div style="color: var(--fg-dim);" id="reader-tz"></div>
       </div>
     </footer>
@@ -238,7 +186,7 @@
   <!-- command palette -->
   <div id="cmdk" class="cmdk-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Command palette">
     <div class="cmdk" role="combobox" aria-expanded="true">
-      <input id="cmdk-input" type="text" placeholder="type a route, command, or `chai`…" autocomplete="off" spellcheck="false" aria-label="Command input">
+      <input id="cmdk-input" type="text" placeholder="go anywhere · type a route, command, or `chai`…" autocomplete="off" spellcheck="false" aria-label="Command input">
       <div id="cmdk-results" class="cmdk-results" role="listbox"></div>
       <div class="cmdk-foot">
         <span><kbd class="kbd">↑↓</kbd> nav</span>
@@ -249,7 +197,6 @@
     </div>
   </div>
 
-  <!-- view-source drawer -->
   <div id="vs-scrim" class="vs-scrim" aria-hidden="true"></div>
   <aside id="vs-drawer" class="vs-drawer" aria-hidden="true" aria-label="View source">
     <div class="vs-head">
@@ -259,7 +206,6 @@
     <pre class="vs-pre"><code id="vs-code"></code></pre>
   </aside>
 
-  <!-- konami toast -->
   <div id="konami-toast" class="konami-toast" role="status" aria-live="polite" hidden>नमस्ते · crt mode enabled</div>
 
   <script src="site.js" defer></script>

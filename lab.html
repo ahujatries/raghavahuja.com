@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="raghav ahuja — lab. Experiments and small pieces.">
-  <meta name="theme-color" content="#0A0A0A">
+  <meta name="theme-color" content="#15110D">
   <title>lab · raghav ahuja</title>
-    <link rel="preload" href="fonts/Geist.woff2" as="font" type="font/woff2" crossorigin>
+      <link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css">
   <link rel="canonical" href="https://raghavahuja.com/lab">
@@ -24,7 +25,7 @@
   <meta name="twitter:title" content="lab · raghav ahuja">
   <meta name="twitter:description" content="Small pieces, loosely joined — experiments in design engineering.">
   <meta name="twitter:image" content="https://raghavahuja.com/og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22 fill=%22%230070F3%22%3E_%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%23E86A4E%22%3E.%3C/text%3E%3C/svg%3E">
 </head>
 <body data-page="lab">
   <script>try { var s = localStorage.getItem('theme'); if (s) document.documentElement.setAttribute('data-theme', s); } catch (e) {}</script>
@@ -36,41 +37,47 @@
 
     <main id="main">
 
-    <section class="section">
-      <div class="kicker" style="margin-bottom: 12px;">lab · experiments</div>
-      <h1 style="font-size: 56px; line-height: 60px; letter-spacing: -0.02em; max-width: 18ch; margin-bottom: 16px;">Small pieces, loosely joined.</h1>
-      <p class="sub" style="max-width: 60ch; margin-bottom: 40px;">Every entry is a working demo, not a screenshot. Toggle <span class="kbd">g</span> to see the grid. Press <span class="kbd">⌘</span><span class="kbd">K</span> to jump.</p>
+    <section style="padding: 72px 0 40px;">
+      <div class="kicker">folio 03 — the lab</div>
+      <h1 style="margin-top: 28px; margin-bottom: 32px; max-width: 18ch;">
+        Small pieces, <span class="em-serif">loosely joined.</span>
+      </h1>
+      <p class="sub" style="font-family: var(--font-display); font-size: 20px; line-height: 1.55; color: var(--fg-muted); max-width: 60ch; margin-bottom: 8px;">
+        Every entry is a working demo, not a screenshot. Hold <span class="kbd">g</span> to see the grid. Press <span class="kbd">⌘K</span> to jump.
+      </p>
+    </section>
 
-      <div class="lab-grid">
-        <div class="lab-card lab-card--wip" aria-disabled="true">
-          <div class="lab-title">Grid overlay toggle <span class="wip">live on this page</span></div>
-          <div class="lab-desc">Hold <code>g</code> anywhere on the site. 12-col + 4px baseline become visible as hairlines.</div>
-          <div class="pills"><span class="pill">css</span><span class="pill">keyboard</span></div>
+    <section class="section">
+      <div class="lab-list">
+        <div class="lab-row lab-row--wip">
+          <span class="date">26·04·24</span>
+          <span class="title">Grid overlay toggle <span class="wip-tag">live on this page</span></span>
+          <span class="tag">css · keyboard</span>
         </div>
-        <div class="lab-card lab-card--wip" aria-disabled="true">
-          <div class="lab-title">View-source drawer <span class="wip">live on this page</span></div>
-          <div class="lab-desc">Every component has a <code>{ }</code> handle. Click to see the actual JSX that rendered it.</div>
-          <div class="pills"><span class="pill">react</span><span class="pill">jsx-to-string</span></div>
+        <div class="lab-row lab-row--wip">
+          <span class="date">26·04·24</span>
+          <span class="title">View-source drawer <span class="wip-tag">live on this page</span></span>
+          <span class="tag">react · jsx</span>
         </div>
-        <div class="lab-card lab-card--wip" aria-disabled="true">
-          <div class="lab-title">Timezone-aware dates <span class="wip">live on this page</span></div>
-          <div class="lab-desc">Every timestamp on this site renders in your local timezone. No server roundtrip.</div>
-          <div class="pills"><span class="pill">intl</span><span class="pill">ssr</span></div>
+        <div class="lab-row lab-row--wip">
+          <span class="date">26·04·24</span>
+          <span class="title">Timezone-aware dates <span class="wip-tag">live on this page</span></span>
+          <span class="tag">intl · ssr</span>
         </div>
-        <div class="lab-card lab-card--wip" aria-disabled="true">
-          <div class="lab-title">ASCII chai dispenser <span class="wip">try ⌘K → chai</span></div>
-          <div class="lab-desc">Type <code>chai</code> in the command palette. You'll see.</div>
-          <div class="pills"><span class="pill">easter</span></div>
+        <div class="lab-row lab-row--wip">
+          <span class="date">26·04·24</span>
+          <span class="title">ASCII chai dispenser <span class="wip-tag">try ⌘K → chai</span></span>
+          <span class="tag">easter</span>
         </div>
-        <div class="lab-card lab-card--wip" aria-disabled="true">
-          <div class="lab-title">नमस्ते mode <span class="wip">konami code</span></div>
-          <div class="lab-desc">↑↑↓↓←→←→ba flips the accent to CRT green and drops a devanagari greeting. Only for people who look.</div>
-          <div class="pills"><span class="pill">keyboard</span><span class="pill">css-vars</span></div>
+        <div class="lab-row lab-row--wip">
+          <span class="date">26·04·24</span>
+          <span class="title">नमस्ते mode <span class="wip-tag">konami</span></span>
+          <span class="tag">keyboard</span>
         </div>
-        <div class="lab-card lab-card--wip" aria-disabled="true">
-          <div class="lab-title">NYC subway tracker <span class="wip">coming soon</span></div>
-          <div class="lab-desc">Real-time MTA tracker. Line status, next-train times, service alerts. Built because the MTA app ships worse every year.</div>
-          <div class="pills"><span class="pill">gtfs-realtime</span><span class="pill">mapbox</span></div>
+        <div class="lab-row lab-row--wip">
+          <span class="date">soon</span>
+          <span class="title">NYC subway tracker <span class="wip-tag">coming soon</span></span>
+          <span class="tag">gtfs-rt · mapbox</span>
         </div>
       </div>
     </section>

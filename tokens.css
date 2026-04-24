@@ -1,10 +1,24 @@
 /* =============================================================
    raghavahuja.com — tokens
-   Dark default, light polished alternate, vercel blue accent.
+   Direction A · Dark — burnt ink + terracotta · candlelit editorial
    ============================================================= */
 
-/* self-hosted — no render-blocking CDN round-trip. Geist + JBM are both
-   variable-font woff2 under the hood; one file serves all weights. */
+/* self-hosted — Geist kept as fallback for future variant swap; Instrument
+   Serif is the display + body face for Direction A; JetBrains Mono is chrome. */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/InstrumentSerif-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/InstrumentSerif-Italic.woff2') format('woff2');
+}
 @font-face {
   font-family: 'Geist';
   font-style: normal;
@@ -22,22 +36,22 @@
 
 :root {
   /* ---------- TYPE FAMILIES ---------- */
-  --font-display: 'Geist', -apple-system, system-ui, sans-serif;
-  --font-body:    'Geist', -apple-system, system-ui, sans-serif;
+  /* Instrument Serif for display + body. Mono stays JBM. Geist is a fallback. */
+  --font-display: 'Instrument Serif', 'Playfair Display', Georgia, serif;
+  --font-body:    'Instrument Serif', 'Playfair Display', Georgia, serif;
   --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* ---------- TYPE SCALE (4px baseline) ---------- */
-  /* size / line-height in px — rem at root 16px */
   --fs-xs:    12px; --lh-xs:    16px;
   --fs-sm:    14px; --lh-sm:    20px;
-  --fs-base:  15px; --lh-base:  24px;   /* body */
-  --fs-md:    17px; --lh-md:    28px;
-  --fs-lg:    20px; --lh-lg:    28px;
-  --fs-xl:    24px; --lh-xl:    32px;
-  --fs-2xl:   32px; --lh-2xl:   40px;
-  --fs-3xl:   44px; --lh-3xl:   52px;   /* case study title */
-  --fs-4xl:   64px; --lh-4xl:   68px;   /* hero */
-  --fs-5xl:   96px; --lh-5xl:   96px;   /* display */
+  --fs-base:  17px; --lh-base:  28px;   /* body — serif wants more air */
+  --fs-md:    21px; --lh-md:    32px;
+  --fs-lg:    28px; --lh-lg:    36px;
+  --fs-xl:    38px; --lh-xl:    44px;
+  --fs-2xl:   48px; --lh-2xl:   52px;
+  --fs-3xl:   64px; --lh-3xl:   68px;
+  --fs-4xl:   88px; --lh-4xl:   92px;
+  --fs-5xl:   96px; --lh-5xl:   98px;   /* hero display */
 
   /* ---------- TYPE WEIGHTS ---------- */
   --fw-regular: 400;
@@ -46,35 +60,37 @@
   --fw-bold:    700;
 
   /* ---------- TRACKING ---------- */
-  --tr-tight:   -0.02em;   /* display */
+  --tr-tight:   -0.025em;
   --tr-normal:  0;
-  --tr-wide:    0.04em;    /* mono labels, small caps */
-  --tr-wider:   0.08em;    /* section kickers */
+  --tr-wide:    0.04em;
+  --tr-wider:   0.08em;
+  --tr-widest:  0.12em;
 
-  /* ---------- COLORS (dark default) ---------- */
-  --bg:         #0A0A0A;   /* near-black, never pure */
-  --bg-raise:   #121212;   /* cards, raised surfaces */
-  --bg-sink:    #050505;   /* code blocks, wells */
-  --fg:         #EDEDED;   /* primary text */
-  --fg-muted:   #9A9A9A;   /* secondary */
-  --fg-dim:     #5C5C5C;   /* tertiary, timestamps */
-  --fg-faint:   #3A3A3A;   /* disabled */
+  /* ---------- COLORS — Direction A Dark: burnt ink + warm cream ---------- */
+  --bg:         #15110D;   /* paper — burnt ink, warm near-black */
+  --bg-raise:   #1E1812;   /* one step up for chips/keycap */
+  --bg-sink:    #0F0B08;   /* code wells */
+  --fg:         #EDE3CE;   /* warm cream — main text */
+  --fg-muted:   #A89A83;   /* secondary */
+  --fg-dim:     #6F6452;   /* tertiary */
+  --fg-faint:   #4A4234;   /* disabled */
 
-  --line:       rgba(255,255,255,0.08);   /* hairlines */
-  --line-strong: rgba(255,255,255,0.18);  /* emphasized borders */
+  --line:        rgba(237,227,206,0.18);
+  --line-strong: rgba(237,227,206,0.30);
+  --line-soft:   rgba(237,227,206,0.08);
 
-  --selection:  rgba(0, 112, 243, 0.32);
+  --selection:  rgba(232, 106, 78, 0.35);
 
-  /* ---------- ACCENT: vercel blue ---------- */
-  --accent:          #0070F3;
-  --accent-hover:    #3390FF;
-  --accent-press:    #0058C4;
-  --accent-ink:      #FFFFFF;     /* text ON blue */
-  --accent-dim:      rgba(0, 112, 243, 0.14);  /* tints, halos */
+  /* ---------- ACCENT: terracotta ---------- */
+  --accent:          #E86A4E;    /* brightened for dark-mode contrast */
+  --accent-hover:    #F08B74;
+  --accent-press:    #C0492E;
+  --accent-ink:      #1A1208;    /* near-black text on terracotta fills */
+  --accent-dim:      rgba(232, 106, 78, 0.14);
 
   /* ---------- SEMANTIC ---------- */
-  --live:       #33FF66;   /* reserved: live indicators, konami easter egg */
-  --warn:       #F5A524;   /* amber — warnings only, not the brand accent */
+  --live:       #33FF66;
+  --warn:       #F5A524;
   --danger:     #FF5A5A;
 
   /* ---------- SPACING (4px baseline) ---------- */
@@ -91,59 +107,68 @@
   --sp-10:  128px;
 
   /* ---------- RADII ---------- */
-  --r-0: 0;          /* structural elements: always 0 */
-  --r-1: 2px;        /* input fields only */
-  --r-2: 4px;        /* small pills, tags */
+  --r-0: 0;
+  --r-1: 2px;
+  --r-2: 4px;
 
   /* ---------- LAYOUT ---------- */
-  --col-prose:     72ch;   /* ch-based display column */
+  --col-prose:     72ch;
   --col-code:      88ch;
-  --grid-max:      1280px; /* structural grid */
+  --grid-max:      1100px;  /* Direction A narrows the shell for editorial feel */
   --grid-gutter:   16px;
   --grid-cols:     12;
 
   /* ---------- MOTION ---------- */
   --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in:     cubic-bezier(0.64, 0, 0.78, 0);
-  --ease-snap:   cubic-bezier(0.4, 1.4, 0.6, 1);   /* short confirm */
+  --ease-snap:   cubic-bezier(0.4, 1.4, 0.6, 1);
   --dur-fast:    120ms;
   --dur-base:    200ms;
   --dur-slow:    320ms;
 
-  /* ---------- SHADOWS (used sparingly — brutalism) ---------- */
-  /* structural elements never get shadows; only floating ui (popovers, palette) */
-  --shadow-pop:  0 8px 32px rgba(0,0,0,0.48), 0 0 0 1px var(--line);
+  --shadow-pop:  0 8px 32px rgba(0,0,0,0.55), 0 0 0 1px var(--line);
+
+  /* candlelit backdrop — terracotta glow TR, cream glow BL */
+  --bg-candlelight:
+    radial-gradient(1100px 500px at 90% -10%, rgba(232,106,78,0.10), transparent 60%),
+    radial-gradient(900px 420px at -5% 110%, rgba(237,227,206,0.04), transparent 60%);
 }
 
-/* ============= LIGHT MODE — paper, not white ============= */
+/* ============= LIGHT MODE — warm paper ============= */
 :root[data-theme='light'] {
-  --bg:         #F7F6F2;
-  --bg-raise:   #FFFFFF;
-  --bg-sink:    #EEECE4;
-  --fg:         #0A0A0A;
-  --fg-muted:   #4A4A4A;
-  --fg-dim:     #7C7C7C;
-  --fg-faint:   #B6B6B6;
+  --bg:         #F6F1E7;
+  --bg-raise:   #EFE8D8;
+  --bg-sink:    #E9E2CF;
+  --fg:         #1A1410;
+  --fg-muted:   #6B5F52;
+  --fg-dim:     #9E8F7C;
+  --fg-faint:   #C4B9A8;
 
-  --line:        rgba(0,0,0,0.08);
-  --line-strong: rgba(0,0,0,0.20);
+  --line:        rgba(26,20,16,0.18);
+  --line-strong: rgba(26,20,16,0.30);
+  --line-soft:   rgba(26,20,16,0.08);
 
-  --selection:  rgba(0, 112, 243, 0.40);
+  --selection:  rgba(192, 73, 46, 0.35);
 
-  --accent-ink: #FFFFFF;
-  --accent-dim: rgba(0, 88, 196, 0.12);
+  --accent:          #C0492E;    /* darker terracotta for light-mode contrast */
+  --accent-hover:    #D65E43;
+  --accent-press:    #8C3320;
+  --accent-ink:      #FFF6ED;
+  --accent-dim:      rgba(192, 73, 46, 0.12);
 
-  --shadow-pop: 0 8px 32px rgba(0,0,0,0.10), 0 0 0 1px var(--line);
+  --shadow-pop: 0 8px 32px rgba(26,20,16,0.12), 0 0 0 1px var(--line);
+
+  --bg-candlelight:
+    radial-gradient(1100px 500px at 90% -10%, rgba(192,73,46,0.06), transparent 60%),
+    radial-gradient(900px 420px at -5% 110%, rgba(26,20,16,0.03), transparent 60%);
 }
-
-/* dark is unconditional default. light mode only activates via explicit
-   data-theme='light' (user toggles via `t` or ⌘K). We deliberately do NOT
-   honor prefers-color-scheme on first load — brand choice per direction doc. */
 
 /* ============= SEMANTIC ELEMENT STYLES ============= */
 
 html, body {
   background: var(--bg);
+  background-image: var(--bg-candlelight);
+  background-attachment: fixed;
   color: var(--fg);
   font-family: var(--font-body);
   font-size: var(--fs-base);
@@ -151,16 +176,15 @@ html, body {
   font-weight: var(--fw-regular);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-feature-settings: 'ss01', 'cv11';
 }
 
 ::selection { background: var(--selection); color: var(--fg); }
 
 h1, .h1 {
   font-family: var(--font-display);
-  font-size: var(--fs-4xl);
-  line-height: var(--lh-4xl);
-  font-weight: var(--fw-semi);
+  font-size: var(--fs-5xl);
+  line-height: var(--lh-5xl);
+  font-weight: var(--fw-regular);
   letter-spacing: var(--tr-tight);
   text-wrap: balance;
   margin: 0;
@@ -169,7 +193,7 @@ h2, .h2 {
   font-family: var(--font-display);
   font-size: var(--fs-3xl);
   line-height: var(--lh-3xl);
-  font-weight: var(--fw-semi);
+  font-weight: var(--fw-regular);
   letter-spacing: var(--tr-tight);
   text-wrap: balance;
   margin: 0;
@@ -178,15 +202,15 @@ h3, .h3 {
   font-family: var(--font-display);
   font-size: var(--fs-xl);
   line-height: var(--lh-xl);
-  font-weight: var(--fw-semi);
-  letter-spacing: var(--tr-tight);
+  font-weight: var(--fw-regular);
+  letter-spacing: -0.01em;
   margin: 0;
 }
 h4, .h4 {
   font-family: var(--font-display);
   font-size: var(--fs-md);
   line-height: var(--lh-md);
-  font-weight: var(--fw-semi);
+  font-weight: var(--fw-regular);
   margin: 0;
 }
 
@@ -205,7 +229,6 @@ small, .small {
   color: var(--fg-muted);
 }
 
-/* mono label — used in chrome: timestamps, nav, kickers, labels */
 .label, kbd, code, pre, time, .mono {
   font-family: var(--font-mono);
   font-feature-settings: 'zero', 'ss01', 'tnum';
@@ -222,9 +245,9 @@ small, .small {
 .kicker {
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
-  letter-spacing: var(--tr-wider);
+  letter-spacing: var(--tr-widest);
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--fg-dim);
 }
 
 code {
@@ -233,6 +256,7 @@ code {
   padding: 1px 6px;
   border: 1px solid var(--line);
   border-radius: var(--r-1);
+  color: var(--fg);
 }
 
 pre {
@@ -243,6 +267,7 @@ pre {
   padding: var(--sp-4);
   overflow-x: auto;
   max-width: var(--col-code);
+  color: var(--fg);
 }
 
 pre code { background: transparent; border: 0; padding: 0; }
@@ -267,7 +292,6 @@ a {
 a:hover { color: var(--accent-hover); text-decoration: underline; }
 a:active { color: var(--accent-press); }
 
-/* focus ring — designed, not default */
 :focus { outline: none; }
 :focus-visible {
   outline: 2px solid var(--accent);
@@ -289,7 +313,7 @@ input, textarea, select, button {
 input[type='text'], input[type='email'], input[type='search'], textarea {
   background: var(--bg-raise);
   border: 1px solid var(--line);
-  border-radius: var(--r-1);       /* 2px — the one place radii are allowed */
+  border-radius: var(--r-1);
   padding: var(--sp-2) var(--sp-3);
   transition: border-color var(--dur-fast) var(--ease-out);
 }
@@ -297,7 +321,6 @@ input:focus, textarea:focus { border-color: var(--accent); }
 
 button { cursor: pointer; }
 
-/* motion — every animation must respect reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

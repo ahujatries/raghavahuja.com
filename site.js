@@ -7,34 +7,44 @@
 
   // ---------- shared chrome injection ----------
   function mountChrome() {
-    // status bar
+    // status bar — editorial masthead
     if (!document.querySelector('.status-bar')) {
       const sb = document.createElement('div');
       sb.className = 'status-bar';
       sb.setAttribute('role', 'status');
-      sb.innerHTML = '<span><span class="sb-dot"></span> online · v1.0.3 · lighthouse 98</span>' +
+      sb.innerHTML =
+        '<span class="sb-left"><span class="sb-dot"></span> vol. iv · no. 2 · <span class="em-accent">portfolio · night ed.</span></span>' +
         '<span class="sb-clocks">' +
-        '<span>MUM <time id="clk-mum">--:--:--</time></span>' +
-        '<span>NYC <time id="clk-nyc">--:--:--</time></span>' +
-        '<span>SFO <time id="clk-sfo">--:--:--</time></span>' +
+          '<span>mumbai <b id="clk-mum">--:--</b></span>' +
+          '<span>new york <b id="clk-nyc">--:--</b></span>' +
         '</span>';
       document.body.insertBefore(sb, document.body.firstChild);
     }
 
-    // nav — inject into placeholder if present
+    // nav — editorial brand, period accent
     const navMount = document.getElementById('nav-mount');
     if (navMount) {
-      const items = [['work','work.html'],['lab','lab.html'],['notes','notes.html'],['about','about.html'],['contact','contact.html']];
+      const items = [
+        ['work','work.html'],
+        ['lab','lab.html'],
+        ['writing','notes.html','notes'],  // label 'writing', but page is 'notes'
+        ['about','about.html'],
+        ['contact','contact.html'],
+      ];
       navMount.outerHTML = '<nav class="nav" aria-label="primary">' +
         '<div class="nav-left">' +
-          '<a href="index.html" class="brand">raghavahuja<span class="caret">_</span></a>' +
+          '<a href="index.html" class="brand">raghav ahuja<span class="caret">.</span></a>' +
           '<div class="nav-links">' +
-            items.map(([l,h]) => `<a href="${h}"${active===l?' class="active"':''}>${l}</a>`).join('') +
+            items.map((it) => {
+              const [l, h, pg] = it;
+              const key = pg || l;
+              return `<a href="${h}"${active===key?' class="active"':''}>${l}</a>`;
+            }).join('') +
           '</div>' +
         '</div>' +
         '<div class="nav-right">' +
           '<button id="cmdk-trigger" class="nav-search" aria-label="Open command palette">' +
-            '<span class="label-chrome">search</span><kbd class="kbd">⌘</kbd><kbd class="kbd">K</kbd>' +
+            '<span class="label-chrome">go anywhere</span><kbd class="kbd">⌘K</kbd>' +
           '</button>' +
           '<button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">' +
             '<span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>' +
@@ -48,9 +58,9 @@
     if (footMount) {
       footMount.outerHTML = '<footer class="footer">' +
         '<div>' +
-          '<div style="color: var(--fg);">raghav ahuja</div>' +
-          '<div>design engineer · senior product designer · nyc</div>' +
-          '<div style="margin-top: 8px;">' +
+          '<div class="brand-line">raghav ahuja</div>' +
+          '<div>design engineer · senior product designer · new york</div>' +
+          '<div style="margin-top: 10px;">' +
             '<a href="mailto:work.raghavahuja@gmail.com">work.raghavahuja@gmail.com</a> · ' +
             '<a href="https://github.com/ahujatries">github</a> · ' +
             '<a href="https://linkedin.com/in/raghav-ahuja">linkedin</a> · ' +
@@ -58,8 +68,9 @@
           '</div>' +
         '</div>' +
         '<div class="right">' +
-          '<div>build <span id="build-sha" style="color: var(--accent);">—</span></div>' +
-          '<div id="build-deployed">shipped recently</div>' +
+          '<div class="sign">— written, designed, shipped by one person. night edition.</div>' +
+          '<div style="margin-top: 10px;">set in Instrument Serif &amp; JetBrains Mono</div>' +
+          '<div style="color: var(--fg-dim);">build <span id="build-sha" style="color: var(--accent);">—</span> · <span id="build-deployed">shipped recently</span></div>' +
           '<div style="color: var(--fg-dim);" id="reader-tz"></div>' +
         '</div>' +
       '</footer>';
@@ -78,7 +89,7 @@
       cm.id = 'cmdk'; cm.className = 'cmdk-overlay';
       cm.setAttribute('role', 'dialog'); cm.setAttribute('aria-modal', 'true'); cm.setAttribute('aria-hidden', 'true'); cm.setAttribute('aria-label', 'Command palette');
       cm.innerHTML = '<div class="cmdk" role="combobox" aria-expanded="true">' +
-        '<input id="cmdk-input" type="text" placeholder="type a route, command, or `chai`…" autocomplete="off" spellcheck="false" aria-label="Command input">' +
+        '<input id="cmdk-input" type="text" placeholder="go anywhere · type a route, command, or `chai`…" autocomplete="off" spellcheck="false" aria-label="Command input">' +
         '<div id="cmdk-results" class="cmdk-results" role="listbox"></div>' +
         '<div class="cmdk-foot">' +
           '<span><kbd class="kbd">↑↓</kbd> nav</span>' +
@@ -160,7 +171,6 @@
   const clocks = [
     ['clk-mum', 'Asia/Kolkata'],
     ['clk-nyc', 'America/New_York'],
-    ['clk-sfo', 'America/Los_Angeles'],
   ];
   function tickClocks() {
     const now = new Date();
@@ -168,7 +178,7 @@
       const el = document.getElementById(id);
       if (!el) continue;
       el.textContent = new Intl.DateTimeFormat('en-GB', {
-        timeZone: tz, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+        timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false,
       }).format(now);
     }
   }
@@ -183,42 +193,9 @@
     if (rt) rt.textContent = `you: ${now} ${tz}`;
   } catch (e) {}
 
-  // ---------- typewriter ----------
-  const ROLES = [
-    'design systems',
-    'conversion-critical UIs',
-    'realtime collab',
-    'editor engines',
-    'map experiences',
-    'quoting & checkout flows',
-  ];
-  const typer = document.getElementById('typer');
-  if (typer) {
-    if (reduceMotion) {
-      typer.textContent = ROLES[0];
-    } else {
-      let i = 0, txt = '', del = false;
-      function step() {
-        const word = ROLES[i % ROLES.length];
-        if (!del && txt === word) {
-          // hold proportional to word length so every phrase gets a chance to be read.
-          // 900ms base + ~45ms per char, clamped.
-          const hold = Math.min(2400, 900 + word.length * 45);
-          setTimeout(() => { del = true; step(); }, hold);
-          return;
-        }
-        if (del && txt === '') {
-          del = false; i++;
-          setTimeout(step, 180);
-          return;
-        }
-        txt = del ? word.slice(0, txt.length - 1) : word.slice(0, txt.length + 1);
-        typer.textContent = txt;
-        setTimeout(step, del ? 30 : 70);
-      }
-      step();
-    }
-  }
+  // typewriter removed — Direction A hero is static: "I design systems
+  // *and* build them." The italic "and" is the only accent. Fewer moving
+  // parts = more editorial presence.
 
   // ---------- live activity (real GitHub events) ----------
   const liveSection = document.querySelector('.live-activity');
