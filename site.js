@@ -28,11 +28,16 @@
       navMount.outerHTML = '<nav class="nav" aria-label="primary">' +
         '<div class="nav-left">' +
           '<a href="index.html" class="brand">raghavahuja<span class="caret">_</span></a>' +
-          items.map(([l,h]) => `<a href="${h}"${active===l?' class="active"':''}>${l}</a>`).join('') +
+          '<div class="nav-links">' +
+            items.map(([l,h]) => `<a href="${h}"${active===l?' class="active"':''}>${l}</a>`).join('') +
+          '</div>' +
         '</div>' +
         '<div class="nav-right">' +
           '<button id="cmdk-trigger" class="nav-search" aria-label="Open command palette">' +
             '<span class="label-chrome">search</span><kbd class="kbd">⌘</kbd><kbd class="kbd">K</kbd>' +
+          '</button>' +
+          '<button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">' +
+            '<span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>' +
           '</button>' +
         '</div>' +
       '</nav>';
@@ -113,6 +118,37 @@
   }
 
   mountChrome();
+
+  // ---------- mobile nav toggle ----------
+  const navEl = document.querySelector('.nav');
+  const navToggle = document.querySelector('.nav-toggle');
+  if (navEl && navToggle) {
+    function setNavOpen(open) {
+      navEl.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+    }
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setNavOpen(!navEl.classList.contains('open'));
+    });
+    // close on nav link click (before navigation kicks in, fine either way)
+    navEl.querySelectorAll('.nav-links a').forEach((a) => {
+      a.addEventListener('click', () => setNavOpen(false));
+    });
+    // close on outside click
+    document.addEventListener('click', (e) => {
+      if (!navEl.classList.contains('open')) return;
+      if (!navEl.contains(e.target)) setNavOpen(false);
+    });
+    // close on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navEl.classList.contains('open')) setNavOpen(false);
+    });
+    // close when viewport grows past breakpoint
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 720 && navEl.classList.contains('open')) setNavOpen(false);
+    });
+  }
 
   // ---------- clocks ----------
   const clocks = [
