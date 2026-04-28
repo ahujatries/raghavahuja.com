@@ -105,8 +105,8 @@
 
         <div class="mm-legend">
           <div class="mm-legend-row"><span class="mm-swatch mm-swatch-live"></span><span>live now</span></div>
-          <div class="mm-legend-row"><span class="mm-swatch mm-swatch-upcoming"></span><span>upcoming</span></div>
-          <div class="mm-legend-row"><span class="mm-swatch mm-swatch-past"></span><span>earlier</span></div>
+          <div class="mm-legend-row"><span class="mm-swatch mm-swatch-forward"></span><span>upcoming · web</span></div>
+          <div class="mm-legend-row"><span class="mm-swatch mm-swatch-past"></span><span>earlier · press</span></div>
         </div>
 
         <!-- corner ticks (brand motif) -->
@@ -173,7 +173,11 @@
         </div>
         <div class="mm-method-row">
           <dt>cadence</dt>
-          <dd>Refresh runs every 5 minutes. Most events show up <em>1&ndash;3 days</em> after they happen, when the press office posts the readout or transcript. The map is a receipt — it tells you where he's <em>been</em>, not where he <em>is</em>. Today's "today" view is almost always empty for that reason; the default view is the rolling last 7 days.</dd>
+          <dd>Refresh runs every 5 minutes. Most past events show up <em>1&ndash;3 days</em> after they happen, when the press office posts the readout or transcript. The default view is the rolling last 7 days.</dd>
+        </div>
+        <div class="mm-method-row">
+          <dt>forward signal</dt>
+          <dd>Once a day, Claude (Haiku 4.5) runs a structured web search across NYC press (Gothamist, NY1, NY Times Metro, City &amp; State, RPA press releases, etc.) for credibly pre-announced events. Found events show with a <em>dashed cobalt ring</em> on the map. Source URL + a verifying quote are stored with each one and shown in the popup.</dd>
         </div>
         <div class="mm-method-row">
           <dt>limits</dt>

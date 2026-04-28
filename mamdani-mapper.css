@@ -368,6 +368,7 @@ a:hover { color: var(--ink); }
 }
 .mm-swatch-live     { box-shadow: 0 0 0 2px var(--pos); }
 .mm-swatch-upcoming { box-shadow: 0 0 0 2px var(--accent); opacity: 0.85; }
+.mm-swatch-forward  { box-shadow: 0 0 0 2px var(--accent); opacity: 0.85; border-style: dashed; }
 .mm-swatch-past     { opacity: 0.45; filter: grayscale(0.7); }
 
 @media (max-width: 720px) {
@@ -404,6 +405,23 @@ a:hover { color: var(--ink); }
 }
 .mm-marker--upcoming { border-color: var(--accent); opacity: 0.9; }
 .mm-marker--past     { filter: grayscale(0.85); opacity: 0.55; width: 36px; height: 36px; }
+
+/* forward-looking events (web-search-sourced, predicted) — dashed cobalt ring */
+.mm-marker--forward {
+  border-color: var(--accent);
+  border-style: dashed;
+  border-width: 2.5px;
+  opacity: 0.85;
+  filter: saturate(0.85);
+}
+.mm-marker--forward::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1.5px dashed var(--accent);
+  border-radius: 50%;
+  opacity: 0.4;
+}
 
 /* mapbox popup */
 .mapboxgl-popup-content {

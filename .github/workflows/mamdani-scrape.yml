@@ -25,11 +25,30 @@ jobs:
         with:
           node-version: 20
 
-      - name: Run scraper
+      - name: Run press-feed scraper (every run)
         env:
           MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/scrape-mamdani-schedule.mjs
+
+      # Forward-schedule scraper (Claude + web_search + web_fetch).
+      # Only runs when the minute is :00 of the hour AND the hour is 14 UTC
+      # (≈ 10am ET) — i.e. once per day. Cheap (~$1/mo).
+      - name: Should run forward scraper?
+        id: should_forward
+        run: |
+          if [[ "$(date -u +%H:%M)" == "14:00" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run forward-schedule scraper (daily ~10am ET)
+        if: steps.should_forward.outputs.run == 'true'
+        env:
+          MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/scrape-forward-schedule.mjs
 
       - name: Commit if changed
         run: |

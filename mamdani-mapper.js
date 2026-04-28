@@ -45,6 +45,7 @@
   function parseISO(s) { return new Date(s); }
 
   function eventStatus(ev, now = new Date()) {
+    if (ev.is_forward) return 'forward';
     const start = parseISO(ev.start);
     const end = parseISO(ev.end || ev.start);
     if (now < start) return 'upcoming';
@@ -342,7 +343,12 @@
     const now = new Date();
     const liveEvent = state.events.find(ev => eventStatus(ev, now) === 'live');
     const nextEvent = state.events
-      .filter(ev => eventStatus(ev, now) === 'upcoming')
+      .filter(ev => {
+        const s = eventStatus(ev, now);
+        // include both 'upcoming' (rare — events Claude detected as scheduled future) and 'forward' (web-search-sourced)
+        if (s !== 'upcoming' && s !== 'forward') return false;
+        return parseISO(ev.start) >= now;
+      })
       .sort((a, b) => a.start.localeCompare(b.start))[0];
 
     if (statusLine) {
@@ -350,7 +356,8 @@
         statusLine.innerHTML = `<b style="color:var(--live)">live</b> at ${escapeHtml(liveEvent.venue)} until ${escapeHtml(fmtTime(liveEvent.end || liveEvent.start))}`;
       } else if (nextEvent) {
         const isToday = inWindow(nextEvent, 'today');
-        statusLine.innerHTML = `next public stop · <em>${escapeHtml(nextEvent.event_name)}</em> · ${escapeHtml(isToday ? fmtTime(nextEvent.start) : fmtDay(nextEvent.start))}`;
+        const tag = nextEvent.is_forward ? '<span style="color:var(--accent);font-style:italic">upcoming</span>' : 'next public stop';
+        statusLine.innerHTML = `${tag} · <em>${escapeHtml(nextEvent.event_name)}</em> · ${escapeHtml(isToday ? fmtTime(nextEvent.start) : fmtDay(nextEvent.start))}`;
       } else {
         statusLine.textContent = 'no upcoming public events on file';
       }
