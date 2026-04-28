@@ -24,7 +24,7 @@
   <meta name="twitter:title" content="the library · raghav ahuja">
   <meta name="twitter:description" content="Frameworks, ADRs, and colophon.">
   <meta name="twitter:image" content="https://raghavahuja.com/og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%235b8cff%22%3E_%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%235b8cff%22%3Er%3C/text%3E%3Crect x=%2245%22 y=%2222%22 width=%2212%22 height=%2265%22 fill=%22%235b8cff%22%3E%3Canimate attributeName=%22opacity%22 values=%221;1;0;0%22 keyTimes=%220;0.5;0.51;1%22 dur=%221s%22 repeatCount=%22indefinite%22/%3E%3C/rect%3E%3C/svg%3E">
 </head>
 <body data-page="docs">
   <script>try { var s = localStorage.getItem('theme'); if (s) document.documentElement.setAttribute('data-theme', s); } catch (e) {}</script>
@@ -129,40 +129,6 @@
   </template>
 
   <!-- ==============================================
-       MIND
-       ============================================== -->
-  <template id="doc-mind">
-    <section>
-      <p class="drop-cap"><strong>MIND</strong> is a synthesis method for turning a week of mixed-method research — interviews, survey open-fields, support tickets, telemetry — into a one-page artefact that a team can argue against.</p>
-      <p>It is the research-readout I reach for when I have more than a hundred raw inputs and less than a day to find the shape in them.</p>
-    </section>
-
-    <h2>The four steps</h2>
-    <ol>
-      <li><strong>M — Mine.</strong> Pull every raw input into one surface. Interview notes, survey lines, ticket text. No editing. No paraphrasing. Verbatim only. One card per input, timestamped, attributed. If it didn't happen, it doesn't go on the wall.</li>
-      <li><strong>I — Inventory.</strong> Sort the cards into tentative groups without naming them yet. Let the groupings be awkward; resist the urge to interpret. A group with 40 cards and a group with 3 cards are both data. Count them. Write the count on the group.</li>
-      <li><strong>N — Name the tensions.</strong> Look at the boundaries between groups. Where do two groups contradict each other? That contradiction is the <em>tension</em> — the thing the product has to resolve. Name the tension in a single sentence. Not the topic, the tension.</li>
-      <li><strong>D — Decide the bet.</strong> For each tension, write the bet the product is going to make. Not the feature. The bet — the hypothesis that if we resolve this tension one particular way, the downstream metric moves. Every bet has an owner and a deadline.</li>
-    </ol>
-
-    <blockquote>Most research reads are Mine and Inventory, then stop. The insight is not in the clusters. It is in the boundaries between them.</blockquote>
-
-    <h2>The one-page artefact</h2>
-    <p>The output is a single page with four sections: the inputs (count + sources), the groups (with card counts), the tensions (one sentence each), the bets (one sentence each, with owner + deadline). Anyone reading it should be able to argue against a bet without re-reading the raw cards — that's the test.</p>
-
-    <h2>Anti-patterns</h2>
-    <ul>
-      <li><strong>Paraphrasing in Mine.</strong> The moment you start "translating what they really meant," you have corrupted the inventory. Verbatim is cheap and honest.</li>
-      <li><strong>Naming groups before you've inventoried them.</strong> Forces the data into your priors. Stay in awkward-unnamed-groups longer than feels comfortable.</li>
-      <li><strong>Writing <em>features</em> in Decide.</strong> A feature is a solution. A bet is a hypothesis. "Add a size filter" is a feature; "users will convert more when they feel certain about fit before adding to cart" is a bet.</li>
-      <li><strong>No owner, no deadline.</strong> A bet without an owner is a wish. The method insists on both.</li>
-    </ul>
-
-    <h2>Where it fails</h2>
-    <p>MIND is built for mixed-method research with &gt;50 inputs across &gt;2 source types. Below that scale, it's over-engineered — a good two-hour discussion does the same work. It also struggles when research has been scheduled around a decision that was already made; no synthesis method survives motivated sampling.</p>
-  </template>
-
-  <!-- ==============================================
        Colophon
        ============================================== -->
   <template id="doc-colophon">
@@ -242,9 +208,9 @@
   <!-- ==============================================
        MIND — Behavioral Operating System
        ============================================== -->
-  <template id="doc-mind-os">
+  <template id="doc-mind">
     <section>
-      <p class="drop-cap"><strong>MIND — Motivational Interface &amp; Nudge Design</strong> — is the behavioral operating system I authored for high-stakes flows. Distinct from the <a href="docs.html?d=mind">synthesis MIND</a> (which is a research method) — this MIND is a working theory of <em>why</em> a high-consideration purchase converts or doesn't, and the interface response that resolves the doubt.</p>
+      <p class="drop-cap"><strong>MIND — Motivational Interface &amp; Nudge Design</strong> — is the behavioral operating system I authored for high-stakes flows. A working theory of <em>why</em> a high-consideration purchase converts or doesn't, and the interface response that resolves the doubt.</p>
       <p>The full applied writeup, with deployment metrics, lives in the <a href="case-study.html?slug=mind">case study</a>. This is the conceptual core.</p>
     </section>
 
@@ -473,37 +439,32 @@ export async function GET() {
         meta: { written: '2023 · revised 2026', status: 'in production', length: '~1,100 words' },
       },
       'mind': {
-        n: '02', title: 'MIND — synthesis', kind: 'framework',
-        subtitle: 'Mixed-method research synthesis. Mine, inventory, name the tensions, decide the bet.',
-        meta: { written: '2023 · revised 2026', status: 'in production', length: '~900 words' },
-      },
-      'mind-os': {
-        n: '03', title: 'MIND — behavioral OS', kind: 'framework',
+        n: '02', title: 'MIND — behavioral OS', kind: 'framework',
         subtitle: 'A behavioral operating system for high-stakes flows. CtB equation, 5 pillars, BDI heatmap.',
         meta: { written: '2024 · revised 2026', status: 'deployed across EF surfaces', length: '~1,000 words' },
       },
       'hcai': {
-        n: '04', title: 'HCAI — designing for humans', kind: 'framework',
+        n: '03', title: 'HCAI — designing for humans', kind: 'framework',
         subtitle: 'Human-Centered AI evaluation rubric. P.O.N.T.E. + six principles. Augment, don\'t replace.',
         meta: { written: '2023 · revised 2026', status: 'shaping AI surfaces at EF', length: '~900 words' },
       },
       'direction-a': {
-        n: '05', title: 'Direction A · Dark', kind: 'brand',
+        n: '04', title: 'Direction A · Dark', kind: 'brand',
         subtitle: 'The brand direction this site is set in. Burnt ink, warm cream, terracotta, Instrument Serif.',
         meta: { written: '2026-04', status: 'locked', length: '~1,000 words' },
       },
       'colophon': {
-        n: '06', title: 'Colophon — raghavahuja.com', kind: 'colophon',
+        n: '05', title: 'Colophon — raghavahuja.com', kind: 'colophon',
         subtitle: 'How this site is built. Stack, direction, interactions, perf, a11y.',
         meta: { written: '2026-04', status: 'maintained', length: '~1,100 words' },
       },
       'adr-edge-cache': {
-        n: '07', title: 'ADR — $19/mo edge cache', kind: 'adr',
+        n: '06', title: 'ADR — $19/mo edge cache', kind: 'adr',
         subtitle: 'Serve 100k+ concurrent users on a base-tier sports API via Next.js revalidate. Reject Redis.',
         meta: { written: '2026-03', status: 'accepted · in production · futbolis.live', length: '~800 words' },
       },
     };
-    const ORDER = ['ctb', 'mind', 'mind-os', 'hcai', 'direction-a', 'colophon', 'adr-edge-cache'];
+    const ORDER = ['ctb', 'mind', 'hcai', 'direction-a', 'colophon', 'adr-edge-cache'];
 
     function renderShelf() {
       const shelf = document.getElementById('shelf');
