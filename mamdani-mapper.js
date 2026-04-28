@@ -281,28 +281,29 @@
     if (!upList || !earList) return;
     const now = new Date();
 
-    // UPCOMING — forward events, sorted ascending (soonest first)
-    const upcoming = state.events
+    // UPCOMING — forward events, sorted ascending (soonest first), capped to 3
+    const upcomingAll = state.events
       .filter(ev => ev.is_forward && parseISO(ev.start) >= now)
       .sort((a, b) => a.start.localeCompare(b.start));
+    const upcoming = upcomingAll.slice(0, 3);
 
-    // EARLIER — non-forward (press-sourced) events, sorted descending (most recent first), capped to 14
-    const earlier = state.events
+    // EARLIER — non-forward (press-sourced) events, sorted descending (most recent first), capped to 3
+    const earlierAll = state.events
       .filter(ev => !ev.is_forward)
-      .sort((a, b) => b.start.localeCompare(a.start))
-      .slice(0, 14);
+      .sort((a, b) => b.start.localeCompare(a.start));
+    const earlier = earlierAll.slice(0, 3);
 
     const upSum = $('#mm-up-summary');
     if (upSum) {
-      upSum.textContent = upcoming.length
-        ? `${upcoming.length} on the calendar`
+      const more = upcomingAll.length > 3 ? ` · +${upcomingAll.length - 3} more on map` : '';
+      upSum.textContent = upcomingAll.length
+        ? `next ${upcoming.length} of ${upcomingAll.length}${more}`
         : 'press office doesn\'t pre-announce much';
     }
     const earSum = $('#mm-earlier-summary');
     if (earSum) {
-      const boroughs = new Set(earlier.map(ev => ev.borough).filter(Boolean));
-      earSum.textContent = earlier.length
-        ? `${earlier.length} stop${earlier.length === 1 ? '' : 's'} · ${boroughs.size} borough${boroughs.size === 1 ? '' : 's'}`
+      earSum.textContent = earlierAll.length
+        ? `last ${earlier.length} of ${earlierAll.length} on file`
         : 'no events on file';
     }
 
@@ -359,21 +360,16 @@
     if (totalEl) totalEl.textContent = `${total} stop${total === 1 ? '' : 's'}`;
     if (windowEl) windowEl.textContent = 'last 30 days';
 
-    // dynamic snarky one-liner
+    // subheadline — the data, not snark (the section title IS the question now)
     if (headline) {
       if (total === 0) {
         headline.textContent = 'no data on file yet';
       } else {
         const sorted = ORDER.map(b => [b, tally[b].length]).sort((a, b) => b[1] - a[1]);
-        const [topB, topN] = sorted[0];
-        const topPct = total ? Math.round((topN / total) * 100) : 0;
-        const five = sorted.every(([_, n]) => n > 0);
-        let line;
-        if (five) line = 'a true five-borough mayor';
-        else if (topPct >= 50) line = `${topB.toLowerCase()} stan · ${topPct}% of his time`;
-        else if (topPct >= 35) line = `mostly a ${topB.toLowerCase()} mayor (${topPct}%)`;
-        else line = `most-visited: ${topB.toLowerCase()} (${topPct}%)`;
-        headline.textContent = line;
+        const [winner, winnerN] = sorted[0];
+        const winnerPct = Math.round((winnerN / total) * 100);
+        const coverage = sorted.filter(([_, n]) => n > 0).length;
+        headline.textContent = `${winner.toLowerCase()} · ${winnerPct}% · ${coverage}/5 boroughs covered`;
       }
     }
 

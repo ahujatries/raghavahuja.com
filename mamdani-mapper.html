@@ -30,7 +30,8 @@
   <meta name="twitter:title" content="the mamdani mapper">
   <meta name="twitter:description" content="A live receipt of the NYC Mayor's official public schedule.">
   <meta name="twitter:image" content="https://raghavahuja.com/og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%230c0c0e%22/%3E%3Crect x=%2218%22 y=%2218%22 width=%2264%22 height=%2264%22 fill=%22%235b8cff%22/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="mamdani/zohran-favicon.png">
+  <link rel="apple-touch-icon" href="mamdani/zohran-favicon.png">
 </head>
 <body>
   <!-- topbar — receipt-style chrome, no live-site nav -->
@@ -118,35 +119,11 @@
       </div>
     </section>
 
-    <!-- run-of-show — two columns: upcoming (forward) | earlier (press) -->
-    <section class="mm-runofshow">
-      <div class="mm-rs-grid">
-        <div class="mm-rs-col mm-rs-col--upcoming">
-          <div class="mm-section-head">
-            <div class="mm-section-label">§ 03 · <em>upcoming</em> · scheduled</div>
-            <div class="mm-section-meta" id="mm-up-summary">—</div>
-          </div>
-          <div class="mm-runofshow-list" id="mm-upcoming-list">
-            <div class="mm-rs-empty">looking for upcoming events…</div>
-          </div>
-        </div>
-        <div class="mm-rs-col mm-rs-col--earlier">
-          <div class="mm-section-head">
-            <div class="mm-section-label">§ 04 · earlier · on file</div>
-            <div class="mm-section-meta" id="mm-earlier-summary">—</div>
-          </div>
-          <div class="mm-runofshow-list" id="mm-earlier-list">
-            <div class="mm-rs-empty">loading recent events…</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- borough tracker · how much of his time goes to each borough -->
+    <!-- borough tracker · who gets the most mamdani? -->
     <section class="mm-tracker" aria-labelledby="tracker-heading">
       <div class="mm-section-head">
-        <div class="mm-section-label" id="tracker-heading">§ 05 · borough tracker · <em>last 30 days</em></div>
-        <div class="mm-section-meta" id="mm-bt-headline">where his time is going</div>
+        <div class="mm-section-label" id="tracker-heading">§ 03 · <em>who gets the most mamdani?</em> · last 30 days</div>
+        <div class="mm-section-meta" id="mm-bt-headline">tallying boroughs…</div>
       </div>
       <div class="mm-bt-rows" id="mm-bt-rows">
         <div class="mm-rs-empty">tallying boroughs…</div>
@@ -156,6 +133,30 @@
         <span class="mm-bt-foot-v" id="mm-bt-total">—</span>
         <span class="mm-bt-foot-k">window</span>
         <span class="mm-bt-foot-v" id="mm-bt-window">last 30 days</span>
+      </div>
+    </section>
+
+    <!-- run-of-show — two columns: upcoming (forward) | earlier (press) -->
+    <section class="mm-runofshow">
+      <div class="mm-rs-grid">
+        <div class="mm-rs-col mm-rs-col--upcoming">
+          <div class="mm-section-head">
+            <div class="mm-section-label">§ 04 · <em>upcoming</em> · scheduled</div>
+            <div class="mm-section-meta" id="mm-up-summary">—</div>
+          </div>
+          <div class="mm-runofshow-list" id="mm-upcoming-list">
+            <div class="mm-rs-empty">looking for upcoming events…</div>
+          </div>
+        </div>
+        <div class="mm-rs-col mm-rs-col--earlier">
+          <div class="mm-section-head">
+            <div class="mm-section-label">§ 05 · earlier · on file</div>
+            <div class="mm-section-meta" id="mm-earlier-summary">—</div>
+          </div>
+          <div class="mm-runofshow-list" id="mm-earlier-list">
+            <div class="mm-rs-empty">loading recent events…</div>
+          </div>
+        </div>
       </div>
     </section>
 
