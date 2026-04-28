@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Mamdani Mapper — case study. One-night cobalt-themed map of NYC Mayor Zohran Mamdani's public events. Architecture, decisions, challenges, cost engineering, and what got cut.">
+  <meta name="theme-color" content="#0c0c0e">
+  <title>the mamdani mapper · case study · raghav ahuja</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="mamdani-mapper-case.css">
+
+  <link rel="canonical" href="https://raghavahuja.com/mamdani-mapper-case">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://raghavahuja.com/mamdani-mapper-case">
+  <meta property="og:title" content="the mamdani mapper · case study">
+  <meta property="og:description" content="One-night cobalt-themed map of NYC Mayor Mamdani's public events. Architecture, decisions, challenges, cost engineering.">
+  <meta property="og:image" content="https://raghavahuja.com/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@ahujatries">
+  <meta name="twitter:creator" content="@ahujatries">
+  <meta name="twitter:title" content="the mamdani mapper · case study">
+  <meta name="twitter:description" content="One-night cobalt-themed map of NYC Mayor Mamdani's public events. Architecture, decisions, challenges, cost engineering.">
+  <meta name="twitter:image" content="https://raghavahuja.com/og.png">
+  <link rel="icon" type="image/png" href="mamdani/zohran-favicon.png">
+  <link rel="apple-touch-icon" href="mamdani/zohran-favicon.png">
+</head>
+<body>
+  <!-- topbar — same pattern as the mapper, slightly different label -->
+  <header class="cs-topbar" role="banner">
+    <div class="cs-topbar-left">
+      <span class="cs-mark"></span>
+      <span>mamdani mapper · <em>case study</em></span>
+    </div>
+    <div class="cs-topbar-mid">vol. iv · case · l·02 · 2026</div>
+    <a class="cs-topbar-right" href="mamdani-mapper.html" title="back to the live map">↩ live map</a>
+  </header>
+
+  <main class="cs-shell">
+    <!-- head -->
+    <section class="cs-head">
+      <div class="cs-kicker">case · l·02 · 2026 · one-night build</div>
+      <h1 class="cs-h1">
+        the mamdani <em>mapper</em>
+      </h1>
+      <p class="cs-subtitle">
+        A live receipt of every public stop NYC Mayor Zohran Mamdani has made — and the credibly pre-announced ones — plotted on a cobalt map. Built solo in one night using Claude Code.
+      </p>
+
+      <dl class="cs-meta">
+        <div>
+          <dt>timeline</dt>
+          <dd>~5 hours · one-night build</dd>
+        </div>
+        <div>
+          <dt>role</dt>
+          <dd>sole design engineer — product, brand, scraping, AI extraction, geocoding, GH Action</dd>
+        </div>
+        <div>
+          <dt>stack</dt>
+          <dd>vanilla HTML/CSS/JS · Mapbox GL · Claude Haiku 4.5 · Sonnet 4.6 web search</dd>
+        </div>
+        <div>
+          <dt>live</dt>
+          <dd><a href="mamdani-mapper.html">raghavahuja.com/mamdani-mapper ↗</a></dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- stack -->
+    <section class="cs-stack">
+      <div class="cs-stack-label">stack receipts</div>
+      <div class="cs-stack-grid">
+        <div class="cs-stack-row"><span>mapbox-gl</span><span class="ver">3.7.0</span></div>
+        <div class="cs-stack-row"><span>anthropic api</span><span class="ver">raw fetch</span></div>
+        <div class="cs-stack-row"><span>claude-haiku-4-5</span><span class="ver">venue NER</span></div>
+        <div class="cs-stack-row"><span>claude-sonnet-4-6</span><span class="ver">web search</span></div>
+        <div class="cs-stack-row"><span>fonts</span><span class="ver">Fraunces · Geist · JBMono</span></div>
+        <div class="cs-stack-row"><span>gh-actions</span><span class="ver">*/5 + 14:00 utc</span></div>
+        <div class="cs-stack-row"><span>vercel</span><span class="ver">static · auto-deploy</span></div>
+        <div class="cs-stack-row"><span>nyc.gov sitemap</span><span class="ver">5,000+ URLs</span></div>
+      </div>
+    </section>
+
+    <!-- body -->
+    <article class="cs-body">
+      <section>
+        <p class="drop-cap"><strong>The Mamdani Mapper is a one-night build:</strong> a standalone, cobalt-themed map at <a href="mamdani-mapper.html"><code>raghavahuja.com/mamdani-mapper</code></a> that plots every public stop NYC Mayor Zohran Mamdani has made — and the credibly pre-announced ones — using only published data. Past stops come from the Mayor's Office press feed (1–3 days lag); upcoming stops come from a daily structured web search across credible NYC outlets. No tweets. No inferences. No third-party signals. No crowd submissions. The face on the map is the same image, recast as a marker.</p>
+        <p>This case study is the receipts: every architecture decision, every place reality pushed back, every thing I deliberately did not build. Total monthly cost ceiling is around <strong>$1.30/mo</strong>. Stack is vanilla HTML, two scripts, and one GitHub Action.</p>
+      </section>
+
+      <div class="cs-stat-row">
+        <div class="cs-stat"><div class="n">~5<span style="font-size:0.6em;"> hrs</span></div><div class="l">from blank canvas to live map · one session</div></div>
+        <div class="cs-stat"><div class="n">$1.30<span style="font-size:0.6em;">/mo</span></div><div class="l">total cost ceiling · scrape + LLM + forward search</div></div>
+        <div class="cs-stat"><div class="n">5,066</div><div class="l">candidate URLs · skip-cache filters to ~3/day</div></div>
+      </div>
+
+      <h2>The brief</h2>
+      <p>Make something viral about Zohran Mamdani for a personal website. Turn open data into a map people want to screenshot. Don't be creepy. Don't pay for anything. Don't build infrastructure that needs babysitting.</p>
+      <p>The promise to the user (and to the mayor's safety) had to do real work in two directions:</p>
+      <ul>
+        <li><strong>For the audience:</strong> a clean, share-worthy artifact — Mamdani's face on a map, dotted across NYC, with credible sourcing visible on every pin.</li>
+        <li><strong>For the subject:</strong> a hard rule that the page never plots a real-time location, never aggregates third-party signals, and never accepts crowd submissions. The mapper is a <em>receipt</em>, not a tracker.</li>
+      </ul>
+
+      <h2>The decisions</h2>
+
+      <h3>Press receipts, not real-time tracking</h3>
+      <p>The first thing I argued <em>against</em>. A "where is the mayor right now" page is technically possible from public signals — tweets, press appearances, photo-op spotting — but conflates "public information" with "responsible to publish." Even with stalker-bait flagged off, an aggregated real-time feed of an elected official's location enables the worst use case as cleanly as the best one. So I made it a hard rule: the map only plots what the press office has already <em>published</em>. Every event has a <code>source_url</code> with a verifying quote stored alongside the coordinates. The methodology section on the page says this in plain English.</p>
+
+      <h3>Standalone page, not embedded in the site shell</h3>
+      <p>The rest of <code>raghavahuja.com</code> is a portfolio site with a specific masthead, nav, and footer. The mapper is its own thing — a special bulletin from "the cartography desk" — and forcing it into the site chrome muddies both. So <code>mamdani-mapper.html</code> declares its own tokens, its own font stack, its own footer. It can borrow the cobalt palette without inheriting the masthead. The only handshake back to the parent site is a <em>↩ raghavahuja.com</em> link in the footer and a return entry in <kbd>⌘K</kbd>.</p>
+
+      <h3>Cobalt face markers — not the obvious "red pin"</h3>
+      <p>The default Mapbox marker is a red pushpin. Boring. The narrative hook of the project is "Mamdani's face on the map," so the marker <em>is</em> his face, in a circle, with cobalt rings that mean different things: solid for past, dashed for upcoming, pulsing green for live. Forward (web-sourced, predicted) events are visually distinct from past (press-sourced, confirmed) events — the dashed border carries the epistemic difference. The legend is honest: <em>upcoming · web</em> vs <em>earlier · press</em>.</p>
+
+      <h2>Architecture</h2>
+      <p>Two scrapers, both running in one GH Action workflow. Both write to the same <code>events.json</code>.</p>
+
+      <h3>Scraper A · the press receipt (every 5 minutes)</h3>
+      <ol>
+        <li><strong>Discovery:</strong> the nyc.gov mayor's-office sitemap is public XML and contains every press-release URL in the form <code>/news/YYYY/MM/&lt;slug&gt;</code>. We pull it once per run.</li>
+        <li><strong>Skip-cache:</strong> URLs we've already extracted (or already ruled out) live in <code>mamdani/skip-cache.json</code>. Most runs evaluate <em>zero</em> new URLs and exit cleanly with $0 spent on Claude.</li>
+        <li><strong>Pre-filter:</strong> obvious non-event titles (Executive Orders, "Releases Plan," "Statement on…") get skipped before any LLM call.</li>
+        <li><strong>Extraction:</strong> what survives gets handed to Claude Haiku 4.5 with a tool-use schema. The model returns <code>{ was_physically_present, venue, neighborhood, borough, kind }</code>. If <code>was_physically_present === false</code>, we skip and remember the URL.</li>
+        <li><strong>Geocoding:</strong> Mapbox's geocoder, with <em>neighborhood</em> and <em>borough</em> passed as hints. This is the fix that turned "La Marqueta" geocoding to a random street in Brooklyn into "La Marqueta, East Harlem, Manhattan." The hint matters enormously for ambiguous proper nouns.</li>
+      </ol>
+
+      <h3>Scraper B · the forward signal (once a day)</h3>
+      <p>Mamdani's office, unlike his predecessors', does not publish a daily public schedule. Politico's NY Playbook newsletter (which historically would have) is fully blocked at the web layer — 403 on every direct request, Wayback's most recent snapshot is two months stale, no public RSS. Email pipeline is real but a multi-hour build with user-side setup.</p>
+      <p>So Scraper B uses Claude with the built-in <code>web_search_20260209</code> + <code>web_fetch_20260209</code> server-side tools. One API call per day. The system prompt asks for forward events from a whitelist of NYC outlets (Gothamist, NY1, NY Times Metro, City &amp; State, RPA press releases, etc.) with strict criteria: specific venue, specific date inside a 14-day window, public source URL, source explicitly states the mayor will attend. The model returns a structured array via tool use.</p>
+      <p>An exhaustive one-time pass with Sonnet 4.6 found two high-confidence events for the next 14 days — a 9/11 Memorial wreath-laying with King Charles III on April 29, and a mainstage talk at the 2026 RPA Assembly on May 1. The daily Haiku run keeps watching.</p>
+
+      <h2>Challenges</h2>
+
+      <h3>The press feed isn't a press feed</h3>
+      <p>I designed Scraper A around an Adams-era convention: the Mayor's Office posts a daily <em>"Mayor's Public Schedule"</em> press release that lists where he'll be that day. Mamdani's office doesn't do this. They publish event-specific releases <em>after</em> events. The whole "where will he be tomorrow" framing was structurally impossible from this source. The pivot was painful but the right call: ship the receipt of where he's been, layer forward signal in separately.</p>
+
+      <h3>nyc.gov is JS-rendered</h3>
+      <p>The press-release index page (<code>/mayors-office/news</code>) is rendered client-side via Adobe Experience Manager + Coveo search. A static <code>fetch()</code> sees an empty shell. <em>Individual</em> press release pages are static, but you can't list them via the index. The fix was the sitemap — XML, public, and updated within minutes of new releases.</p>
+
+      <h3>Geocoding the wrong "La Marqueta"</h3>
+      <p>First clean Claude run produced 14 events with great extraction quality but ugly geocoding: "La Marqueta" pinned in Canarsie, Brooklyn. "Gracie Mansion" pinned to Mansion Street in the Bronx. "WNYC" pinned to a street in Brooklyn. The fix was passing the borough and neighborhood Claude already extracted into the geocoder query. Disambiguation goes from rough to precise the moment the model and the geocoder share context.</p>
+
+      <h3>Rate limits at $5 of input tokens</h3>
+      <p>The first end-to-end run burned through the 50K input-tokens-per-minute org cap on Haiku and 30 of 60 calls hit 429s. Three small fixes: a 2.5s sleep between calls, a 429-with-retry-after backoff that retries up to twice, and the skip-cache (so subsequent runs do far fewer calls). Steady-state is now under the cap by orders of magnitude.</p>
+
+      <h3>The "today" view was empty by design</h3>
+      <p>Earliest version defaulted the map to "today." But press releases lag 1–3 days, so "today" was almost always empty — the page rendered as broken. Fix: rolling 7-day window as the default for past events, and a new <em>upcoming</em> toggle (the now-default) that shows today + next 14 days. Honest empty-state copy explains the lag in plain English so first-time visitors don't think the page is dead.</p>
+
+      <h2>What I deliberately did not build</h2>
+      <ul>
+        <li><strong>Crowd submissions.</strong> User-flagged: "fuck crowd submissions, people are creeps." Removed from scope before a line of code.</li>
+        <li><strong>Twitter / X scraping.</strong> $5–200/month for a marginal-value signal. Mamdani's @ tweets are policy, not schedule. The mayor's office tweets are post-hoc. Skipped.</li>
+        <li><strong>Real-time inference.</strong> No "he just left X" extrapolation, no aggregation across signals, no clever guesses. The map is a receipt; if it can't cite a published source, it doesn't plot.</li>
+        <li><strong>The Politico email pipeline.</strong> Built a runbook for it. Decided to ship the web-search forward signal first and revisit if traction warrants the additional infra.</li>
+      </ul>
+
+      <h2>Cost engineering</h2>
+      <div class="cs-stat-row">
+        <div class="cs-stat"><div class="n">$0.30<span style="font-size:0.6em;">/mo</span></div><div class="l">press scraper · skip-cache means most runs do zero llm calls</div></div>
+        <div class="cs-stat"><div class="n">$1.00<span style="font-size:0.6em;">/mo</span></div><div class="l">forward scraper · daily Haiku call with web_search/web_fetch</div></div>
+        <div class="cs-stat"><div class="n">$0.00<span style="font-size:0.6em;">/mo</span></div><div class="l">infra · static page on Vercel free tier · public-repo GH Actions</div></div>
+      </div>
+      <p>The skip-cache is the most important single line of code in the project. Without it, 288 runs/day × 50 candidate URLs = 14,400 LLM evaluations per day. With it, the 30-second steady-state job evaluates 0–3 new URLs and exits. The cache is a JSON file in the same repo — committed alongside <code>events.json</code> on every change.</p>
+
+      <h2>Pivots and trade-offs</h2>
+      <ul>
+        <li><strong>Forward-looking → receipt:</strong> the original "where will he be" pitch became "where has he been," with a small upcoming column on the side. The narrative is stronger this way: the map IS the value, the share moment is the heatmap of his time.</li>
+        <li><strong>Email pipeline → web search:</strong> 2–3 hour build with user setup vs. a one-API-call daily search. The web search runs in the existing GH Action; nothing new to maintain. Same source quality on the high end (RPA press releases, Gothamist), worse on the low end. Acceptable.</li>
+        <li><strong>Opus → Haiku:</strong> on the user's first cost-anxiety prompt I downgraded the per-press-release extractor from Opus 4.7 to Haiku 4.5. 5x cheaper, accuracy still good for this task because the prompt is highly structured and the field of decisions is narrow.</li>
+        <li><strong>Multi-call agentic loop → single tool call:</strong> the forward scraper does one Messages API call with <code>web_search</code>, <code>web_fetch</code>, and a custom <code>record_forward_events</code> tool. No round-trip looping from the client side. Claude does the agentic work server-side and returns one structured array.</li>
+      </ul>
+
+      <h2>What's live now</h2>
+      <ul>
+        <li>The standalone page at <a href="mamdani-mapper.html">raghavahuja.com/mamdani-mapper</a> with cobalt design, custom topbar, and its own favicon (the face).</li>
+        <li>14 past events plotted across all 5 boroughs, plus 2 high-confidence upcoming events (King Charles wreath-laying, RPA Assembly).</li>
+        <li>The borough tracker — <em>"who gets the most mamdani?"</em> — with a face-stack visualization for the last 30 days.</li>
+        <li>Click-to-zoom: click a row or face → map zooms to the venue with the popup, click off → flies back to the overview.</li>
+        <li>Three share-card generators (today, this week, heatmap) that produce branded 1200×630 PNGs from the canvas.</li>
+        <li>A GH Action firing every 5 minutes for the press scraper and once a day at 14:00 UTC for the forward scraper.</li>
+      </ul>
+
+      <h2>What I'd do differently</h2>
+      <ul>
+        <li><strong>Build the email pipeline.</strong> The exhaustive Sonnet sweep found 2 events for a 14-day window. Politico's NY Playbook would catch a few more — specifically the small town halls and community appearances that don't get an indie-press writeup. Cloudflare Email Routing → Worker → GitHub commit is ~3 hours of work plus a one-time email subscription. If the page gets meaningful traction, that's the next move.</li>
+        <li><strong>Pad the system prompt above the cache floor.</strong> Haiku's prompt cache requires &gt; 4096 tokens. My system prompt + tool schema clocks in around 3.5K, so caching never triggers. With more few-shot examples I could push above the floor and get ~90% off the per-call cost. Trivial savings at current volume; matters at 100x scale.</li>
+        <li><strong>Forward events as a separate visual layer.</strong> Right now they live in the same <code>events.json</code> with a flag. A separate <code>forward.json</code> would let a future "preview" view diff what changed since yesterday — the kind of thing that turns a static map into a daily destination.</li>
+      </ul>
+
+      <h2>Conclusion</h2>
+      <p>One night, vanilla static page, two cron jobs, $1.30/month. The building constraint that made it work was the negative one: don't build a tracker, build a receipt. That single line of editorial discipline is what kept the scope honest, the cost low, and the page shippable in one session. The face on the map does the rest.</p>
+
+      <blockquote>Built for sport. One static page, one Mapbox tile, one hand-written scraper, one daily Claude run, and a GitHub Action that commits the receipt to the repo.</blockquote>
+    </article>
+  </main>
+
+  <footer class="cs-footer">
+    <a href="mamdani-mapper.html">↩ live map</a>
+    <span>·</span>
+    <a href="/">raghavahuja.com</a>
+    <span>·</span>
+    <span>cartography desk · brooklyn · 2026</span>
+  </footer>
+</body>
+</html>

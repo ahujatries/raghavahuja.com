@@ -307,10 +307,11 @@ Paginator responsibilities:
     <blockquote>The surface is production-grade. The discipline is staff-grade. The ambition is to be the category-winner in a space that has not had one for a decade.</blockquote>
   </template>
 
-  <!-- ==============================================
-       THE MAMDANI MAPPER
-       ============================================== -->
-  <template id="case-mamdani-mapper">
+  <!-- The Mamdani Mapper case study moved to its own standalone cobalt page:
+       /mamdani-mapper-case.html — kept the slug-based template DELETED below
+       so /case-study?slug=mamdani-mapper falls through to the redirect at
+       the top of this script. -->
+  <template id="case-mamdani-mapper-archived" hidden>
     <section>
       <p class="drop-cap"><strong>The Mamdani Mapper is a one-night build:</strong> a standalone, cobalt-themed map at <code>raghavahuja.com/mamdani-mapper</code> that plots every public stop NYC Mayor Zohran Mamdani has made — and the credibly pre-announced ones — using only published data. Past stops come from the Mayor's Office press feed (1–3 days lag); upcoming stops come from a daily structured web search across credible NYC outlets. No tweets. No inferences. No third-party signals. No crowd submissions. The face on the map is the same image, recast as a marker.</p>
       <p>This case study is the receipts: every architecture decision, every place reality pushed back, every thing I deliberately did not build. Total monthly cost ceiling is around <strong>$1.30/mo</strong>. Stack is vanilla HTML, two scripts, and one GitHub Action.</p>
@@ -999,26 +1000,6 @@ const checkoutTokens: BehavioralTokens = {
           ['yjs', '13.6.x'], ['lemon-squeezy/api', '2.x'],
         ],
       },
-      'mamdani-mapper': {
-        n: 'L·02', year: '2026', title: 'The Mamdani Mapper',
-        subtitle: 'A live receipt of every public stop NYC Mayor Zohran Mamdani has made — and the credibly pre-announced ones — plotted on a cobalt map. Built in a single night using Claude Code.',
-        meta: {
-          timeline: '~5 hours · one-night build',
-          role: 'Sole design engineer — product, brand, scraping, AI extraction, geocoding, GH Action',
-          stack: 'Vanilla HTML/CSS/JS · Mapbox GL JS · Claude Haiku 4.5 (venue extraction) · Claude Sonnet 4.6 (forward search) · web_search/web_fetch · GH Actions cron · Vercel',
-          live: 'raghavahuja.com/mamdani-mapper ↗',
-        },
-        stack: [
-          ['mapbox-gl', '3.7.0'],
-          ['anthropic api', 'raw fetch · no SDK'],
-          ['claude-haiku-4-5', '20251001 · venue NER'],
-          ['claude-sonnet-4-6', 'web_search forward signal'],
-          ['fonts · Fraunces', 'Geist · JetBrains Mono'],
-          ['gh-actions', '*/5 + 14:00 utc'],
-          ['vercel', 'static · auto-deploy'],
-          ['data · nyc.gov sitemap', '5,000+ urls'],
-        ],
-      },
       futbolis: {
         n: 'L·01', year: '2026', title: 'Futbolis.live',
         subtitle: 'Visualizing the global pulse of football, one match at a time. Lab project — full case study still here, indexed under /lab.',
@@ -1096,7 +1077,7 @@ const checkoutTokens: BehavioralTokens = {
         stack: null,
       },
     };
-    const ORDER = ['arqo', 'jmnpr-labs', 'ef', 'mamdani-mapper', 'futbolis', 'zulily', 'social-booth', 'mind', 'hcai'];
+    const ORDER = ['arqo', 'jmnpr-labs', 'ef', 'futbolis', 'zulily', 'social-booth', 'mind', 'hcai'];
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('slug') || 'arqo';
