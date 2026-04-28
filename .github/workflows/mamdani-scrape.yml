@@ -1,0 +1,44 @@
+name: mamdani-scrape
+
+# Every 5 minutes. The skip-cache (mamdani/skip-cache.json) means most runs do
+# 0 Claude calls — only NEW press release URLs since the last run get evaluated.
+# Steady-state cost: ~$0.30/month assuming 2-3 new releases/day.
+# Commits ./mamdani/events.json + skip-cache.json if changed. Vercel auto-redeploys on push.
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: mamdani-scrape
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run scraper
+        env:
+          MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/scrape-mamdani-schedule.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name "mamdani-mapper-bot"
+          git config user.email "bot@raghavahuja.com"
+          if [[ -n "$(git status --porcelain mamdani/events.json mamdani/skip-cache.json)" ]]; then
+            git add mamdani/events.json mamdani/skip-cache.json
+            git commit -m "data(mamdani): refresh schedule $(date -u +%FT%TZ)"
+            git push
+          else
+            echo "no changes to events.json or skip-cache.json"
+          fi

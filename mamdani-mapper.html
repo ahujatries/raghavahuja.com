@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Mamdani Mapper — a live receipt of NYC Mayor Zohran Mamdani's official public schedule. Sourced from the Mayor's Office press feed. Where he is, where he was, where he'll be next.">
+  <meta name="theme-color" content="#0c0c0e">
+  <title>the mamdani mapper · where in the world is zohran mamdani?</title>
+
+  <!-- fonts: Fraunces × Geist × JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="mamdani-mapper.css">
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css">
+
+  <link rel="canonical" href="https://raghavahuja.com/mamdani-mapper">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://raghavahuja.com/mamdani-mapper">
+  <meta property="og:title" content="the mamdani mapper — where in the world is zohran mamdani?">
+  <meta property="og:description" content="A live receipt of the NYC Mayor's official public schedule. Sourced from the Mayor's Office press feed. We never track real-time location.">
+  <meta property="og:image" content="https://raghavahuja.com/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="raghavahuja.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@ahujatries">
+  <meta name="twitter:creator" content="@ahujatries">
+  <meta name="twitter:title" content="the mamdani mapper">
+  <meta name="twitter:description" content="A live receipt of the NYC Mayor's official public schedule.">
+  <meta name="twitter:image" content="https://raghavahuja.com/og.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%230c0c0e%22/%3E%3Crect x=%2218%22 y=%2218%22 width=%2264%22 height=%2264%22 fill=%22%235b8cff%22/%3E%3C/svg%3E">
+</head>
+<body>
+  <!-- topbar — receipt-style chrome, no live-site nav -->
+  <header class="mm-topbar" role="banner">
+    <div class="mm-topbar-left">
+      <span class="mm-mark"></span>
+      <span>mamdani mapper · <em>special bulletin</em></span>
+    </div>
+    <div class="mm-topbar-mid">vol. iv · ed. one · <span id="mm-today">2026·04·27</span></div>
+    <a class="mm-topbar-right" href="/" title="raghavahuja.com">↩ raghav ahuja</a>
+  </header>
+
+  <main class="mm-shell">
+    <!-- hero -->
+    <section class="mm-hero">
+      <div class="mm-eyebrow">
+        <span>§ 01 · cartography desk</span>
+        <span class="dot">·</span>
+        <span>brooklyn</span>
+        <span class="dot">·</span>
+        <span class="mm-pulse"><span class="mm-pulse-dot"></span> live</span>
+      </div>
+      <h1 class="mm-h1">
+        where in the world<br>
+        <em>is</em> zohran mamdani?
+      </h1>
+      <p class="mm-lead">
+        A running receipt of every public stop the mayor has made — sourced once a day from the
+        <a href="https://www.nyc.gov/mayors-office" target="_blank" rel="noopener">NYC Mayor's Office press feed</a>.
+        We plot only what the press office publishes — never a tweet, never an inference, never a third-party signal.
+        When the press office says <span class="mm-tick">"Mayor at La Marqueta, East Harlem"</span>, his face appears on the map at La Marqueta.
+      </p>
+
+      <!-- receipt strip — 3 numbers across, cobalt accent -->
+      <div class="mm-receipt">
+        <div class="mm-receipt-cell">
+          <div class="k">status</div>
+          <div class="v" id="mm-status-line">checking the wires…</div>
+        </div>
+        <div class="mm-receipt-cell">
+          <div class="k">last refresh</div>
+          <div class="v mono" id="mm-last-refresh">—</div>
+        </div>
+        <div class="mm-receipt-cell">
+          <div class="k">on file</div>
+          <div class="v mono" id="mm-event-count">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- map -->
+    <section class="mm-map-section">
+      <div class="mm-section-head">
+        <div class="mm-section-label">§ 02 · the map · official public schedule</div>
+        <div class="mm-toggles" role="group" aria-label="Time window">
+          <button class="mm-tog is-on" data-window="today">today</button>
+          <button class="mm-tog" data-window="week">this week</button>
+          <button class="mm-tog" data-window="all">all time</button>
+          <span class="mm-tog-sep" aria-hidden="true">·</span>
+          <button class="mm-tog mm-tog-mode" data-mode="heat">heatmap</button>
+        </div>
+      </div>
+
+      <div class="mm-map-frame">
+        <div id="mm-map" class="mm-map" aria-label="Map of Mayor Mamdani's scheduled public events"></div>
+
+        <div class="mm-live-chip" id="mm-live-chip" hidden>
+          <span class="mm-live-dot"></span>
+          <span class="mm-live-text">live <em id="mm-live-event">—</em></span>
+          <span class="mm-live-end">ends <b id="mm-live-end">—</b></span>
+        </div>
+
+        <div class="mm-legend">
+          <div class="mm-legend-row"><span class="mm-swatch mm-swatch-live"></span><span>live now</span></div>
+          <div class="mm-legend-row"><span class="mm-swatch mm-swatch-upcoming"></span><span>upcoming</span></div>
+          <div class="mm-legend-row"><span class="mm-swatch mm-swatch-past"></span><span>earlier</span></div>
+        </div>
+
+        <!-- corner ticks (brand motif) -->
+        <span class="mm-tick-corner mm-tick-tl"></span>
+        <span class="mm-tick-corner mm-tick-tr"></span>
+        <span class="mm-tick-corner mm-tick-bl"></span>
+        <span class="mm-tick-corner mm-tick-br"></span>
+      </div>
+    </section>
+
+    <!-- run-of-show -->
+    <section class="mm-runofshow">
+      <div class="mm-section-head">
+        <div class="mm-section-label">§ 03 · run-of-show · <em id="mm-rs-day">today</em></div>
+        <div class="mm-section-meta" id="mm-rs-summary">—</div>
+      </div>
+      <div class="mm-runofshow-list" id="mm-runofshow-list">
+        <div class="mm-rs-empty">loading the day's schedule…</div>
+      </div>
+    </section>
+
+    <!-- share -->
+    <section class="mm-share">
+      <div class="mm-section-head">
+        <div class="mm-section-label">§ 04 · share the bulletin</div>
+        <div class="mm-section-meta">screenshot bait, generated on demand</div>
+      </div>
+      <div class="mm-share-grid">
+        <button class="mm-share-card" data-share="today">
+          <span class="mm-share-kicker">card · 01</span>
+          <span class="mm-share-title">today, mapped</span>
+          <span class="mm-share-sub">the mayor's day — venues, miles, boroughs.</span>
+          <span class="mm-share-cta">download png →</span>
+        </button>
+        <button class="mm-share-card" data-share="week">
+          <span class="mm-share-kicker">card · 02</span>
+          <span class="mm-share-title">this week, mapped</span>
+          <span class="mm-share-sub">every public stop · a six-day broadside.</span>
+          <span class="mm-share-cta">download png →</span>
+        </button>
+        <button class="mm-share-card" data-share="heat">
+          <span class="mm-share-kicker">card · 03</span>
+          <span class="mm-share-title">the heatmap</span>
+          <span class="mm-share-sub">where his time is going · borough by borough.</span>
+          <span class="mm-share-cta">download png →</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- the data desk -->
+    <section class="mm-method">
+      <div class="mm-section-head">
+        <div class="mm-section-label">§ 05 · the data desk · how this is made</div>
+        <div class="mm-section-meta">read before you @ us</div>
+      </div>
+      <dl class="mm-method-list">
+        <div class="mm-method-row">
+          <dt>source</dt>
+          <dd>Once a day we pull the NYC Mayor's Office <a href="https://www.nyc.gov/mayors-office" target="_blank" rel="noopener">press release feed</a> from the nyc.gov sitemap, parse each release for a venue mention (<em>"at X"</em>, <em>"in <Borough>"</em>, <em>"delivered remarks at Y"</em>), geocode the venue via Mapbox, and write a static <code>events.json</code> committed to this repo.</dd>
+        </div>
+        <div class="mm-method-row">
+          <dt>never</dt>
+          <dd>We do <em>not</em> infer location from tweets, photos, license plates, EZ-Pass, or anything that wasn't already in a press release. We do not aggregate his current position from third-party signals. We do not accept crowd submissions.</dd>
+        </div>
+        <div class="mm-method-row">
+          <dt>cadence</dt>
+          <dd>Daily refresh, ~7am ET. Most events show up a day or two after they happen, when the press office posts the readout or transcript. The map is a receipt — it tells you where he's <em>been</em>, not where he <em>is</em>.</dd>
+        </div>
+        <div class="mm-method-row">
+          <dt>limits</dt>
+          <dd>Mamdani's office (unlike prior administrations) doesn't publish forward-looking daily schedules. So we can't tell you where he'll be tomorrow at 2pm — only where he was yesterday. If that changes, this map updates automatically.</dd>
+        </div>
+        <div class="mm-method-row">
+          <dt>corrections</dt>
+          <dd>Spot a wrong venue or missing event? <a href="mailto:work.raghavahuja@gmail.com?subject=mamdani-mapper%20correction">email me</a>. All edits go through a manual override file with a public diff.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- closing -->
+    <section class="mm-colophon">
+      <p>
+        the mapper is a one-night project. one static page, one mapbox tile, one hand-written scraper,
+        and a github action that commits the receipt to the repo once a day. built for sport.
+      </p>
+      <div class="mm-colophon-meta">
+        <span>signed by ra · ed25519</span>
+        <span>fraunces × geist × jetbrains mono</span>
+        <span>tiles by mapbox · data: nyc.gov</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mm-footer">
+    <a href="/">↩ raghavahuja.com</a>
+    <span>—</span>
+    <span>cartography desk · brooklyn · 26·04·27</span>
+  </footer>
+
+  <!-- mapbox + page logic -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+  <script src="mamdani-mapper.js" defer></script>
+</body>
+</html>

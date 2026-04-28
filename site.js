@@ -482,6 +482,7 @@
     { label: 'colophon · how this site is built', path: '/docs/colophon', href: 'docs.html?d=colophon', kind: 'route' },
     { label: 'ADR · $19/mo edge cache', path: '/docs/adr-edge-cache', href: 'docs.html?d=adr-edge-cache', kind: 'route' },
     { label: 'lab', path: '/lab', href: 'lab.html', kind: 'route' },
+    { label: 'the mamdani mapper · special bulletin', path: '/mamdani-mapper', href: 'mamdani-mapper.html', kind: 'route' },
     { label: 'notes', path: '/notes', href: 'notes.html', kind: 'route' },
     { label: 'about', path: '/about', href: 'about.html', kind: 'route' },
     { label: 'contact', path: '/contact', href: 'contact.html', kind: 'route' },
