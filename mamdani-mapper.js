@@ -285,7 +285,7 @@
     }
 
     if (!today.length) {
-      list.innerHTML = `<div class="mm-rs-empty">nothing on file for today. browse <em>this week</em> or <em>all time</em> on the map above →</div>`;
+      list.innerHTML = `<div class="mm-rs-empty">no readout on file for today yet — the mayor's press office publishes events 1–3 days after they happen. the map above is showing the <em>last 7 days</em>.</div>`;
       return;
     }
 
