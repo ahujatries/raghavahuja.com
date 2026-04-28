@@ -117,21 +117,34 @@
       </div>
     </section>
 
-    <!-- run-of-show -->
+    <!-- run-of-show — two columns: upcoming (forward) | earlier (press) -->
     <section class="mm-runofshow">
-      <div class="mm-section-head">
-        <div class="mm-section-label">§ 03 · run-of-show · <em id="mm-rs-day">today</em></div>
-        <div class="mm-section-meta" id="mm-rs-summary">—</div>
-      </div>
-      <div class="mm-runofshow-list" id="mm-runofshow-list">
-        <div class="mm-rs-empty">loading the day's schedule…</div>
+      <div class="mm-rs-grid">
+        <div class="mm-rs-col mm-rs-col--upcoming">
+          <div class="mm-section-head">
+            <div class="mm-section-label">§ 03 · <em>upcoming</em> · scheduled</div>
+            <div class="mm-section-meta" id="mm-up-summary">—</div>
+          </div>
+          <div class="mm-runofshow-list" id="mm-upcoming-list">
+            <div class="mm-rs-empty">looking for upcoming events…</div>
+          </div>
+        </div>
+        <div class="mm-rs-col mm-rs-col--earlier">
+          <div class="mm-section-head">
+            <div class="mm-section-label">§ 04 · earlier · on file</div>
+            <div class="mm-section-meta" id="mm-earlier-summary">—</div>
+          </div>
+          <div class="mm-runofshow-list" id="mm-earlier-list">
+            <div class="mm-rs-empty">loading recent events…</div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- share -->
     <section class="mm-share">
       <div class="mm-section-head">
-        <div class="mm-section-label">§ 04 · share the bulletin</div>
+        <div class="mm-section-label">§ 05 · share the bulletin</div>
         <div class="mm-section-meta">screenshot bait, generated on demand</div>
       </div>
       <div class="mm-share-grid">
@@ -159,7 +172,7 @@
     <!-- the data desk -->
     <section class="mm-method">
       <div class="mm-section-head">
-        <div class="mm-section-label">§ 05 · the data desk · how this is made</div>
+        <div class="mm-section-label">§ 06 · the data desk · how this is made</div>
         <div class="mm-section-meta">read before you @ us</div>
       </div>
       <dl class="mm-method-list">

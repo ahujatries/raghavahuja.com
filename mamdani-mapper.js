@@ -268,47 +268,48 @@
     state.map.fitBounds(bounds, { padding: 80, maxZoom: 13, duration: 600 });
   }
 
-  // ---------- run-of-show table ----------
+  // ---------- two-column run-of-show: upcoming (forward) + earlier (past) ----------
   function renderRunOfShow() {
-    const list = $('#mm-runofshow-list');
-    if (!list) return;
+    const upList = $('#mm-upcoming-list');
+    const earList = $('#mm-earlier-list');
+    if (!upList || !earList) return;
     const now = new Date();
-    const today = state.events.filter(ev => inWindow(ev, 'today'));
-    const dayLabel = $('#mm-rs-day');
-    if (dayLabel) dayLabel.textContent = today[0] ? fmtDay(today[0].start).toLowerCase() : 'today';
 
-    const summary = $('#mm-rs-summary');
-    if (summary) {
-      const boroughs = new Set(today.map(ev => ev.borough).filter(Boolean));
-      summary.textContent = today.length
-        ? `${today.length} stop${today.length === 1 ? '' : 's'} · ${boroughs.size} borough${boroughs.size === 1 ? '' : 's'}`
-        : 'no public events on the schedule';
+    // UPCOMING — forward events, sorted ascending (soonest first)
+    const upcoming = state.events
+      .filter(ev => ev.is_forward && parseISO(ev.start) >= now)
+      .sort((a, b) => a.start.localeCompare(b.start));
+
+    // EARLIER — non-forward (press-sourced) events, sorted descending (most recent first), capped to 14
+    const earlier = state.events
+      .filter(ev => !ev.is_forward)
+      .sort((a, b) => b.start.localeCompare(a.start))
+      .slice(0, 14);
+
+    const upSum = $('#mm-up-summary');
+    if (upSum) {
+      upSum.textContent = upcoming.length
+        ? `${upcoming.length} on the calendar`
+        : 'press office doesn\'t pre-announce much';
+    }
+    const earSum = $('#mm-earlier-summary');
+    if (earSum) {
+      const boroughs = new Set(earlier.map(ev => ev.borough).filter(Boolean));
+      earSum.textContent = earlier.length
+        ? `${earlier.length} stop${earlier.length === 1 ? '' : 's'} · ${boroughs.size} borough${boroughs.size === 1 ? '' : 's'}`
+        : 'no events on file';
     }
 
-    if (!today.length) {
-      list.innerHTML = `<div class="mm-rs-empty">no readout on file for today yet — the mayor's press office publishes events 1–3 days after they happen. the map above is showing the <em>last 7 days</em>.</div>`;
-      return;
-    }
+    upList.innerHTML = upcoming.length
+      ? upcoming.map(rsRow).join('')
+      : `<div class="mm-rs-empty">nothing pre-announced for the next 7 days. the mayor's office is sparse on forward schedules — we'll catch new ones in the daily web sweep.</div>`;
 
-    list.innerHTML = today.map(ev => {
-      const status = eventStatus(ev, now);
-      const statusLabel = { live: 'live now', upcoming: 'upcoming', past: 'wrapped' }[status];
-      const range = ev.end ? `${fmtTime(ev.start)}–${fmtTime(ev.end)}` : fmtTime(ev.start);
-      return `
-        <div class="mm-rs-row" data-event-id="${escapeHtml(ev.id)}">
-          <span class="kind">${escapeHtml(ev.kind || 'event')}</span>
-          <span class="time">${escapeHtml(range)}</span>
-          <span class="where">
-            ${escapeHtml(ev.event_name)}
-            <small>${escapeHtml(ev.venue)}</small>
-          </span>
-          <span class="borough">${escapeHtml(ev.borough || '—')}</span>
-          <span class="status-tag is-${status}">${escapeHtml(statusLabel)}</span>
-        </div>
-      `;
-    }).join('');
+    earList.innerHTML = earlier.length
+      ? earlier.map(rsRow).join('')
+      : `<div class="mm-rs-empty">no past events on file.</div>`;
 
-    list.querySelectorAll('.mm-rs-row').forEach(row => {
+    // wire row clicks
+    [...upList.querySelectorAll('.mm-rs-row'), ...earList.querySelectorAll('.mm-rs-row')].forEach(row => {
       row.addEventListener('click', () => {
         const id = row.getAttribute('data-event-id');
         const ev = state.events.find(e => e.id === id);
@@ -321,6 +322,25 @@
         if (marker) marker.togglePopup();
       });
     });
+  }
+
+  function rsRow(ev) {
+    const now = new Date();
+    const status = eventStatus(ev, now);
+    const statusLabel = { live: 'live', upcoming: 'soon', past: 'wrapped', forward: 'soon' }[status] || status;
+    const dateLabel = fmtDay(ev.start).split(',')[0]; // "Tuesday" from "Tuesday, April 28"
+    const dateShort = new Date(ev.start).toLocaleDateString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric' }).toLowerCase();
+    const timeLabel = ev.start.includes('T12:00:00') ? dateShort : `${dateShort} · ${fmtTime(ev.start)}`;
+    return `
+      <div class="mm-rs-row" data-event-id="${escapeHtml(ev.id)}">
+        <span class="time">${escapeHtml(timeLabel)}</span>
+        <span class="where">
+          ${escapeHtml(ev.event_name)}
+          <small>${escapeHtml(ev.venue)}${ev.borough ? ' · ' + escapeHtml(ev.borough.toLowerCase()) : ''}</small>
+        </span>
+        <span class="status-tag is-${status}">${escapeHtml(statusLabel)}</span>
+      </div>
+    `;
   }
 
   // ---------- live chip ----------
