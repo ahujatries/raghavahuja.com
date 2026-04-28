@@ -961,6 +961,81 @@ const checkoutTokens: BehavioralTokens = {
     <p>Senior Designer &amp; Producer at Adwita (2015 – 2016) — brand identity and campaign production for consumer and retail clients.</p>
   </template>
 
+  <!-- ==============================================
+       HOT & COLD
+       ============================================== -->
+  <template id="case-hot-cold">
+    <section>
+      <p class="drop-cap"><strong>Hot &amp; Cold is a live moodpiece</strong> showing the hottest and coldest places on earth, right now. Vertical split, huge italic temperatures over atmospheric backdrops, a real Mapbox locator that cycles through continents. Live data from Open-Meteo, refreshed every fifteen minutes by a GitHub Action that commits a JSON file the page reads on load. Built and shipped in a single afternoon.</p>
+      <p>The piece is on <a href="/hot-cold">raghavahuja.com/hot-cold</a>. This is the receipts.</p>
+    </section>
+
+    <div class="case-stat-row">
+      <div class="case-stat"><div class="n">14</div><div class="l">canonical extreme locations queried per cron run</div></div>
+      <div class="case-stat"><div class="n">15<span style="font-size:0.6em;"> min</span></div><div class="l">refresh cadence — gh action commits json, vercel redeploys</div></div>
+      <div class="case-stat"><div class="n">0</div><div class="l">per-visitor api calls — viral-safe by construction</div></div>
+    </div>
+
+    <h2>The brief, in plain English</h2>
+    <p>"What's the temperature, right now, at the most extreme places on earth?" Lut Desert. Vostok Station. Death Valley. Oymyakon. Places most people will never go and most reporting never reaches. The page surfaces them as a moodpiece — not a weather forecast. The job is to make the numbers <em>feel</em> as extreme as they are.</p>
+
+    <h2>The decision that mattered: dropping the live feeds</h2>
+    <p>The original concept paired each extreme with the <em>nearest watchable live feed</em> — a YouTube Live stream or Windy webcam from the closest populated place. The pitch was good: "the hottest place on earth has no camera; here's the closest one, 480 km southwest." That distance was the charm.</p>
+    <p>Three things killed it:</p>
+    <ul>
+      <li><strong>YouTube Live URLs die.</strong> Streams go offline, channels get rate-limited, embeds get age-gated. The YouTube Data API can search for live videos but the results are flaky and require a key. Building on top of that means a page that breaks weekly.</li>
+      <li><strong>Windy needs a key + has TOU constraints</strong> on embedding outside their ecosystem. Lower coverage in the actual extreme places.</li>
+      <li><strong>Honesty.</strong> The placeholder feed handles I'd designed with (<code>@persiangulflive</code>, <code>@cataniacam</code>) were illustrative — none of them existed. Shipping illustrative handles in production-looking chrome is the opposite of receipts.</li>
+    </ul>
+    <p>Killed the feed concept entirely. The piece is now a pure "extreme temperatures, right now." Smaller scope, fully honest, far more durable. The atmospheric backdrops stayed — they're visual mood, never pretending to be video.</p>
+
+    <blockquote>The cleanest version of an idea is usually the one you arrive at by removing things, not adding.</blockquote>
+
+    <h2>Architecture</h2>
+    <p>Three parts. None of them complicated.</p>
+
+    <h3>1 · The cron — Open-Meteo as the data source</h3>
+    <p>Open-Meteo's ERA5 forecast endpoint is free, has no auth, and gives current temperature plus the last 24 hours of hourly readings for any lat/lon. A Node script in <code>scripts/scrape-hot-cold.mjs</code> walks a curated registry of 14 canonical extremes (one hot + one cold per continent) and pulls the live numbers. Fourteen API calls, ~1.4 seconds.</p>
+<pre><code>const u = new URL('https://api.open-meteo.com/v1/forecast');
+u.searchParams.set('latitude',  lat);
+u.searchParams.set('longitude', lon);
+u.searchParams.set('current',   'temperature_2m');
+u.searchParams.set('hourly',    'temperature_2m');
+u.searchParams.set('past_hours', '24');</code></pre>
+    <p>The script picks max/min per continent, derives "world" as the cross-continent winner, and writes <code>hot-cold/data.json</code>.</p>
+
+    <h3>2 · The schedule — GitHub Actions, every 15 minutes</h3>
+    <p>A workflow file (<code>.github/workflows/hot-cold-scrape.yml</code>) runs the scraper on a <code>*/15 * * * *</code> cron, commits the JSON if it changed, and pushes. Vercel auto-redeploys on every push. The whole pipeline costs zero dollars and zero per-visitor API calls — the page loads a static JSON file like any other static asset, so it can't get rate-limited even if it goes viral.</p>
+<pre><code>on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch: {}</code></pre>
+    <p>Same pattern as the Mamdani Mapper scraper that already runs on the same site. Reuse beats invention.</p>
+
+    <h3>3 · The page — vanilla JS, Mapbox GL, no framework</h3>
+    <p>Standalone <code>hot-cold.html</code> + <code>.css</code> + <code>.js</code>. No build step, no React, no bundler — just the cobalt design tokens inlined in CSS, Mapbox GL JS for the locator, and a tiny render loop. On load, the page fetches the cached JSON; on failure it falls back to an embedded fixture so the UI never breaks. Total wire weight is well under a hundred kilobytes excluding Mapbox tiles.</p>
+
+    <h2>Design system</h2>
+    <p>Cobalt — the second of the two systems on raghavahuja.com (the older terracotta direction lives on the rest of the site). Type pairing is Fraunces (italic display) × Geist (body) × JetBrains Mono (chrome). Accent <code>#5b8cff</code> on paper <code>#0c0c0e</code>. Hot uses a restrained ember <code>#c8553d</code>; cold reuses cobalt as its color, so the system stays disciplined — only one warm accent in the whole palette.</p>
+    <p>The huge italic Fraunces temperatures over atmospheric backdrops are doing most of the work. Everything else is chrome that gets out of the way: monospaced micro-labels, hairline rules, no chrome on the temperatures themselves except a small <code>↑</code> or <code>↓</code> arrow.</p>
+
+    <h2>The world locator</h2>
+    <p>Bottom-center floating card — Mapbox GL with the <code>dark-v11</code> style, two markers per region (hollow ring for the extreme location, color-keyed to hot or cold), and a continent cycler. The map fits its bounds to the active continent's bbox so the framing always tells you where on earth you are. Auto-cycle option flips through all eight regions every six seconds for the lobby-screen feel.</p>
+
+    <h2>What's next</h2>
+    <ul>
+      <li><strong>Extensible to other extremes.</strong> The top tabs already render <em>wind / rain / uv</em> as "soon." Open-Meteo returns those fields from the same endpoint — adding them is a render variation, not new infrastructure.</li>
+      <li><strong>Bigger candidate registry.</strong> Right now it's one hot + one cold per continent. A wider candidate pool (twenty per continent) would catch true daily winners that aren't always the canonical spots.</li>
+      <li><strong>OG image.</strong> A dedicated 1200×630 share card. The split red/blue is unusually well-suited to a static OG.</li>
+    </ul>
+
+    <h2>Receipts</h2>
+    <p>
+      Live: <a href="/hot-cold">raghavahuja.com/hot-cold</a><br>
+      Source: <a href="https://github.com/ahujatries/raghavahuja.com/tree/main/scripts/scrape-hot-cold.mjs">scrape-hot-cold.mjs</a> · <a href="https://github.com/ahujatries/raghavahuja.com/blob/main/.github/workflows/hot-cold-scrape.yml">workflow</a>
+    </p>
+  </template>
+
   <!-- command palette (injected by site.js) -->
   <div id="cmdk" class="cmdk-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Command palette"></div>
 
@@ -1076,8 +1151,24 @@ const checkoutTokens: BehavioralTokens = {
         },
         stack: null,
       },
+      'hot-cold': {
+        n: 'L·01', year: '2026', title: 'Hot & Cold',
+        subtitle: 'A live moodpiece for the hottest and coldest places on earth, right now.',
+        meta: {
+          timeline: 'shipped april 2026 · live',
+          role: 'Solo — concept, design, build',
+          stack: 'static html/css/js · mapbox gl · open-meteo era5 · github actions',
+          live: 'raghavahuja.com/hot-cold',
+        },
+        stack: [
+          ['mapbox-gl', '3.7.0'],
+          ['open-meteo (era5)', 'free tier'],
+          ['github actions', 'cron */15'],
+          ['vercel', 'static hosting'],
+        ],
+      },
     };
-    const ORDER = ['arqo', 'jmnpr-labs', 'ef', 'futbolis', 'zulily', 'social-booth', 'mind', 'hcai'];
+    const ORDER = ['arqo', 'jmnpr-labs', 'ef', 'futbolis', 'zulily', 'social-booth', 'mind', 'hcai', 'hot-cold'];
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('slug') || 'arqo';

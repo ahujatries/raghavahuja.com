@@ -148,7 +148,6 @@
   // ───────────────────────────────────────────────────────────────────
   const state = {
     units: 'C',
-    mode: 'dark',
     regionIdx: 0,
     autoCycle: false,
     cycleTimer: null,
@@ -280,7 +279,7 @@
     mapboxgl.accessToken = MAPBOX_TOKEN;
     state.map = new mapboxgl.Map({
       container: 'hc-map',
-      style: state.mode === 'dark' ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/light-v11',
+      style: 'mapbox://styles/mapbox/dark-v11',
       center: [0, 20],
       zoom: 0.4,
       attributionControl: { compact: true },
@@ -335,13 +334,6 @@
       duration: 700,
       maxZoom: r.id === 'world' ? 1.6 : 4,
     });
-  }
-
-  function setMapStyle() {
-    if (!state.map) return;
-    const next = state.mode === 'dark' ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/light-v11';
-    state.map.setStyle(next);
-    state.map.once('styledata', () => paintMap());
   }
 
   // ───────────────────────────────────────────────────────────────────
@@ -438,13 +430,6 @@
     }
   }
 
-  function setMode(m) {
-    state.mode = m;
-    document.body.dataset.mode = m;
-    $('#hc-mode').textContent = m === 'dark' ? '☾' : '☀';
-    setMapStyle();
-  }
-
   function bind() {
     // units
     document.querySelectorAll('.hc-pill-btn').forEach(btn => {
@@ -454,8 +439,6 @@
         render();
       });
     });
-    // mode
-    $('#hc-mode').addEventListener('click', () => setMode(state.mode === 'dark' ? 'light' : 'dark'));
     // share
     $('#hc-share').addEventListener('click', async (ev) => {
       const btn = ev.currentTarget;
@@ -502,10 +485,6 @@
   // init
   // ───────────────────────────────────────────────────────────────────
   function init() {
-    // honour system preference
-    const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (!sysDark) setMode('light'); else setMode('dark');
-
     paintShimmer();
     paintSnow();
     bind();

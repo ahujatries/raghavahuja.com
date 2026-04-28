@@ -4,7 +4,7 @@
    ───────────────────────────────────────────────────────────────────── */
 
 :root {
-  /* dark mode (default) */
+  /* dark mode only */
   --paper:    #0c0c0e;
   --bone:     #16161a;
   --sub:      #1e1e23;
@@ -30,20 +30,8 @@
   --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-body:    "Geist", system-ui, -apple-system, sans-serif;
   --font-mono:    "JetBrains Mono", ui-monospace, monospace;
-}
 
-body[data-mode="light"] {
-  --paper:    #f4f0e6;
-  --bone:     #ebe6d8;
-  --sub:      #e2dccb;
-  --rule:     rgba(20, 18, 14, 0.14);
-  --soft-rule: rgba(20, 18, 14, 0.07);
-  --ink:      #14120e;
-  --dim:      rgba(20, 18, 14, 0.62);
-  --mute:     rgba(20, 18, 14, 0.38);
-  --accent:   #2c4ec2;
-  --accent-ink: #f4f0e6;
-  --accent-soft: rgba(44, 78, 194, 0.10);
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -207,13 +195,6 @@ em { font-style: italic; }
 .hc-feed-cold {
   background: linear-gradient(160deg, #0a1838 0%, #14305c 35%, #3a6aa8 65%, #b8d4f0 100%);
 }
-body[data-mode="light"] .hc-feed-hot {
-  background: linear-gradient(160deg, #f1c89a 0%, #e89568 30%, #c8553d 65%, #7a3520 100%);
-}
-body[data-mode="light"] .hc-feed-cold {
-  background: linear-gradient(160deg, #d8e6f5 0%, #a4c0e2 35%, #5b8cff 65%, #1d3a82 100%);
-}
-
 .hc-horizon {
   position: absolute;
   left: 0; right: 0;
@@ -327,17 +308,18 @@ body[data-mode="light"] .hc-feed-cold {
   font-weight: 400;
   font-size: clamp(120px, 17vw, 252px);
   line-height: 0.86;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.045em;
   font-style: italic;
   display: flex;
   align-items: baseline;
+  /* room so the °C unit can't kiss the rightmost digit */
+  gap: clamp(14px, 1.6vw, 28px);
 }
 .hc-side-cold .hc-temp-row { justify-content: flex-end; }
 .hc-temp-arrow {
   font-style: normal;
   font-family: var(--font-mono);
   font-size: clamp(36px, 5vw, 72px);
-  margin-right: 10px;
   align-self: flex-start;
   margin-top: 28px;
   letter-spacing: 0;
@@ -347,15 +329,16 @@ body[data-mode="light"] .hc-feed-cold {
 .hc-temp-mag {
   display: inline-block;
   transition: opacity 220ms ease;
+  /* italic Fraunces side-bearings overhang the visual box on the right */
+  padding-right: 0.04em;
 }
 .hc-temp-mag.is-swap { opacity: 0; }
 .hc-temp-unit {
   font-family: var(--font-body);
   font-style: normal;
   font-size: clamp(28px, 3.6vw, 56px);
-  margin-left: 4px;
   align-self: flex-start;
-  margin-top: clamp(20px, 2.6vw, 38px);
+  margin-top: clamp(16px, 2vw, 28px);
   color: rgba(245, 240, 230, 0.78);
   letter-spacing: -0.02em;
 }
@@ -445,8 +428,6 @@ body[data-mode="light"] .hc-feed-cold {
   padding: 10px 14px 12px;
   z-index: 4;
 }
-body[data-mode="light"] .hc-locator { background: rgba(244, 240, 230, 0.92); }
-
 .hc-locator-head {
   display: flex;
   justify-content: space-between;
@@ -578,6 +559,30 @@ body[data-mode="light"] .hc-locator { background: rgba(244, 240, 230, 0.92); }
 }
 .hc-bottom-mid { text-align: center; }
 .hc-bottom-mid a { color: var(--dim); border-bottom: 1px solid var(--accent); }
+.hc-byline {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  text-transform: none;
+  border-bottom: none;
+}
+.hc-byline:hover .hc-byline-arrow { color: var(--accent); }
+.hc-byline-arrow {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--dim);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 1px;
+  transition: color 160ms ease;
+}
 .hc-bottom-right { text-align: right; }
 .hc-bottom-right { display: flex; gap: 8px; justify-content: flex-end; align-items: center; }
 .hc-bottom-tag { font-weight: 500; }
