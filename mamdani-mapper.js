@@ -15,7 +15,8 @@
     events: [],
     updatedAt: null,
     sourceUrl: null,
-    window: 'today',  // today | week | all
+    window: 'week',   // today | week | all — default 'week' (rolling 7d) since
+                      // press feed lags 1-3 days; 'today' is usually empty.
     mode: 'pins',     // pins | heat
     map: null,
     markers: [],
@@ -58,12 +59,12 @@
       return start.toDateString() === now.toDateString();
     }
     if (win === 'week') {
-      // Mon-Sun rolling week containing today
-      const d = new Date(now);
-      const day = (d.getDay() + 6) % 7;            // 0 = Mon
-      const monday = new Date(d); monday.setHours(0,0,0,0); monday.setDate(d.getDate() - day);
-      const nextMonday = new Date(monday); nextMonday.setDate(monday.getDate() + 7);
-      return start >= monday && start < nextMonday;
+      // Rolling 7 days back from now — more forgiving than Mon-Sun, since the
+      // press feed lags ~1-3 days behind events. A Mon-Sun window leaves the
+      // map empty every Monday morning.
+      const sevenAgo = new Date(now); sevenAgo.setDate(now.getDate() - 7);
+      sevenAgo.setHours(0, 0, 0, 0);
+      return start >= sevenAgo && start <= now;
     }
     return true;
   }
