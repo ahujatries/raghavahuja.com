@@ -1,0 +1,1996 @@
+{
+  "updatedAt": "2026-04-28T21:03:01.612Z",
+  "source": "open-meteo · archive (era5)",
+  "entryCount": 117,
+  "entries": [
+    {
+      "date": "2026-04-27",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 42.9
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -53.7
+      }
+    },
+    {
+      "date": "2026-04-26",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 43
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -63.8
+      }
+    },
+    {
+      "date": "2026-04-25",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 42
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -65.4
+      }
+    },
+    {
+      "date": "2026-04-24",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 41.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -61.5
+      }
+    },
+    {
+      "date": "2026-04-23",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 40.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -57
+      }
+    },
+    {
+      "date": "2026-04-22",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 39.2
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -55.5
+      }
+    },
+    {
+      "date": "2026-04-21",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 42.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -60.1
+      }
+    },
+    {
+      "date": "2026-04-20",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 44.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -61.2
+      }
+    },
+    {
+      "date": "2026-04-19",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 43.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -56.2
+      }
+    },
+    {
+      "date": "2026-04-18",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 43.3
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -59.5
+      }
+    },
+    {
+      "date": "2026-04-17",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 43.6
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -60.5
+      }
+    },
+    {
+      "date": "2026-04-16",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 42.7
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -60.7
+      }
+    },
+    {
+      "date": "2026-04-15",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 41.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -60.7
+      }
+    },
+    {
+      "date": "2026-04-14",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 40.2
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -60.2
+      }
+    },
+    {
+      "date": "2026-04-13",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 37.2
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -60.3
+      }
+    },
+    {
+      "date": "2026-04-12",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 36.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -57.1
+      }
+    },
+    {
+      "date": "2026-04-11",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 37.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -50.3
+      }
+    },
+    {
+      "date": "2026-04-10",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 38.6
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -52.4
+      }
+    },
+    {
+      "date": "2026-04-09",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 38.9
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -62.4
+      }
+    },
+    {
+      "date": "2026-04-08",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 39.1
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -64.2
+      }
+    },
+    {
+      "date": "2026-04-07",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 39.3
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -64.1
+      }
+    },
+    {
+      "date": "2026-04-06",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -61
+      }
+    },
+    {
+      "date": "2026-04-05",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 39.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -57.7
+      }
+    },
+    {
+      "date": "2026-04-04",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 42.4
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -51.8
+      }
+    },
+    {
+      "date": "2026-04-03",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 43.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -52.2
+      }
+    },
+    {
+      "date": "2026-04-02",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 42.1
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -52.7
+      }
+    },
+    {
+      "date": "2026-04-01",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 39.6
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -57.2
+      }
+    },
+    {
+      "date": "2026-03-31",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 39.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -49
+      }
+    },
+    {
+      "date": "2026-03-30",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 38.3
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -46.2
+      }
+    },
+    {
+      "date": "2026-03-29",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 37.3
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -53.5
+      }
+    },
+    {
+      "date": "2026-03-28",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 35.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -54.8
+      }
+    },
+    {
+      "date": "2026-03-27",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 36.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -57.8
+      }
+    },
+    {
+      "date": "2026-03-26",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 44.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -62.3
+      }
+    },
+    {
+      "date": "2026-03-25",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 42.4
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -69.8
+      }
+    },
+    {
+      "date": "2026-03-24",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 41.2
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -69.5
+      }
+    },
+    {
+      "date": "2026-03-23",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 39.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -68.5
+      }
+    },
+    {
+      "date": "2026-03-22",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 38.2
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -66.3
+      }
+    },
+    {
+      "date": "2026-03-21",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 36.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -63.7
+      }
+    },
+    {
+      "date": "2026-03-20",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 37.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -62.2
+      }
+    },
+    {
+      "date": "2026-03-19",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 43.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -64.4
+      }
+    },
+    {
+      "date": "2026-03-18",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 40
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -64.1
+      }
+    },
+    {
+      "date": "2026-03-17",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 40
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -63.3
+      }
+    },
+    {
+      "date": "2026-03-16",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 41.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -62.8
+      }
+    },
+    {
+      "date": "2026-03-15",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 41.6
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -60.9
+      }
+    },
+    {
+      "date": "2026-03-14",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 40.9
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -56.5
+      }
+    },
+    {
+      "date": "2026-03-13",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 38.7
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -51.2
+      }
+    },
+    {
+      "date": "2026-03-12",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 36.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -47.5
+      }
+    },
+    {
+      "date": "2026-03-11",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 41.6
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -49.2
+      }
+    },
+    {
+      "date": "2026-03-10",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 42.2
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -49.1
+      }
+    },
+    {
+      "date": "2026-03-09",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 41.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -47.8
+      }
+    },
+    {
+      "date": "2026-03-08",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -46.5
+      }
+    },
+    {
+      "date": "2026-03-07",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 40.3
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -46.7
+      }
+    },
+    {
+      "date": "2026-03-06",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 38.6
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -43.6
+      }
+    },
+    {
+      "date": "2026-03-05",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 38.2
+      },
+      "cold": {
+        "name": "Eureka, Ellesmere Is.",
+        "region": "Nunavut, Canada",
+        "lat": 79.98,
+        "lon": -85.93,
+        "tempC": -42.6
+      }
+    },
+    {
+      "date": "2026-03-04",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 38.5
+      },
+      "cold": {
+        "name": "Eureka, Ellesmere Is.",
+        "region": "Nunavut, Canada",
+        "lat": 79.98,
+        "lon": -85.93,
+        "tempC": -43.6
+      }
+    },
+    {
+      "date": "2026-03-03",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -45.8
+      }
+    },
+    {
+      "date": "2026-03-02",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 40.2
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -47.8
+      }
+    },
+    {
+      "date": "2026-03-01",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 42
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -47.5
+      }
+    },
+    {
+      "date": "2026-02-28",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -47.2
+      }
+    },
+    {
+      "date": "2026-02-27",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.7
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -42.7
+      }
+    },
+    {
+      "date": "2026-02-26",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 40.1
+      },
+      "cold": {
+        "name": "Eureka, Ellesmere Is.",
+        "region": "Nunavut, Canada",
+        "lat": 79.98,
+        "lon": -85.93,
+        "tempC": -39.5
+      }
+    },
+    {
+      "date": "2026-02-25",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.9
+      },
+      "cold": {
+        "name": "Eureka, Ellesmere Is.",
+        "region": "Nunavut, Canada",
+        "lat": 79.98,
+        "lon": -85.93,
+        "tempC": -41
+      }
+    },
+    {
+      "date": "2026-02-24",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.2
+      },
+      "cold": {
+        "name": "Eureka, Ellesmere Is.",
+        "region": "Nunavut, Canada",
+        "lat": 79.98,
+        "lon": -85.93,
+        "tempC": -41.9
+      }
+    },
+    {
+      "date": "2026-02-23",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 37
+      },
+      "cold": {
+        "name": "Eureka, Ellesmere Is.",
+        "region": "Nunavut, Canada",
+        "lat": 79.98,
+        "lon": -85.93,
+        "tempC": -43.4
+      }
+    },
+    {
+      "date": "2026-02-22",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.2
+      },
+      "cold": {
+        "name": "Eureka, Ellesmere Is.",
+        "region": "Nunavut, Canada",
+        "lat": 79.98,
+        "lon": -85.93,
+        "tempC": -47.3
+      }
+    },
+    {
+      "date": "2026-02-21",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.2
+      },
+      "cold": {
+        "name": "Eureka, Ellesmere Is.",
+        "region": "Nunavut, Canada",
+        "lat": 79.98,
+        "lon": -85.93,
+        "tempC": -47.9
+      }
+    },
+    {
+      "date": "2026-02-20",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 38.8
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -47.8
+      }
+    },
+    {
+      "date": "2026-02-19",
+      "hot": {
+        "name": "Gran Chaco",
+        "region": "Salta, Argentina",
+        "lat": -22.1,
+        "lon": -62.85,
+        "tempC": 41.3
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -52.2
+      }
+    },
+    {
+      "date": "2026-02-18",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 40
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -49
+      }
+    },
+    {
+      "date": "2026-02-17",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 40.3
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -47.5
+      }
+    },
+    {
+      "date": "2026-02-16",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 38.7
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -48.8
+      }
+    },
+    {
+      "date": "2026-02-15",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.2
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -48
+      }
+    },
+    {
+      "date": "2026-02-14",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 37.4
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -46.7
+      }
+    },
+    {
+      "date": "2026-02-13",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 37.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -48
+      }
+    },
+    {
+      "date": "2026-02-12",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 39
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -45.5
+      }
+    },
+    {
+      "date": "2026-02-11",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 40.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -42.9
+      }
+    },
+    {
+      "date": "2026-02-10",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 39.8
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -45.2
+      }
+    },
+    {
+      "date": "2026-02-09",
+      "hot": {
+        "name": "Gran Chaco",
+        "region": "Salta, Argentina",
+        "lat": -22.1,
+        "lon": -62.85,
+        "tempC": 39.1
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -51
+      }
+    },
+    {
+      "date": "2026-02-08",
+      "hot": {
+        "name": "Gran Chaco",
+        "region": "Salta, Argentina",
+        "lat": -22.1,
+        "lon": -62.85,
+        "tempC": 37
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -52.3
+      }
+    },
+    {
+      "date": "2026-02-07",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 36
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -50.7
+      }
+    },
+    {
+      "date": "2026-02-06",
+      "hot": {
+        "name": "Gran Chaco",
+        "region": "Salta, Argentina",
+        "lat": -22.1,
+        "lon": -62.85,
+        "tempC": 39.2
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -47.5
+      }
+    },
+    {
+      "date": "2026-02-05",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 43.1
+      },
+      "cold": {
+        "name": "Eureka, Ellesmere Is.",
+        "region": "Nunavut, Canada",
+        "lat": 79.98,
+        "lon": -85.93,
+        "tempC": -43.9
+      }
+    },
+    {
+      "date": "2026-02-04",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 43.7
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -43.8
+      }
+    },
+    {
+      "date": "2026-02-03",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 41.3
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -43.8
+      }
+    },
+    {
+      "date": "2026-02-02",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 42.5
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -46.3
+      }
+    },
+    {
+      "date": "2026-02-01",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 43
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -44.2
+      }
+    },
+    {
+      "date": "2026-01-31",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 40.8
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -41.7
+      }
+    },
+    {
+      "date": "2026-01-30",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 40.2
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -41
+      }
+    },
+    {
+      "date": "2026-01-29",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 37.5
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -38.9
+      }
+    },
+    {
+      "date": "2026-01-28",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 37
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -38.3
+      }
+    },
+    {
+      "date": "2026-01-27",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.7
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -35.1
+      }
+    },
+    {
+      "date": "2026-01-26",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 38.8
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -33.6
+      }
+    },
+    {
+      "date": "2026-01-25",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.2
+      },
+      "cold": {
+        "name": "Eureka, Ellesmere Is.",
+        "region": "Nunavut, Canada",
+        "lat": 79.98,
+        "lon": -85.93,
+        "tempC": -34.4
+      }
+    },
+    {
+      "date": "2026-01-24",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 41.5
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -38.6
+      }
+    },
+    {
+      "date": "2026-01-23",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 41
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -38.3
+      }
+    },
+    {
+      "date": "2026-01-22",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 41
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -36.3
+      }
+    },
+    {
+      "date": "2026-01-21",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 44.7
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -49
+      }
+    },
+    {
+      "date": "2026-01-20",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 45.7
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -49.1
+      }
+    },
+    {
+      "date": "2026-01-19",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 46.8
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -48.2
+      }
+    },
+    {
+      "date": "2026-01-18",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.7
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -47.7
+      }
+    },
+    {
+      "date": "2026-01-17",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 41.6
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -44.8
+      }
+    },
+    {
+      "date": "2026-01-16",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 42.8
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -42.2
+      }
+    },
+    {
+      "date": "2026-01-15",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 43.3
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -40.5
+      }
+    },
+    {
+      "date": "2026-01-14",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 42.7
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -38.6
+      }
+    },
+    {
+      "date": "2026-01-13",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.5
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -38.5
+      }
+    },
+    {
+      "date": "2026-01-12",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 39.2
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -33.8
+      }
+    },
+    {
+      "date": "2026-01-11",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 42.3
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -39.8
+      }
+    },
+    {
+      "date": "2026-01-10",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 42.9
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -39.9
+      }
+    },
+    {
+      "date": "2026-01-09",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 41
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -46.3
+      }
+    },
+    {
+      "date": "2026-01-08",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 40.8
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -46.1
+      }
+    },
+    {
+      "date": "2026-01-07",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 43.2
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -44.2
+      }
+    },
+    {
+      "date": "2026-01-06",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 45
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -46
+      }
+    },
+    {
+      "date": "2026-01-05",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 46.7
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -47.8
+      }
+    },
+    {
+      "date": "2026-01-04",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 44.7
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -50.3
+      }
+    },
+    {
+      "date": "2026-01-03",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 42.1
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -51.2
+      }
+    },
+    {
+      "date": "2026-01-02",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 41.2
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -50.3
+      }
+    },
+    {
+      "date": "2026-01-01",
+      "hot": {
+        "name": "Marble Bar",
+        "region": "Pilbara, Australia",
+        "lat": -21.18,
+        "lon": 119.74,
+        "tempC": 40.9
+      },
+      "cold": {
+        "name": "Oymyakon plateau",
+        "region": "Sakha Republic, Russia",
+        "lat": 63.46,
+        "lon": 142.79,
+        "tempC": -49.8
+      }
+    }
+  ]
+}

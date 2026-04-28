@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="hot-cold.css?v=3">
+  <link rel="stylesheet" href="hot-cold.css?v=4">
   <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css">
 
   <link rel="canonical" href="https://raghavahuja.com/hot-cold">
@@ -144,6 +144,36 @@
       </div>
     </aside>
   </main>
+
+  <!-- ledger — every extreme of this year, scroll-down receipts -->
+  <section class="hc-ledger" id="hc-ledger" aria-label="daily extremes ledger">
+    <header class="hc-ledger-head">
+      <div>
+        <div class="hc-ledger-eyebrow">§ the ledger · scroll for receipts</div>
+        <h2 class="hc-ledger-title">Every extreme of <em>this year</em>, in order.</h2>
+        <p class="hc-ledger-lead">
+          One row per day. The hottest place on earth (vs the same fourteen canonical candidates the live page uses) and the coldest place, every day since January 1. Pulled nightly from Open-Meteo's archive.
+        </p>
+      </div>
+      <div class="hc-ledger-stats" id="hc-ledger-stats">
+        <div class="hc-ledger-stat"><div class="n">—</div><div class="l">days logged</div></div>
+        <div class="hc-ledger-stat"><div class="n">—</div><div class="l">YTD hot record</div><div class="hc-ledger-stat-sub" data-stat="ytd-hot-meta">—</div></div>
+        <div class="hc-ledger-stat"><div class="n">—</div><div class="l">YTD cold record</div><div class="hc-ledger-stat-sub" data-stat="ytd-cold-meta">—</div></div>
+      </div>
+    </header>
+
+    <div class="hc-ledger-table" id="hc-ledger-table" role="table" aria-rowcount="0">
+      <div class="hc-ledger-row hc-ledger-head-row" role="row">
+        <div role="columnheader">date</div>
+        <div role="columnheader" class="hc-ledger-hot-col">↑ hottest place</div>
+        <div role="columnheader" class="hc-ledger-temp-col">temp</div>
+        <div role="columnheader" class="hc-ledger-cold-col">↓ coldest place</div>
+        <div role="columnheader" class="hc-ledger-temp-col">temp</div>
+      </div>
+      <!-- rows injected by hot-cold.js after fetching /hot-cold/history.json -->
+      <div class="hc-ledger-empty" id="hc-ledger-empty">loading…</div>
+    </div>
+  </section>
 
   <!-- bottom strip · records footnote -->
   <footer class="hc-bottom" role="contentinfo">

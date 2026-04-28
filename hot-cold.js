@@ -158,6 +158,8 @@
     // (REGIONS) on any failure so the page never breaks.
     regions: REGIONS,
     refreshedAt: '2026-04-28T13:42:00Z',
+    // ledger entries — populated by fetchHistoryAndRenderLedger
+    history: null,
   };
 
   // ───────────────────────────────────────────────────────────────────
@@ -181,6 +183,82 @@
     return `${h}h ${mins % 60}m ago`;
   }
   const region = () => state.regions[state.regionIdx];
+
+  // ───────────────────────────────────────────────────────────────────
+  // ledger — fetch /hot-cold/history.json (written by the daily roll-up)
+  // and render as a tabular receipt below the moodpiece. One row per day,
+  // newest first. Fails silently if the file isn't there yet.
+  // ───────────────────────────────────────────────────────────────────
+  async function fetchHistoryAndRenderLedger() {
+    try {
+      const res = await fetch('/hot-cold/history.json', { cache: 'no-cache' });
+      if (!res.ok) throw new Error(`http ${res.status}`);
+      const j = await res.json();
+      if (!Array.isArray(j?.entries) || j.entries.length === 0) throw new Error('empty');
+      state.history = j.entries;
+      renderLedger(j.entries);
+    } catch (e) {
+      const empty = document.getElementById('hc-ledger-empty');
+      if (empty) empty.textContent = 'no entries yet — first roll-up runs tonight at 02:00 UTC';
+    }
+  }
+
+  function fmtLedgerDate(iso) {
+    // iso = "2026-04-28" → "apr 28"
+    const m = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+    const d = new Date(iso + 'T00:00:00Z');
+    return `${m[d.getUTCMonth()]} ${String(d.getUTCDate()).padStart(2,'0')}`;
+  }
+
+  function renderLedger(entries) {
+    // YTD records — for the star marker + stat panel
+    let ytdHot = entries[0].hot, ytdCold = entries[0].cold;
+    let ytdHotDate = entries[0].date, ytdColdDate = entries[0].date;
+    for (const e of entries) {
+      if (e.hot.tempC  > ytdHot.tempC)  { ytdHot  = e.hot;  ytdHotDate  = e.date; }
+      if (e.cold.tempC < ytdCold.tempC) { ytdCold = e.cold; ytdColdDate = e.date; }
+    }
+
+    // stat panel
+    const stats = document.querySelectorAll('.hc-ledger-stat');
+    if (stats.length === 3) {
+      stats[0].querySelector('.n').textContent = entries.length;
+      const ytdHotFmt = fmtTemp(ytdHot.tempC, state.units);
+      stats[1].querySelector('.n').textContent = `${ytdHotFmt.sign}${ytdHotFmt.mag}${ytdHotFmt.unit}`;
+      stats[1].querySelector('[data-stat="ytd-hot-meta"]').textContent = `${ytdHot.name.toLowerCase()} · ${fmtLedgerDate(ytdHotDate)}`;
+      const ytdColdFmt = fmtTemp(ytdCold.tempC, state.units);
+      stats[2].querySelector('.n').textContent = `${ytdColdFmt.sign}${ytdColdFmt.mag}${ytdColdFmt.unit}`;
+      stats[2].querySelector('[data-stat="ytd-cold-meta"]').textContent = `${ytdCold.name.toLowerCase()} · ${fmtLedgerDate(ytdColdDate)}`;
+    }
+
+    // table rows
+    const today = new Date().toISOString().slice(0,10);
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+    const rows = entries.map(e => {
+      const hot = fmtTemp(e.hot.tempC, state.units);
+      const cold = fmtTemp(e.cold.tempC, state.units);
+      const isYtdHot  = e.date === ytdHotDate;
+      const isYtdCold = e.date === ytdColdDate;
+      const isToday = e.date === yesterday; // newest entry is yesterday's roll-up
+      return `
+        <div class="hc-ledger-row" role="row">
+          <div class="hc-ledger-date${isToday ? ' is-today' : ''}">${fmtLedgerDate(e.date)}</div>
+          <div class="hc-ledger-place">${e.hot.name}</div>
+          <div class="hc-ledger-temp-col hc-ledger-hot-temp">${hot.sign}${hot.mag}°${isYtdHot ? '<span class="hc-ledger-star" title="YTD record">★</span>' : ''}</div>
+          <div class="hc-ledger-place">${e.cold.name}</div>
+          <div class="hc-ledger-temp-col hc-ledger-cold-temp">${cold.sign}${cold.mag}°${isYtdCold ? '<span class="hc-ledger-star" title="YTD record">★</span>' : ''}</div>
+        </div>
+      `;
+    }).join('');
+
+    const table = document.getElementById('hc-ledger-table');
+    // wipe any previous data rows but keep the header row
+    [...table.querySelectorAll('.hc-ledger-row:not(.hc-ledger-head-row)')].forEach(r => r.remove());
+    const empty = document.getElementById('hc-ledger-empty');
+    if (empty) empty.remove();
+    table.insertAdjacentHTML('beforeend', rows);
+    table.setAttribute('aria-rowcount', entries.length + 1);
+  }
 
   // ───────────────────────────────────────────────────────────────────
   // live data — fetch /hot-cold/data.json (written by the cron). On any
@@ -437,6 +515,7 @@
         state.units = btn.dataset.units;
         document.querySelectorAll('.hc-pill-btn').forEach(b => b.classList.toggle('is-on', b === btn));
         render();
+        if (state.history) renderLedger(state.history);
       });
     });
     // share
@@ -491,6 +570,7 @@
     render();
     initMap();
     fetchLiveData();
+    fetchHistoryAndRenderLedger();
   }
 
   if (document.readyState === 'loading') {

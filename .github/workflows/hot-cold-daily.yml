@@ -1,0 +1,49 @@
+name: hot-cold-daily
+
+# Once per day at 02:00 UTC. Rolls up YESTERDAY's globally hottest + coldest
+# place using Open-Meteo's free archive API (~14 calls), appends to
+# ./hot-cold/history.json. Vercel auto-redeploys on push.
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      backfill_from:
+        description: 'Optional: backfill from this date (YYYY-MM-DD)'
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  rollup:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: hot-cold-daily
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run daily roll-up
+        run: |
+          if [[ -n "${{ inputs.backfill_from }}" ]]; then
+            node scripts/scrape-hot-cold-daily.mjs --backfill "${{ inputs.backfill_from }}"
+          else
+            node scripts/scrape-hot-cold-daily.mjs
+          fi
+
+      - name: Commit if changed
+        run: |
+          git config user.name "hot-cold-bot"
+          git config user.email "bot@raghavahuja.com"
+          if [[ -n "$(git status --porcelain hot-cold/history.json)" ]]; then
+            git add hot-cold/history.json
+            git commit -m "data(hot-cold): daily roll-up $(date -u +%F)"
+            git push
+          else
+            echo "no changes to history.json"
+          fi
