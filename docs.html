@@ -301,69 +301,6 @@
   </template>
 
   <!-- ==============================================
-       Direction A (brand direction)
-       ============================================== -->
-  <template id="doc-direction-a">
-    <section>
-      <p class="drop-cap"><strong>Direction A · Dark</strong> is the brand direction for raghavahuja.com v2. It is the visual system this very page is set in. Burnt-ink paper, warm-cream type, terracotta accent, Instrument Serif body, JetBrains Mono chrome.</p>
-      <p>It is not a moodboard. It is a list of locked decisions and the reasons for each.</p>
-    </section>
-
-    <h2>Positioning</h2>
-    <blockquote>This person designs systems AND builds them — the code is part of the craft, not a handoff.</blockquote>
-    <p>Every surface has to prove the line. Home has live activity + view-source drawers. Case studies have grep-able stack receipts. Lab has working demos. Nav has a real ⌘K. Footer has a live git SHA. The 404 is a real terminal.</p>
-
-    <h2>Palette — locked</h2>
-    <ul>
-      <li><strong>Paper</strong> <code>#15110D</code> — burnt ink, warm near-black. Never pure black.</li>
-      <li><strong>Raise</strong> <code>#1E1812</code> — one step up for chips and keycaps.</li>
-      <li><strong>Ink</strong> <code>#EDE3CE</code> — warm cream text.</li>
-      <li><strong>Ink-muted</strong> <code>#A89A83</code> · <strong>Ink-dim</strong> <code>#6F6452</code>.</li>
-      <li><strong>Accent</strong> <code>#E86A4E</code> — terracotta, brightened for dark-mode contrast.</li>
-      <li><strong>Hairlines</strong> <code>rgba(237,227,206,0.18)</code>.</li>
-      <li><strong>Backdrop</strong> — candlelit radial glow: terracotta 10% top-right, cream 4% bottom-left.</li>
-    </ul>
-
-    <h2>Typography — locked</h2>
-    <ul>
-      <li><strong>Display + body</strong> — Instrument Serif (regular + italic). Italic carries emphasis; the "and" in the hero is italic terracotta.</li>
-      <li><strong>Chrome</strong> — JetBrains Mono. Tabular numerals everywhere nothing should twitch.</li>
-      <li><strong>Fallback stack</strong> — <code>Georgia, serif</code> and <code>ui-monospace, SF Mono, Menlo, monospace</code>.</li>
-    </ul>
-    <p>We do <em>not</em> use: Inter, system-ui for display, or any serif with a modernist axis. Instrument Serif's old-style figures and italic 'a' are load-bearing — they carry the editorial feel.</p>
-
-    <h2>Grid — locked</h2>
-    <ul>
-      <li><strong>Structural shell</strong> — 1100px max-width wrap with 32px padding.</li>
-      <li><strong>Prose</strong> — 68–72ch reading column.</li>
-      <li><strong>Code</strong> — 88ch.</li>
-      <li><strong>Baseline</strong> — 4px rhythm, toggleable via <code>g</code> on any page.</li>
-    </ul>
-
-    <h2>Motion — locked</h2>
-    <ul>
-      <li>120ms for small state changes, 200ms for reveals, 320ms for full panels.</li>
-      <li><code>cubic-bezier(0.22, 1, 0.36, 1)</code> for entrances.</li>
-      <li>No motion over 400ms. No motion without purpose.</li>
-      <li><code>prefers-reduced-motion</code> kills every animation and replaces with instant states.</li>
-    </ul>
-
-    <h2>Anti-brand</h2>
-    <p>This brand is disciplined by what it rejects.</p>
-    <ul>
-      <li>No SaaS-speak. No "passionate about design." No emoji.</li>
-      <li>Lowercase in chrome; sentence case in prose.</li>
-      <li>No shadows pretending to be paper. No faux-tactile skeuomorphism.</li>
-      <li>No accent as a fill for large areas. No accent as a gradient.</li>
-      <li>No imagery of people. The editorial voice is the person.</li>
-    </ul>
-
-    <h2>The night edition</h2>
-    <p>The site is masthead'd as <em>vol. iv · no. 2 · portfolio · night ed.</em> That's the conceit. You're reading a night-edition folio of things shipped. It's playful on purpose — portfolios that take themselves too seriously read as brittle, and "engineer who can also design" benefits from a little lightness.</p>
-    <blockquote>Written, designed, shipped by one person. Night edition.</blockquote>
-  </template>
-
-  <!-- ==============================================
        ADR: $19/mo edge-caching
        ============================================== -->
   <template id="doc-adr-edge-cache">
@@ -448,23 +385,18 @@ export async function GET() {
         subtitle: 'Human-Centered AI evaluation rubric. P.O.N.T.E. + six principles. Augment, don\'t replace.',
         meta: { written: '2023 · revised 2026', status: 'shaping AI surfaces at EF', length: '~900 words' },
       },
-      'direction-a': {
-        n: '04', title: 'Direction A · Dark', kind: 'brand',
-        subtitle: 'The brand direction this site is set in. Burnt ink, warm cream, terracotta, Instrument Serif.',
-        meta: { written: '2026-04', status: 'locked', length: '~1,000 words' },
-      },
       'colophon': {
-        n: '05', title: 'Colophon — raghavahuja.com', kind: 'colophon',
+        n: '04', title: 'Colophon — raghavahuja.com', kind: 'colophon',
         subtitle: 'How this site is built. Stack, direction, interactions, perf, a11y.',
         meta: { written: '2026-04', status: 'maintained', length: '~1,100 words' },
       },
       'adr-edge-cache': {
-        n: '06', title: 'ADR — $19/mo edge cache', kind: 'adr',
+        n: '05', title: 'ADR — $19/mo edge cache', kind: 'adr',
         subtitle: 'Serve 100k+ concurrent users on a base-tier sports API via Next.js revalidate. Reject Redis.',
         meta: { written: '2026-03', status: 'accepted · in production · futbolis.live', length: '~800 words' },
       },
     };
-    const ORDER = ['ctb', 'mind', 'hcai', 'direction-a', 'colophon', 'adr-edge-cache'];
+    const ORDER = ['ctb', 'mind', 'hcai', 'colophon', 'adr-edge-cache'];
 
     function renderShelf() {
       const shelf = document.getElementById('shelf');
