@@ -1,24 +1,27 @@
 #!/usr/bin/env python3
 """Generate per-case OG images for raghavahuja.com — 1200x630.
 
-Usage:  python3 scripts/og-cases.py
-Output: og/<slug>.png for each entry in CASES below.
+Usage:  python3 scripts/og-cases.py [slug ...]
+Output: og/<slug>.png for each entry in CASES below (or just the listed slugs).
 
-Uses macOS-bundled Times New Roman as a stand-in for Instrument Serif,
-since PIL can't render woff2 directly. If you need tighter parity with
-the live site, install a .ttf of Instrument Serif and point to it.
+Cobalt + bone palette — matches the site's light-mode design system
+(--paper #f4f0e6, --ink #14120e, --accent #2c4ec2 deep cobalt).
+
+Used as a fallback when a real screenshot isn't viable (e.g., the EF case
+study is password-gated and the page renders empty in headless capture).
 """
 
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import os, sys
 
 W, H = 1200, 630
-BG = (21, 17, 13)
-FG = (237, 227, 206)
-FG_MUTED = (168, 154, 131)
-FG_DIM = (111, 100, 82)
-ACCENT = (232, 106, 78)
-LINE_A = (237, 227, 206, 46)
+# light-mode tokens from tokens.css — bone paper + deep cobalt
+BG = (244, 240, 230)            # --paper
+FG = (20, 18, 14)               # --ink
+FG_MUTED = (90, 82, 66)         # ~ rgba(20,18,14,0.66)
+FG_DIM = (130, 122, 105)        # ~ rgba(20,18,14,0.38) on bone
+ACCENT = (44, 78, 194)          # --accent (deep cobalt)
+LINE_A = (20, 18, 14, 38)
 
 # slug, kicker, title, italic_accent, tail, sub, stack_l, stack_r
 CASES = [
@@ -70,6 +73,38 @@ CASES = [
      'Scaled a team 1 → 10+. Ducati, Audi, 20+ APAC enterprise clients.',
      'brand systems · campaigns',
      'retail · film'),
+    ('hot-cold',
+     'FOLIO 03 · LAB · NO. 02 · 2026',
+     'Hot & Cold.',
+     'extremes of earth,',
+     'right now.',
+     'A live moodpiece. Hottest and coldest places on earth, refreshed every 15 minutes.',
+     'open-meteo · era5',
+     'github actions · 15-min cron'),
+    ('mamdani-mapper',
+     'FOLIO 03 · LAB · NO. 03 · 2026',
+     'Mamdani Mapper.',
+     'every public stop,',
+     'mapped.',
+     'A cobalt map of every public stop NYC Mayor Mamdani has made. Receipts, not surveillance.',
+     'mapbox gl · turf',
+     'haiku 4.5 extraction · vercel'),
+    ('mind',
+     'FOLIO 02 · FRAMEWORK · F·01 · 2024—now',
+     'MIND.',
+     'a behavioral OS for',
+     'high-stakes flows.',
+     'Motivational Interface & Nudge Design. The framework underneath every checkout review at EF.',
+     'behavioral framework',
+     'in active use at ef'),
+    ('hcai',
+     'FOLIO 02 · FRAMEWORK · F·02 · 2023—now',
+     'HCAI.',
+     'designing for',
+     'humans, with AI.',
+     'A Human-Centered AI evaluation framework. The rubric for when AI belongs in a flow.',
+     'human-centered ai rubric',
+     'when ai belongs · when it doesn\'t'),
 ]
 
 def load_fonts():
@@ -83,8 +118,8 @@ def load_fonts():
 def draw_glow(img):
     glow = Image.new('RGBA', (W, H), (0, 0, 0, 0))
     g = ImageDraw.Draw(glow)
-    g.ellipse([W - 450, -250, W + 250, 400], fill=(232, 106, 78, 28))
-    g.ellipse([-200, H - 250, 500, H + 200], fill=(237, 227, 206, 12))
+    g.ellipse([W - 450, -250, W + 250, 400], fill=(44, 78, 194, 26))
+    g.ellipse([-200, H - 250, 500, H + 200], fill=(20, 18, 14, 10))
     blurred = glow.filter(ImageFilter.GaussianBlur(180))
     img.paste(blurred, (0, 0), blurred)
 
@@ -98,14 +133,14 @@ def draw_case(slug, kicker, title, accent_word, tail, subtitle, stack_l, stack_r
     draw_glow(img)
     d = ImageDraw.Draw(img, 'RGBA')
 
-    # masthead
-    d.rectangle([0, 0, W, 42], fill=(15, 11, 8))
+    # masthead — bone with cobalt accent line
+    d.rectangle([0, 0, W, 42], fill=(235, 230, 216))
     d.rectangle([0, 42, W, 43], fill=LINE_A)
-    d.ellipse([50, 18, 58, 26], fill=(51, 255, 102))
-    d.text((68, 14), 'vol. iv · no. 3 · ', font=fonts['mono_sm'], fill=FG_MUTED)
-    lead_w = fonts['mono_sm'].getlength('vol. iv · no. 3 · ')
-    d.text((68 + lead_w, 14), 'portfolio · night ed.', font=fonts['mono_sm'], fill=ACCENT)
-    d.text((W - 310, 14), 'mumbai  23:47   new york  14:17', font=fonts['mono_sm'], fill=FG_MUTED)
+    d.ellipse([50, 18, 58, 26], fill=(58, 122, 71))
+    d.text((68, 14), 'vol. iv · no. 4 · ', font=fonts['mono_sm'], fill=FG_DIM)
+    lead_w = fonts['mono_sm'].getlength('vol. iv · no. 4 · ')
+    d.text((68 + lead_w, 14), 'portfolio · cobalt ed.', font=fonts['mono_sm'], fill=ACCENT)
+    d.text((W - 310, 14), 'jamnapaar 23:47   brooklyn 14:17', font=fonts['mono_sm'], fill=FG_DIM)
 
     PX = 80
     PY = 92
@@ -142,8 +177,11 @@ def main():
     fonts = load_fonts()
     out_dir = os.path.join(os.path.dirname(__file__), '..', 'og')
     os.makedirs(out_dir, exist_ok=True)
+    only = set(sys.argv[1:])
     for row in CASES:
         slug = row[0]
+        if only and slug not in only:
+            continue
         draw_case(*row, fonts=fonts, out_path=os.path.join(out_dir, f'{slug}.png'))
 
 if __name__ == '__main__':
