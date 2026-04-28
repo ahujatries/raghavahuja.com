@@ -286,6 +286,17 @@ a:hover { color: var(--ink); }
 .mm-tog-mode { font-style: italic; }
 .mm-tog-mode.is-on { background: var(--ink); color: var(--paper); }
 
+/* upcoming toggle — distinct dashed cobalt visual, ties to forward markers */
+.mm-tog-upcoming::before {
+  content: '';
+  display: inline-block;
+  width: 8px; height: 8px; border-radius: 50%;
+  border: 1.5px dashed var(--accent);
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+.mm-tog-upcoming.is-on::before { border-color: var(--accent-ink); }
+
 .mm-map-frame {
   position: relative;
   width: 100%;

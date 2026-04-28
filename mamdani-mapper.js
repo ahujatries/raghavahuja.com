@@ -15,8 +15,8 @@
     events: [],
     updatedAt: null,
     sourceUrl: null,
-    window: 'week',   // today | week | all — default 'week' (rolling 7d) since
-                      // press feed lags 1-3 days; 'today' is usually empty.
+    window: 'upcoming',  // upcoming | today | week | all — default 'upcoming'
+                         // (today + next 14d) so forward events surface on load.
     mode: 'pins',     // pins | heat
     map: null,
     markers: [],
@@ -58,6 +58,12 @@
     if (win === 'all') return true;
     if (win === 'today') {
       return start.toDateString() === now.toDateString();
+    }
+    if (win === 'upcoming') {
+      // forward events scheduled today through next 14 days
+      const startOfToday = new Date(now); startOfToday.setHours(0, 0, 0, 0);
+      const fourteenAhead = new Date(startOfToday); fourteenAhead.setDate(startOfToday.getDate() + 14);
+      return start >= startOfToday && start <= fourteenAhead;
     }
     if (win === 'week') {
       // Rolling 7 days back from now — more forgiving than Mon-Sun, since the
