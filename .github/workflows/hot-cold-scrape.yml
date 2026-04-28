@@ -1,0 +1,40 @@
+name: hot-cold-scrape
+
+# Every 15 minutes. Pulls current temperature for ~28 canonical hot/cold
+# locations from Open-Meteo (free, no auth, ~1500 calls/day under the 10k limit)
+# and writes ./hot-cold/data.json. Vercel auto-redeploys on push.
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: hot-cold-scrape
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run hot-cold scraper
+        run: node scripts/scrape-hot-cold.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name "hot-cold-bot"
+          git config user.email "bot@raghavahuja.com"
+          if [[ -n "$(git status --porcelain hot-cold/data.json)" ]]; then
+            git add hot-cold/data.json
+            git commit -m "data(hot-cold): refresh $(date -u +%FT%TZ)"
+            git push
+          else
+            echo "no changes to data.json"
+          fi
