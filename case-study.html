@@ -1051,6 +1051,7 @@ u.searchParams.set('past_hours', '24');</code></pre>
           role: 'Sole design engineer — product vision, UX, front-end, back-end, AI integration, native shells, billing',
           stack: 'Next.js 14 · Supabase · Postgres + pgvector · TypeScript · Tailwind · Liveblocks + Yjs · Tauri · Capacitor · custom contenteditable · FDX parser/writer · Stripe · Vercel',
           live: 'tryarqo.com ↗',
+          liveUrl: 'https://tryarqo.com',
         },
         stack: [
           ['next', '14.2.3'], ['react', '18.3.1'], ['typescript', '5.4.5'],
@@ -1069,6 +1070,7 @@ u.searchParams.set('past_hours', '24');</code></pre>
           role: 'Founder, design engineer — product vision, brand, packaging, infra, GTM',
           stack: '@jmnpr/craft · React-PDF · Lemon Squeezy · Yjs CRDT · Mapbox · Next.js · Vercel',
           live: 'jmnpr.com ↗',
+          liveUrl: 'https://jmnpr.com',
         },
         stack: [
           ['@jmnpr/craft', 'v1.4'], ['@jmnpr/fdx', 'v0.9'],
@@ -1085,6 +1087,7 @@ u.searchParams.set('past_hours', '24');</code></pre>
           role: 'Sole design engineer — product vision, UX/UI, front-end, back-end',
           stack: 'Next.js 16 · React 19 · TypeScript · Tailwind v4 · Mapbox GL JS · Framer Motion · Vercel Edge',
           live: 'futbolis.live ↗',
+          liveUrl: 'https://futbolis.live',
         },
         stack: [
           ['next', '16.0.0'], ['react', '19.0.0'], ['typescript', '5.5.4'],
@@ -1100,6 +1103,7 @@ u.searchParams.set('past_hours', '24');</code></pre>
           role: 'Senior product designer',
           stack: 'React · Next.js · Tailwind · design-system contributions · event instrumentation',
           live: 'ef.com ↗',
+          liveUrl: 'https://ef.com',
         },
         stack: [
           ['react', '18.x'], ['next', '14.x'], ['typescript', '5.x'],
@@ -1114,6 +1118,7 @@ u.searchParams.set('past_hours', '24');</code></pre>
           role: 'Senior UX designer, Growth & Personalization',
           stack: 'React · experiment design · data-science partnership',
           live: 'zulily.com ↗',
+          liveUrl: 'https://zulily.com',
         },
         stack: [
           ['react', '17.x'], ['experiment platform', 'internal'],
@@ -1160,7 +1165,8 @@ u.searchParams.set('past_hours', '24');</code></pre>
           timeline: 'shipped april 2026 · live',
           role: 'Solo — concept, design, build',
           stack: 'static html/css/js · mapbox gl · open-meteo era5 · github actions',
-          live: 'raghavahuja.com/hot-cold',
+          live: 'raghavahuja.com/hot-cold ↗',
+          liveUrl: '/hot-cold',
         },
         stack: [
           ['mapbox-gl', '3.7.0'],
@@ -1207,9 +1213,14 @@ u.searchParams.set('past_hours', '24');</code></pre>
       ['stack', c.meta.stack],
       ['live', c.meta.live],
     ];
-    metaEl.innerHTML = metaRows.map(([k, v]) =>
-      `<div><div class="k">${k}</div><div${k === 'live' ? ' style="color: var(--accent);"' : ''}>${v}</div></div>`
-    ).join('');
+    metaEl.innerHTML = metaRows.map(([k, v]) => {
+      if (k === 'live' && c.meta.liveUrl) {
+        const isExternal = /^https?:/.test(c.meta.liveUrl);
+        const attrs = isExternal ? ' target="_blank" rel="noopener"' : '';
+        return `<div><div class="k">${k}</div><div><a href="${c.meta.liveUrl}"${attrs} style="color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);">${v}</a></div></div>`;
+      }
+      return `<div><div class="k">${k}</div><div${k === 'live' ? ' style="color: var(--accent);"' : ''}>${v}</div></div>`;
+    }).join('');
 
     // stack receipts — grep-able deps with versions
     if (c.stack && c.stack.length) {

@@ -33,7 +33,6 @@
         ['work','work.html'],
         ['docs','docs.html'],
         ['lab','lab.html'],
-        ['writing','notes.html','notes'],
         ['about','about.html'],
         ['contact','contact.html'],
       ];
@@ -72,7 +71,7 @@
           '<div class="links">' +
             '<a href="mailto:work.raghavahuja@gmail.com">work.raghavahuja@gmail.com</a> · ' +
             '<a href="https://github.com/ahujatries">github</a> · ' +
-            '<a href="https://linkedin.com/in/raghav-ahuja">linkedin</a> · ' +
+            '<a href="https://www.linkedin.com/in/raghav-ahuja-140b4aa9/">linkedin</a> · ' +
             '<a href="resume.pdf">resume</a>' +
           '</div>' +
         '</div>' +
@@ -479,12 +478,10 @@
     { label: 'CtB framework', path: '/docs/ctb', href: 'docs.html?d=ctb', kind: 'route' },
     { label: 'MIND framework — behavioral OS', path: '/docs/mind', href: 'docs.html?d=mind', kind: 'route' },
     { label: 'HCAI framework — designing for humans', path: '/docs/hcai', href: 'docs.html?d=hcai', kind: 'route' },
-    { label: 'direction A · brand doc', path: '/docs/direction-a', href: 'docs.html?d=direction-a', kind: 'route' },
     { label: 'colophon · how this site is built', path: '/docs/colophon', href: 'docs.html?d=colophon', kind: 'route' },
     { label: 'ADR · $19/mo edge cache', path: '/docs/adr-edge-cache', href: 'docs.html?d=adr-edge-cache', kind: 'route' },
     { label: 'lab', path: '/lab', href: 'lab.html', kind: 'route' },
     { label: 'the mamdani mapper · special bulletin', path: '/mamdani-mapper', href: 'mamdani-mapper.html', kind: 'route' },
-    { label: 'notes', path: '/notes', href: 'notes.html', kind: 'route' },
     { label: 'about', path: '/about', href: 'about.html', kind: 'route' },
     { label: 'contact', path: '/contact', href: 'contact.html', kind: 'route' },
     { label: 'toggle theme', path: 't', kind: 'cmd', action: 'theme' },
@@ -492,7 +489,7 @@
     { label: 'open resume (pdf)', path: '/resume.pdf', href: 'resume.pdf', kind: 'cmd' },
     { label: 'copy email', path: 'work.raghavahuja@gmail.com', kind: 'cmd', action: 'email' },
     { label: 'github · ahujatries', path: 'github.com/ahujatries', href: 'https://github.com/ahujatries', kind: 'cmd' },
-    { label: 'linkedin · raghav-ahuja', path: 'linkedin.com/in/raghav-ahuja', href: 'https://linkedin.com/in/raghav-ahuja', kind: 'cmd' },
+    { label: 'linkedin · raghav-ahuja', path: 'linkedin.com/in/raghav-ahuja-140b4aa9', href: 'https://www.linkedin.com/in/raghav-ahuja-140b4aa9/', kind: 'cmd' },
     { label: 'tryarqo.com', path: 'tryarqo.com', href: 'https://tryarqo.com', kind: 'cmd' },
     { label: 'jmnpr.com', path: 'jmnpr.com', href: 'https://jmnpr.com', kind: 'cmd' },
     { label: 'futbolis.live', path: 'futbolis.live', href: 'https://futbolis.live', kind: 'cmd' },
