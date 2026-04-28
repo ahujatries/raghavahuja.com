@@ -4,11 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="raghav ahuja — the library. Frameworks, architecture decision records, and colophon.">
-  <meta name="theme-color" content="#15110D">
+  <meta name="theme-color" content="#0c0c0e">
   <title>the library · raghav ahuja</title>
-  <link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="site.css">
   <link rel="canonical" href="https://raghavahuja.com/docs">
   <meta property="og:type" content="website">
@@ -25,7 +24,7 @@
   <meta name="twitter:title" content="the library · raghav ahuja">
   <meta name="twitter:description" content="Frameworks, ADRs, and colophon.">
   <meta name="twitter:image" content="https://raghavahuja.com/og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%23E86A4E%22%3E.%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%235b8cff%22%3E_%3C/text%3E%3C/svg%3E">
 </head>
 <body data-page="docs">
   <script>try { var s = localStorage.getItem('theme'); if (s) document.documentElement.setAttribute('data-theme', s); } catch (e) {}</script>
@@ -37,14 +36,15 @@
 
     <main id="main">
       <!-- Shelf view (default) -->
-      <section id="view-shelf" style="padding: 72px 0 40px;">
-        <div class="kicker">folio 07 — the library</div>
-        <h1 style="margin-top: 28px; margin-bottom: 24px; max-width: 18ch;">
-          Frameworks, <span class="em-serif">ADRs,</span> &amp; the colophon.
-        </h1>
-        <p style="font-family: var(--font-display); font-size: 20px; line-height: 1.55; color: var(--fg-muted); max-width: 60ch;">
-          A small library. Things I've written to decide something once, so I don't re-decide it every sprint. Pick a spine.
-        </p>
+      <section id="view-shelf">
+        <div class="folio-strip">folio 04 — the library · frameworks, adrs, colophon</div>
+        <div class="page-head">
+          <h1>
+            Frameworks, <span class="em-accent">ADRs,</span><br>
+            &amp; the colophon.
+          </h1>
+          <p class="lead">A small library. Things I've written to decide something once, so I don't re-decide it every sprint. Pick a spine.</p>
+        </div>
       </section>
 
       <section id="shelf-wrap" class="section" style="border-top: 0; padding-top: 0;">

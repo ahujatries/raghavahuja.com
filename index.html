@@ -4,11 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="raghav ahuja — design engineer & senior product designer. The code is part of the craft, not a handoff. 13 years shipping conversion-critical products.">
-  <meta name="theme-color" content="#15110D">
+  <meta name="theme-color" content="#0c0c0e">
   <title>raghav ahuja · design engineer &amp; senior product designer</title>
-  <link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="site.css">
   <link rel="canonical" href="https://raghavahuja.com/">
   <meta property="og:type" content="website">
@@ -25,7 +24,7 @@
   <meta name="twitter:title" content="raghav ahuja — design engineer & senior product designer">
   <meta name="twitter:description" content="The code is part of the craft, not a handoff. 13 years shipping conversion-critical products.">
   <meta name="twitter:image" content="https://raghavahuja.com/og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%23E86A4E%22%3E.%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%235b8cff%22%3E_%3C/text%3E%3C/svg%3E">
 </head>
 <body data-page="home">
   <script>
@@ -34,181 +33,116 @@
 
   <a href="#main" class="skip-link">skip to content</a>
 
-  <div id="grid-overlay" class="grid-overlay" aria-hidden="true"></div>
-
-  <!-- status strip — masthead for the night edition -->
-  <div class="status-bar" role="status" aria-live="off">
-    <span class="sb-left"><span class="sb-dot"></span> vol. iv · no. 3 · <span class="em-accent">portfolio · night ed.</span></span>
-    <span class="sb-clocks">
-      <span>jamanapaar <b id="clk-mum">--:--</b></span>
-      <span>brooklyn <b id="clk-nyc">--:--</b></span>
-    </span>
-  </div>
-
   <div class="wrap">
-    <!-- nav -->
-    <nav class="nav" aria-label="primary">
-      <div class="nav-left">
-        <a href="index.html" class="brand">raghav ahuja<span class="caret">.</span></a>
-        <div class="nav-links">
-          <a href="work.html">work</a>
-          <a href="docs.html">docs</a>
-          <a href="lab.html">lab</a>
-          <a href="notes.html">writing</a>
-          <a href="about.html">about</a>
-          <a href="contact.html">contact</a>
-        </div>
-      </div>
-      <div class="nav-right">
-        <button id="cmdk-trigger" class="nav-search" aria-label="Open command palette">
-          <span class="label-chrome">go anywhere</span>
-          <kbd class="kbd">⌘K</kbd>
-        </button>
-        <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
-          <span class="nav-toggle-bar"></span>
-          <span class="nav-toggle-bar"></span>
-          <span class="nav-toggle-bar"></span>
-        </button>
-      </div>
-    </nav>
+    <div id="nav-mount"></div>
 
     <main id="main">
-<!-- hero -->
-      <section class="hero">
-        <div class="eyebrow">folio 01 — the design engineer · read after dark</div>
-        <h1>
-          I design systems, build them, <span class="em-serif">and</span> run the studio behind them.
-        </h1>
-        <p class="sub">
-          The code is part of the craft, not a handoff. Thirteen years shipping end-to-end — research, visual system, front-end, back-end, and the decisions that don't make it into tickets. <a href="case-study.html?slug=arqo">Arqo</a> ships the consumer surface. <a href="case-study.html?slug=jmnpr-labs">JMNPR Labs</a> ships the engine and the free tools. Currently scaling insurance &amp; quoting at EF Education First.
-        </p>
-        <div class="hero-ctas">
-          <a href="work.html" class="cta cta-primary">read the case studies →</a>
-          <a href="mailto:work.raghavahuja@gmail.com" class="cta">get in touch</a>
-          <span class="cta-hint">or press <span class="kbd">⌘K</span></span>
+      <div class="folio-strip">folio 01 — the design engineer · read after dark</div>
+
+      <section class="hero-grid">
+        <div>
+          <h1>
+            I design systems,<br>
+            build them,<br>
+            <span class="em-accent">and run the studio</span><br>
+            behind them.
+          </h1>
+          <p class="lead">
+            The code is part of the craft, not a handoff. Thirteen years shipping end-to-end —
+            research, visual system, front-end, back-end, and the decisions that don't make it into tickets.
+          </p>
+          <div class="hero-ctas">
+            <a href="work.html" class="cta cta-primary">read the case studies →</a>
+            <a href="mailto:work.raghavahuja@gmail.com" class="cta">get in touch</a>
+            <span class="cta-hint">or press <span class="kbd">⌘K</span></span>
+          </div>
         </div>
-        <div class="signal-bar"><div class="signal-fill"></div></div>
+
+        <aside class="hero-card" aria-label="currently shipping">
+          <div class="hc-eyebrow">currently shipping</div>
+          <div class="hc-title">insurance &amp; quoting at EF</div>
+          <div class="hc-rule"></div>
+          <div class="hc-grid">
+            <span class="hc-k">building</span>
+            <span class="hc-v">JMNPR Labs <em>— a one-person studio. Story Kit live, five flagships on deck.</em></span>
+            <span class="hc-k">also</span>
+            <span class="hc-v">Arqo <em>— mobile-first screenwriting, shipped solo in 9 days.</em></span>
+            <span class="hc-k">tooling</span>
+            <span class="hc-v">claude code, cursor, v0 <em>— agentic workflows.</em></span>
+            <span class="hc-k">where</span>
+            <span class="hc-v">brooklyn <em>— jamnapaar, originally.</em></span>
+          </div>
+        </aside>
       </section>
 
-      <!-- ship log (live activity) -->
-      <section class="ship-log" aria-labelledby="shiplog-heading">
-        <button class="vs-handle" data-vs="LiveActivity" title="view source" aria-label="view source">{ }</button>
-        <div class="section-eyebrow">
-          <span id="shiplog-heading">the ship log · updated automatically from git</span>
-          <span class="meta">refreshes every 60s · <span id="tick">loading…</span></span>
+      <section class="highlights" aria-label="recent work">
+        <div class="highlights-head">
+          <span class="label">recent work · curated</span>
+          <a href="work.html">full archive →</a>
         </div>
-        <div class="live-row"><time datetime="2026-04-24" class="date">26·04·24</time><span class="repo">jmnpr/storykit</span><span class="commit-msg">feat: v1.4 worktables export — react-pdf pipeline</span><span class="when">12m ago</span></div>
-        <div class="live-row"><time datetime="2026-04-24" class="date">26·04·24</time><span class="repo">arqo</span><span class="commit-msg">fix: paginator widow suppression on dual dialogue</span><span class="when">2h ago</span></div>
-        <div class="live-row"><time datetime="2026-04-23" class="date">26·04·23</time><span class="repo">jmnpr/fdx</span><span class="commit-msg">feat: lossless round-trip fixtures — writerduet parity</span><span class="when">5h ago</span></div>
-        <div class="live-row"><time datetime="2026-04-23" class="date">26·04·23</time><span class="repo">arqo</span><span class="commit-msg">feat: voice-fingerprint over 777-script library</span><span class="when">1d ago</span></div>
-        <div class="live-row"><time datetime="2026-04-22" class="date">26·04·22</time><span class="repo">raghavahuja.com</span><span class="commit-msg">init: direction A · burnt ink + terracotta · night ed.</span><span class="when">2d ago</span></div>
+        <div class="highlights-grid">
+          <a href="case-study.html?slug=arqo" class="hl-card">
+            <div class="hl-row"><span class="hl-tag">arqo</span><span>26·04</span></div>
+            <div class="hl-title">Voice fingerprint trained on 777 scripts</div>
+            <div class="hl-kind">feature</div>
+          </a>
+          <a href="case-study.html?slug=jmnpr-labs" class="hl-card">
+            <div class="hl-row"><span class="hl-tag">jmnpr/storykit</span><span>26·04</span></div>
+            <div class="hl-title">Worktables export — react-pdf pipeline</div>
+            <div class="hl-kind">release</div>
+          </a>
+          <a href="case-study.html?slug=jmnpr-labs" class="hl-card">
+            <div class="hl-row"><span class="hl-tag">jmnpr/fdx</span><span>26·04</span></div>
+            <div class="hl-title">Lossless round-trip parity with WriterDuet</div>
+            <div class="hl-kind">milestone</div>
+          </a>
+          <a href="notes.html" class="hl-card">
+            <div class="hl-row"><span class="hl-tag">writing</span><span>26·03</span></div>
+            <div class="hl-title">Why I shipped a screenwriting app in 9 days</div>
+            <div class="hl-kind">essay</div>
+          </a>
+        </div>
       </section>
 
-      <!-- now -->
-      <section class="now-block" aria-labelledby="now-heading">
-        <div class="section-eyebrow">
-          <span id="now-heading">what i'm up to · hand-edited</span>
-          <span class="meta">last push · recently</span>
-        </div>
-<div class="now-grid">
-          <div class="now-row"><span class="now-k">shipping</span><span class="now-v">insurance <em>&amp;</em> quoting at EF Education First</span></div>
-          <div class="now-row"><span class="now-k">building</span><span class="now-v">JMNPR Labs <em>— a one-person studio. Story Kit live, five flagships on deck.</em></span></div>
-          <div class="now-row"><span class="now-k">also</span><span class="now-v">Arqo <em>— mobile-first screenwriting app, shipped solo in 9 days</em></span></div>
-          <div class="now-row"><span class="now-k">tooling</span><span class="now-v">claude code, cursor, v0 <em>— agentic workflows</em></span></div>
-          <div class="now-row"><span class="now-k">where</span><span class="now-v">brooklyn <em>— jamnapaar, originally</em></span></div>
-        </div>
-      </section>
-
-      <!-- selected work -->
       <section class="section" aria-labelledby="work-heading">
         <div class="section-head">
           <h2 id="work-heading">Selected work</h2>
           <a href="work.html">index → /work</a>
         </div>
-<a href="case-study.html?slug=arqo" class="work-row">
-          <span class="n">01</span>
-          <div>
-            <h3>Arqo</h3>
-            <p class="sub">A mobile-first, script-led filmmaking tool — shipped solo in 9 days. Custom editor, deterministic paginator, lossless FDX, offline-first, CRDT collab, pgvector voice-tuned AI.</p>
-          </div>
-          <div class="meta">
-            <div>sole design engineer</div>
-            <div>9-day MVP · ongoing</div>
-          </div>
-          <div class="year">2026 →</div>
-        </a>
-        <a href="case-study.html?slug=jmnpr-labs" class="work-row">
-          <span class="n">02</span>
-          <div>
-            <h3>JMNPR Labs</h3>
-            <p class="sub">A one-person studio. Production-grade tools for creators, indie filmmakers, and design engineers. Story Kit live. Five flagships on deck.</p>
-          </div>
-          <div class="meta">
-            <div>founder · design engineer</div>
-            <div>2026 · ongoing</div>
-          </div>
-          <div class="year">2026 →</div>
-        </a>
-        <a href="case-study.html?slug=ef" class="work-row">
-          <span class="n">03</span>
-          <div>
-            <h3>EF Education First <span class="locked-chip">🔒 gated</span></h3>
-            <p class="sub">Insurance, checkout, quoting — and an in-house design system tool supporting three brands across the org. Metrics &amp; specifics behind a password.</p>
-          </div>
-          <div class="meta">
-            <div>senior product designer</div>
-            <div>2022 — present</div>
-          </div>
-          <div class="year">2022 →</div>
-        </a>
+        <div class="work-list">
+          <a href="case-study.html?slug=arqo" class="work-row">
+            <span class="n">01</span>
+            <div>
+              <h3>Arqo</h3>
+              <div class="meta">sole design engineer · 9-day MVP · ongoing</div>
+            </div>
+            <p class="blurb">A mobile-first, script-led filmmaking tool — shipped solo in 9 days. Custom editor, deterministic paginator, lossless FDX, offline-first, CRDT collab, pgvector voice-tuned AI.</p>
+            <div class="year">2026 →</div>
+          </a>
+          <a href="case-study.html?slug=jmnpr-labs" class="work-row">
+            <span class="n">02</span>
+            <div>
+              <h3>JMNPR Labs</h3>
+              <div class="meta">founder · design engineer · 2026 · ongoing</div>
+            </div>
+            <p class="blurb">A one-person studio. Production-grade tools for creators, indie filmmakers, and design engineers. Story Kit live. Five flagships on deck.</p>
+            <div class="year">2026 →</div>
+          </a>
+          <a href="case-study.html?slug=ef" class="work-row">
+            <span class="n">03</span>
+            <div>
+              <h3>EF Education First <span class="locked-chip">🔒 gated</span></h3>
+              <div class="meta">senior product designer · 2022 — present</div>
+            </div>
+            <p class="blurb">Insurance, checkout, quoting — and an in-house design system tool supporting three brands across the org. Metrics &amp; specifics behind a password.</p>
+            <div class="year">2022 →</div>
+          </a>
+        </div>
       </section>
     </main>
 
-    <!-- footer — signed -->
-    <footer class="footer">
-      <div>
-<div class="brand-line">raghav ahuja</div>
-        <div>design engineer · brooklyn</div>
-        <div style="margin-top: 10px;">
-          <a href="mailto:work.raghavahuja@gmail.com">work.raghavahuja@gmail.com</a> ·
-          <a href="https://github.com/ahujatries">github</a> ·
-          <a href="https://linkedin.com/in/raghav-ahuja">linkedin</a> ·
-          <a href="resume.pdf">resume</a>
-        </div>
-      </div>
-      <div class="right">
-        <div class="sign">— written, designed, shipped by one person. night edition.</div>
-        <div style="margin-top: 10px;">set in Instrument Serif &amp; JetBrains Mono</div>
-        <div style="color: var(--fg-dim);">build <span id="build-sha" style="color: var(--accent);">—</span> · <span id="build-deployed">shipped recently</span></div>
-        <div style="color: var(--fg-dim);" id="reader-tz"></div>
-      </div>
-    </footer>
+    <div id="footer-mount"></div>
   </div>
-
-  <!-- command palette -->
-  <div id="cmdk" class="cmdk-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Command palette">
-    <div class="cmdk" role="combobox" aria-expanded="true">
-      <input id="cmdk-input" type="text" placeholder="go anywhere · type a route, command, or `chai`…" autocomplete="off" spellcheck="false" aria-label="Command input">
-      <div id="cmdk-results" class="cmdk-results" role="listbox"></div>
-      <div class="cmdk-foot">
-        <span><kbd class="kbd">↑↓</kbd> nav</span>
-        <span><kbd class="kbd">↵</kbd> open</span>
-        <span><kbd class="kbd">esc</kbd> close</span>
-        <span id="cmdk-count" style="margin-left:auto;"></span>
-      </div>
-    </div>
-  </div>
-
-  <div id="vs-scrim" class="vs-scrim" aria-hidden="true"></div>
-  <aside id="vs-drawer" class="vs-drawer" aria-hidden="true" aria-label="View source">
-    <div class="vs-head">
-      <span class="label-chrome">view source · <span id="vs-name">component</span></span>
-      <button id="vs-close" class="vs-close" aria-label="Close">esc</button>
-    </div>
-    <pre class="vs-pre"><code id="vs-code"></code></pre>
-  </aside>
-
-  <div id="konami-toast" class="konami-toast" role="status" aria-live="polite" hidden>नमस्ते · crt mode enabled</div>
 
   <script src="site.js" defer></script>
 </body>
