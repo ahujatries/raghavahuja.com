@@ -3,29 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="404 — not found. Terminal-style fallback.">
-  <meta name="theme-color" content="#15110D">
+  <meta name="description" content="404 — lost the thread.">
+  <meta name="theme-color" content="#0c0c0e">
   <title>404 · raghav ahuja</title>
-      <link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="site.css">
-  <link rel="canonical" href="https://raghavahuja.com/404">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://raghavahuja.com/404">
-  <meta property="og:title" content="404 · raghav ahuja">
-  <meta property="og:description" content="Page not found. But you have a terminal.">
-  <meta property="og:image" content="https://raghavahuja.com/og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:site_name" content="raghavahuja.com">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@ahujatries">
-  <meta name="twitter:creator" content="@ahujatries">
-  <meta name="twitter:title" content="404 · raghav ahuja">
-  <meta name="twitter:description" content="Page not found. But you have a terminal.">
-  <meta name="twitter:image" content="https://raghavahuja.com/og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22 fill=%22%230070F3%22%3E_%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%235b8cff%22%3E_%3C/text%3E%3C/svg%3E">
 </head>
 <body data-page="404">
   <script>try { var s = localStorage.getItem('theme'); if (s) document.documentElement.setAttribute('data-theme', s); } catch (e) {}</script>
@@ -36,62 +20,34 @@
     <div id="nav-mount"></div>
 
     <main id="main">
-
-    <section style="padding: 72px 0 40px;">
-      <div class="kicker">erratum · page missing</div>
-      <h1 style="margin-top: 28px; margin-bottom: 24px; font-size: 160px; line-height: 1; letter-spacing: -0.035em;">
-        404<span class="em-serif" style="font-size: 0.4em; vertical-align: super; margin-left: 4px;">*</span>
-      </h1>
-      <p style="font-family: var(--font-display); font-size: 20px; line-height: 1.55; color: var(--fg-muted); max-width: 60ch; margin-bottom: 32px;">
-        <span class="em-serif">*This page doesn't exist.</span> But you have a terminal. Type <code>ls</code> to see what does, or <code>cd work</code> to go back to something real.
-      </p>
-    </section>
-
-    <section class="section" style="padding-top: 0; border-top: 0;">
-      <div id="term" class="term"></div>
-    </section>
-
+      <section class="notfound">
+        <div class="eyebrow">error · 404 · path not found</div>
+        <h1>Lost the<br>thread.</h1>
+        <p class="lead">
+          This page either never existed, was decommissioned, or you're early.
+          Pick a folio and start again.
+        </p>
+        <div class="links">
+          <a href="index.html">index</a>
+          <a href="work.html">work</a>
+          <a href="docs.html">docs</a>
+          <a href="lab.html">lab</a>
+          <a href="notes.html">writing</a>
+          <a href="about.html">about</a>
+          <a href="contact.html">contact</a>
+        </div>
+        <div class="console">
+          <div class="pos">$ curl raghavahuja.com{path}</div>
+          <div>HTTP/2 404</div>
+          <div>x-edition: folio-iv</div>
+          <div>x-mood: searching</div>
+          <div>x-suggestion: try /work</div>
+        </div>
+      </section>
     </main>
 
     <div id="footer-mount"></div>
   </div>
-
-  <script>
-    const term = document.getElementById('term');
-    const lines = [
-      { t: 'out', x: '404 · not found. but you can still poke around.' },
-      { t: 'out', x: 'type `ls` to list routes, `whoami` for a bio, `help` for more.' },
-    ];
-    function render() {
-      term.innerHTML = lines.map(l =>
-        l.t === 'in'
-          ? `<div><span class="tprompt">$&nbsp;</span><span class="tin">${escape(l.x)}</span></div>`
-          : `<div class="tout">${escape(l.x)}</div>`
-      ).join('') +
-      `<div class="tinput-row"><span class="tprompt">$&nbsp;</span><input id="tin" autocomplete="off" spellcheck="false" aria-label="terminal input"></div>`;
-      const inp = document.getElementById('tin');
-      inp.focus();
-      inp.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') { run(inp.value); }
-      });
-    }
-    function escape(s) { return s.replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
-    function run(cmd) {
-      const c = cmd.trim().toLowerCase();
-      lines.push({ t: 'in', x: cmd });
-      if (c === 'ls') lines.push({ t: 'out', x: 'work/  lab/  notes/  about  contact  resume.pdf' });
-      else if (c.startsWith('cd ')) { const r = c.slice(3).replace(/\/$/, ''); window.location.href = `${r}.html`; return; }
-      else if (c === 'whoami') lines.push({ t: 'out', x: 'raghav ahuja · design engineer & senior product designer · 13 yrs shipping conversion-critical products. currently at EF education first. solo: arqo (tryarqo.com) + futbolis.live. based in nyc.' });
-      else if (c === 'uname -a') lines.push({ t: 'out', x: 'raghavahuja.com 1.0.0 #a3f2e91 next.js/15 vercel-edge x86_64' });
-      else if (c === 'help') lines.push({ t: 'out', x: 'ls, cd <route>, whoami, uname -a, chai, clear, exit' });
-      else if (c === 'chai') lines.push({ t: 'out', x: '☕ masala chai poured. refreshing.' });
-      else if (c === 'clear') { lines.length = 0; render(); return; }
-      else if (c === 'exit') { window.location.href = 'index.html'; return; }
-      else if (c !== '') lines.push({ t: 'out', x: `command not found: ${cmd}` });
-      render();
-    }
-    render();
-  </script>
 
   <script src="site.js" defer></script>
 </body>

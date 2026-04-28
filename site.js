@@ -10,45 +10,50 @@
 
   // ---------- shared chrome injection ----------
   function mountChrome() {
-    // status bar — editorial masthead
-    if (!document.querySelector('.status-bar')) {
-      const sb = document.createElement('div');
-      sb.className = 'status-bar';
-      sb.setAttribute('role', 'status');
-      sb.innerHTML =
-        '<span class="sb-left"><span class="sb-dot"></span> vol. iv · no. 3 · <span class="em-accent">portfolio · night ed.</span></span>' +
-        '<span class="sb-clocks">' +
-          '<span>jamanapaar <b id="clk-mum">--:--</b></span>' +
+    // masthead — vol/no editorial strip (3 columns)
+    if (!document.querySelector('.masthead')) {
+      const mh = document.createElement('div');
+      mh.className = 'masthead';
+      mh.setAttribute('role', 'status');
+      mh.innerHTML =
+        '<div class="mh-vol">vol. iv · no. 4 · portfolio</div>' +
+        '<div class="mh-mid">raghavahuja.com</div>' +
+        '<div class="mh-clocks">' +
+          '<span>jamnapaar <b id="clk-mum">--:--</b></span>' +
           '<span>brooklyn <b id="clk-nyc">--:--</b></span>' +
-        '</span>';
-      document.body.insertBefore(sb, document.body.firstChild);
+        '</div>';
+      document.body.insertBefore(mh, document.body.firstChild);
     }
 
-    // nav — editorial brand, period accent
+    // nav — raghav_ blinking caret + links + day/night + ⌘K
     const navMount = document.getElementById('nav-mount');
     if (navMount) {
       const items = [
+        ['index','index.html','home'],
         ['work','work.html'],
         ['docs','docs.html'],
         ['lab','lab.html'],
-        ['writing','notes.html','notes'],  // label 'writing', but page is 'notes'
+        ['writing','notes.html','notes'],
         ['about','about.html'],
         ['contact','contact.html'],
       ];
       navMount.outerHTML = '<nav class="nav" aria-label="primary">' +
         '<div class="nav-left">' +
-          '<a href="index.html" class="brand">raghav ahuja<span class="caret">.</span></a>' +
-          '<div class="nav-links">' +
-            items.map((it) => {
-              const [l, h, pg] = it;
-              const key = pg || l;
-              return `<a href="${h}"${active===key?' class="active"':''}>${l}</a>`;
-            }).join('') +
-          '</div>' +
+          '<a href="index.html" class="brand" aria-label="raghavahuja.com — home">raghav_<span class="caret" aria-hidden="true"></span></a>' +
+        '</div>' +
+        '<div class="nav-links">' +
+          items.map((it) => {
+            const [l, h, pg] = it;
+            const key = pg || l;
+            return `<a href="${h}"${active===key?' class="active"':''}>${l}</a>`;
+          }).join('') +
         '</div>' +
         '<div class="nav-right">' +
-          '<button id="cmdk-trigger" class="nav-search" aria-label="Open command palette">' +
-            '<span class="label-chrome">go anywhere</span><kbd class="kbd">⌘K</kbd>' +
+          '<button id="theme-toggle" class="nav-btn" aria-label="Toggle day/night theme" type="button">' +
+            '<span class="theme-label">☾ night</span>' +
+          '</button>' +
+          '<button id="cmdk-trigger" class="nav-btn nav-btn--solid nav-search" aria-label="Open command palette" type="button">' +
+            '<span>go anywhere</span><span class="kbd">⌘K</span>' +
           '</button>' +
           '<button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">' +
             '<span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>' +
@@ -62,9 +67,9 @@
     if (footMount) {
       footMount.outerHTML = '<footer class="footer">' +
         '<div>' +
-          '<div class="brand-line">raghav ahuja</div>' +
-          '<div>design engineer · brooklyn</div>' +
-          '<div style="margin-top: 10px;">' +
+          '<div class="brand-line">raghav_<span class="caret" aria-hidden="true"></span></div>' +
+          '<div class="role">design engineer · brooklyn</div>' +
+          '<div class="links">' +
             '<a href="mailto:work.raghavahuja@gmail.com">work.raghavahuja@gmail.com</a> · ' +
             '<a href="https://github.com/ahujatries">github</a> · ' +
             '<a href="https://linkedin.com/in/raghav-ahuja">linkedin</a> · ' +
@@ -72,10 +77,10 @@
           '</div>' +
         '</div>' +
         '<div class="right">' +
-          '<div class="sign">— written, designed, shipped by one person. night edition.</div>' +
-          '<div style="margin-top: 10px;">set in Instrument Serif &amp; JetBrains Mono</div>' +
-          '<div style="color: var(--fg-dim);">build <span id="build-sha" style="color: var(--accent);">—</span> · <span id="build-deployed">shipped recently</span></div>' +
-          '<div style="color: var(--fg-dim);" id="reader-tz"></div>' +
+          '<div class="sign">— written, designed, shipped<br>by one person.</div>' +
+          '<div style="margin-top: 10px;">set in fraunces, geist &amp; jetbrains mono.</div>' +
+          '<div style="margin-top: 10px;">build <span id="build-sha">—</span> · <span id="build-deployed">shipped recently</span></div>' +
+          '<div id="reader-tz"></div>' +
         '</div>' +
       '</footer>';
     }
@@ -134,10 +139,10 @@
 
   mountChrome();
 
-  // ---------- home brand active state ----------
+  // ---------- home active state — index nav link ----------
   if (active === 'home') {
-    const brand = document.querySelector('.nav .brand');
-    if (brand) brand.classList.add('active');
+    const homeLink = document.querySelector('.nav-links a[href="index.html"]');
+    if (homeLink) homeLink.classList.add('active');
   }
 
   // ---------- mobile nav toggle ----------
@@ -353,13 +358,27 @@
   });
 
   // ---------- theme toggle ----------
+  function currentTheme() {
+    const explicit = document.documentElement.getAttribute('data-theme');
+    if (explicit) return explicit;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+  function setThemeLabel() {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    const lbl = btn.querySelector('.theme-label');
+    if (!lbl) return;
+    lbl.textContent = currentTheme() === 'dark' ? '☾ night' : '☀ day';
+  }
   function toggleTheme() {
-    const cur = document.documentElement.getAttribute('data-theme');
-    const next = cur === 'light' ? 'dark' : 'light';
+    const next = currentTheme() === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch (e) {}
+    setThemeLabel();
     track('theme:toggle', { to: next });
   }
+  setThemeLabel();
+  document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
   document.addEventListener('keydown', (e) => {
     if (isTypingTarget(e.target)) return;
     if (e.key === 't') toggleTheme();
