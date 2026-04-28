@@ -71,7 +71,7 @@
        ============================================== -->
   <template id="case-arqo">
     <section>
-      <p class="drop-cap"><strong>Arqo is what happens when you refuse to accept</strong> that screenwriting software should look like it did in 1999. In nine days of focused after-work building — in an agentic-dev workflow using Claude Code — I shipped a custom contenteditable screenplay editor, a deterministic line-by-line paginator running in a web worker, a lossless FDX v2 parser and writer that round-trips against the Final Draft and WriterDuet fixtures, an offline-first IndexedDB architecture with an autosave outbox, a real-time collaboration layer built on Liveblocks + Yjs CRDTs, three synchronized editor surfaces on mobile (Flow, Beats, Pages) that no competitor ships, a 777-script Library embedded with pgvector for Voice Fingerprint and Continuity Reader AI, a Tauri desktop shell, and Capacitor mobile scaffolding.</p>
+      <p class="drop-cap"><strong>Arqo is a mobile-first screenwriting app</strong> I shipped solo in nine days of after-work building, using an agentic-dev workflow with Claude Code. It's a custom contenteditable screenplay editor, a deterministic line-by-line paginator running in a web worker, a lossless FDX v2 parser and writer that round-trips against the Final Draft and WriterDuet fixtures, an offline-first IndexedDB architecture with an autosave outbox, a real-time collaboration layer built on Liveblocks + Yjs CRDTs, three synchronized editor surfaces on mobile (Flow, Beats, Pages), a 777-script Library embedded with pgvector for Voice Fingerprint and Continuity Reader AI, a Tauri desktop shell, and Capacitor mobile scaffolding.</p>
       <p>Arqo is not a Final Draft clone with AI stapled on. It is a re-architecture of the entire pre-production workflow — writing, structure, shot-listing, teleprompter, NLE export — around the premise that every film, in every language, starts with a script, and no existing tool treats the script as the source of truth across the full pipeline.</p>
       <p>This case study documents the architectural decisions, the trade-offs I made explicit before writing code, the pivots I made when reality pushed back, and the things I deliberately did not build — because the product's discipline is at least as important as its feature list.</p>
     </section>
@@ -196,7 +196,7 @@ Paginator responsibilities:
 
     <h3>5. Offline-First Architecture</h3>
     <p>Writers write on planes. Writers write on subways. Writers write in cafés with bad WiFi. Any tool that's online-only immediately fails a real-world usability test.</p>
-    <p>Every write goes to IndexedDB first. A background autosave outbox reconciles with the server when online. For the offline-only use case (NDA-grade scripts that the server is never allowed to see), I shipped a "Private Draft" project type — local-only, encrypted at rest, never synced. No competitor tells this story because none of them architected for it.</p>
+    <p>Every write goes to IndexedDB first. A background autosave outbox reconciles with the server when online. For the offline-only use case (NDA-grade scripts that the server is never allowed to see), I shipped a "Private Draft" project type — local-only, encrypted at rest, never synced.</p>
     <p>The IndexedDB schema has separate object stores for documents, pending_writes, revisions, and local_only_drafts. Cursor-based pagination over the pending queue means replay after a long offline session is O(n) in pending writes, not O(n²).</p>
 
     <h3>6. PDF Generation — Industry-Standard Output</h3>
@@ -315,7 +315,7 @@ Paginator responsibilities:
       <strong style="color: var(--fg); font-style: normal;">moved to <a href="lab.html">/lab</a> ·</strong> the full case study lives here. for the short version, see <a href="lab.html">/lab</a>. for the long version, keep reading.
     </aside>
     <section>
-      <p class="drop-cap"><strong>Futbolis.live is proof</strong> that solo design engineers armed with modern AI-assisted tooling can ship production-scale consumer products end-to-end in three weeks. The entire stack — product vision, visual system, geocoding engine, caching architecture, mobile and desktop experiences, motion design — was built by one person in the evenings.</p>
+      <p class="drop-cap"><strong>Futbolis.live is a real-time pub-finder for football fans</strong> I shipped solo in three weeks of evenings, using AI-assisted tooling. The full stack — product vision, visual system, geocoding engine, caching architecture, mobile and desktop experiences, motion design — was built end-to-end by one person.</p>
       <p>The headline engineering achievements are not decorative. A 60-second server-side cache on the <code>/api/matches</code> route means the site serves 100,000 concurrent users on a $19/month base-tier sports API, because every user hits one API call per minute regardless of traffic. A four-tier geocoding fallback ensures every match plots correctly even when the upstream API doesn't provide stadium coordinates. A mobile architecture built from scratch (not a responsive desktop) gives phone users a bottom-sheet carousel that feels native.</p>
     </section>
 
@@ -490,7 +490,7 @@ useEffect(() =&gt; {
        ============================================== -->
   <template id="case-jmnpr-labs">
     <section>
-      <p class="drop-cap"><strong>JMNPR Labs is what happens when you stop asking permission.</strong> After thirteen years of shipping inside other people's roadmaps, I started a studio in my evenings to ship the tools I kept waiting for someone else to build. The thesis is narrow and the catalog is broad: production-grade, self-serve tools for the creators and craftspeople the category has under-served. One brand. Many verticals. Honest pricing. No sales motion.</p>
+      <p class="drop-cap"><strong>JMNPR Labs is a one-person studio</strong> I started in my evenings, after thirteen years of shipping inside other people's roadmaps. The thesis is narrow and the catalog is broad: production-grade, self-serve tools for the creators and craftspeople the category has under-served. One brand. Many verticals. Honest pricing. No sales motion.</p>
       <p>Arqo is one expression of the studio — the consumer surface. This case study is about everything else. What's live, what's on deck, and the architectural bet underneath the whole thing: that a single solo operator, with AI-native tooling and fifteen years of accumulated taste, can now ship the kind of product catalog that previously required a twelve-person company.</p>
       <p>The studio is named <em>Jamanapaar</em> — Hindi for <em>"the other side of the Yamuna."</em> East Delhi, where I grew up, and the side of the river outsiders looked down on. Brooklyn, where I live now, on the other side of a different river. The studio is named for the posture.</p>
     </section>
