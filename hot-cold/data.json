@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-28T07:41:17.001Z",
+  "updatedAt": "2026-04-28T09:59:35.803Z",
   "source": "open-meteo · ERA5",
   "regions": [
     {
@@ -18,7 +18,7 @@
           "region": "Afar, Ethiopia",
           "lat": 14.24,
           "lon": 40.3,
-          "tempC": 36.5
+          "tempC": 39.9
         },
         "feed": {
           "kind": "youtube",
@@ -28,12 +28,10 @@
           "lon": 43.14,
           "bearing": "SE",
           "distanceKm": 426,
-          "localTime": "10:30",
-          "conditionsC": 32.4
+          "localTime": "12:45",
+          "conditionsC": 32.7
         },
         "sparkline": [
-          33.9,
-          33.6,
           33.2,
           32.7,
           32.5,
@@ -43,7 +41,9 @@
           29.7,
           30.2,
           31.5,
-          33.2
+          33.2,
+          35.3,
+          37.4
         ],
         "record": {
           "value": 55,
@@ -57,7 +57,7 @@
           "region": "East Antarctic Plateau",
           "lat": -78.46,
           "lon": 106.84,
-          "tempC": -53.6
+          "tempC": -54.1
         },
         "feed": {
           "kind": "windy",
@@ -67,12 +67,10 @@
           "lon": 123.33,
           "bearing": "NE",
           "distanceKm": 558,
-          "localTime": "15:30",
-          "conditionsC": -53.8
+          "localTime": "17:45",
+          "conditionsC": -54.3
         },
         "sparkline": [
-          -52.7,
-          -52,
           -51.7,
           -51.5,
           -51.1,
@@ -82,7 +80,9 @@
           -53.3,
           -53.3,
           -53.2,
-          -53.3
+          -53.3,
+          -53.5,
+          -53.7
         ],
         "record": {
           "value": -89.2,
@@ -107,7 +107,7 @@
           "region": "Afar, Ethiopia",
           "lat": 14.24,
           "lon": 40.3,
-          "tempC": 36.5
+          "tempC": 39.9
         },
         "feed": {
           "kind": "youtube",
@@ -117,12 +117,10 @@
           "lon": 43.14,
           "bearing": "SE",
           "distanceKm": 426,
-          "localTime": "10:30",
-          "conditionsC": 32.4
+          "localTime": "12:45",
+          "conditionsC": 32.7
         },
         "sparkline": [
-          33.9,
-          33.6,
           33.2,
           32.7,
           32.5,
@@ -132,7 +130,9 @@
           29.7,
           30.2,
           31.5,
-          33.2
+          33.2,
+          35.3,
+          37.4
         ],
         "record": {
           "value": 55,
@@ -146,7 +146,7 @@
           "region": "Rwenzori, Uganda/DRC",
           "lat": 0.39,
           "lon": 29.87,
-          "tempC": 1.4
+          "tempC": 1.7
         },
         "feed": {
           "kind": "windy",
@@ -156,12 +156,10 @@
           "lon": 30.08,
           "bearing": "SE",
           "distanceKm": 33,
-          "localTime": "10:30",
-          "conditionsC": 23
+          "localTime": "12:45",
+          "conditionsC": 26.6
         },
         "sparkline": [
-          0,
-          -0.5,
           -0.6,
           -1.5,
           -1.3,
@@ -171,6 +169,8 @@
           -0.6,
           -0.5,
           -0.3,
+          0.9,
+          1.7,
           0.9
         ],
         "record": {
@@ -196,7 +196,7 @@
           "region": "Kerman, Iran",
           "lat": 30.78,
           "lon": 59.32,
-          "tempC": 33.5
+          "tempC": 34.6
         },
         "feed": {
           "kind": "youtube",
@@ -206,12 +206,10 @@
           "lon": 56.27,
           "bearing": "SW",
           "distanceKm": 498,
-          "localTime": "11:00",
-          "conditionsC": 34.2
+          "localTime": "13:15",
+          "conditionsC": 37.5
         },
         "sparkline": [
-          27.7,
-          27,
           26.3,
           25.6,
           24.8,
@@ -221,7 +219,9 @@
           24.2,
           27.2,
           29.6,
-          31.3
+          31,
+          32.4,
+          33.6
         ],
         "record": {
           "value": 54,
@@ -235,7 +235,7 @@
           "region": "Sakha Republic, Russia",
           "lat": 63.46,
           "lon": 142.79,
-          "tempC": 1.2
+          "tempC": -1.8
         },
         "feed": {
           "kind": "windy",
@@ -245,12 +245,10 @@
           "lon": 129.73,
           "bearing": "W",
           "distanceKm": 682,
-          "localTime": "16:30",
-          "conditionsC": 5.8
+          "localTime": "18:45",
+          "conditionsC": 4.1
         },
         "sparkline": [
-          -19,
-          -17.2,
           -13.4,
           -9.5,
           -6.3,
@@ -260,7 +258,9 @@
           1.1,
           1.6,
           1.5,
-          1.8
+          1.8,
+          1.4,
+          1.1
         ],
         "record": {
           "value": -67.7,
@@ -285,7 +285,7 @@
           "region": "Catania, Italy",
           "lat": 37.46,
           "lon": 14.62,
-          "tempC": 18.3
+          "tempC": 22.1
         },
         "feed": {
           "kind": "youtube",
@@ -295,12 +295,10 @@
           "lon": 15.09,
           "bearing": "E",
           "distanceKm": 42,
-          "localTime": "09:30",
-          "conditionsC": 18.1
+          "localTime": "11:45",
+          "conditionsC": 20.6
         },
         "sparkline": [
-          16.3,
-          15.2,
           13.8,
           12.6,
           12.2,
@@ -310,7 +308,9 @@
           9.5,
           9.2,
           9.3,
-          12.4
+          12.2,
+          16.6,
+          19.3
         ],
         "record": {
           "value": 48.8,
@@ -324,7 +324,7 @@
           "region": "Lapland, Sweden",
           "lat": 67.9,
           "lon": 18.55,
-          "tempC": -10.7
+          "tempC": -9.8
         },
         "feed": {
           "kind": "windy",
@@ -334,12 +334,10 @@
           "lon": 20.22,
           "bearing": "E",
           "distanceKm": 70,
-          "localTime": "09:30",
-          "conditionsC": -0.1
+          "localTime": "11:45",
+          "conditionsC": 1.1
         },
         "sparkline": [
-          -11,
-          -11.1,
           -11.1,
           -11.4,
           -10.7,
@@ -349,7 +347,9 @@
           -11.7,
           -11.9,
           -11.7,
-          -11.3
+          -11.3,
+          -10.9,
+          -10.6
         ],
         "record": {
           "value": -52.6,
@@ -374,7 +374,7 @@
           "region": "California, USA",
           "lat": 36.46,
           "lon": -116.87,
-          "tempC": 19.1
+          "tempC": 18
         },
         "feed": {
           "kind": "youtube",
@@ -384,12 +384,10 @@
           "lon": -115.14,
           "bearing": "E",
           "distanceKm": 158,
-          "localTime": "00:30",
-          "conditionsC": 15.1
+          "localTime": "02:45",
+          "conditionsC": 12.3
         },
         "sparkline": [
-          22.9,
-          24.3,
           25.1,
           26.4,
           25.9,
@@ -399,7 +397,9 @@
           21,
           21,
           20.7,
-          20.4
+          20.4,
+          19.3,
+          19
         ],
         "record": {
           "value": 56.7,
@@ -413,7 +413,7 @@
           "region": "Nunavut, Canada",
           "lat": 79.98,
           "lon": -85.93,
-          "tempC": -19.1
+          "tempC": -18
         },
         "feed": {
           "kind": "windy",
@@ -423,12 +423,10 @@
           "lon": -94.97,
           "bearing": "SW",
           "distanceKm": 624,
-          "localTime": "02:30",
-          "conditionsC": -9.9
+          "localTime": "04:45",
+          "conditionsC": -10.1
         },
         "sparkline": [
-          -16.3,
-          -15.8,
           -15.3,
           -15.1,
           -15,
@@ -438,7 +436,9 @@
           -17.8,
           -19,
           -19.6,
-          -19.7
+          -19.7,
+          -19.3,
+          -19
         ],
         "record": {
           "value": -63,
@@ -463,7 +463,7 @@
           "region": "Salta, Argentina",
           "lat": -22.1,
           "lon": -62.85,
-          "tempC": 14.9
+          "tempC": 13.9
         },
         "feed": {
           "kind": "youtube",
@@ -473,12 +473,10 @@
           "lon": -57.61,
           "bearing": "SE",
           "distanceKm": 639,
-          "localTime": "03:30",
-          "conditionsC": 11.9
+          "localTime": "05:45",
+          "conditionsC": 11.4
         },
         "sparkline": [
-          20.1,
-          20.2,
           19.9,
           19.1,
           18.7,
@@ -488,7 +486,9 @@
           17,
           16.6,
           15.6,
-          15.2
+          15.2,
+          15.1,
+          14.6
         ],
         "record": {
           "value": 48.9,
@@ -502,7 +502,7 @@
           "region": "Oruro, Bolivia",
           "lat": -18.1,
           "lon": -68.88,
-          "tempC": -9.6
+          "tempC": -9.4
         },
         "feed": {
           "kind": "windy",
@@ -512,12 +512,10 @@
           "lon": -68.15,
           "bearing": "NE",
           "distanceKm": 194,
-          "localTime": "03:30",
-          "conditionsC": 4.4
+          "localTime": "05:45",
+          "conditionsC": 3.9
         },
         "sparkline": [
-          0.9,
-          0.6,
           0.2,
           -2.7,
           -5,
@@ -527,7 +525,9 @@
           -8.6,
           -9.1,
           -9.3,
-          -9.5
+          -9.5,
+          -9.6,
+          -9.6
         ],
         "record": {
           "value": -33,
@@ -552,7 +552,7 @@
           "region": "Pilbara, Australia",
           "lat": -21.18,
           "lon": 119.74,
-          "tempC": 34.1
+          "tempC": 31.2
         },
         "feed": {
           "kind": "youtube",
@@ -562,12 +562,10 @@
           "lon": 118.6,
           "bearing": "NW",
           "distanceKm": 153,
-          "localTime": "15:30",
-          "conditionsC": 32.8
+          "localTime": "17:45",
+          "conditionsC": 28.7
         },
         "sparkline": [
-          21.5,
-          20.8,
           20.3,
           19.9,
           21,
@@ -577,7 +575,9 @@
           31.6,
           33.2,
           34.1,
-          34.4
+          34.4,
+          34.3,
+          34
         ],
         "record": {
           "value": 50.7,
@@ -591,7 +591,7 @@
           "region": "Southern Alps, NZ",
           "lat": -43.59,
           "lon": 170.14,
-          "tempC": -10.7
+          "tempC": -11.2
         },
         "feed": {
           "kind": "windy",
@@ -601,12 +601,10 @@
           "lon": 170.1,
           "bearing": "S",
           "distanceKm": 16,
-          "localTime": "19:30",
-          "conditionsC": 8.7
+          "localTime": "21:45",
+          "conditionsC": 7.7
         },
         "sparkline": [
-          -10.4,
-          -10.9,
           -9.9,
           -9.1,
           -8.4,
@@ -616,7 +614,9 @@
           -8.1,
           -8.1,
           -9,
-          -9.4
+          -9.4,
+          -10.1,
+          -11.1
         ],
         "record": {
           "value": -25.6,
@@ -641,7 +641,7 @@
           "region": "Antarctic Peninsula",
           "lat": -63.4,
           "lon": -56.99,
-          "tempC": 1
+          "tempC": 0.6
         },
         "feed": {
           "kind": "youtube",
@@ -651,12 +651,10 @@
           "lon": -68.3,
           "bearing": "NW",
           "distanceKm": 1149,
-          "localTime": "04:30",
-          "conditionsC": 3.7
+          "localTime": "06:45",
+          "conditionsC": 4.2
         },
         "sparkline": [
-          1.4,
-          1.1,
           1,
           0.6,
           0.3,
@@ -666,7 +664,9 @@
           0.7,
           0.8,
           0.7,
-          0.9
+          0.9,
+          1,
+          1.1
         ],
         "record": {
           "value": 18.3,
@@ -680,7 +680,7 @@
           "region": "East Antarctic Plateau",
           "lat": -78.46,
           "lon": 106.84,
-          "tempC": -53.6
+          "tempC": -54.1
         },
         "feed": {
           "kind": "windy",
@@ -690,12 +690,10 @@
           "lon": 123.33,
           "bearing": "NE",
           "distanceKm": 558,
-          "localTime": "15:30",
-          "conditionsC": -53.8
+          "localTime": "17:45",
+          "conditionsC": -54.3
         },
         "sparkline": [
-          -52.7,
-          -52,
           -51.7,
           -51.5,
           -51.1,
@@ -705,7 +703,9 @@
           -53.3,
           -53.3,
           -53.2,
-          -53.3
+          -53.3,
+          -53.5,
+          -53.7
         ],
         "record": {
           "value": -89.2,
