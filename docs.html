@@ -240,6 +240,101 @@
   </template>
 
   <!-- ==============================================
+       MIND — Behavioral Operating System
+       ============================================== -->
+  <template id="doc-mind-os">
+    <section>
+      <p class="drop-cap"><strong>MIND — Motivational Interface &amp; Nudge Design</strong> — is the behavioral operating system I authored for high-stakes flows. Distinct from the <a href="docs.html?d=mind">synthesis MIND</a> (which is a research method) — this MIND is a working theory of <em>why</em> a high-consideration purchase converts or doesn't, and the interface response that resolves the doubt.</p>
+      <p>The full applied writeup, with deployment metrics, lives in the <a href="case-study.html?slug=mind">case study</a>. This is the conceptual core.</p>
+    </section>
+
+    <h2>The core equation</h2>
+<pre><code>CtB = (Clarity + Trust + Motivation) − (Friction × 2) − Risk</code></pre>
+    <p>Confidence-to-Book quantifies a user's readiness to commit. Friction carries 2× negative weight — that's the load-bearing insight. A well-meant explanation that adds a sentence to read can erase a guarantee that took a quarter to negotiate.</p>
+
+    <h2>The four forces</h2>
+    <ul>
+      <li><strong>Cognitive efficiency.</strong> Humans are misers. Curate the path; don't just provide choices.</li>
+      <li><strong>Loss aversion.</strong> Fear of loss is 2–3× more powerful than the desire for gain. Frame around avoiding missed opportunities.</li>
+      <li><strong>Social orientation.</strong> In uncertainty, humans look to the herd. Social proof at the moment of hesitation, not as decoration.</li>
+      <li><strong>Commitment momentum.</strong> Each small "yes" makes the next one easier. Sequence the asks; never lead with the heaviest.</li>
+    </ul>
+
+    <h2>The five pillars</h2>
+    <p>Each pillar maps to a question in the user's head. The framework forces the team to answer all five before shipping a flow.</p>
+    <ol>
+      <li><strong>Orientation</strong> — "Do I understand what this is and why it matters?"</li>
+      <li><strong>Motivation</strong> — "Do I want this?"</li>
+      <li><strong>Decision architecture</strong> — "Is this choice easy?"</li>
+      <li><strong>Trust &amp; reassurance</strong> — "Do I feel safe committing?"</li>
+      <li><strong>Action</strong> — "Is now the right moment to act?"</li>
+    </ol>
+
+    <h2>Behavioral Drop-Off Index (BDI)</h2>
+<pre><code>BDI(step) = (Alignment + Motivation + Trust + (5 − Friction)) / 4
+
+≥ 4.0    strong alignment, low resistance
+2.5–4.0  optimization opportunity
+≤ 2.5    behavioral leak — high abandon risk</code></pre>
+    <p>BDI surfaces leaks before A/B testing burns weeks on the wrong variable. Worked example: checkout step scores 2.4. Hover maps show hesitation on policy text. Diagnosis: <em>trust leak</em>. Rx: surface guarantees, add a "reserve risk-free" microcopy line, force total-price transparency above the fold. The framework names the leak before the team names the fix.</p>
+
+    <h2>The ethical ethos</h2>
+    <p>Four non-negotiables. Ethics isn't a constraint — it's a performance multiplier, because users can smell a manipulated funnel and the brand pays the bill on the back end.</p>
+    <ul>
+      <li><strong>Clarity over persuasion.</strong> Users must understand the choice and its consequences.</li>
+      <li><strong>Confidence over pressure.</strong> Nudge toward certainty; reject false urgency.</li>
+      <li><strong>Momentum over friction.</strong> Accelerate through smart defaults, not dark patterns.</li>
+      <li><strong>Integrity over manipulation.</strong> Scarcity, social proof, and data must be real.</li>
+    </ul>
+
+    <h2>Where it ships</h2>
+    <p>MIND is the framework underneath the EF checkout rebuild (+$4.2M / yr), the Deals Tracker pricing intelligence layer (+12.4% CtB, +8.2% conversion), and the insurance redesign (+10% take-rate). Full applied detail: <a href="case-study.html?slug=mind">case study →</a></p>
+
+    <blockquote>The framework is a forcing function. If a team can't articulate which pillar a screen is solving for, the screen isn't ready to ship.</blockquote>
+  </template>
+
+  <!-- ==============================================
+       HCAI — Designing for Humans
+       ============================================== -->
+  <template id="doc-hcai">
+    <section>
+      <p class="drop-cap"><strong>Designing for Humans</strong> is a Human-Centered AI (HCAI) research framework I authored at EF World Journeys. It's the rubric I use to decide whether AI belongs in a flow, what shape it should take when it does, and how to keep the human in control of the decision the AI is informing.</p>
+      <p>Full applied writeup with deployment patterns: <a href="case-study.html?slug=hcai">case study →</a></p>
+    </section>
+
+    <h2>Humans in the group; computers in the loop</h2>
+    <p>The traditional model puts AI at the centre and humans on the edges — one model, many humans served by it. HCAI inverts the geometry: humans at the centre, with multiple AI tools deployed around them as loops they can step into and out of.</p>
+    <blockquote>Non-deterministic systems require a human-centered buffer against unpredictability.</blockquote>
+
+    <h2>The P.O.N.T.E. evaluation</h2>
+    <p>A five-step rubric for whether AI adds unique value in a given flow. If the answer to any of these is shaky, the AI surface probably shouldn't ship.</p>
+    <ul>
+      <li><strong>P — Patterns.</strong> Is there an identifiable pattern of user behaviour with data behind it? Or are we projecting an AI use-case onto a flow that doesn't actually have the volume to learn from?</li>
+      <li><strong>O — Outcome.</strong> What is the definition of success? Which OKRs does this affect?</li>
+      <li><strong>N — Need.</strong> Can a non-AI solution work better? Does AI offer something genuinely unique — or does it just feel like a more impressive answer?</li>
+      <li><strong>T — Type.</strong> Automation (speed) vs. augmentation (creativity)? The wrong choice between them is the most common reason AI features fail.</li>
+      <li><strong>E — Equity.</strong> How do we ensure fairness and reduce bias?</li>
+    </ul>
+
+    <h2>Six principles</h2>
+    <ul>
+      <li><strong>Transparency.</strong> Explain why the AI made the suggestion.</li>
+      <li><strong>Accountability.</strong> Clear lines of responsibility for AI errors.</li>
+      <li><strong>Privacy.</strong> Data used ethically, with consent.</li>
+      <li><strong>Human autonomy.</strong> Empower users by enhancing their abilities; provide control over AI-assisted processes.</li>
+      <li><strong>Beneficence.</strong> Aim to benefit individuals and society. Improve well-being. Avoid harm.</li>
+      <li><strong>Accessibility.</strong> Intuitive interfaces — across abilities and backgrounds.</li>
+    </ul>
+
+    <h2>Case in point — price predictions</h2>
+    <p>Google Flights' "lower than usual" pricing badge is a textbook HCAI surface. The AI predicts; the human decides. Travellers stuck in re-check loops ("what if it gets cheaper?") get a confidence signal — but the action and the consequence stay with the human. The AI never books for them.</p>
+    <blockquote>The AI predicts, but the human decides. That's the essence of HCAI — augmentation over automation.</blockquote>
+
+    <h2>Where it ships</h2>
+    <p>HCAI is the rubric that shaped the EF AI-assisted intent capture prototype — a sentence-builder that turns vague preferences into structured intent grounded in real inventory. The system returns confidence scores and fallback behaviour; it never recommends a tour that doesn't exist. Augmentation, not autopilot. Full writeup: <a href="case-study.html?slug=hcai">case study →</a></p>
+  </template>
+
+  <!-- ==============================================
        Direction A (brand direction)
        ============================================== -->
   <template id="doc-direction-a">
@@ -378,27 +473,37 @@ export async function GET() {
         meta: { written: '2023 · revised 2026', status: 'in production', length: '~1,100 words' },
       },
       'mind': {
-        n: '02', title: 'MIND', kind: 'framework',
+        n: '02', title: 'MIND — synthesis', kind: 'framework',
         subtitle: 'Mixed-method research synthesis. Mine, inventory, name the tensions, decide the bet.',
         meta: { written: '2023 · revised 2026', status: 'in production', length: '~900 words' },
       },
+      'mind-os': {
+        n: '03', title: 'MIND — behavioral OS', kind: 'framework',
+        subtitle: 'A behavioral operating system for high-stakes flows. CtB equation, 5 pillars, BDI heatmap.',
+        meta: { written: '2024 · revised 2026', status: 'deployed across EF surfaces', length: '~1,000 words' },
+      },
+      'hcai': {
+        n: '04', title: 'HCAI — designing for humans', kind: 'framework',
+        subtitle: 'Human-Centered AI evaluation rubric. P.O.N.T.E. + six principles. Augment, don\'t replace.',
+        meta: { written: '2023 · revised 2026', status: 'shaping AI surfaces at EF', length: '~900 words' },
+      },
       'direction-a': {
-        n: '03', title: 'Direction A · Dark', kind: 'brand',
+        n: '05', title: 'Direction A · Dark', kind: 'brand',
         subtitle: 'The brand direction this site is set in. Burnt ink, warm cream, terracotta, Instrument Serif.',
         meta: { written: '2026-04', status: 'locked', length: '~1,000 words' },
       },
       'colophon': {
-        n: '04', title: 'Colophon — raghavahuja.com', kind: 'colophon',
+        n: '06', title: 'Colophon — raghavahuja.com', kind: 'colophon',
         subtitle: 'How this site is built. Stack, direction, interactions, perf, a11y.',
         meta: { written: '2026-04', status: 'maintained', length: '~1,100 words' },
       },
       'adr-edge-cache': {
-        n: '05', title: 'ADR — $19/mo edge cache', kind: 'adr',
+        n: '07', title: 'ADR — $19/mo edge cache', kind: 'adr',
         subtitle: 'Serve 100k+ concurrent users on a base-tier sports API via Next.js revalidate. Reject Redis.',
         meta: { written: '2026-03', status: 'accepted · in production · futbolis.live', length: '~800 words' },
       },
     };
-    const ORDER = ['ctb', 'mind', 'direction-a', 'colophon', 'adr-edge-cache'];
+    const ORDER = ['ctb', 'mind', 'mind-os', 'hcai', 'direction-a', 'colophon', 'adr-edge-cache'];
 
     function renderShelf() {
       const shelf = document.getElementById('shelf');
