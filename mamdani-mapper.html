@@ -59,10 +59,9 @@
         <em>is</em> zohran mamdani?
       </h1>
       <p class="mm-lead">
-        A running receipt of every public stop the mayor has made — sourced once a day from the
-        <a href="https://www.nyc.gov/mayors-office" target="_blank" rel="noopener">NYC Mayor's Office press feed</a>.
-        We plot only what the press office publishes — never a tweet, never an inference, never a third-party signal.
-        When the press office says <span class="mm-tick">"Mayor at La Marqueta, East Harlem"</span>, his face appears on the map at La Marqueta.
+        A running receipt of every public stop the mayor has made, plus credibly pre-announced upcoming events. Past stops come from the
+        <a href="https://www.nyc.gov/mayors-office" target="_blank" rel="noopener">NYC Mayor's Office press feed</a> (~1–3 days after the event); upcoming stops come from a daily structured search of credible NYC news. We plot only what's been published — never a tweet, never an inference, never a third-party signal. When the press feed reads
+        <span class="mm-tick">"Mayor visited La Marqueta in East Harlem"</span>, his face appears at La Marqueta.
       </p>
 
       <!-- receipt strip — 3 numbers across, cobalt accent -->
@@ -197,7 +196,7 @@
       <dl class="mm-method-list">
         <div class="mm-method-row">
           <dt>source</dt>
-          <dd>Once a day we pull the NYC Mayor's Office <a href="https://www.nyc.gov/mayors-office" target="_blank" rel="noopener">press release feed</a> from the nyc.gov sitemap, parse each release for a venue mention (<em>"at X"</em>, <em>"in <Borough>"</em>, <em>"delivered remarks at Y"</em>), geocode the venue via Mapbox, and write a static <code>events.json</code> committed to this repo.</dd>
+          <dd>Every 5 minutes we pull new press releases from the NYC Mayor's Office <a href="https://www.nyc.gov/mayors-office" target="_blank" rel="noopener">sitemap</a>. Each release goes through Claude Haiku 4.5 to extract a specific venue (with a regex fallback). Mapbox geocodes the venue using neighborhood and borough as hints. The result lands in a static <code>events.json</code> committed to the repo. A skip-cache means most runs do <em>zero</em> Claude calls — only fresh URLs are evaluated.</dd>
         </div>
         <div class="mm-method-row">
           <dt>never</dt>
@@ -238,8 +237,10 @@
 
   <footer class="mm-footer">
     <a href="/">↩ raghavahuja.com</a>
-    <span>—</span>
-    <span>cartography desk · brooklyn · 26·04·27</span>
+    <span>·</span>
+    <a href="case-study.html?slug=mamdani-mapper">read the case study →</a>
+    <span>·</span>
+    <span>cartography desk · brooklyn</span>
   </footer>
 
   <!-- mapbox + page logic -->

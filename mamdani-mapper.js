@@ -22,6 +22,8 @@
     markers: [],
     heatLayerAdded: false,
     nowTimer: null,
+    savedView: null,    // { center, zoom } saved before zooming into a popup; null when at overview
+    restoreTimer: null, // pending flyback if all popups close
   };
 
   // ---------- data load ----------
@@ -122,8 +124,13 @@
   }
 
   function clearMarkers() {
+    // close any open popup first so we don't leave a stale reference behind;
+    // also clear the saved view so a re-render at "all time" doesn't get
+    // surprised by a stale flyback later.
     state.markers.forEach(m => m.remove());
     state.markers = [];
+    if (state.restoreTimer) { clearTimeout(state.restoreTimer); state.restoreTimer = null; }
+    state.savedView = null;
   }
 
   function buildMarkerEl(ev, status) {
@@ -173,6 +180,9 @@
       const el = buildMarkerEl(ev, status);
       const popup = new mapboxgl.Popup({ offset: 28, closeButton: true, anchor: 'bottom' })
         .setHTML(popupHtml(ev));
+      // wire zoom-in / zoom-back lifecycle on popup events
+      popup.on('open', () => onPopupOpen(ev));
+      popup.on('close', onPopupClose);
       const marker = new mapboxgl.Marker({ element: el, anchor: 'bottom' })
         .setLngLat([ev.lng, ev.lat])
         .setPopup(popup)
@@ -182,6 +192,45 @@
 
     // draw the trail line for today's events in chronological order
     drawTrailLine(visible);
+  }
+
+  // ---------- popup zoom-in / zoom-out lifecycle ----------
+  function onPopupOpen(ev) {
+    if (!state.map) return;
+    // cancel any pending flyback — we're either re-zooming or switching markers
+    if (state.restoreTimer) { clearTimeout(state.restoreTimer); state.restoreTimer = null; }
+    // save the overview view exactly once (the first popup open from overview)
+    if (!state.savedView) {
+      state.savedView = {
+        center: state.map.getCenter().toArray(),
+        zoom: state.map.getZoom(),
+      };
+    }
+    // fly in: marker lands in the lower portion so the popup has space above
+    const popupSpace = Math.min(180, state.map.getCanvas().clientHeight * 0.28);
+    state.map.flyTo({
+      center: [ev.lng, ev.lat],
+      zoom: Math.max(state.map.getZoom(), 14),
+      offset: [0, popupSpace],
+      duration: 700,
+    });
+  }
+
+  function onPopupClose() {
+    // wait briefly: if another popup opens within the window (marker switch
+    // or row click), onPopupOpen will cancel this restore.
+    if (state.restoreTimer) clearTimeout(state.restoreTimer);
+    state.restoreTimer = setTimeout(() => {
+      if (state.savedView && state.map) {
+        state.map.flyTo({
+          center: state.savedView.center,
+          zoom: state.savedView.zoom,
+          duration: 700,
+        });
+        state.savedView = null;
+      }
+      state.restoreTimer = null;
+    }, 850);
   }
 
   function drawTrailLine(visible) {
@@ -321,19 +370,13 @@
         const id = row.getAttribute('data-event-id');
         const ev = state.events.find(e => e.id === id);
         if (!ev || !state.map) return;
-        // Fly with vertical offset so the marker lands in the lower half of
-        // the viewport — leaves room above for the popup, which anchors to
-        // the bottom of the marker and extends upward.
-        const popupSpace = Math.min(180, state.map.getCanvas().clientHeight * 0.28);
-        state.map.flyTo({ center: [ev.lng, ev.lat], zoom: 14, offset: [0, popupSpace], duration: 700 });
+        // Just open the popup — the popup's 'open' event triggers the fly-in
+        // (onPopupOpen handles zoom + offset + saving the overview view).
         const marker = state.markers.find(m => {
           const ll = m.getLngLat();
           return Math.abs(ll.lng - ev.lng) < 1e-6 && Math.abs(ll.lat - ev.lat) < 1e-6;
         });
-        if (marker) {
-          // Open after the fly settles so popup positions correctly.
-          setTimeout(() => { if (!marker.getPopup().isOpen()) marker.togglePopup(); }, 720);
-        }
+        if (marker && !marker.getPopup().isOpen()) marker.togglePopup();
       });
     });
   }
