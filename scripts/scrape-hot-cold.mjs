@@ -141,9 +141,17 @@ async function buildRegion(id) {
 
 const round1 = (n) => Math.round(n * 10) / 10;
 
+// All-time global temperature records — fixed, do not inherit from the
+// winning continent (the world view should always show the world record,
+// not the record of whichever continent is winning right now).
+const WORLD_RECORDS = {
+  hot:  { value: 56.7, place: 'Furnace Creek, Death Valley, CA', year: 1913 },
+  cold: { value: -89.2, place: 'Vostok Station, Antarctica',     year: 1983 },
+};
+
 // ─────────────────────────────────────────────────────────────────────
 // derive the "world" region — hottest of all hot candidates, coldest of all
-// cold candidates. Records: extremes from the all-time list.
+// cold candidates. Records: pinned to the global all-time list (above).
 // ─────────────────────────────────────────────────────────────────────
 function deriveWorld(continents) {
   let hotWinner = continents[0], coldWinner = continents[0];
@@ -156,8 +164,8 @@ function deriveWorld(continents) {
     label: 'world',
     headline: 'the world',
     bbox: [-180, -85, 180, 85],
-    hot:  { ...hotWinner.hot },
-    cold: { ...coldWinner.cold },
+    hot:  { ...hotWinner.hot,  record: WORLD_RECORDS.hot  },
+    cold: { ...coldWinner.cold, record: WORLD_RECORDS.cold },
   };
 }
 
