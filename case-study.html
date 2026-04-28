@@ -633,17 +633,198 @@ status       live · v1.4</code></pre>
        ============================================== -->
   <template id="case-zulily">
     <section>
-      <p class="drop-cap"><strong>Senior UX designer, Growth &amp; Personalization at Zulily</strong>, Apr 2021 – Aug 2022. Designed, shipped, and iterated on acquisition and re-engagement flows for 16M+ daily shoppers.</p>
+      <p class="drop-cap"><strong>Senior UX designer, Growth &amp; Personalization at Zulily</strong>, Apr 2021 – Aug 2022. Designed and shipped the algorithmic logic behind a 16M+ daily personalized email ecosystem — a modular system that assembles a unique email per subscriber against real-time inventory and behavioral signals.</p>
     </section>
 
-    <h2>Growth Experiments at 16M+ Daily Sends</h2>
-    <p>Owned UX for growth experiments on a surface driving <strong>16M+ daily personalized sends</strong>. Designed, shipped, and iterated on acquisition and re-engagement flows against conversion, revenue-per-send, and retention metrics.</p>
+    <div class="case-stat-row">
+      <div class="case-stat"><div class="n">16M+</div><div class="l">unique daily email assemblies, zero manual curation</div></div>
+      <div class="case-stat"><div class="n">+14%</div><div class="l">click-through-rate vs. control</div></div>
+      <div class="case-stat"><div class="n">+45s</div><div class="l">session duration uplift</div></div>
+    </div>
 
-    <h2>Stepped in as Front-End</h2>
-    <p>During a staffing gap, I shipped a revamped onboarding funnel in React end-to-end. Owned the handoff, the implementation, and the post-launch experiment analysis.</p>
+    <h2>The 6 AM Problem</h2>
+    <p>Zulily launches thousands of new SKUs every morning at 6 AM. With 16M+ subscribers, manual curation was impossible. The legacy email was a static grid — same sort order for everyone, no intelligence behind the layout. We needed a system that could assemble a unique email for every single user, every morning, against fresh inventory.</p>
 
-    <h2>Personalization Ranking Pilot</h2>
-    <p>Partnered with data science on a personalization ranking pilot; defined the interaction model and the evaluation UX so analysts could inspect model outputs against human judgment.</p>
+    <h2>Persona-Driven Architecture</h2>
+    <p>Two archetypes drove the system: <em>Abby</em>, the power user who wants to breeze through new events; <em>Cindy</em>, the deal hunter who only cares about savings and gets overwhelmed when content isn't organized. Research surfaced a third signal — millennial moms had broadened consideration sets to 4+ brands a month and were taking longer to decide. Clear categorization, not aggressive promotion, was the move.</p>
+
+    <h2>Modular System — 15+ Interchangeable Blocks</h2>
+    <p>Reframed the email from a static grid into a stack of interchangeable modules. Global blocks (event promo, campaign promo, blog, game) and personalization blocks (greeting, sort, abandon-cart CTA, wishlist link, buy-again) compose into a unique daily layout per user.</p>
+
+    <h3>Two-tier trigger system</h3>
+    <p>A dual-layer trigger system balances global promotions against individual user signals:</p>
+    <ul>
+      <li><strong>Global</strong> — event promo, campaign promo, program promo, blog, game.</li>
+      <li><strong>Personal</strong> — name known, shopping history, abandon cart, wishlist, buy-again.</li>
+    </ul>
+    <p>Signals map to modules: <em>name known</em> → greeting; <em>shopping history</em> → personalized sort; <em>abandon cart</em> → "go to cart" CTA; <em>wishlist</em> → link to list.</p>
+
+    <h2>Logic Governance — The Engineering Handoff</h2>
+    <p>Because this was revenue-critical, ambiguity was the risk. I partnered with the ML team on a "Logic Governance" document — a flow diagram that mapped every user state to a module hierarchy, defined the guardrails for inventory depletion, and specified fallback states for low-data users. It became the single source of truth for engineering.</p>
+<pre><code>type UserState = 'hot_lead' | 'warm' | 'cold_start';
+
+const getModuleHierarchy = (user: User): Module[] =&gt; {
+  const state = classifyUserState(user);
+
+  switch (state) {
+    case 'hot_lead':
+      // abandoned cart = highest urgency
+      return [TriggerModule, PersonalizedSort, GlobalPromo];
+
+    case 'cold_start':
+      // no history = graceful degradation
+      return [GlobalTrending, EditorialBlog, AppEngagement];
+
+    default:
+      return getPersonalizedStack(user);
+  }
+};</code></pre>
+
+    <h2>App Engagement — Streak Mechanics</h2>
+    <p>The App Engagement module introduced streak mechanics — users see progress toward a 7-day goal with a "Continue Run" CTA. Per the strategy matrix, this slot is "low urgency": gamification rewards rather than pushes. Personalized greeting (<em>"Hi Hafiz, Happy Wednesday"</em>) builds trust through recognition before the product grid hits.</p>
+
+    <h2>Year in Review — Personalization at Annual Scale</h2>
+    <p>Extended the engine into a yearly recap email — favorite brand, most-saved category, biggest purchase — closing with a Zulily+ subscription upsell. Users who saw their savings visualized were primed to consider the membership value prop.</p>
+
+    <h2>Outcomes</h2>
+    <ul>
+      <li>Double-digit lift against control inside the first quarter (<strong>+14% CTR, +45s session</strong>).</li>
+      <li>Reversed a long-term decline in open rates by serving algorithmically relevant content.</li>
+      <li>16M+ unique email assemblies daily with zero manual curation.</li>
+      <li>Modular architecture enabled rapid A/B testing of new module combinations without engineering rework.</li>
+    </ul>
+
+    <h2>Front-End &amp; Pilots</h2>
+    <p>During a staffing gap I shipped a revamped onboarding funnel in React end-to-end — owned the handoff, the implementation, and the post-launch experiment analysis. Separately, partnered with data science on a personalization ranking pilot; defined the interaction model and the evaluation UX so analysts could inspect model outputs against human judgment.</p>
+  </template>
+
+  <!-- ==============================================
+       MIND FRAMEWORK
+       ============================================== -->
+  <template id="case-mind">
+    <section>
+      <p class="drop-cap"><strong>MIND — Motivational Interface &amp; Nudge Design</strong> — is a behavioral framework I authored to quantify user hesitation in high-stakes flows and pick the interface response that resolves it. It's the operating system underneath the checkout, insurance, and discovery work at EF, and the lens I use when reviewing any decision-heavy surface.</p>
+      <p>This page is the conceptual writeup. Implementation specifics — token tables, event schemas, the BDI heatmap — are available on request.</p>
+    </section>
+
+    <h2>The Core Equation</h2>
+<pre><code>CtB = (Clarity + Trust + Motivation) − (Friction × 2) − Risk</code></pre>
+    <p>Confidence-to-Book quantifies a user's readiness to commit. Friction carries 2× negative weight — that's the load-bearing insight. A well-meant explanation that adds a sentence to read can erase a guarantee that took a quarter to negotiate.</p>
+
+    <h2>The Physics of Decision Making</h2>
+    <p>Four psychological forces the framework operationalizes:</p>
+    <ul>
+      <li><strong>Cognitive efficiency.</strong> Humans are cognitive misers. We gravitate toward defaults, simple comparisons, pre-curated options. <em>Implication:</em> curate the path; don't just provide choices.</li>
+      <li><strong>Loss aversion.</strong> Fear of loss is 2–3× more powerful than the desire for gain. <em>Implication:</em> frame around "avoiding missed opportunities," not "earning rewards."</li>
+      <li><strong>Social orientation.</strong> In moments of uncertainty, humans look to the herd. <em>Implication:</em> social proof at the exact moment of hesitation, not as decoration on a landing page.</li>
+      <li><strong>Commitment momentum.</strong> Each small "yes" makes the next one easier. <em>Implication:</em> sequence the asks; never lead with the heaviest.</li>
+    </ul>
+
+    <h2>The 5 Pillars of Influence</h2>
+    <p>Each pillar maps to a question in the user's head. The framework forces the team to answer all five before shipping a flow.</p>
+    <ol>
+      <li><strong>Orientation</strong> — "Do I understand what this is and why it matters?" Clarity headers, context frames, pricing anchors, feature grids.</li>
+      <li><strong>Motivation</strong> — "Do I want this?" Dynamic social proof, scarcity signals, value highlights, emotional content.</li>
+      <li><strong>Decision architecture</strong> — "Is this choice easy?" Smart defaults, comparison grids, best-value labels, progressive commitment.</li>
+      <li><strong>Trust &amp; reassurance</strong> — "Do I feel safe committing?" Risk-reversal guarantees, transparency blocks, review panels, authority signals.</li>
+      <li><strong>Action</strong> — "Is now the right moment to act?" Verb-first CTAs, momentum locks, micro-reassurance, progress indicators.</li>
+    </ol>
+
+    <h2>Behavioral Design Tokens</h2>
+    <p>Influence patterns encoded into the design system as tokens, so a developer can adjust psychological intensity without re-spec'ing the page.</p>
+<pre><code>type UrgencyLevel = 'high' | 'medium' | 'low';
+type TrustLevel   = 'verified_partner' | 'standard';
+type PriceAnchor  = 'strike_through' | 'comparative';
+type CTAFraming   = 'commit' | 'risk_free' | 'soft_save';
+
+interface BehavioralTokens {
+  'behavioral.urgency':       UrgencyLevel;       // color + copy intensity
+  'behavioral.socialproof':   1 | 2 | 3 | 4;      // prominence of validation signals
+  'behavioral.trust':         TrustLevel;         // visual weight of guarantees
+  'behavioral.price.anchor':  PriceAnchor;        // value-context display
+  'behavioral.cta.framing':   CTAFraming;         // linguistic frame on actions
+}
+
+const checkoutTokens: BehavioralTokens = {
+  'behavioral.urgency':      'high',
+  'behavioral.socialproof':  4,
+  'behavioral.trust':        'verified_partner',
+  'behavioral.price.anchor': 'strike_through',
+  'behavioral.cta.framing':  'risk_free',
+};</code></pre>
+
+    <h2>Behavioral Drop-Off Index (BDI)</h2>
+    <p>BDI diagnoses where the psychological chain breaks in a funnel — a per-step score that surfaces leaks before A/B testing burns weeks on the wrong variable.</p>
+<pre><code>BDI(step) = (Alignment + Motivation + Trust + (5 − Friction)) / 4
+
+≥ 4.0   strong alignment, low resistance
+2.5–4.0 optimization opportunity
+≤ 2.5   behavioral leak — high abandon risk</code></pre>
+    <p>Worked example: checkout step scores 2.4. Hover maps show hesitation on policy text. Diagnosis: trust leak. Rx: surface guarantees, add a "reserve risk-free" microcopy line, force total-price transparency above the fold. The framework names the leak before the team names the fix.</p>
+
+    <h2>The Ethical Ethos</h2>
+    <p>Four non-negotiables. Ethics here isn't a constraint — it's a performance multiplier, because users can smell a manipulated funnel and the brand pays the bill on the back end.</p>
+    <ul>
+      <li><strong>Clarity over persuasion.</strong> Users must understand the choice and its consequences.</li>
+      <li><strong>Confidence over pressure.</strong> Nudge toward certainty; reject false urgency.</li>
+      <li><strong>Momentum over friction.</strong> Accelerate through smart defaults, not dark patterns.</li>
+      <li><strong>Integrity over manipulation.</strong> Scarcity, social proof, and data must be real.</li>
+    </ul>
+
+    <h2>Where It's Deployed</h2>
+    <p>MIND is the framework underneath the EF checkout rebuild (+$4.2M / yr), the Deals Tracker pricing intelligence layer (+12.4% CtB, +8.2% conversion), and the insurance redesign (+10% take-rate). It's also the lens used in design reviews across acquisition, retention, and discovery surfaces.</p>
+    <blockquote>The framework is a forcing function. If a team can't articulate which pillar a screen is solving for, the screen isn't ready to ship.</blockquote>
+  </template>
+
+  <!-- ==============================================
+       HCAI FRAMEWORK
+       ============================================== -->
+  <template id="case-hcai">
+    <section>
+      <p class="drop-cap"><strong>Designing for Humans</strong> is a Human-Centered AI (HCAI) research framework I authored at EF World Journeys. It's the rubric I use to decide whether AI belongs in a flow, what shape it should take when it does, and how to keep the human in control of the decision the AI is informing.</p>
+      <p>The thesis: augment human capability. Don't replace it.</p>
+    </section>
+
+    <h2>Humans in the Group; Computers in the Loop</h2>
+    <p>The traditional model puts AI at the center and humans on the edges — one model, many humans served by it. HCAI inverts the geometry: humans at the center, with multiple AI tools deployed around them as loops they can step into and out of. Non-deterministic systems require a human-centered buffer against unpredictability.</p>
+
+    <h2>The P.O.N.T.E. Evaluation</h2>
+    <p>A five-step rubric to determine whether AI adds unique value in a given flow. If the answer to any of these is shaky, the AI surface probably shouldn't ship.</p>
+    <ul>
+      <li><strong>P — Patterns.</strong> Is there an identifiable pattern of user behavior with data behind it? Or are we projecting an AI use-case onto a flow that doesn't actually have the volume to learn from?</li>
+      <li><strong>O — Outcome.</strong> What is the definition of success? Which OKRs does this affect? How do we measure user satisfaction beyond a thumbs-up button?</li>
+      <li><strong>N — Need.</strong> Can a non-AI solution work better? What were the limitations of the traditional system, and does AI offer something genuinely unique — or does it just feel like a more impressive answer?</li>
+      <li><strong>T — Type.</strong> Automation (speed) vs. augmentation (creativity)? Automation replaces tasks; augmentation makes humans better at tasks they already do. The wrong choice between them is the most common reason AI features fail.</li>
+      <li><strong>E — Equity.</strong> How do we ensure fairness and reduce bias? A tour-recommendation AI that keeps surfacing the same ten itineraries while ignoring the catalog's tail is an equity failure, not just a UX one.</li>
+    </ul>
+
+    <h2>Case in Point — Price Predictions</h2>
+    <p>Google Flights' "lower than usual" pricing badge is a textbook HCAI surface. The AI predicts; the human decides. Travelers stuck in re-check loops ("what if it gets cheaper?") get a confidence signal — but the action and the consequence stay with the human. The AI never books for them. It compresses uncertainty without eliminating agency.</p>
+    <blockquote>Key takeaway: the AI predicts, but the human decides. That's the essence of HCAI — augmentation over automation.</blockquote>
+
+    <h2>Six Principles for Implementation</h2>
+    <ul>
+      <li><strong>Transparency.</strong> Explain why the AI made the suggestion. Clear explanations for decisions and actions.</li>
+      <li><strong>Accountability.</strong> Clear lines of responsibility for AI errors. Organizations stay accountable for impacts.</li>
+      <li><strong>Privacy.</strong> Data used ethically with consent. Strict adherence to privacy standards.</li>
+      <li><strong>Human autonomy.</strong> Empower users by enhancing their abilities; provide control over AI-assisted processes.</li>
+      <li><strong>Beneficence.</strong> Aim to benefit individuals and society. Improve well-being. Avoid harm.</li>
+      <li><strong>Accessibility.</strong> Intuitive, user-friendly interfaces — across abilities and backgrounds.</li>
+    </ul>
+
+    <h2>Where It's Deployed</h2>
+    <p>HCAI is the rubric that shaped the EF AI-assisted intent capture prototype — a sentence-builder that turns vague preferences ("I want to explore somewhere warm in spring") into structured intent grounded in real inventory. The system returns confidence scores and fallback behavior; it never recommends a tour that doesn't exist. Augmentation, not autopilot.</p>
+    <blockquote>"Our goal is not to have or use AI but to ensure we all understand it as a tool for solving our problems."</blockquote>
+
+    <h2>References</h2>
+    <ul>
+      <li>Ben Shneiderman — <em>Human-Centered AI</em>.</li>
+      <li>Google PAIR — <em>People + AI Guidebook</em>.</li>
+      <li>European Commission (2019) — <em>EU Guidelines on Trustworthy AI</em>.</li>
+      <li>IEEE — <em>Ethically Aligned Design</em>.</li>
+      <li>Stuart Russell — <em>Human Compatible: AI and the Problem of Control</em>.</li>
+      <li>Gary Marcus &amp; Ernest Davis — <em>Rebooting AI</em>.</li>
+    </ul>
   </template>
 
   <!-- ==============================================
@@ -757,8 +938,30 @@ status       live · v1.4</code></pre>
         },
         stack: null,
       },
+      mind: {
+        n: 'F·01', year: '2024—now', title: 'MIND',
+        subtitle: 'Motivational Interface & Nudge Design — a behavioral framework for high-stakes flows.',
+        meta: {
+          timeline: 'authored 2024 · in active use',
+          role: 'Author — framework, taxonomy, evaluation rubric',
+          stack: 'Confidence-to-Book equation · 5 pillars · behavioral tokens · BDI heatmap',
+          live: 'deployed across EF surfaces',
+        },
+        stack: null,
+      },
+      hcai: {
+        n: 'F·02', year: '2023—now', title: 'HCAI',
+        subtitle: 'Designing for Humans — a Human-Centered AI evaluation framework.',
+        meta: {
+          timeline: 'authored 2023 · in active use',
+          role: 'Author — research framework, evaluation rubric',
+          stack: 'P.O.N.T.E. evaluation · six principles · augmentation patterns',
+          live: 'shaping AI surfaces at EF',
+        },
+        stack: null,
+      },
     };
-    const ORDER = ['arqo', 'jmnpr-labs', 'ef', 'futbolis', 'zulily', 'social-booth'];
+    const ORDER = ['arqo', 'jmnpr-labs', 'ef', 'futbolis', 'zulily', 'social-booth', 'mind', 'hcai'];
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('slug') || 'arqo';
