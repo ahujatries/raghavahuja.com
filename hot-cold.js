@@ -20,13 +20,11 @@
       bbox: [-180, -85, 180, 85],
       hot: {
         extreme: { name: 'Lut Desert', region: 'Kerman, Iran', lat: 30.78, lon: 59.32, tempC: 54.1 },
-        feed:    { kind: 'youtube', title: 'Bandar Abbas — Persian Gulf coast', provider: 'YouTube Live · @persiangulflive', lat: 27.18, lon: 56.27, bearing: 'SW', distanceKm: 480, localTime: '17:12', conditionsC: 38 },
         sparkline: [49.8, 50.4, 51.1, 52.0, 52.7, 53.2, 53.6, 53.9, 54.0, 54.1, 54.0, 53.8],
         record: { value: 56.7, place: 'Furnace Creek, Death Valley, CA', year: 1913 },
       },
       cold: {
         extreme: { name: 'Vostok Station vicinity', region: 'East Antarctic Plateau', lat: -78.46, lon: 106.84, tempC: -71.4 },
-        feed:    { kind: 'windy', title: 'Concordia — Dome C webcam', provider: 'Windy Webcams · IT/FR Concordia base', lat: -75.10, lon: 123.33, bearing: 'NE', distanceKm: 560, localTime: '21:42', conditionsC: -64 },
         sparkline: [-69.2, -69.8, -70.1, -70.4, -70.6, -70.9, -71.0, -71.1, -71.2, -71.3, -71.4, -71.4],
         record: { value: -89.2, place: 'Vostok Station, Antarctica', year: 1983 },
       },
@@ -306,51 +304,14 @@
     state.routeLayerIds = [];
   }
 
-  function addPair(side, ext, feed) {
-    const color = side === 'hot' ? '#c8553d' : '#5b8cff';
-
-    // dashed connector line
-    const lineId = `route-${side}`;
-    state.map.addSource(lineId, {
-      type: 'geojson',
-      data: {
-        type: 'Feature',
-        geometry: {
-          type: 'LineString',
-          coordinates: [[ext.lon, ext.lat], [feed.lon, feed.lat]],
-        },
-      },
-    });
-    state.map.addLayer({
-      id: lineId,
-      type: 'line',
-      source: lineId,
-      paint: {
-        'line-color': color,
-        'line-width': 1.4,
-        'line-dasharray': [2, 2],
-        'line-opacity': 0.9,
-      },
-    });
-    state.routeLayerIds.push(lineId);
-
-    // extreme · hollow ring marker
+  function addExtreme(side, ext) {
+    // hollow ring marker · the extreme itself
     const extEl = document.createElement('div');
     extEl.className = `hc-mk hc-mk-extreme hc-mk-${side}`;
     extEl.title = `${ext.name} · ${fmtTemp(ext.tempC, state.units).display}`;
     state.markers.push(
       new mapboxgl.Marker({ element: extEl, anchor: 'center' })
         .setLngLat([ext.lon, ext.lat])
-        .addTo(state.map)
-    );
-
-    // feed · filled marker
-    const feedEl = document.createElement('div');
-    feedEl.className = `hc-mk hc-mk-feed hc-mk-${side}`;
-    feedEl.title = `${feed.title} · ${fmtDist(feed.distanceKm, state.units)} ${feed.bearing}`;
-    state.markers.push(
-      new mapboxgl.Marker({ element: feedEl, anchor: 'center' })
-        .setLngLat([feed.lon, feed.lat])
         .addTo(state.map)
     );
   }
@@ -362,13 +323,13 @@
     }
     clearMap();
     const r = region();
-    addPair('hot', r.hot.extreme, r.hot.feed);
-    addPair('cold', r.cold.extreme, r.cold.feed);
+    addExtreme('hot',  r.hot.extreme);
+    addExtreme('cold', r.cold.extreme);
 
-    // fit bounds: include all four points + region bbox so we always have geographic context
+    // fit bounds: include both extremes + region bbox so we always have geographic context
     const [w, s, e, n] = r.bbox;
     const bounds = new mapboxgl.LngLatBounds([w, s], [e, n]);
-    [r.hot.extreme, r.hot.feed, r.cold.extreme, r.cold.feed].forEach(p => bounds.extend([p.lon, p.lat]));
+    [r.hot.extreme, r.cold.extreme].forEach(p => bounds.extend([p.lon, p.lat]));
     state.map.fitBounds(bounds, {
       padding: { top: 24, bottom: 24, left: 24, right: 24 },
       duration: 700,
@@ -420,11 +381,6 @@
     });
     $('#hc-hot-unit').textContent = ht.unit;
     $('#hc-hot-coords').textContent = `${r.hot.extreme.region} · ${r.hot.extreme.lat.toFixed(2)}°, ${r.hot.extreme.lon.toFixed(2)}°`;
-    const hf = fmtTemp(r.hot.feed.conditionsC, u);
-    $('#hc-hot-localtime').textContent = `live · ${r.hot.feed.localTime} local · ${hf.sign}${hf.mag}${hf.unit}`;
-    $('#hc-hot-feedtitle').textContent = r.hot.feed.title;
-    $('#hc-hot-provider').textContent = r.hot.feed.provider;
-    $('#hc-hot-feedkind').textContent = r.hot.feed.kind === 'youtube' ? '⚫ youtube live' : r.hot.feed.kind === 'windy' ? '⚫ windy webcam' : '⚫ satellite still';
     $('#hc-hot-spark').innerHTML = renderSpark('hot', r.hot.sparkline);
 
     // cold side
@@ -437,19 +393,14 @@
     });
     $('#hc-cold-unit').textContent = ct.unit;
     $('#hc-cold-coords').textContent = `${r.cold.extreme.region} · ${r.cold.extreme.lat.toFixed(2)}°, ${r.cold.extreme.lon.toFixed(2)}°`;
-    const cf = fmtTemp(r.cold.feed.conditionsC, u);
-    $('#hc-cold-localtime').textContent = `live · ${r.cold.feed.localTime} local · ${cf.sign}${cf.mag}${cf.unit}`;
-    $('#hc-cold-feedtitle').textContent = r.cold.feed.title;
-    $('#hc-cold-provider').textContent = r.cold.feed.provider;
-    $('#hc-cold-feedkind').textContent = r.cold.feed.kind === 'youtube' ? '⚫ youtube live' : r.cold.feed.kind === 'windy' ? '⚫ windy webcam' : '⚫ satellite still';
     $('#hc-cold-spark').innerHTML = renderSpark('cold', r.cold.sparkline);
 
     // locator chrome
     $('#hc-region-label').textContent = r.label;
     $('#hc-loc-hot').textContent =
-      `${r.hot.extreme.name.toLowerCase()} → ${r.hot.feed.title.split(' — ')[0].toLowerCase()} · ${fmtDist(r.hot.feed.distanceKm, u)} ${r.hot.feed.bearing.toLowerCase()}`;
+      `${r.hot.extreme.name.toLowerCase()} · ${ht.sign}${ht.mag}${ht.unit.toLowerCase()}`;
     $('#hc-loc-cold').textContent =
-      `${r.cold.extreme.name.toLowerCase()} → ${r.cold.feed.title.split(' — ')[0].toLowerCase()} · ${fmtDist(r.cold.feed.distanceKm, u)} ${r.cold.feed.bearing.toLowerCase()}`;
+      `${r.cold.extreme.name.toLowerCase()} · ${ct.sign}${ct.mag}${ct.unit.toLowerCase()}`;
 
     // bottom records
     const hRec = fmtTemp(r.hot.record.value, u);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Hot & Cold — the hottest and coldest places on earth right now, with the nearest watchable live view from each. Sourced from Open-Meteo ERA5.">
+  <meta name="description" content="Hot & Cold — the hottest and coldest places on earth right now. Live temperatures sourced from Open-Meteo ERA5, refreshed every 15 minutes.">
   <meta name="theme-color" content="#0c0c0e">
   <title>hot · cold — the extremes of earth, right now</title>
 
@@ -18,7 +18,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://raghavahuja.com/hot-cold">
   <meta property="og:title" content="hot · cold — the extremes of earth, right now">
-  <meta property="og:description" content="The hottest and coldest places on earth right now, with the nearest watchable live view from each. The truly extreme places have no cameras — that's part of the charm.">
+  <meta property="og:description" content="The hottest and coldest places on earth right now. Live temperatures from Open-Meteo, refreshed every 15 minutes.">
   <meta property="og:image" content="https://raghavahuja.com/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -27,7 +27,7 @@
   <meta name="twitter:site" content="@ahujatries">
   <meta name="twitter:creator" content="@ahujatries">
   <meta name="twitter:title" content="hot · cold">
-  <meta name="twitter:description" content="The hottest and coldest places on earth right now, with the nearest watchable live view from each.">
+  <meta name="twitter:description" content="The hottest and coldest places on earth right now. Live temperatures from Open-Meteo.">
   <meta name="twitter:image" content="https://raghavahuja.com/og.png">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%230c0c0e%22/%3E%3Crect x=%220%22 y=%220%22 width=%2250%22 height=%22100%22 fill=%22%23c8553d%22/%3E%3Crect x=%2250%22 y=%220%22 width=%2250%22 height=%22100%22 fill=%22%235b8cff%22/%3E%3C/svg%3E">
 </head>
@@ -74,10 +74,6 @@
         <span id="hc-hot-ribbon">hottest place in <em class="hc-ribbon-region">the world</em> · right now</span>
       </div>
 
-      <div class="hc-feed-chrome">
-        <span id="hc-hot-feedkind">⚫ youtube live</span>
-      </div>
-
       <div class="hc-temp">
         <div class="hc-temp-row">
           <span class="hc-temp-arrow">↑</span>
@@ -89,12 +85,6 @@
       </div>
 
       <div class="hc-meta hc-meta-hot">
-        <div class="hc-meta-live">
-          <span class="hc-meta-dot"></span>
-          <span id="hc-hot-localtime">live · 17:12 local · 38°C</span>
-        </div>
-        <div class="hc-meta-title" id="hc-hot-feedtitle">Bandar Abbas — Persian Gulf coast</div>
-        <div class="hc-meta-provider" id="hc-hot-provider">YouTube Live · @persiangulflive</div>
         <div class="hc-spark" id="hc-hot-spark"></div>
       </div>
     </section>
@@ -112,10 +102,6 @@
         <span id="hc-cold-ribbon">coldest place in <em class="hc-ribbon-region">the world</em> · right now</span>
       </div>
 
-      <div class="hc-feed-chrome">
-        <span id="hc-cold-feedkind">⚫ windy webcam</span>
-      </div>
-
       <div class="hc-temp">
         <div class="hc-temp-row">
           <span class="hc-temp-arrow">↓</span>
@@ -127,12 +113,6 @@
       </div>
 
       <div class="hc-meta hc-meta-cold">
-        <div class="hc-meta-live">
-          <span class="hc-meta-dot"></span>
-          <span id="hc-cold-localtime">live · 21:42 local · -64°C</span>
-        </div>
-        <div class="hc-meta-title" id="hc-cold-feedtitle">Concordia — Dome C webcam</div>
-        <div class="hc-meta-provider" id="hc-cold-provider">Windy Webcams · IT/FR Concordia base</div>
         <div class="hc-spark" id="hc-cold-spark"></div>
       </div>
     </section>
@@ -156,11 +136,11 @@
       <div class="hc-locator-foot">
         <div class="hc-locator-row">
           <span class="hc-marker hc-marker-hot-extreme">○</span>
-          <span id="hc-loc-hot">lut desert → bandar abbas · 480 km sw</span>
+          <span id="hc-loc-hot">lut desert · 54.1°c</span>
         </div>
         <div class="hc-locator-row hc-right">
-          <span id="hc-loc-cold">vostok station → concordia · 560 km ne</span>
-          <span class="hc-marker hc-marker-cold-feed">●</span>
+          <span id="hc-loc-cold">vostok station · −71.4°c</span>
+          <span class="hc-marker hc-marker-cold-feed">○</span>
         </div>
       </div>
     </aside>
@@ -173,7 +153,7 @@
       <span id="hc-rec-hot">56.7°C · furnace creek, death valley, ca · 1913</span>
     </div>
     <div class="hc-bottom-mid">
-      data: open-meteo era5 · feeds: youtube live + windy · cron @ 15min · cached json · <a href="#methodology">methodology →</a>
+      data: open-meteo era5 · cron @ 15min · cached json · <a href="https://github.com/ahujatries/raghavahuja.com/blob/main/scripts/scrape-hot-cold.mjs">methodology →</a>
     </div>
     <div class="hc-bottom-right">
       <span id="hc-rec-cold">−89.2°C · vostok station, antarctica · 1983</span>

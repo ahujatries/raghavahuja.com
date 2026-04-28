@@ -8,8 +8,8 @@
  * and writes ./hot-cold/data.json — consumed by hot-cold.js on page load.
  *
  * Runs from the GitHub Action (.github/workflows/hot-cold-scrape.yml) every
- * 15 minutes. Open-Meteo is free, no auth, 10k req/day limit; we make ~16
- * calls per run, so ~1500/day. Comfortably under.
+ * 15 minutes. Open-Meteo is free, no auth, 10k req/day limit; we make 14
+ * calls per run (7 continents × hot+cold), so ~1300/day. Comfortably under.
  *
  * Why canonical extremes (vs scanning the whole grid): the hottest and coldest
  * places on earth are very well-known — they don't move week to week. Fetching
@@ -36,92 +36,50 @@ const OUT_FILE  = resolve(OUT_DIR, 'data.json');
 // ─────────────────────────────────────────────────────────────────────
 const CANDIDATES = {
   africa: {
-    hot: {
-      extreme: { name: 'Dallol Depression',  region: 'Afar, Ethiopia',         lat: 14.24, lon: 40.30 },
-      feed:    { kind: 'youtube', title: 'Djibouti Port — Gulf of Tadjoura',  provider: 'YouTube Live · @portdejibouti', lat: 11.59, lon: 43.14, bearing: 'E' },
-    },
-    cold: {
-      extreme: { name: 'Mt. Stanley summit', region: 'Rwenzori, Uganda/DRC',  lat: 0.39,  lon: 29.87 },
-      feed:    { kind: 'windy',   title: 'Kasese — Rwenzori foothills',      provider: 'Windy Webcams · UG/Kasese',     lat: 0.18,  lon: 30.08, bearing: 'SE' },
-    },
+    hot:  { name: 'Dallol Depression',  region: 'Afar, Ethiopia',         lat: 14.24, lon: 40.30 },
+    cold: { name: 'Mt. Stanley summit', region: 'Rwenzori, Uganda/DRC',   lat: 0.39,  lon: 29.87 },
     record: { hot: { value: 55.0, place: 'Kebili, Tunisia',  year: 1931 },
               cold:{ value: -23.9,place: 'Ifrane, Morocco',  year: 1935 } },
     bbox: [-20, -38, 55, 38],
   },
   asia: {
-    hot: {
-      extreme: { name: 'Lut Desert',         region: 'Kerman, Iran',           lat: 30.78, lon: 59.32 },
-      feed:    { kind: 'youtube', title: 'Bandar Abbas — Persian Gulf coast', provider: 'YouTube Live · @persiangulflive', lat: 27.18, lon: 56.27, bearing: 'SW' },
-    },
-    cold: {
-      extreme: { name: 'Oymyakon plateau',   region: 'Sakha Republic, Russia', lat: 63.46, lon: 142.79 },
-      feed:    { kind: 'windy',   title: 'Yakutsk — Lena river embankment',   provider: 'Windy Webcams · RU/Yakutsk',    lat: 62.03, lon: 129.73, bearing: 'W' },
-    },
+    hot:  { name: 'Lut Desert',         region: 'Kerman, Iran',           lat: 30.78, lon: 59.32 },
+    cold: { name: 'Oymyakon plateau',   region: 'Sakha Republic, Russia', lat: 63.46, lon: 142.79 },
     record: { hot: { value: 54.0, place: 'Tirat Zvi, Israel', year: 1942 },
               cold:{ value: -67.7,place: 'Verkhoyansk, Russia',year: 1892 } },
     bbox: [25, -10, 180, 78],
   },
   europe: {
-    hot: {
-      extreme: { name: 'Sicily interior',    region: 'Catania, Italy',         lat: 37.46, lon: 14.62 },
-      feed:    { kind: 'youtube', title: 'Catania — Piazza del Duomo',        provider: 'YouTube Live · @cataniacam',    lat: 37.50, lon: 15.09, bearing: 'E' },
-    },
-    cold: {
-      extreme: { name: 'Kebnekaise massif',  region: 'Lapland, Sweden',        lat: 67.90, lon: 18.55 },
-      feed:    { kind: 'windy',   title: 'Kiruna — town square',              provider: 'Windy Webcams · SE/Kiruna',     lat: 67.86, lon: 20.22, bearing: 'E' },
-    },
+    hot:  { name: 'Sicily interior',    region: 'Catania, Italy',         lat: 37.46, lon: 14.62 },
+    cold: { name: 'Kebnekaise massif',  region: 'Lapland, Sweden',        lat: 67.90, lon: 18.55 },
     record: { hot: { value: 48.8, place: 'Floridia, Sicily', year: 2021 },
               cold:{ value: -52.6,place: 'Ust-Shchugor, Russia', year: 1978 } },
     bbox: [-25, 34, 45, 71],
   },
   na: {
-    hot: {
-      extreme: { name: 'Death Valley · Furnace Creek', region: 'California, USA', lat: 36.46, lon: -116.87 },
-      feed:    { kind: 'youtube', title: 'Las Vegas — Fremont Street',        provider: 'YouTube Live · @fremontcam',    lat: 36.17, lon: -115.14, bearing: 'E' },
-    },
-    cold: {
-      extreme: { name: 'Eureka, Ellesmere Is.', region: 'Nunavut, Canada',     lat: 79.98, lon: -85.93 },
-      feed:    { kind: 'windy',   title: 'Resolute Bay — airfield',           provider: 'Windy Webcams · CA/Resolute',   lat: 74.71, lon: -94.97, bearing: 'S' },
-    },
+    hot:  { name: 'Death Valley · Furnace Creek', region: 'California, USA', lat: 36.46, lon: -116.87 },
+    cold: { name: 'Eureka, Ellesmere Is.',        region: 'Nunavut, Canada', lat: 79.98, lon: -85.93 },
     record: { hot: { value: 56.7, place: 'Furnace Creek, Death Valley', year: 1913 },
               cold:{ value: -63.0,place: 'Snag, Yukon',                 year: 1947 } },
     bbox: [-170, 8, -50, 75],
   },
   sa: {
-    hot: {
-      extreme: { name: 'Gran Chaco',         region: 'Salta, Argentina',       lat: -22.10, lon: -62.85 },
-      feed:    { kind: 'youtube', title: 'Asunción — Costanera',              provider: 'YouTube Live · @asuncioncam',   lat: -25.27, lon: -57.61, bearing: 'SE' },
-    },
-    cold: {
-      extreme: { name: 'Altiplano · Sajama', region: 'Oruro, Bolivia',         lat: -18.10, lon: -68.88 },
-      feed:    { kind: 'windy',   title: 'La Paz — El Alto overlook',         provider: 'Windy Webcams · BO/La Paz',     lat: -16.50, lon: -68.15, bearing: 'NE' },
-    },
+    hot:  { name: 'Gran Chaco',          region: 'Salta, Argentina',     lat: -22.10, lon: -62.85 },
+    cold: { name: 'Altiplano · Sajama',  region: 'Oruro, Bolivia',       lat: -18.10, lon: -68.88 },
     record: { hot: { value: 48.9, place: 'Rivadavia, Argentina', year: 1905 },
               cold:{ value: -33.0,place: 'Sarmiento, Argentina', year: 1907 } },
     bbox: [-82, -56, -34, 13],
   },
   oceania: {
-    hot: {
-      extreme: { name: 'Marble Bar',         region: 'Pilbara, Australia',     lat: -21.18, lon: 119.74 },
-      feed:    { kind: 'youtube', title: 'Port Hedland — harbour',            provider: 'YouTube Live · @porthedlandcam',lat: -20.31, lon: 118.60, bearing: 'NW' },
-    },
-    cold: {
-      extreme: { name: 'Mt. Cook · Aoraki',  region: 'Southern Alps, NZ',      lat: -43.59, lon: 170.14 },
-      feed:    { kind: 'windy',   title: 'Aoraki Village — Hermitage view',   provider: 'Windy Webcams · NZ/Aoraki',     lat: -43.73, lon: 170.10, bearing: 'S' },
-    },
+    hot:  { name: 'Marble Bar',          region: 'Pilbara, Australia',   lat: -21.18, lon: 119.74 },
+    cold: { name: 'Mt. Cook · Aoraki',   region: 'Southern Alps, NZ',    lat: -43.59, lon: 170.14 },
     record: { hot: { value: 50.7, place: 'Oodnadatta, S. Australia', year: 1960 },
               cold:{ value: -25.6,place: 'Ranfurly, NZ',             year: 1903 } },
     bbox: [110, -50, 180, 0],
   },
   antarctica: {
-    hot: {
-      extreme: { name: 'Esperanza Base vicinity', region: 'Antarctic Peninsula', lat: -63.40, lon: -56.99 },
-      feed:    { kind: 'youtube', title: 'Ushuaia — Beagle Channel',          provider: 'YouTube Live · @ushuaiacam',    lat: -54.81, lon: -68.30, bearing: 'NW' },
-    },
-    cold: {
-      extreme: { name: 'Vostok Station vicinity', region: 'East Antarctic Plateau', lat: -78.46, lon: 106.84 },
-      feed:    { kind: 'windy',   title: 'Concordia — Dome C webcam',        provider: 'Windy Webcams · IT/FR Concordia base', lat: -75.10, lon: 123.33, bearing: 'NE' },
-    },
+    hot:  { name: 'Esperanza Base vicinity', region: 'Antarctic Peninsula',     lat: -63.40, lon: -56.99 },
+    cold: { name: 'Vostok Station vicinity', region: 'East Antarctic Plateau',  lat: -78.46, lon: 106.84 },
     record: { hot: { value: 18.3, place: 'Esperanza Base',            year: 2020 },
               cold:{ value: -89.2,place: 'Vostok Station, Antarctica',year: 1983 } },
     bbox: [-180, -90, 180, -60],
@@ -131,29 +89,7 @@ const CANDIDATES = {
 const REGION_ORDER = ['africa', 'asia', 'europe', 'na', 'sa', 'oceania', 'antarctica'];
 
 // ─────────────────────────────────────────────────────────────────────
-// distance + bearing helpers (for displaying "480 km SW from extreme")
-// ─────────────────────────────────────────────────────────────────────
-const toRad = (d) => d * Math.PI / 180;
-function haversineKm(a, b) {
-  const R = 6371;
-  const dLat = toRad(b.lat - a.lat);
-  const dLon = toRad(b.lon - a.lon);
-  const lat1 = toRad(a.lat), lat2 = toRad(b.lat);
-  const x = Math.sin(dLat / 2) ** 2 + Math.sin(dLon / 2) ** 2 * Math.cos(lat1) * Math.cos(lat2);
-  return Math.round(2 * R * Math.asin(Math.sqrt(x)));
-}
-function bearing(a, b) {
-  const φ1 = toRad(a.lat), φ2 = toRad(b.lat);
-  const λ1 = toRad(a.lon), λ2 = toRad(b.lon);
-  const y = Math.sin(λ2 - λ1) * Math.cos(φ2);
-  const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
-  const θ = Math.atan2(y, x) * 180 / Math.PI;
-  const compass = ['N','NE','E','SE','S','SW','W','NW'];
-  return compass[Math.round(((θ + 360) % 360) / 45) % 8];
-}
-
-// ─────────────────────────────────────────────────────────────────────
-// open-meteo fetcher — current temp + last 12 hourly readings + local time
+// open-meteo fetcher — current temp + last 12 hourly readings
 // ─────────────────────────────────────────────────────────────────────
 async function fetchPoint(lat, lon) {
   const u = new URL('https://api.open-meteo.com/v1/forecast');
@@ -171,30 +107,19 @@ async function fetchPoint(lat, lon) {
 
   const tempC = j?.current?.temperature_2m;
   const hourly = (j?.hourly?.temperature_2m || []).slice(-12);
-  // local time at point: take HH:mm from the latest hourly timestamp
-  const ts = j?.current?.time || (j?.hourly?.time || []).slice(-1)[0] || '';
-  const localTime = ts.match(/T(\d{2}:\d{2})/)?.[1] || '';
-
   if (typeof tempC !== 'number') throw new Error(`no temperature for ${lat},${lon}`);
-  return { tempC, sparkline: hourly, localTime };
+  return { tempC, sparkline: hourly };
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// build one region's hot + cold sides
+// build one region's hot + cold sides — 2 API calls per region
 // ─────────────────────────────────────────────────────────────────────
 async function buildRegion(id) {
   const c = CANDIDATES[id];
-  const [hotPt, hotFeedPt, coldPt, coldFeedPt] = await Promise.all([
-    fetchPoint(c.hot.extreme.lat,  c.hot.extreme.lon),
-    fetchPoint(c.hot.feed.lat,     c.hot.feed.lon),
-    fetchPoint(c.cold.extreme.lat, c.cold.extreme.lon),
-    fetchPoint(c.cold.feed.lat,    c.cold.feed.lon),
+  const [hotPt, coldPt] = await Promise.all([
+    fetchPoint(c.hot.lat,  c.hot.lon),
+    fetchPoint(c.cold.lat, c.cold.lon),
   ]);
-
-  const hotDist  = haversineKm(c.hot.extreme,  c.hot.feed);
-  const coldDist = haversineKm(c.cold.extreme, c.cold.feed);
-  const hotBear  = bearing(c.hot.extreme,  c.hot.feed);
-  const coldBear = bearing(c.cold.extreme, c.cold.feed);
 
   return {
     id,
@@ -202,14 +127,12 @@ async function buildRegion(id) {
     headline: id === 'na' ? 'north america' : id === 'sa' ? 'south america' : id,
     bbox: c.bbox,
     hot: {
-      extreme: { ...c.hot.extreme, tempC: round1(hotPt.tempC) },
-      feed:    { ...c.hot.feed, distanceKm: hotDist, bearing: hotBear, localTime: hotFeedPt.localTime, conditionsC: round1(hotFeedPt.tempC) },
+      extreme: { ...c.hot, tempC: round1(hotPt.tempC) },
       sparkline: hotPt.sparkline.map(round1),
       record: c.record.hot,
     },
     cold: {
-      extreme: { ...c.cold.extreme, tempC: round1(coldPt.tempC) },
-      feed:    { ...c.cold.feed, distanceKm: coldDist, bearing: coldBear, localTime: coldFeedPt.localTime, conditionsC: round1(coldFeedPt.tempC) },
+      extreme: { ...c.cold, tempC: round1(coldPt.tempC) },
       sparkline: coldPt.sparkline.map(round1),
       record: c.record.cold,
     },
@@ -242,7 +165,7 @@ function deriveWorld(continents) {
 // main
 // ─────────────────────────────────────────────────────────────────────
 async function main() {
-  console.log(`[hot-cold] fetching ${REGION_ORDER.length} regions × 4 points = ${REGION_ORDER.length * 4} open-meteo calls`);
+  console.log(`[hot-cold] fetching ${REGION_ORDER.length} regions × 2 points = ${REGION_ORDER.length * 2} open-meteo calls`);
   const t0 = Date.now();
 
   const continents = [];

@@ -1,7 +1,7 @@
 name: hot-cold-scrape
 
-# Every 15 minutes. Pulls current temperature for ~28 canonical hot/cold
-# locations from Open-Meteo (free, no auth, ~1500 calls/day under the 10k limit)
+# Every 15 minutes. Pulls current temperature for 14 canonical hot/cold
+# locations from Open-Meteo (free, no auth, ~1300 calls/day under the 10k limit)
 # and writes ./hot-cold/data.json. Vercel auto-redeploys on push.
 on:
   schedule:
