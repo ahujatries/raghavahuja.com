@@ -195,28 +195,20 @@
       </div>
       <dl class="mm-method-list">
         <div class="mm-method-row">
-          <dt>source</dt>
-          <dd>Every 5 minutes we pull new press releases from the NYC Mayor's Office <a href="https://www.nyc.gov/mayors-office" target="_blank" rel="noopener">sitemap</a>. Each release goes through Claude Haiku 4.5 to extract a specific venue (with a regex fallback). Mapbox geocodes the venue using neighborhood and borough as hints. The result lands in a static <code>events.json</code> committed to the repo. A skip-cache means most runs do <em>zero</em> Claude calls — only fresh URLs are evaluated.</dd>
+          <dt>past</dt>
+          <dd>NYC Mayor's Office <a href="https://www.nyc.gov/mayors-office" target="_blank" rel="noopener">press feed</a>, every 5 min. Claude Haiku extracts the venue, Mapbox geocodes it. <em>1&ndash;3 day lag.</em></dd>
+        </div>
+        <div class="mm-method-row">
+          <dt>upcoming</dt>
+          <dd>Daily Claude web-search across NYC press for credibly pre-announced events. Dashed cobalt ring · source URL + quote in the popup.</dd>
         </div>
         <div class="mm-method-row">
           <dt>never</dt>
-          <dd>We do <em>not</em> infer location from tweets, photos, license plates, EZ-Pass, or anything that wasn't already in a press release. We do not aggregate his current position from third-party signals. We do not accept crowd submissions.</dd>
+          <dd>No tweets, photos, license plates, EZ-Pass, third-party signals, or crowd submissions.</dd>
         </div>
         <div class="mm-method-row">
-          <dt>cadence</dt>
-          <dd>Refresh runs every 5 minutes. Most past events show up <em>1&ndash;3 days</em> after they happen, when the press office posts the readout or transcript. The default view is the rolling last 7 days.</dd>
-        </div>
-        <div class="mm-method-row">
-          <dt>forward signal</dt>
-          <dd>Once a day, Claude (Haiku 4.5) runs a structured web search across NYC press (Gothamist, NY1, NY Times Metro, City &amp; State, RPA press releases, etc.) for credibly pre-announced events. Found events show with a <em>dashed cobalt ring</em> on the map. Source URL + a verifying quote are stored with each one and shown in the popup.</dd>
-        </div>
-        <div class="mm-method-row">
-          <dt>limits</dt>
-          <dd>Mamdani's office (unlike prior administrations) doesn't publish forward-looking daily schedules. So we can't tell you where he'll be tomorrow at 2pm — only where he was yesterday. If that changes, this map updates automatically.</dd>
-        </div>
-        <div class="mm-method-row">
-          <dt>corrections</dt>
-          <dd>Spot a wrong venue or missing event? <a href="mailto:work.raghavahuja@gmail.com?subject=mamdani-mapper%20correction">email me</a>. All edits go through a manual override file with a public diff.</dd>
+          <dt>fix it</dt>
+          <dd>Wrong venue or missing event? <a href="mailto:work.raghavahuja@gmail.com?subject=mamdani-mapper%20correction">email me</a>. Edits land in a manual override with a public diff.</dd>
         </div>
       </dl>
     </section>
