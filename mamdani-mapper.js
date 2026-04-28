@@ -320,14 +320,84 @@
         const id = row.getAttribute('data-event-id');
         const ev = state.events.find(e => e.id === id);
         if (!ev || !state.map) return;
-        state.map.flyTo({ center: [ev.lng, ev.lat], zoom: 14, duration: 700 });
+        // Fly with vertical offset so the marker lands in the lower half of
+        // the viewport — leaves room above for the popup, which anchors to
+        // the bottom of the marker and extends upward.
+        const popupSpace = Math.min(180, state.map.getCanvas().clientHeight * 0.28);
+        state.map.flyTo({ center: [ev.lng, ev.lat], zoom: 14, offset: [0, popupSpace], duration: 700 });
         const marker = state.markers.find(m => {
           const ll = m.getLngLat();
           return Math.abs(ll.lng - ev.lng) < 1e-6 && Math.abs(ll.lat - ev.lat) < 1e-6;
         });
-        if (marker) marker.togglePopup();
+        if (marker) {
+          // Open after the fly settles so popup positions correctly.
+          setTimeout(() => { if (!marker.getPopup().isOpen()) marker.togglePopup(); }, 720);
+        }
       });
     });
+  }
+
+  // ---------- borough tracker ----------
+  function renderBoroughTracker() {
+    const rowsEl = $('#mm-bt-rows');
+    if (!rowsEl) return;
+    const headline = $('#mm-bt-headline');
+    const totalEl = $('#mm-bt-total');
+    const windowEl = $('#mm-bt-window');
+
+    const now = new Date();
+    const thirtyAgo = new Date(now); thirtyAgo.setDate(now.getDate() - 30);
+    const inWindow30 = state.events.filter(ev => parseISO(ev.start) >= thirtyAgo && parseISO(ev.start) <= now);
+
+    const ORDER = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'];
+    const tally = Object.fromEntries(ORDER.map(b => [b, []]));
+    inWindow30.forEach(ev => {
+      if (ev.borough && tally[ev.borough]) tally[ev.borough].push(ev);
+    });
+
+    const total = inWindow30.filter(e => e.borough).length;
+    if (totalEl) totalEl.textContent = `${total} stop${total === 1 ? '' : 's'}`;
+    if (windowEl) windowEl.textContent = 'last 30 days';
+
+    // dynamic snarky one-liner
+    if (headline) {
+      if (total === 0) {
+        headline.textContent = 'no data on file yet';
+      } else {
+        const sorted = ORDER.map(b => [b, tally[b].length]).sort((a, b) => b[1] - a[1]);
+        const [topB, topN] = sorted[0];
+        const topPct = total ? Math.round((topN / total) * 100) : 0;
+        const five = sorted.every(([_, n]) => n > 0);
+        let line;
+        if (five) line = 'a true five-borough mayor';
+        else if (topPct >= 50) line = `${topB.toLowerCase()} stan · ${topPct}% of his time`;
+        else if (topPct >= 35) line = `mostly a ${topB.toLowerCase()} mayor (${topPct}%)`;
+        else line = `most-visited: ${topB.toLowerCase()} (${topPct}%)`;
+        headline.textContent = line;
+      }
+    }
+
+    const MAX_FACES = 10;
+    rowsEl.innerHTML = ORDER.map(b => {
+      const evs = tally[b];
+      const n = evs.length;
+      const pct = total ? Math.round((n / total) * 100) : 0;
+      const facesShown = Math.min(n, MAX_FACES);
+      const facesHtml = Array.from({ length: facesShown }).map((_, i) => {
+        const isForward = evs[i]?.is_forward;
+        return `<span class="mm-bt-face${isForward ? ' mm-bt-face--forward' : ''}" aria-hidden="true"></span>`;
+      }).join('');
+      const more = n > MAX_FACES ? `<span class="mm-bt-more">+${n - MAX_FACES}</span>` : '';
+      const empty = n === 0 ? ' is-empty' : '';
+      return `
+        <div class="mm-bt-row${empty}">
+          <span class="mm-bt-name">${b.toLowerCase()}</span>
+          <span class="mm-bt-strip">${facesHtml || '<span style="color:var(--mute);font-family:var(--font-mono);font-size:11px;">·</span>'}${more}</span>
+          <span class="mm-bt-n">${n}</span>
+          <span class="mm-bt-pct">${n ? pct + '%' : '—'}</span>
+        </div>
+      `;
+    }).join('');
   }
 
   function rsRow(ev) {
@@ -594,6 +664,7 @@
       renderLiveChip();
       renderRunOfShow();
       renderHeroMeta();
+      renderBoroughTracker();
     }, 30000);
   }
 
@@ -620,6 +691,7 @@
     renderHeroMeta();
     renderLiveChip();
     renderRunOfShow();
+    renderBoroughTracker();
     if (state.map && state.map.loaded()) {
       renderMarkers();
       maybeFitBounds();
