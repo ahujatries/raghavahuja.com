@@ -718,6 +718,27 @@ body { margin: 0; min-height: 100vh; background: var(--paper); color: var(--ink)
 .case-stack-row { display: grid; grid-template-columns: 1fr auto; padding: 6px 0; border-bottom: 1px dashed var(--soft-rule); color: var(--ink); }
 .case-stack-row .ver { color: var(--accent); }
 
+.case-stat-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 32px; padding: 36px 0;
+  border-top: 1px solid var(--soft-rule);
+  border-bottom: 1px solid var(--soft-rule);
+  margin: 36px 0;
+}
+.case-stat .n {
+  font-family: var(--font-display); font-size: 56px; line-height: 1;
+  color: var(--accent); font-weight: 400; letter-spacing: -0.02em;
+}
+.case-stat .l {
+  font-family: var(--font-mono); font-size: var(--fs-meta);
+  color: var(--mute); margin-top: 12px; letter-spacing: 0.04em;
+  text-transform: lowercase; line-height: 1.5;
+}
+@media (max-width: 720px) {
+  .case-stat-row { grid-template-columns: 1fr; gap: 24px; padding: 28px 0; margin: 28px 0; }
+  .case-stat .n { font-size: 44px; }
+}
+
 .case-body { padding: 40px 0; max-width: 68ch; }
 .case-body > *:first-child { margin-top: 0; }
 .case-body h2 { font-family: var(--font-display); font-size: var(--fs-h2); line-height: 1.1; font-weight: 400; margin: 56px 0 20px; letter-spacing: -0.02em; position: relative; color: var(--ink); }
