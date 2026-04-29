@@ -473,7 +473,6 @@
     { label: 'JMNPR Labs · case study', path: '/work/jmnpr-labs', href: 'case-study.html?slug=jmnpr-labs', kind: 'route' },
     { label: 'EF education first · case study', path: '/work/ef', href: 'case-study.html?slug=ef', kind: 'route' },
     { label: 'futbolis · lab · case study', path: '/lab/futbolis', href: 'case-study.html?slug=futbolis', kind: 'route' },
-    { label: 'headway · lab', path: '/lab/headway', href: 'lab.html', kind: 'route' },
     { label: 'the library · docs', path: '/docs', href: 'docs.html', kind: 'route' },
     { label: 'CtB framework', path: '/docs/ctb', href: 'docs.html?d=ctb', kind: 'route' },
     { label: 'MIND framework — behavioral OS', path: '/docs/mind', href: 'docs.html?d=mind', kind: 'route' },
