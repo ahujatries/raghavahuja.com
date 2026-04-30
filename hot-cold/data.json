@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-30T20:18:29.626Z",
+  "updatedAt": "2026-04-30T21:30:09.300Z",
   "source": "open-meteo · ERA5",
   "regions": [
     {
@@ -14,25 +14,25 @@
       ],
       "hot": {
         "extreme": {
-          "name": "Death Valley · Furnace Creek",
-          "region": "California, USA",
-          "lat": 36.46,
-          "lon": -116.87,
-          "tempC": 33.9
+          "name": "Esperanza Base vicinity",
+          "region": "Antarctic Peninsula",
+          "lat": -63.4,
+          "lon": -56.99,
+          "tempC": -12.6
         },
         "sparkline": [
-          24.6,
-          23.6,
-          23,
-          22.6,
-          21.8,
-          22.1,
-          21.6,
-          22.3,
-          25,
-          27.6,
-          29.9,
-          32.2
+          -13.6,
+          -13.6,
+          -13.8,
+          -13.6,
+          -13.7,
+          -13.7,
+          -13.7,
+          -13.5,
+          -13.2,
+          -13,
+          -12.9,
+          -12.9
         ],
         "record": {
           "value": 56.7,
@@ -46,10 +46,9 @@
           "region": "East Antarctic Plateau",
           "lat": -78.46,
           "lon": 106.84,
-          "tempC": -58
+          "tempC": -57.8
         },
         "sparkline": [
-          -60.3,
           -59.9,
           -60,
           -59.6,
@@ -60,414 +59,13 @@
           -58.7,
           -58.5,
           -58.2,
-          -57.8
+          -57.8,
+          -58
         ],
         "record": {
           "value": -89.2,
           "place": "Vostok Station, Antarctica",
           "year": 1983
-        }
-      }
-    },
-    {
-      "id": "africa",
-      "label": "africa",
-      "headline": "africa",
-      "bbox": [
-        -20,
-        -38,
-        55,
-        38
-      ],
-      "hot": {
-        "extreme": {
-          "name": "Dallol Depression",
-          "region": "Afar, Ethiopia",
-          "lat": 14.24,
-          "lon": 40.3,
-          "tempC": 31
-        },
-        "sparkline": [
-          37,
-          38.4,
-          39.3,
-          40.2,
-          39.7,
-          39.2,
-          38,
-          36.5,
-          34.5,
-          33,
-          32.1,
-          31.6
-        ],
-        "record": {
-          "value": 55,
-          "place": "Kebili, Tunisia",
-          "year": 1931
-        }
-      },
-      "cold": {
-        "extreme": {
-          "name": "Mt. Stanley summit",
-          "region": "Rwenzori, Uganda/DRC",
-          "lat": 0.39,
-          "lon": 29.87,
-          "tempC": 0
-        },
-        "sparkline": [
-          5,
-          3.9,
-          3.4,
-          3.5,
-          2.4,
-          2.7,
-          1.1,
-          1.2,
-          0.2,
-          -0.9,
-          -0.4,
-          -0.3
-        ],
-        "record": {
-          "value": -23.9,
-          "place": "Ifrane, Morocco",
-          "year": 1935
-        }
-      }
-    },
-    {
-      "id": "asia",
-      "label": "asia",
-      "headline": "asia",
-      "bbox": [
-        25,
-        -10,
-        180,
-        78
-      ],
-      "hot": {
-        "extreme": {
-          "name": "Lut Desert",
-          "region": "Kerman, Iran",
-          "lat": 30.78,
-          "lon": 59.32,
-          "tempC": 27.9
-        },
-        "sparkline": [
-          36.4,
-          36.2,
-          35.8,
-          35.4,
-          36.1,
-          35.6,
-          34.6,
-          33.2,
-          31.7,
-          30.6,
-          29.6,
-          28.9
-        ],
-        "record": {
-          "value": 54,
-          "place": "Tirat Zvi, Israel",
-          "year": 1942
-        }
-      },
-      "cold": {
-        "extreme": {
-          "name": "Oymyakon plateau",
-          "region": "Sakha Republic, Russia",
-          "lat": 63.46,
-          "lon": 142.79,
-          "tempC": -10.2
-        },
-        "sparkline": [
-          2.4,
-          1.1,
-          -0.2,
-          -1.5,
-          -2.8,
-          -5.4,
-          -8.4,
-          -10.6,
-          -11.8,
-          -12.3,
-          -12.1,
-          -11.9
-        ],
-        "record": {
-          "value": -67.7,
-          "place": "Verkhoyansk, Russia",
-          "year": 1892
-        }
-      }
-    },
-    {
-      "id": "europe",
-      "label": "europe",
-      "headline": "europe",
-      "bbox": [
-        -25,
-        34,
-        45,
-        71
-      ],
-      "hot": {
-        "extreme": {
-          "name": "Sicily interior",
-          "region": "Catania, Italy",
-          "lat": 37.46,
-          "lon": 14.62,
-          "tempC": 15.4
-        },
-        "sparkline": [
-          20.1,
-          21.8,
-          23.6,
-          24.5,
-          24.6,
-          23.2,
-          22.2,
-          21.6,
-          19.8,
-          18.1,
-          16.4,
-          15.7
-        ],
-        "record": {
-          "value": 48.8,
-          "place": "Floridia, Sicily",
-          "year": 2021
-        }
-      },
-      "cold": {
-        "extreme": {
-          "name": "Kebnekaise massif",
-          "region": "Lapland, Sweden",
-          "lat": 67.9,
-          "lon": 18.55,
-          "tempC": -2.6
-        },
-        "sparkline": [
-          -1.7,
-          -1.6,
-          -1.6,
-          -1.6,
-          -1.7,
-          -1.8,
-          -2.1,
-          -2.1,
-          -2.1,
-          -2.1,
-          -2.4,
-          -2.3
-        ],
-        "record": {
-          "value": -52.6,
-          "place": "Ust-Shchugor, Russia",
-          "year": 1978
-        }
-      }
-    },
-    {
-      "id": "na",
-      "label": "n. america",
-      "headline": "north america",
-      "bbox": [
-        -170,
-        8,
-        -50,
-        75
-      ],
-      "hot": {
-        "extreme": {
-          "name": "Death Valley · Furnace Creek",
-          "region": "California, USA",
-          "lat": 36.46,
-          "lon": -116.87,
-          "tempC": 33.9
-        },
-        "sparkline": [
-          24.6,
-          23.6,
-          23,
-          22.6,
-          21.8,
-          22.1,
-          21.6,
-          22.3,
-          25,
-          27.6,
-          29.9,
-          32.2
-        ],
-        "record": {
-          "value": 56.7,
-          "place": "Furnace Creek, Death Valley",
-          "year": 1913
-        }
-      },
-      "cold": {
-        "extreme": {
-          "name": "Eureka, Ellesmere Is.",
-          "region": "Nunavut, Canada",
-          "lat": 79.98,
-          "lon": -85.93,
-          "tempC": -14.6
-        },
-        "sparkline": [
-          -26.2,
-          -25.9,
-          -24.9,
-          -23.3,
-          -21.8,
-          -20.3,
-          -18.6,
-          -17.3,
-          -16.6,
-          -16.1,
-          -15.7,
-          -15.2
-        ],
-        "record": {
-          "value": -63,
-          "place": "Snag, Yukon",
-          "year": 1947
-        }
-      }
-    },
-    {
-      "id": "sa",
-      "label": "s. america",
-      "headline": "south america",
-      "bbox": [
-        -82,
-        -56,
-        -34,
-        13
-      ],
-      "hot": {
-        "extreme": {
-          "name": "Gran Chaco",
-          "region": "Salta, Argentina",
-          "lat": -22.1,
-          "lon": -62.85,
-          "tempC": 24.8
-        },
-        "sparkline": [
-          17.6,
-          17.7,
-          17.8,
-          17.8,
-          18.9,
-          19.4,
-          20.6,
-          21.9,
-          24.3,
-          24.9,
-          25.7,
-          25.5
-        ],
-        "record": {
-          "value": 48.9,
-          "place": "Rivadavia, Argentina",
-          "year": 1905
-        }
-      },
-      "cold": {
-        "extreme": {
-          "name": "Altiplano · Sajama",
-          "region": "Oruro, Bolivia",
-          "lat": -18.1,
-          "lon": -68.88,
-          "tempC": 0.4
-        },
-        "sparkline": [
-          -8.1,
-          -8.6,
-          -9.1,
-          -8.8,
-          -5.2,
-          -2.9,
-          -1.7,
-          -0.6,
-          -0.5,
-          -2.8,
-          -0.2,
-          0.3
-        ],
-        "record": {
-          "value": -33,
-          "place": "Sarmiento, Argentina",
-          "year": 1907
-        }
-      }
-    },
-    {
-      "id": "oceania",
-      "label": "oceania",
-      "headline": "oceania",
-      "bbox": [
-        110,
-        -50,
-        180,
-        0
-      ],
-      "hot": {
-        "extreme": {
-          "name": "Marble Bar",
-          "region": "Pilbara, Australia",
-          "lat": -21.18,
-          "lon": 119.74,
-          "tempC": 23.5
-        },
-        "sparkline": [
-          34.2,
-          33.7,
-          31,
-          29.5,
-          28.3,
-          27.5,
-          26.4,
-          25.5,
-          25,
-          24.5,
-          24.2,
-          23.8
-        ],
-        "record": {
-          "value": 50.7,
-          "place": "Oodnadatta, S. Australia",
-          "year": 1960
-        }
-      },
-      "cold": {
-        "extreme": {
-          "name": "Mt. Cook · Aoraki",
-          "region": "Southern Alps, NZ",
-          "lat": -43.59,
-          "lon": 170.14,
-          "tempC": -12.6
-        },
-        "sparkline": [
-          -13.5,
-          -12.4,
-          -10.9,
-          -9.9,
-          -11.1,
-          -11.1,
-          -11.6,
-          -11.9,
-          -12.2,
-          -12.6,
-          -12.9,
-          -13
-        ],
-        "record": {
-          "value": -25.6,
-          "place": "Ranfurly, NZ",
-          "year": 1903
         }
       }
     },
@@ -487,10 +85,9 @@
           "region": "Antarctic Peninsula",
           "lat": -63.4,
           "lon": -56.99,
-          "tempC": -12.8
+          "tempC": -12.6
         },
         "sparkline": [
-          -13.4,
           -13.6,
           -13.6,
           -13.8,
@@ -501,6 +98,7 @@
           -13.5,
           -13.2,
           -13,
+          -12.9,
           -12.9
         ],
         "record": {
@@ -515,10 +113,9 @@
           "region": "East Antarctic Plateau",
           "lat": -78.46,
           "lon": 106.84,
-          "tempC": -58
+          "tempC": -57.8
         },
         "sparkline": [
-          -60.3,
           -59.9,
           -60,
           -59.6,
@@ -529,7 +126,8 @@
           -58.7,
           -58.5,
           -58.2,
-          -57.8
+          -57.8,
+          -58
         ],
         "record": {
           "value": -89.2,
