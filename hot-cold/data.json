@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-02T11:12:26.645Z",
+  "updatedAt": "2026-05-02T11:57:49.244Z",
   "source": "open-meteo · ERA5",
   "regions": [
     {
@@ -18,7 +18,7 @@
           "region": "Afar, Ethiopia",
           "lat": 14.24,
           "lon": 40.3,
-          "tempC": 41
+          "tempC": 41.4
         },
         "sparkline": [
           29.6,
@@ -85,7 +85,7 @@
           "region": "Afar, Ethiopia",
           "lat": 14.24,
           "lon": 40.3,
-          "tempC": 41
+          "tempC": 41.4
         },
         "sparkline": [
           29.6,
@@ -113,7 +113,7 @@
           "region": "Rwenzori, Uganda/DRC",
           "lat": 0.39,
           "lon": 29.87,
-          "tempC": 1
+          "tempC": 2.5
         },
         "sparkline": [
           -0.4,
@@ -152,7 +152,7 @@
           "region": "Kerman, Iran",
           "lat": 30.78,
           "lon": 59.32,
-          "tempC": 35.5
+          "tempC": 35.2
         },
         "sparkline": [
           23.7,
@@ -180,7 +180,7 @@
           "region": "Sakha Republic, Russia",
           "lat": 63.46,
           "lon": 142.79,
-          "tempC": -3.9
+          "tempC": -5.4
         },
         "sparkline": [
           -4.3,
@@ -219,7 +219,7 @@
           "region": "Catania, Italy",
           "lat": 37.46,
           "lon": 14.62,
-          "tempC": 19.7
+          "tempC": 19.5
         },
         "sparkline": [
           10.8,
@@ -247,7 +247,7 @@
           "region": "Lapland, Sweden",
           "lat": 67.9,
           "lon": 18.55,
-          "tempC": -7.1
+          "tempC": -7.5
         },
         "sparkline": [
           -3.1,
@@ -286,7 +286,7 @@
           "region": "California, USA",
           "lat": 36.46,
           "lon": -116.87,
-          "tempC": 23.7
+          "tempC": 24.1
         },
         "sparkline": [
           35.5,
@@ -300,7 +300,7 @@
           27.8,
           26.3,
           25.5,
-          24.9
+          24.7
         ],
         "record": {
           "value": 56.7,
@@ -314,7 +314,7 @@
           "region": "Nunavut, Canada",
           "lat": 79.98,
           "lon": -85.93,
-          "tempC": -15.8
+          "tempC": -15.4
         },
         "sparkline": [
           -16,
@@ -353,7 +353,7 @@
           "region": "Salta, Argentina",
           "lat": -22.1,
           "lon": -62.85,
-          "tempC": 21.1
+          "tempC": 22
         },
         "sparkline": [
           26.5,
@@ -381,7 +381,7 @@
           "region": "Oruro, Bolivia",
           "lat": -18.1,
           "lon": -68.88,
-          "tempC": -8.6
+          "tempC": -5.9
         },
         "sparkline": [
           -3,
@@ -420,7 +420,7 @@
           "region": "Pilbara, Australia",
           "lat": -21.18,
           "lon": 119.74,
-          "tempC": 28
+          "tempC": 27.3
         },
         "sparkline": [
           24.4,
@@ -448,7 +448,7 @@
           "region": "Southern Alps, NZ",
           "lat": -43.59,
           "lon": 170.14,
-          "tempC": -8.8
+          "tempC": -8.7
         },
         "sparkline": [
           -8.1,
