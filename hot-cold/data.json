@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-02T15:03:18.578Z",
+  "updatedAt": "2026-05-02T15:58:51.469Z",
   "source": "open-meteo · ERA5",
   "regions": [
     {
@@ -18,7 +18,7 @@
           "region": "Afar, Ethiopia",
           "lat": 14.24,
           "lon": 40.3,
-          "tempC": 37.8
+          "tempC": 36
         },
         "sparkline": [
           27.9,
@@ -46,7 +46,7 @@
           "region": "East Antarctic Plateau",
           "lat": -78.46,
           "lon": 106.84,
-          "tempC": -50.3
+          "tempC": -50.5
         },
         "sparkline": [
           -53,
@@ -85,7 +85,7 @@
           "region": "Afar, Ethiopia",
           "lat": 14.24,
           "lon": 40.3,
-          "tempC": 37.8
+          "tempC": 36
         },
         "sparkline": [
           27.9,
@@ -113,7 +113,7 @@
           "region": "Rwenzori, Uganda/DRC",
           "lat": 0.39,
           "lon": 29.87,
-          "tempC": 1
+          "tempC": 0.3
         },
         "sparkline": [
           -0.7,
@@ -152,7 +152,7 @@
           "region": "Kerman, Iran",
           "lat": 30.78,
           "lon": 59.32,
-          "tempC": 32.5
+          "tempC": 31.6
         },
         "sparkline": [
           24.3,
@@ -180,7 +180,7 @@
           "region": "Sakha Republic, Russia",
           "lat": 63.46,
           "lon": 142.79,
-          "tempC": -8.6
+          "tempC": -9.5
         },
         "sparkline": [
           1.5,
@@ -219,7 +219,7 @@
           "region": "Catania, Italy",
           "lat": 37.46,
           "lon": 14.62,
-          "tempC": 17.4
+          "tempC": 16.7
         },
         "sparkline": [
           7.9,
@@ -286,7 +286,7 @@
           "region": "California, USA",
           "lat": 36.46,
           "lon": -116.87,
-          "tempC": 24.8
+          "tempC": 26.4
         },
         "sparkline": [
           31.7,
@@ -314,7 +314,7 @@
           "region": "Nunavut, Canada",
           "lat": 79.98,
           "lon": -85.93,
-          "tempC": -15.3
+          "tempC": -14.9
         },
         "sparkline": [
           -17.2,
@@ -353,7 +353,7 @@
           "region": "Salta, Argentina",
           "lat": -22.1,
           "lon": -62.85,
-          "tempC": 22
+          "tempC": 20.7
         },
         "sparkline": [
           25.2,
@@ -381,7 +381,7 @@
           "region": "Oruro, Bolivia",
           "lat": -18.1,
           "lon": -68.88,
-          "tempC": 0.1
+          "tempC": 0.8
         },
         "sparkline": [
           -6.2,
@@ -420,7 +420,7 @@
           "region": "Pilbara, Australia",
           "lat": -21.18,
           "lon": 119.74,
-          "tempC": 23.4
+          "tempC": 22.7
         },
         "sparkline": [
           29.3,
@@ -448,7 +448,7 @@
           "region": "Southern Alps, NZ",
           "lat": -43.59,
           "lon": 170.14,
-          "tempC": -10.1
+          "tempC": -10.4
         },
         "sparkline": [
           -7,
@@ -487,7 +487,7 @@
           "region": "Antarctic Peninsula",
           "lat": -63.4,
           "lon": -56.99,
-          "tempC": -14.3
+          "tempC": -13.9
         },
         "sparkline": [
           -13.6,
@@ -515,7 +515,7 @@
           "region": "East Antarctic Plateau",
           "lat": -78.46,
           "lon": 106.84,
-          "tempC": -50.3
+          "tempC": -50.5
         },
         "sparkline": [
           -53,
