@@ -470,6 +470,7 @@
     { label: 'home', path: '/', href: 'index.html', kind: 'route' },
     { label: 'work', path: '/work', href: 'work.html', kind: 'route' },
     { label: 'arqo · case study', path: '/work/arqo', href: 'case-study.html?slug=arqo', kind: 'route' },
+    { label: 'aleida · ai EA · case study', path: '/work/aleida', href: 'case-study.html?slug=aleida', kind: 'route' },
     { label: 'JMNPR Labs · case study', path: '/work/jmnpr-labs', href: 'case-study.html?slug=jmnpr-labs', kind: 'route' },
     { label: 'EF education first · case study', path: '/work/ef', href: 'case-study.html?slug=ef', kind: 'route' },
     { label: 'futbolis · lab · case study', path: '/lab/futbolis', href: 'case-study.html?slug=futbolis', kind: 'route' },

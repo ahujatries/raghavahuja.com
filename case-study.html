@@ -313,6 +313,183 @@ Paginator responsibilities:
     <blockquote>The surface is production-grade. The discipline is staff-grade. The ambition is to be the category-winner in a space that has not had one for a decade.</blockquote>
   </template>
 
+  <!-- ==============================================
+       ALEIDA
+       ============================================== -->
+  <template id="case-aleida">
+    <section>
+      <p class="drop-cap"><strong>Aleida is a pseudonymous AI executive assistant</strong> I built in one night to fill the gap between two founders and the eight roles a startup actually needs. She runs as a Claude Code scheduled task that fires four times daily for proactive work, and as a Vercel-deployed Slack webhook for real-time DMs and @-mentions. She has her own Slack identity (<code>@Aleida-Bot</code>), her own Gmail (<code>aleida@tryarqo.com</code>), and her own credentials across Drive, Linear, Calendar, and GitHub. She files Linear tickets, drafts and autonomously sends emails (via an Apps Script trigger that watches for a special subject prefix), creates Drive docs with proper HTML→Doc conversion, schedules Calendar events with Google Meet, and replies to Slack DMs in 5–15 seconds via the Anthropic Messages API tool-use loop.</p>
+      <p>Aleida exists because a two-person startup at $400 of total capital deployed cannot afford a $90K/yr human EA, but absolutely needs the function that EA performs — calendar coordination, email drafts, vendor outreach, ticket triage, status reports, weekly recaps. The bet was that 2026-vintage LLMs plus a thoughtful tool surface plus a few clever workarounds (Apps Script for autonomous send when the Gmail MCP is read-only and admin policy blocks OAuth send) would come close enough to a junior EA's output that founder hours would be visibly reclaimed.</p>
+      <p>This case study documents the architecture, the brand-aligned email shell mirrored from the Arqo email kit, the Apps Script subject-prefix trick, the cron + webhook hybrid, the tool-use dispatcher, and the scope I deliberately did not give her.</p>
+    </section>
+
+    <div class="case-stat-row">
+      <div class="case-stat"><div class="n">1<span style="font-size:0.6em;"> night</span></div><div class="l">scaffold to v0.2 — webhook + 4 MCP toolchains live</div></div>
+      <div class="case-stat"><div class="n">~$50<span style="font-size:0.6em;">/mo</span></div><div class="l">total infra ceiling — Anthropic + Vercel + Slack + Google free tier</div></div>
+      <div class="case-stat"><div class="n">5–15<span style="font-size:0.6em;">s</span></div><div class="l">DM-to-reply latency · Anthropic tool loop in a Vercel serverless function</div></div>
+    </div>
+
+    <h2>The Problem</h2>
+
+    <h3>Two-person startups have a coordination tax that scales linearly with surface area</h3>
+    <p>Arqo has two co-founders. One ships product, the other owns creative + community. Between them they need: calendar coordination, vendor outreach, podcast pitches, press follow-up, founding-writer onboarding, formation paperwork tracking, weekly recaps, decision logging, blocker triage, content drafting. None of that work is technically hard. All of it is shaped like <em>"translate a vague intent into a structured action and follow up."</em> That is exactly what executive assistants do.</p>
+      <p>A New York EA at the level Arqo would need costs $80–120K/year fully loaded. Roughly ten percent of $400-of-capital startups can afford that hire. The other ninety percent either don't hire — and lose founder hours to ops drag — or hire too early and destroy runway.</p>
+
+    <h3>The "AI agent" startup wave is mostly demos</h3>
+    <p>Most of what's marketed as "AI assistant" in 2026 is a chat surface that hands you draft text. That's a writing tool, not an EA. A real EA owns asynchronous workflows: she checks email three times a day on her own initiative, she creates calendar events with attendees and Google Meet links, she files tickets without prompting. The agent stack has the raw capability — Anthropic's tool-use loop, MCP server architecture, webhook event triggers — but very few products stitch them together with the operational discipline an EA needs.</p>
+
+    <blockquote>What if the EA was a scheduled task, not a chatbot? What if the cadence was the design, and the LLM was just the muscle?</blockquote>
+
+    <h2>The Solution</h2>
+
+    <h3>1. Scheduled task as the heartbeat, webhook as the responder</h3>
+    <p>Aleida has two execution modes. The <strong>scheduled task</strong> runs four times daily at 10 / 14 / 18 / 22 EST — she triages Gmail, scans Slack DMs, checks Linear, advances backlog work. Most of her productive output happens here. The <strong>webhook</strong> fires on Slack DMs and @-mentions — she replies in 5–15 seconds, calls tools as needed, exits.</p>
+    <p>The split is intentional. A 24/7 always-on agent burns API tokens on idle cycles. A pure cron schedule means founders can't ask her something at 3pm and get an answer until 6pm. The hybrid is: she's reactive when you DM her, productive when you don't.</p>
+
+    <h3>2. The Apps Script subject-prefix trigger — autonomous email send despite a read-only Gmail MCP</h3>
+    <p>The MCP-provided Gmail integration in Claude Code exposes <code>create_draft</code>, <code>list_drafts</code>, <code>search_threads</code>, <code>get_thread</code>, and label CRUD — but no <code>send_message</code>. By design, intentionally. The Workspace admin policy at Arqo's <code>tryarqo.com</code> domain also blocked OAuth-token-based send paths (this took several hours of debugging to confirm). App Passwords were also disabled at the workspace level.</p>
+    <p>The trick: a small Google Apps Script project inside <code>aleida@tryarqo.com</code> runs every minute, scans Drafts, finds anything whose subject starts with <code>[ALEIDA-SEND]</code>, strips the prefix, and calls <code>.send()</code>. Aleida creates the draft with the prefix; the script does the rest.</p>
+<pre><code>// Apps Script — runs every 60s as aleida@tryarqo.com
+function processDrafts() {
+  for (const draft of GmailApp.getDrafts()) {
+    const subject = draft.getMessage().getSubject() || '';
+    if (!subject.startsWith('[ALEIDA-SEND] ')) continue;
+    const cleanSubject = subject.substring('[ALEIDA-SEND] '.length);
+    draft.update(to, cleanSubject, plain, options).send();
+  }
+}</code></pre>
+    <p>Latency is up to 60 seconds. The pattern requires zero new OAuth scopes, zero admin policy changes, and survives because Apps Script projects authored inside the user's own account aren't subject to the third-party-app block.</p>
+    <blockquote>This is a workaround. It is also categorically the right kind of workaround — built-in primitive composition rather than infrastructure rebuild. Replace it with a real OAuth send when the workspace policy permits; until then, it works.</blockquote>
+
+    <h3>3. Tool-use loop with multi-MCP dispatch</h3>
+    <p>The webhook agent loop registers eleven tools across five domains: <code>slack_reply</code> for posting back to threads; <code>linear_create_issue</code> + <code>linear_list_issues</code> for ticket management; <code>gmail_create_draft</code> + <code>gmail_search_threads</code> for email; <code>drive_search_files</code> + <code>drive_create_doc</code> for docs (with proper HTML→Doc conversion via the <code>googleapis</code> SDK <code>convert=true</code> flag the MCP doesn't expose); <code>calendar_list_events</code> + <code>calendar_create_event</code> for scheduling.</p>
+    <p>The loop is straight Anthropic Messages API tool-use, max 8 turns, with a single dispatcher that routes by tool-name prefix to the right backend. Errors return as <code>tool_result</code> blocks marked <code>is_error: true</code> so the agent can self-correct. The system prompt is scope-bounded — it explicitly tells Aleida what she can do in real-time and what to defer to the cron.</p>
+
+    <h3>4. Brand-aligned email shell — mirrored from the Arqo email kit</h3>
+    <p>Every email Aleida sends from the webhook goes through an HTML shell that mirrors <code>Arqo/lib/email/templates/_layout.ts</code>: cream <code>#f7f4ed</code> background, white card with 2px black border, ARQO wordmark in JetBrains Mono with the ochre <code>#d99d2e</code> square at 18% cap-height, Inter body, italic Fraunces tagline, mono signature.</p>
+    <p>This is more than cosmetics. The premise is that an AI EA should look like she works at the company, not like a generic LLM email blast. When Aleida writes to a podcast host or a film school, the email needs to read as Arqo correspondence — not "automated message sent by something resembling an EA." The brand carries the trust.</p>
+
+    <h2>System Architecture</h2>
+
+<pre><code>                          ┌────────────────────────┐
+                          │  Slack workspace        │
+                          │  · @Aleida-Bot          │
+                          │  · #aleida-general      │
+                          │  · #aleida-asks         │
+                          └─────────┬──────────────┬┘
+                                    │              │
+                          DM/@mention│              │posts
+                                    ▼              │
+            ┌──────────────────────────────────┐  │
+            │  Vercel serverless function       │  │
+            │  api/slack/events.ts              │  │
+            │  · HMAC signature verify          │  │
+            │  · self/bot/channel allowlist     │  │
+            │  · Anthropic tool-use loop (8 max)│  │
+            └────────┬──────────────┬───────────┘  │
+                     │              │              │
+          ┌──────────┘              └──────────┐   │
+          ▼                                    ▼   │
+┌─────────────────┐                  ┌──────────────────┐
+│  Anthropic API  │                  │  Tool dispatcher │
+│  claude-opus-4-7│◄─tool calls──────┤  · linear        │
+└─────────────────┘                  │  · gmail         │
+                                     │  · drive         │
+                                     │  · calendar      │
+                                     │  · slack_reply   │
+                                     └──┬──────┬──┬──┬──┘
+                                        │      │  │  │
+                              Linear ◄──┘      │  │  └► Slack
+                              Gmail ◄──────────┘  │
+                              Drive/Calendar ◄────┘
+
+┌────────────────────────────────────────────────────────┐
+│  Claude Code scheduled task (independent process)      │
+│  cron: 0 10,14,18,22 * * *  (4× daily, EST)            │
+│  Has access to ALL the same MCPs + scheduled-tasks API │
+│  Different runtime than the webhook — same identity    │
+└────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────┐
+│  Apps Script — Aleida Auto-Send                        │
+│  trigger: time-based, every 1 min                      │
+│  scans Gmail Drafts, sends those with [ALEIDA-SEND] ▼  │
+│  prefix, strips prefix, signs as "Aleida"              │
+└────────────────────────────────────────────────────────┘</code></pre>
+
+    <h2>Engineering Deep-Dives</h2>
+
+    <h3>1. Why a cron + webhook hybrid, not always-on agency</h3>
+    <p>An always-on agent (loop polling for events, periodic reflection passes, persistent context) is the natural shape for someone reading the agent papers. It also burns ~$100/month minimum even at idle, requires real session memory infrastructure, and creates the "AI doing things you didn't ask for" risk surface.</p>
+    <p>A scheduled task fires on a known cadence and runs to completion. Cost is bounded per fire. The work scope is a fresh load of the system prompt + a triage pass + targeted action. No hidden state, no surprise drift. The webhook reuses the same prompt + tool set for real-time response. The overlap between the two execution modes is &gt;90% of the code.</p>
+
+    <h3>2. Apps Script vs. SMTP vs. Resend for autonomous send</h3>
+    <table>
+      <thead><tr><th>option</th><th>setup</th><th>looks like</th><th>blocked by</th><th>chose?</th></tr></thead>
+      <tbody>
+        <tr><td>Gmail OAuth send</td><td>10 min</td><td>aleida@tryarqo.com</td><td>Workspace admin policy on third-party apps</td><td class="dash">no</td></tr>
+        <tr><td>SMTP + App Password</td><td>5 min</td><td>aleida@tryarqo.com</td><td>App Passwords disabled at workspace level</td><td class="dash">no</td></tr>
+        <tr><td>Resend / Postmark API</td><td>30 min + DNS</td><td>noreply@aleida.tryarqo.com</td><td>doesn't appear in Sent folder</td><td class="dash">no</td></tr>
+        <tr><td>Apps Script subject-prefix trigger</td><td>5 min</td><td>aleida@tryarqo.com (real Sent folder)</td><td>nothing — runs as the user inside her own account</td><td class="accent">yes</td></tr>
+      </tbody>
+    </table>
+    <p>The Apps Script approach was technically the third path tried. It's also the only one that survives Workspace policy and produces emails that thread correctly with replies from the founders. The 60-second latency is the cost; it's invisible at the EA cadence.</p>
+
+    <h3>3. Tool dispatcher and error handling</h3>
+    <p>Each tool returns a JSON-stringified result or a string starting with <code>error:</code>. The dispatcher catches all throws and converts to error tool results so the agent can decide whether to retry, route around, or surface to the user. This pattern is significantly more robust than letting function-level exceptions bubble — the loop continues, the agent reasons about the failure, the user gets a coherent reply instead of a 500.</p>
+
+    <h3>4. Identity setup — why <code>@Aleida-Bot</code>, not <code>@aleida</code></h3>
+    <p>Slack auto-suffixes <code>-Bot</code> to a bot's display name when there's an existing human user with the same name. The Arqo workspace had a human <code>aleida</code> user (the auth shell for the email account) before the bot was installed. Result: typing <code>@aleida</code> in Slack autocompletes to the human user, not the bot. Messages to the human go nowhere; the webhook never fires.</p>
+    <p>Diagnosing this took three hours of staring at zero events in Vercel observability. The fix is one line: rename the bot user. The lesson — <em>any time a multi-tier identity system has a default-name collision, the failure mode is silent.</em> Worth designing the conflict-detection surface before the next iteration.</p>
+
+    <h2>Staff-Level Decisions</h2>
+    <table>
+      <thead><tr><th>decision</th><th>chose</th><th>rejected</th><th>why</th></tr></thead>
+      <tbody>
+        <tr><td>execution model</td><td class="accent">cron + webhook hybrid</td><td>always-on agentic loop</td><td>bounded cost, fresh state per fire, real-time when needed</td></tr>
+        <tr><td>autonomous email send</td><td class="accent">Apps Script + subject-prefix</td><td>OAuth send / SMTP / Resend</td><td>only path that survives Workspace policy and lands in real Sent folder</td></tr>
+        <tr><td>memory model</td><td class="accent">stateless per fire, file-based long-term</td><td>vector store / persistent context</td><td>predictable behaviour beats sophisticated drift</td></tr>
+        <tr><td>email chrome</td><td class="accent">mirror of <code>_layout.ts</code></td><td>generic plaintext</td><td>brand carries trust; AI emails should look like they work here</td></tr>
+        <tr><td>doc creation</td><td class="accent">googleapis SDK convert=true</td><td>plaintext upload via MCP</td><td>real Google Docs with native heading/list formatting, not escaped HTML</td></tr>
+        <tr><td>autonomy scope</td><td class="accent">founder→founder only autonomous</td><td>all outbound autonomous</td><td>thumbs-up gate on external sends preserves reputation</td></tr>
+      </tbody>
+    </table>
+
+    <h2>What I Deliberately Didn't Build</h2>
+    <ul>
+      <li><strong>No long-term memory beyond cron fires.</strong> She has a memory directory she writes to, but each fire reloads the system prompt fresh. No accumulating conversational state. The risk surface of a self-modifying agent is bigger than the productivity upside at this team size.</li>
+      <li><strong>No autonomous outbound to non-founders.</strong> Drafts get staged for thumbs-up review in <code>#aleida-general</code> before the <code>[ALEIDA-SEND]</code> prefix is added. The autonomous-send privilege is scoped to founder→founder email only.</li>
+      <li><strong>No ability to commit money or sign contracts.</strong> Hard policy in the system prompt, and no payment-rails MCP wired in. She can research vendors and queue a decision; she cannot transact.</li>
+      <li><strong>No firing the cron task on demand.</strong> Claude Code's scheduled-tasks API is internal and not callable from a Vercel function. Cadence is fixed at 4×/day. Acceptable; founders can DM the webhook for anything urgent.</li>
+      <li><strong>No agentic browsing or web fill-out.</strong> Powerful but brittle and easy to scope-creep. Skipped.</li>
+    </ul>
+    <p>Like every product, the discipline is at least as important as the feature list.</p>
+
+    <h2>Cost &amp; Performance</h2>
+    <ul>
+      <li>Anthropic Opus 4.7 per Slack reply: ~2,000 input + 800 output tokens ≈ <strong>$0.05/reply</strong>.</li>
+      <li>Vercel function: ~25ms cold-start budget hit on first invoke per region; subsequent &lt;5ms overhead.</li>
+      <li>Apps Script trigger: free (within the 6 hr/day quota; we use ~5 min/day).</li>
+      <li>Slack API, Linear API: free.</li>
+      <li>Google APIs (Gmail / Drive / Calendar) at our volume: free tier.</li>
+      <li>Vercel hosting: Pro plan, ~$20/mo amortised across multiple JMNPR Labs apps.</li>
+      <li>Total Aleida-attributable monthly: <strong>~$50/mo</strong> at current volume (estimated 1K Slack replies/mo + 4 cron fires/day = ~120 fires).</li>
+    </ul>
+
+    <h2>What I'd Do Differently</h2>
+    <ol>
+      <li><strong>Start with the webhook, not the cron.</strong> The cron task scaffolding came first; the webhook came second. In retrospect, real-time DM responses are the thing founders <em>feel</em> — the cron makes Aleida a teammate, but the DM is the hook. Building DM-first would have shipped the magic earlier.</li>
+      <li><strong>Wire the Slack identity earlier.</strong> The bot-vs-user name collision wasted three hours. Always build the identity diagnostic surface first when introducing a new agent into a workspace that already has named users.</li>
+      <li><strong>Bake the brand shell from day one.</strong> The first batch of emails Aleida sent were utilitarian plaintext with Unicode dashes. They worked, but they screamed "AI sent this." Mirroring the Arqo email kit chrome the moment the brand existed would have been a 30-minute upfront investment that retroactively raised the perceived quality of every previous send.</li>
+      <li><strong>Document the <code>[ALEIDA-SEND]</code> prefix as a load-bearing primitive.</strong> The whole autonomous-send contract depends on a single Apps Script trigger seeing a magic string in the subject. Reliable but obscure — worth a sticker in the repo and a runbook for the inevitable day someone changes the prefix without realising.</li>
+    </ol>
+
+    <h2>Conclusion</h2>
+    <p>Aleida is a small, opinionated, structurally-bounded AI executive assistant for a two-person startup. She is composed of off-the-shelf primitives (Anthropic API, Slack webhook, Apps Script trigger, MCP-wrapped APIs) glued together with explicit operational discipline (scoped autonomy, brand-aligned chrome, cron+webhook hybrid, scope-bounded prompt). She is not magical; she is well-shaped.</p>
+    <p>The bet she represents — that two founders can structurally outpunch a five-person team because the third teammate is a marginal-cost AI rather than a fully-loaded W-2 — is testable in real time. The infra costs ~$50/mo. If she absorbs even five hours of founder time per week, she pays back her infra in roughly three minutes of the founders' time-equivalent.</p>
+    <blockquote>The interesting question isn't whether AI EAs work. It's whether you can build one with enough taste and operational discipline that the founders actually trust her output. Brand alignment, scope discipline, and structural humility are doing more of the work than the model is.</blockquote>
+  </template>
+
   <!-- The Mamdani Mapper case study moved to its own standalone cobalt page:
        /mamdani-mapper-case.html — kept the slug-based template DELETED below
        so /case-study?slug=mamdani-mapper falls through to the redirect at
@@ -613,8 +790,8 @@ useEffect(() =&gt; {
   <template id="case-jmnpr-labs">
     <section>
       <p class="drop-cap"><strong>JMNPR Labs is a one-person studio</strong> I started in my evenings, after thirteen years of shipping inside other people's roadmaps. The thesis is narrow and the catalog is broad: production-grade, self-serve tools for the creators and craftspeople the category has under-served. One brand. Many verticals. Honest pricing. No sales motion.</p>
-      <p>Arqo is one expression of the studio — the consumer surface. This case study is about everything else. What's live, what's on deck, and the architectural bet underneath the whole thing: that a single solo operator, with AI-native tooling and fifteen years of accumulated taste, can now ship the kind of product catalog that previously required a twelve-person company.</p>
-      <p>The studio is named <em>Jamanapaar</em> — Hindi for <em>"the other side of the Yamuna."</em> East Delhi, where I grew up, and the side of the river outsiders looked down on. Brooklyn, where I live now, on the other side of a different river. The studio is named for the posture.</p>
+      <p>Arqo is one expression of the studio — the consumer surface. This case study is about everything else. What's live, what's on deck, and the architectural bet underneath the whole thing: that a single solo operator, with AI-native tooling and thirteen years of accumulated taste, can now ship the kind of product catalog that previously required a twelve-person company.</p>
+      <p>The studio is named <em>Jamnapaar</em> — Hindi for <em>"the other side of the Yamuna."</em> East Delhi, where I grew up, and the side of the river outsiders looked down on. Brooklyn, where I live now, on the other side of a different river. The studio is named for the posture.</p>
     </section>
 
     <div class="case-stat-row">
@@ -1066,8 +1243,28 @@ u.searchParams.set('past_hours', '24');</code></pre>
           ['stripe', '15.0.0'], ['zustand', '4.5.2'],
         ],
       },
-'jmnpr-labs': {
-        n: '02', year: '2026', title: 'JMNPR Labs',
+      aleida: {
+        n: '02', year: '2026', title: 'Aleida',
+        subtitle: 'A pseudonymous AI executive assistant powering a two-person startup. Cron-driven cycles + real-time Slack DMs, ~$50/mo infra ceiling, brand-aligned emails she sends herself.',
+        meta: {
+          timeline: '1 night to v0.2 — Slack webhook + 4 MCP toolchains live',
+          role: 'Sole design engineer — agent prompt, cron task, webhook, tool wiring, brand shell',
+          stack: 'Claude Code scheduled-tasks · Anthropic Messages API · Vercel serverless · Slack Web API · Linear SDK · googleapis (Gmail/Drive/Calendar) · Google Apps Script',
+          live: 'aleida.vercel.app/api/health ↗',
+          liveUrl: 'https://aleida.vercel.app/api/health',
+        },
+        stack: [
+          ['@anthropic-ai/sdk', '0.40.0'],
+          ['@slack/web-api', '7.8.0'],
+          ['@linear/sdk', '39.0.0'],
+          ['googleapis', '144.0.0'],
+          ['vercel', 'serverless · @vercel/node 3.2'],
+          ['claude-code', 'scheduled-tasks API'],
+          ['google-apps-script', 'time-driven trigger'],
+        ],
+      },
+      'jmnpr-labs': {
+        n: '03', year: '2026', title: 'JMNPR Labs',
         subtitle: 'A one-person studio shipping production-grade tools for creators, indie filmmakers, and design engineers. Single brand, many verticals. Self-serve, no enterprise deals.',
         meta: {
           timeline: '2026 · founder · ongoing',
@@ -1100,7 +1297,7 @@ u.searchParams.set('past_hours', '24');</code></pre>
         ],
       },
       ef: {
-        n: '03', year: '2022—now', title: 'EF Education First',
+        n: '04', year: '2022—now', title: 'EF Education First',
         subtitle: 'Insurance, checkout, and quoting experiences for a global EdTech platform.',
         meta: {
           timeline: 'Aug 2022 – present · Boston / Remote',
@@ -1115,7 +1312,7 @@ u.searchParams.set('past_hours', '24');</code></pre>
         ],
       },
       zulily: {
-        n: '04', year: '2021—22', title: 'Zulily',
+        n: '05', year: '2021—22', title: 'Zulily',
         subtitle: 'Growth, personalization, and lifecycle for 16M+ daily shoppers.',
         meta: {
           timeline: 'Apr 2021 – Aug 2022 · Seattle / Remote',
@@ -1130,7 +1327,7 @@ u.searchParams.set('past_hours', '24');</code></pre>
         ],
       },
       'social-booth': {
-        n: '05', year: '2016—20', title: 'The Social Booth',
+        n: '06', year: '2016—20', title: 'The Social Booth',
         subtitle: 'Creative direction, Mumbai — campaigns for Ducati, Audi, and 20+ enterprise clients across APAC.',
         meta: {
           timeline: '2016 – 2020 · Mumbai',
@@ -1180,7 +1377,7 @@ u.searchParams.set('past_hours', '24');</code></pre>
         ],
       },
     };
-    const ORDER = ['arqo', 'jmnpr-labs', 'ef', 'futbolis', 'zulily', 'social-booth', 'mind', 'hcai', 'hot-cold'];
+    const ORDER = ['arqo', 'aleida', 'jmnpr-labs', 'ef', 'futbolis', 'zulily', 'social-booth', 'mind', 'hcai', 'hot-cold'];
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('slug') || 'arqo';
