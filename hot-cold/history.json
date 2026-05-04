@@ -1,8 +1,25 @@
 {
-  "updatedAt": "2026-05-03T05:28:40.022Z",
+  "updatedAt": "2026-05-04T05:32:01.988Z",
   "source": "open-meteo · archive (era5)",
-  "entryCount": 122,
+  "entryCount": 123,
   "entries": [
+    {
+      "date": "2026-05-03",
+      "hot": {
+        "name": "Dallol Depression",
+        "region": "Afar, Ethiopia",
+        "lat": 14.24,
+        "lon": 40.3,
+        "tempC": 42.9
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -55
+      }
+    },
     {
       "date": "2026-05-02",
       "hot": {
