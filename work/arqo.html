@@ -8,6 +8,203 @@
 <link rel="stylesheet" href="/site.css">
 <link rel="stylesheet" href="/case-study.css">
 <link rel="stylesheet" href="/cmdk.css">
+<style>
+/* ===== ARQO PRODUCT MOCKUP — flow view, 1-up ===== */
+.arqo-mock {
+  --aq-bg:        #050604;
+  --aq-bg-2:      #0a0c08;
+  --aq-rule:      rgba(168,200,140,0.14);
+  --aq-rule-2:    rgba(168,200,140,0.22);
+  --aq-fg:        #c8d6a8;
+  --aq-fg-dim:    #7e8a68;
+  --aq-fg-faint:  #525a44;
+  --aq-lime:      #a8d860;
+  --aq-amber:     #d8b347;
+  --aq-scene-bg:  #2d3a1a;
+  --aq-scene-fg:  #e8f0d4;
+  margin: var(--s-5) 0 var(--s-6);
+}
+.arqo-mock .arqo-frame {
+  background: var(--aq-bg);
+  border: 1px solid var(--aq-rule);
+  border-radius: 8px;
+  padding: 14px;
+  font-family: var(--font-mono);
+  color: var(--aq-fg);
+}
+.arqo-mock .arqo-screen {
+  background: var(--aq-bg);
+  border: 1px solid var(--aq-rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.arqo-mock .row {
+  display: flex; align-items: center;
+  border-bottom: 1px solid var(--aq-rule);
+  padding: 10px 14px;
+  font-size: 11px; letter-spacing: 0.04em;
+  color: var(--aq-fg-dim);
+}
+.arqo-mock .row.dense { padding: 8px 12px; gap: 18px; }
+.arqo-mock .menus { display: flex; gap: 22px; flex: 1; }
+.arqo-mock .menus span { color: var(--aq-fg-dim); }
+.arqo-mock .pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 9px;
+  border: 1px solid var(--aq-rule-2);
+  border-radius: 3px;
+  font-size: 10.5px; letter-spacing: 0.06em;
+  color: var(--aq-fg);
+  background: transparent;
+}
+.arqo-mock .pill.dim { color: var(--aq-fg-dim); }
+.arqo-mock .pill.staff {
+  background: rgba(216,179,71,0.10);
+  border-color: rgba(216,179,71,0.45);
+  color: var(--aq-amber);
+}
+.arqo-mock .pill.active {
+  background: rgba(168,216,96,0.10);
+  border-color: rgba(168,216,96,0.45);
+  color: var(--aq-lime);
+}
+.arqo-mock .kbd {
+  display: inline-block;
+  padding: 0 4px;
+  border: 1px solid var(--aq-rule-2);
+  border-radius: 2px;
+  font-size: 9.5px; color: var(--aq-fg-faint);
+  margin-left: 6px;
+}
+.arqo-mock .grow { flex: 1; }
+.arqo-mock .gap { width: 18px; }
+.arqo-mock .sep {
+  width: 1px; height: 14px;
+  background: var(--aq-rule-2);
+  margin: 0 4px;
+}
+.arqo-mock .saved-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--aq-lime);
+  display: inline-block; margin-right: 7px;
+}
+.arqo-mock .pill-group { display: flex; gap: 6px; }
+.arqo-mock .pill-group .pill { padding: 5px 8px; }
+.arqo-mock .formatbar { gap: 10px; padding: 8px 14px; }
+.arqo-mock .formatbar .label-tag { color: var(--aq-fg-faint); margin-right: 6px; }
+
+.arqo-mock .body {
+  display: grid; grid-template-columns: 44px 1fr;
+  min-height: 480px;
+}
+.arqo-mock .rail {
+  border-right: 1px solid var(--aq-rule);
+  display: flex; flex-direction: column;
+  padding: 14px 0; gap: 18px; align-items: center;
+  color: var(--aq-fg-faint); font-size: 16px;
+}
+.arqo-mock .rail .item { width: 22px; height: 22px; display: grid; place-items: center; }
+.arqo-mock .rail .item.on { color: var(--aq-lime); position: relative; }
+.arqo-mock .rail .item.on::before {
+  content: ''; position: absolute; left: -11px; top: 0; bottom: 0;
+  width: 2px; background: var(--aq-lime);
+}
+.arqo-mock .page-area {
+  padding: clamp(20px, 3vw, 36px) clamp(28px, 5vw, 80px);
+  position: relative;
+}
+.arqo-mock .page-num {
+  position: absolute; top: 16px; right: 22px;
+  font-size: 10px; letter-spacing: 0.1em; color: var(--aq-fg-faint);
+}
+.arqo-mock .scene-toolbar {
+  display: flex; align-items: center; gap: 14px;
+  padding: 8px 14px;
+  background: rgba(168,216,96,0.06);
+  border: 1px solid rgba(168,216,96,0.18);
+  border-bottom: 0;
+  font-size: 10.5px; color: var(--aq-fg-dim); letter-spacing: 0.04em;
+}
+.arqo-mock .scene-toolbar .left { display: flex; gap: 14px; align-items: center; }
+.arqo-mock .scene-toolbar .right { color: var(--aq-fg-faint); }
+.arqo-mock .scene-toolbar .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; display: inline-block; margin-right: 5px; opacity: 0.65; }
+.arqo-mock .scene-heading {
+  background: var(--aq-scene-bg);
+  color: var(--aq-scene-fg);
+  font-weight: 700; font-size: 14px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  padding: 14px 18px;
+  margin: 0;
+}
+.arqo-mock .script {
+  font-family: var(--font-mono);
+  font-size: 13.5px; line-height: 1.55;
+  color: var(--aq-fg);
+  padding: 22px 8px 10px;
+  max-width: 640px; margin: 0 auto;
+}
+.arqo-mock .script p { margin: 0 0 14px; max-width: none; }
+.arqo-mock .script .char {
+  text-align: center; font-weight: 700; padding-left: 0;
+  margin: 16px 0 4px;
+}
+.arqo-mock .script .dialog {
+  text-align: center; max-width: 36ch; margin: 0 auto 14px;
+}
+.arqo-mock .cursor {
+  display: inline-block; width: 10px; height: 16px;
+  background: var(--aq-lime);
+  vertical-align: -3px; margin-left: 1px;
+  animation: aq-blink 1.05s steps(1) infinite;
+}
+@keyframes aq-blink { 50% { opacity: 0.2; } }
+
+.arqo-mock .scene-tabs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border-top: 1px solid var(--aq-rule);
+  font-size: 10.5px; color: var(--aq-fg-dim);
+}
+.arqo-mock .scene-tabs .tab {
+  padding: 10px 12px;
+  border-right: 1px solid var(--aq-rule);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  letter-spacing: 0.04em;
+}
+.arqo-mock .scene-tabs .tab:last-child { border-right: 0; }
+.arqo-mock .scene-tabs .tab.on {
+  color: var(--aq-lime);
+  background: rgba(168,216,96,0.04);
+  border-top: 2px solid var(--aq-lime);
+  margin-top: -2px;
+}
+.arqo-mock .footstrip {
+  display: flex; justify-content: space-between;
+  padding: 9px 14px;
+  font-size: 10.5px; color: var(--aq-fg-faint);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  border-top: 1px solid var(--aq-rule);
+}
+
+.arqo-mock .cap {
+  margin-top: 14px;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-faint); letter-spacing: 0.08em;
+  text-transform: uppercase; text-align: center;
+}
+.arqo-mock .cap em { color: var(--fg-dim); font-style: italic; text-transform: none; }
+
+@media (max-width: 880px) {
+  .arqo-mock .menus { display: none; }
+  .arqo-mock .body { grid-template-columns: 1fr; }
+  .arqo-mock .rail { display: none; }
+  .arqo-mock .scene-tabs { grid-template-columns: repeat(3, 1fr); }
+  .arqo-mock .scene-tabs .tab:nth-child(n+4) { display: none; }
+  .arqo-mock .formatbar .pill-group { display: none; }
+  .arqo-mock .page-area { padding: 16px 14px; }
+}
+</style>
 </head>
 <body>
 <div id="topbar-slot"></div>
@@ -27,6 +224,112 @@
 </section>
 
 <div class="col">
+  <div class="arqo-mock">
+    <div class="arqo-frame">
+      <div class="arqo-screen">
+        <!-- top menu bar -->
+        <div class="row dense">
+          <div class="menus">
+            <span>FILE</span><span>EDIT</span><span>VIEW</span><span>TOOLS</span><span>SETTINGS</span>
+          </div>
+          <span class="pill dim">⌘K&nbsp;&nbsp;COMMANDS</span>
+        </div>
+        <!-- status bar -->
+        <div class="row dense">
+          <span class="pill dim" style="padding:5px 8px">←</span>
+          <span class="gap"></span>
+          <span><span class="saved-dot"></span>SAVED</span>
+          <span class="gap"></span>
+          <span style="color:var(--aq-fg-dim)">1,013&nbsp;W&nbsp;·&nbsp;5P&nbsp;·&nbsp;8&nbsp;SCENES</span>
+          <span class="grow"></span>
+          <span class="pill staff">★ ARQO STAFF</span>
+          <span class="pill">TITLE</span>
+          <span class="pill">↗ SHARE</span>
+          <span class="pill">▽ FILTER</span>
+        </div>
+        <!-- format bar -->
+        <div class="row formatbar">
+          <span class="label-tag">FORMAT</span>
+          <span class="pill-group">
+            <span class="pill active">SCENE<span class="kbd">⌘1</span></span>
+            <span class="pill">ACTION<span class="kbd">⌘2</span></span>
+            <span class="pill">CHAR<span class="kbd">⌘3</span></span>
+            <span class="pill">DIALOG<span class="kbd">⌘4</span></span>
+            <span class="pill">(...)<span class="kbd">⌘5</span></span>
+            <span class="pill">TRANS<span class="kbd">⌘6</span></span>
+          </span>
+        </div>
+        <!-- view bar -->
+        <div class="row dense">
+          <span class="pill dim" style="padding:5px 8px">⊞</span>
+          <span class="gap"></span>
+          <span class="pill-group">
+            <span class="pill active">≡ FLOW</span>
+            <span class="pill">⊟ PAGES</span>
+            <span class="pill">⊞ BEATS</span>
+          </span>
+          <span class="sep"></span>
+          <span class="pill-group">
+            <span class="pill active">1-UP</span>
+            <span class="pill">2-UP</span>
+            <span class="pill">FIT</span>
+          </span>
+          <span class="grow"></span>
+          <span style="color:var(--aq-fg-faint);font-size:10.5px">1 / 5</span>
+        </div>
+
+        <!-- body: rail + page -->
+        <div class="body">
+          <div class="rail">
+            <div class="item">▢</div>
+            <div class="item">≡</div>
+            <div class="item on">✎</div>
+            <div class="item">✦</div>
+            <div class="item">◔</div>
+          </div>
+          <div class="page-area">
+            <div class="page-num">1 / 5</div>
+            <div class="scene-toolbar">
+              <div class="left">
+                <span>SCENE ▾</span>
+                <span style="color:var(--aq-lime)">+ CO-WRITER</span>
+                <span><span class="dot"></span>SCENE</span>
+                <span>○ NOTE</span>
+              </div>
+              <div class="grow"></div>
+              <div class="right">🗑</div>
+            </div>
+            <div class="scene-heading">INT. HALLIDAY FRAMING — DAY</div>
+            <div class="script">
+              <p>A narrow shop in a Connecticut strip mall. Gilt frames, mat board, a rosewood counter that has seen better paintings. The bell over the door is real brass and insists on being heard.</p>
+              <p>CORA HALLIDAY (64, gray bob, the kind of glasses serious women retire into) is at the counter. A suburban WOMAN has laid a small canvas in front of her. Cora isn't looking at the painting. She's looking at the frame.</p>
+              <div class="char">CORA</div>
+              <p class="dialog">This frame is 1910. The painting is 1880. That's a thirty-year haircut and somebody did it with a kitchen knife.</p>
+              <div class="char">WOMAN</div>
+              <p class="dialog">My grandmother always said it was original.<span class="cursor"></span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- scene tabs -->
+        <div class="scene-tabs">
+          <div class="tab on">1&nbsp;&nbsp;INT. HALLIDAY FRAMING — DAY</div>
+          <div class="tab">2&nbsp;&nbsp;INT. HALLIDAY FRAMI…</div>
+          <div class="tab">3&nbsp;&nbsp;EXT. STAMFORD TRAIN…</div>
+          <div class="tab">4&nbsp;&nbsp;INT. CHRISTIE'S ROC…</div>
+          <div class="tab">5&nbsp;&nbsp;INT. CHRISTIE'S / H…</div>
+          <div class="tab">6&nbsp;&nbsp;INT. CHRISTIE'S / A…</div>
+        </div>
+        <!-- footstrip -->
+        <div class="footstrip">
+          <span>✦&nbsp;&nbsp;STILL LIFE WITH DAGGERS</span>
+          <span>↓ VOICE</span>
+        </div>
+      </div>
+    </div>
+    <div class="cap">↑ arqo · flow view · 1-up · sample script: <em>still life with daggers</em></div>
+  </div>
+
   <div class="cs-stats">
     <div><div class="stat-num">9d</div><div class="stat-label">mvp engine, after-work sprints</div></div>
     <div><div class="stat-num">777</div><div class="stat-label">scripts in the voice-tuned ai library</div></div>

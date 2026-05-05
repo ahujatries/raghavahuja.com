@@ -43,7 +43,6 @@
         <a href="mailto:work.raghavahuja@gmail.com">email</a>
       </nav>
       <div class="right">
-        <div class="availability"><span class="pulse"></span><span>open to roles</span></div>
         <div id="topbar-clock"></div>
         <button class="kbd" id="cmdk-trigger">⌘K</button>
       </div>
@@ -148,8 +147,8 @@
     { kind: 'go',     label: 'about',        hint: '/about',                    href: '/about' },
     { kind: 'go',     label: 'now',          hint: '/now',                      href: '/now' },
     { kind: 'go',     label: 'stack',        hint: '/stack',                    href: '/stack' },
-    { kind: 'mail',   label: 'hire',         hint: 'mailto, subj: hiring',      href: 'mailto:work.raghavahuja@gmail.com?subject=hiring' },
-    { kind: 'mail',   label: 'email',        hint: 'mailto, blank',             href: 'mailto:work.raghavahuja@gmail.com' },
+    { kind: 'mail',   label: 'email',        hint: 'mailto · work.raghavahuja@gmail.com', href: 'mailto:work.raghavahuja@gmail.com' },
+    { kind: 'mail',   label: 'contact',      hint: 'open the contact page',     href: '/contact' },
     { kind: 'social', label: 'github',       hint: '↗',                         href: 'https://github.com/raghavahuja' },
     { kind: 'social', label: 'linkedin',     hint: '↗',                         href: 'https://www.linkedin.com/in/raghavahuja/' },
     { kind: 'social', label: 'twitter',      hint: '↗',                         href: 'https://twitter.com/ahujatries' },
@@ -177,15 +176,15 @@
       <div class="cmdk-pal" onclick="event.stopPropagation()">
         <div class="cmdk-input">
           <span style="color:var(--heat);font-size:14px;font-weight:600">›</span>
-          <input id="cmdk-q" placeholder="type a thing — work · arqo · hire · email · resume · tweaks" value="${cmdkQ.replace(/"/g,'&quot;')}"/>
+          <input id="cmdk-q" placeholder="type a thing — work · arqo · email · resume · tweaks" value="${cmdkQ.replace(/"/g,'&quot;')}"/>
           <span class="cmdk-esc">ESC</span>
         </div>
         <div class="cmdk-list">
           ${items.length === 0 ? '<div style="padding:24px 20px;color:var(--fg-dim);font-size:13px;font-style:italic">nothing matches. that is the honest answer.</div>' : ''}
           ${Object.keys(groups).map(k => `
             <div class="cmdk-group">${groupLabels[k] || k.toUpperCase()}</div>
-            ${groups[k].map(it => { idx++; const sel = idx === cmdkSel; return `
-              <a class="cmdk-row${sel?' sel':''}" data-idx="${idx}" href="${it.href || '#'}" data-action="${it.action || ''}">
+            ${groups[k].map(it => { idx++; const sel = idx === cmdkSel; const ext = (it.kind === 'mail' || it.kind === 'social' || it.kind === 'file'); return `
+              <a class="cmdk-row${sel?' sel':''}" data-idx="${idx}" href="${it.href || '#'}" data-action="${it.action || ''}"${ext ? ' target="_blank" rel="noopener"' : ''}>
                 <span>${it.label}</span><span class="cmdk-hint">${it.hint}</span>
               </a>
             `;}).join('')}
@@ -238,7 +237,12 @@
         if (!it) return;
         if (it.action === 'tweaks') { closeCmdk(); openTweaks(); return; }
         if (it.action === 'theme')  { closeCmdk(); return; }
-        if (it.href) location.href = it.href;
+        if (it.href) {
+          const ext = (it.kind === 'mail' || it.kind === 'social' || it.kind === 'file');
+          if (ext) window.open(it.href, '_blank', 'noopener');
+          else location.href = it.href;
+          closeCmdk();
+        }
       }
       renderCmdk();
     }
