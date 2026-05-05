@@ -1,67 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="404 — lost the thread.">
-  <meta name="theme-color" content="#0c0c0e">
-  <title>404 · raghav ahuja</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="site.css">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://raghavahuja.com/404">
-  <meta property="og:title" content="404 · lost the thread · raghav ahuja">
-  <meta property="og:description" content="This page either never existed, was decommissioned, or you're early. Pick a folio and start again.">
-  <meta property="og:image" content="https://raghavahuja.com/og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:site_name" content="raghavahuja.com">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@ahujatries">
-  <meta name="twitter:creator" content="@ahujatries">
-  <meta name="twitter:title" content="404 · lost the thread">
-  <meta name="twitter:description" content="This page either never existed, was decommissioned, or you're early.">
-  <meta name="twitter:image" content="https://raghavahuja.com/og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%235b8cff%22%3Er%3C/text%3E%3Crect x=%2245%22 y=%2222%22 width=%2212%22 height=%2265%22 fill=%22%235b8cff%22%3E%3Canimate attributeName=%22opacity%22 values=%221;1;0;0%22 keyTimes=%220;0.5;0.51;1%22 dur=%221s%22 repeatCount=%22indefinite%22/%3E%3C/rect%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — raghav ahuja</title>
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+  .four {
+    min-height: 70vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: var(--s-7) 0;
+  }
+  .four h1 {
+    font-family: var(--font-mono);
+    font-size: clamp(120px, 26vw, 360px);
+    font-weight: 700; letter-spacing: -0.06em;
+    line-height: 0.86; margin: 0;
+    color: var(--heat);
+  }
+  .four p {
+    font-size: 19px; line-height: 1.55; max-width: 56ch;
+    margin-top: var(--s-4); color: var(--fg);
+  }
+  .four .options { margin-top: var(--s-5); display: flex; gap: 14px; flex-wrap: wrap; }
+  .four .marg-note {
+    margin-top: var(--s-5);
+    font-family: var(--font-script, 'Caveat', cursive);
+    font-size: 22px; color: var(--fg-dim);
+    transform: rotate(-2deg);
+    max-width: 320px; line-height: 1.3;
+  }
+</style>
 </head>
-<body data-page="404">
-  <script>try { var s = localStorage.getItem('theme'); if (s) document.documentElement.setAttribute('data-theme', s); } catch (e) {}</script>
+<body>
+<div id="topbar-slot"></div>
 
-  <a href="#main" class="skip-link">skip to content</a>
-
-  <div class="wrap">
-    <div id="nav-mount"></div>
-
-    <main id="main">
-      <section class="notfound">
-        <div class="eyebrow">error · 404 · path not found</div>
-        <h1>Lost the<br>thread.</h1>
-        <p class="lead">
-          This page either never existed, was decommissioned, or you're early.
-          Pick a folio and start again.
-        </p>
-        <div class="links">
-          <a href="index.html">index</a>
-          <a href="work.html">work</a>
-          <a href="docs.html">docs</a>
-          <a href="lab.html">lab</a>
-          <a href="about.html">about</a>
-          <a href="contact.html">contact</a>
-        </div>
-        <div class="console">
-          <div class="pos">$ curl raghavahuja.com{path}</div>
-          <div>HTTP/2 404</div>
-          <div>x-edition: folio-iv</div>
-          <div>x-mood: searching</div>
-          <div>x-suggestion: try /work</div>
-        </div>
-      </section>
-    </main>
-
-    <div id="footer-mount"></div>
+<section class="four">
+  <div class="col">
+    <h1>404.</h1>
+    <p>this page doesn't exist. likely a moved or renamed url. the buttons below cover most of the site.</p>
+    <div class="options">
+      <a href="/" class="btn btn-fill">↩ home</a>
+      <a href="/work" class="btn btn-ghost">all work</a>
+      <a href="/receipts" class="btn btn-ghost">all receipts</a>
+      <a href="mailto:work.raghavahuja@gmail.com?subject=broken%20link" target="_blank" rel="noopener" class="btn btn-ghost">tell me what broke</a>
+    </div>
+    <div class="marg-note">
+      ⌘K works on every page.
+    </div>
   </div>
+</section>
 
-  <script src="site.js" defer></script>
+<script src="/site.js"></script>
 </body>
 </html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mamdani mapper — receipt · raghav ahuja</title>
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/case-study.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+.mm-mock { margin: var(--s-5) 0 var(--s-6); }
+.mm-mock .mm-frame {
+  background: #06121d; color: #d6e4f5;
+  font-family: var(--font-mono);
+  border: 1px solid rgba(120,170,255,0.18);
+  display: grid; grid-template-columns: 280px 1fr;
+  min-height: 480px;
+}
+.mm-mock .mm-side {
+  border-right: 1px solid rgba(120,170,255,0.14);
+  padding: 18px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.mm-mock .mm-side .badge {
+  display: inline-block; padding: 4px 9px;
+  border: 1px solid #4a8fff; color: #4a8fff;
+  font-size: 9.5px; letter-spacing: 0.18em; align-self: flex-start;
+}
+.mm-mock .mm-side h4 {
+  margin: 0; font-family: 'Fraunces', serif;
+  font-weight: 500; font-size: 22px; line-height: 1.05; color: #f0f4ff;
+}
+.mm-mock .mm-side .by {
+  font-size: 10px; letter-spacing: 0.14em;
+  color: #6a85a8; text-transform: uppercase;
+}
+.mm-mock .mm-side .filters {
+  border-top: 1px dashed rgba(120,170,255,0.18);
+  border-bottom: 1px dashed rgba(120,170,255,0.18);
+  padding: 12px 0;
+}
+.mm-mock .mm-side .filt {
+  display: flex; justify-content: space-between;
+  font-size: 11px; padding: 5px 0;
+  color: #d6e4f5; letter-spacing: 0.08em;
+}
+.mm-mock .mm-side .filt .v { color: #6a85a8; }
+.mm-mock .mm-side .filt.on { color: #4a8fff; }
+.mm-mock .mm-side .legend { display: flex; flex-direction: column; gap: 7px; }
+.mm-mock .mm-side .legend .row {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; color: #d6e4f5;
+}
+.mm-mock .mm-side .legend .pin {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #1d2738; border: 2px solid #4a8fff; flex-shrink: 0;
+}
+.mm-mock .mm-side .legend .pin.dashed { border-style: dashed; }
+.mm-mock .mm-side .event-card {
+  border: 1px solid rgba(120,170,255,0.18);
+  padding: 10px 12px; margin-top: auto;
+}
+.mm-mock .mm-side .event-card .meta {
+  font-size: 10px; letter-spacing: 0.12em; color: #6a85a8;
+  text-transform: uppercase;
+}
+.mm-mock .mm-side .event-card .ttl {
+  font-family: 'Fraunces', serif; font-style: italic;
+  font-size: 14px; color: #f0f4ff; margin: 4px 0 6px; font-weight: 400;
+}
+.mm-mock .mm-side .event-card .src {
+  font-size: 10.5px; color: #4a8fff; letter-spacing: 0.04em;
+}
+.mm-mock .mm-map {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(ellipse at 30% 65%, rgba(33,55,90,0.55) 0%, rgba(6,18,29,0) 55%),
+    radial-gradient(ellipse at 75% 35%, rgba(74,143,255,0.10) 0%, rgba(6,18,29,0) 55%),
+    #06121d;
+}
+.mm-mock .mm-map .grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(120,170,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120,170,255,0.06) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+.mm-mock .mm-map .pin {
+  position: absolute; width: 36px; height: 36px;
+  margin-left: -18px; margin-top: -18px;
+  border-radius: 50%; background: #1d2738;
+  border: 3px solid #4a8fff;
+  box-shadow: 0 0 0 3px rgba(74,143,255,0.18), 0 4px 12px rgba(0,0,0,0.4);
+  display: grid; place-items: center;
+  font-family: 'Fraunces', serif; font-style: italic;
+  color: #f0f4ff; font-size: 16px; font-weight: 500;
+}
+.mm-mock .mm-map .pin.upcoming { border-style: dashed; }
+.mm-mock .mm-map .pin.lg {
+  width: 48px; height: 48px; margin-left: -24px; margin-top: -24px;
+  font-size: 20px;
+  box-shadow: 0 0 0 4px rgba(74,143,255,0.25), 0 6px 18px rgba(0,0,0,0.5);
+}
+.mm-mock .mm-map .lbl {
+  position: absolute; font-family: var(--font-mono);
+  font-size: 9.5px; letter-spacing: 0.14em; color: #8aa6cc;
+  text-transform: uppercase;
+}
+.mm-mock .mm-map .stamp {
+  position: absolute; top: 14px; right: 14px;
+  font-size: 10px; letter-spacing: 0.16em; color: #6a85a8;
+  text-transform: uppercase;
+}
+.mm-mock .mm-map .stamp .live { color: #4a8fff; }
+.mm-mock .mm-map .scale {
+  position: absolute; bottom: 14px; left: 14px;
+  font-size: 9.5px; color: #6a85a8; letter-spacing: 0.1em;
+  display: flex; gap: 8px; align-items: center;
+}
+.mm-mock .mm-map .scale .bar { width: 60px; height: 1px; background: #6a85a8; }
+.mm-mock .cap {
+  margin-top: 14px; font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-faint); letter-spacing: 0.08em;
+  text-transform: uppercase; text-align: center;
+}
+.mm-mock .cap em { color: var(--fg-dim); font-style: italic; text-transform: none; }
+@media (max-width: 880px) {
+  .mm-mock .mm-frame { grid-template-columns: 1fr; min-height: 0; }
+  .mm-mock .mm-side { border-right: 0; border-bottom: 1px solid rgba(120,170,255,0.14); }
+  .mm-mock .mm-map { min-height: 320px; }
+}
+</style>
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="cs-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><a href="/receipts">receipts</a><span class="sep">/</span><span>mamdani mapper</span></div>
+    <h1>mamdani mapper<span class="heat">.</span></h1>
+    <p class="deck">a one-night build that plots every public stop nyc mayor zohran mamdani has made — and the credibly pre-announced ones — using only published data. no tweets. no inferences. press receipts only.</p>
+    <div class="meta-row">
+      <span><span class="dot">●</span> RECEIPT 001 · 2026-04</span>
+      <span>5 HRS · ONE SESSION</span>
+      <span>LIVE</span>
+    </div>
+  </div>
+</section>
+
+<div class="col">
+  <div class="mm-mock">
+    <div class="mm-frame">
+      <aside class="mm-side">
+        <span class="badge">CARTOGRAPHY DESK</span>
+        <h4>Where the Mayor Has Been</h4>
+        <div class="by">A SPECIAL BULLETIN · MMVI</div>
+        <div class="filters">
+          <div class="filt on"><span>EARLIER · PRESS</span><span class="v">142</span></div>
+          <div class="filt"><span>UPCOMING · WEB</span><span class="v">9</span></div>
+          <div class="filt"><span>WINDOW</span><span class="v">7&nbsp;DAYS</span></div>
+          <div class="filt"><span>BOROUGH</span><span class="v">ALL</span></div>
+        </div>
+        <div class="legend">
+          <div class="row"><span class="pin"></span>EARLIER · PRESS RECEIPT</div>
+          <div class="row"><span class="pin dashed"></span>UPCOMING · WEB SOURCE</div>
+        </div>
+        <div class="event-card">
+          <div class="meta">SAT · 2026-04-26 · 11:14 AM</div>
+          <div class="ttl">"Groundbreaking, La&nbsp;Marqueta extension"</div>
+          <div class="src">↗ NYC.GOV/MAYOR/PR-216</div>
+        </div>
+      </aside>
+      <div class="mm-map">
+        <div class="grid"></div>
+        <div class="stamp"><span class="live">●</span> LIVE · GH ACTION · :05 / :20 / :35 / :50</div>
+
+        <div class="pin lg" style="left: 56%; top: 52%;">M</div>
+        <div class="lbl" style="left: 60%; top: 56%;">EAST HARLEM</div>
+
+        <div class="pin" style="left: 38%; top: 70%;">M</div>
+        <div class="lbl" style="left: 41%; top: 73%;">JACKSON HEIGHTS</div>
+
+        <div class="pin" style="left: 28%; top: 38%;">M</div>
+        <div class="lbl" style="left: 31%; top: 41%;">RIVERDALE</div>
+
+        <div class="pin" style="left: 70%; top: 30%;">M</div>
+        <div class="lbl" style="left: 73%; top: 33%;">ASTORIA</div>
+
+        <div class="pin upcoming" style="left: 48%; top: 78%;">M</div>
+        <div class="lbl" style="left: 51%; top: 81%;">FLATBUSH · WED</div>
+
+        <div class="pin upcoming" style="left: 22%; top: 60%;">M</div>
+        <div class="lbl" style="left: 26%; top: 63%;">PORT MORRIS · FRI</div>
+
+        <div class="scale"><span>0</span><span class="bar"></span><span>5 MI</span></div>
+      </div>
+    </div>
+    <div class="cap">↑ mamdani mapper · cobalt face-marker map · <em>past = solid · upcoming = dashed</em></div>
+  </div>
+
+  <div class="cs-stats">
+    <div><div class="stat-num">5 hrs</div><div class="stat-label">blank canvas to live map · one session</div></div>
+    <div><div class="stat-num">$1.30/mo</div><div class="stat-label">total ceiling · scrape + LLM + forward search</div></div>
+    <div><div class="stat-num">5,066</div><div class="stat-label">candidate URLs · skip-cache filters to ~3/day</div></div>
+  </div>
+</div>
+
+<div class="col col-narrow prose">
+  <p>The mapper is on <a href="https://raghavahuja.com/mamdani-mapper">raghavahuja.com/mamdani-mapper</a>. This is the receipt — the architecture, the place reality pushed back, and the things I deliberately did not build.</p>
+
+  <h2>the brief</h2>
+  <p>Make something viral about Zohran Mamdani for a personal website. Turn open data into a map people want to screenshot. Don't be creepy. Don't pay for anything. Don't build infrastructure that needs babysitting.</p>
+
+  <blockquote>The map is a receipt, not a tracker. Every event has a published source URL with a verifying quote. Even with stalker-bait flagged off, an aggregated real-time feed of an elected official's location enables the worst use case as cleanly as the best one.</blockquote>
+
+  <h2>three decisions</h2>
+  <h3>1. press receipts, not real-time tracking</h3>
+  <p>Hard rule: the map only plots what the press office has already <em>published</em>. The methodology section on the page says this in plain English.</p>
+
+  <h3>2. standalone page, not embedded in the site shell</h3>
+  <p>The rest of <code>raghavahuja.com</code> is a portfolio site. The mapper is its own thing — a special bulletin from "the cartography desk" — with its own tokens, font stack, footer. Only handshake back is a <em>↩ raghavahuja.com</em> link in the footer and a return entry in <code>⌘K</code>.</p>
+
+  <h3>3. cobalt face markers — not the obvious red pin</h3>
+  <p>The default Mapbox marker is a red pushpin. Boring. The narrative hook is "Mamdani's face on the map," so the marker <em>is</em> his face, in a circle, with cobalt rings: solid for past, dashed for upcoming. The legend is honest: <em>upcoming · web</em> vs <em>earlier · press</em>.</p>
+
+  <h2>architecture</h2>
+  <p>Two scrapers in one GH Action. Both write to the same <code>events.json</code>.</p>
+  <h4>scraper a · the press receipt (every 5 minutes)</h4>
+  <ol>
+    <li><strong>Discovery:</strong> nyc.gov mayor's-office sitemap is public XML.</li>
+    <li><strong>Skip-cache:</strong> URLs we've already extracted live in <code>skip-cache.json</code>. Most runs evaluate <em>zero</em> new URLs.</li>
+    <li><strong>Pre-filter:</strong> Executive Orders, "Statement on…" titles skipped before any LLM call.</li>
+    <li><strong>Extraction:</strong> Claude Haiku 4.5 with tool-use returns <code>{ was_physically_present, venue, neighborhood, borough, kind }</code>.</li>
+    <li><strong>Geocoding:</strong> Mapbox geocoder with neighborhood + borough as hints — turned "La Marqueta" geocoding to a random street in Brooklyn into "La Marqueta, East Harlem, Manhattan."</li>
+  </ol>
+
+  <h4>scraper b · the forward signal (once a day)</h4>
+  <p>One Claude API call/day with built-in <code>web_search</code> + <code>web_fetch</code> tools. Whitelisted NYC outlets. Strict criteria: specific venue, specific date inside 14-day window, public source URL, source explicitly states the mayor will attend. Returns a structured array via tool use.</p>
+
+  <h2>the challenges</h2>
+  <ul>
+    <li><strong>The press feed isn't a press feed.</strong> Mamdani's office, unlike Adams', doesn't publish a daily public schedule. Pivoted from "where will he be tomorrow" to "where has he been," with forward signal layered separately.</li>
+    <li><strong>nyc.gov is JS-rendered.</strong> The index page is Adobe Experience Manager + Coveo. Static fetch sees an empty shell. Fix: the sitemap.</li>
+    <li><strong>Geocoding the wrong "La Marqueta."</strong> "Gracie Mansion" pinned to Mansion Street in the Bronx. Fix: pass borough + neighborhood into geocoder query.</li>
+    <li><strong>Rate limits at $5 of input tokens.</strong> 50K/min cap on Haiku, 30 of 60 calls hit 429s. Fix: 2.5s sleep, retry-after backoff, skip-cache.</li>
+    <li><strong>"Today" view was empty by design.</strong> Press releases lag 1–3 days. Fix: rolling 7-day window default, plus an <em>upcoming</em> toggle.</li>
+  </ul>
+
+  <h2>what i deliberately didn't build</h2>
+  <div class="didnt">
+    <h4>OFF-LIMITS</h4>
+    <ul>
+      <li><strong>Crowd submissions.</strong> User-flagged: "fuck crowd submissions, people are creeps."</li>
+      <li><strong>Twitter / X scraping.</strong> $5–200/mo for marginal-value signal. Skipped.</li>
+      <li><strong>Real-time inference.</strong> No "he just left X" extrapolation. The map is a receipt.</li>
+      <li><strong>The Politico email pipeline.</strong> Built a runbook for it. Decided to ship the web-search forward signal first.</li>
+    </ul>
+  </div>
+
+  <h2>cost engineering</h2>
+  <p>The skip-cache is the most important single line of code. Without it: 288 runs/day × 50 URLs = 14,400 LLM evaluations/day. With it: 0–3 new URLs and exit. The cache is a JSON file in the same repo — committed alongside <code>events.json</code> on every change.</p>
+
+  <h2>receipts</h2>
+  <p>Live: <a href="https://raghavahuja.com/mamdani-mapper">raghavahuja.com/mamdani-mapper</a>.</p>
+</div>
+
+<section class="cs-foot">
+  <div class="col col-narrow">
+    <div class="next-up">
+      <a href="/receipts/futbolis" class="nx">
+        <div class="label">NEXT — RCPT-002</div>
+        <div class="title">futbolis.live →</div>
+      </a>
+      <a href="/receipts" class="nx">
+        <div class="label">↩ INDEX</div>
+        <div class="title">all receipts</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="/site.js"></script>
+</body>
+</html>

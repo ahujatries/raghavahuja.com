@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>futbolis.live — receipt · raghav ahuja</title>
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/case-study.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+.fb-mock { margin: var(--s-5) 0 var(--s-6); }
+.fb-mock .fb-frame {
+  background: #050a0d; color: #e8f0e8;
+  font-family: var(--font-mono);
+  border: 1px solid rgba(80,200,120,0.18);
+  display: grid; grid-template-columns: 1fr 320px;
+  min-height: 540px;
+}
+.fb-mock .fb-globe {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, #0e2017 0%, #050a0d 70%);
+}
+.fb-mock .fb-globe::before {
+  content: ''; position: absolute;
+  left: 50%; top: 50%;
+  width: min(80%, 480px); aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 35%, rgba(80,200,120,0.18) 0%, rgba(80,200,120,0) 60%),
+    radial-gradient(circle at 65% 65%, rgba(80,200,120,0.10) 0%, rgba(80,200,120,0) 50%),
+    #0a1612;
+  border: 1px solid rgba(80,200,120,0.30);
+  box-shadow: inset 0 0 80px rgba(0,0,0,0.6);
+}
+.fb-mock .fb-globe::after {
+  content: ''; position: absolute;
+  left: 50%; top: 50%;
+  width: min(80%, 480px); aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(80,200,120,0.14) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(90deg, rgba(80,200,120,0.10) 0 1px, transparent 1px 32px);
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle, #000 60%, transparent 70%);
+          mask-image: radial-gradient(circle, #000 60%, transparent 70%);
+}
+.fb-mock .pulse {
+  position: absolute; width: 14px; height: 14px;
+  margin-left: -7px; margin-top: -7px;
+  border-radius: 50%; background: #4ce674;
+  box-shadow: 0 0 0 0 rgba(76,230,116,0.6);
+  animation: fb-pulse 1.6s infinite;
+}
+.fb-mock .pulse.lg { width: 22px; height: 22px; margin-left: -11px; margin-top: -11px; }
+.fb-mock .pulse.dim { background: #2a8a48; box-shadow: 0 0 0 0 rgba(42,138,72,0.5); }
+@keyframes fb-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(76,230,116,0.55); }
+  70%{ box-shadow: 0 0 0 14px rgba(76,230,116,0); }
+  100%{ box-shadow: 0 0 0 0 rgba(76,230,116,0); }
+}
+.fb-mock .fb-globe .lbl {
+  position: absolute;
+  font-family: var(--font-mono); font-size: 9.5px;
+  letter-spacing: 0.16em; color: rgba(232,240,232,0.55);
+  text-transform: uppercase;
+}
+.fb-mock .fb-globe .stamp {
+  position: absolute; top: 14px; left: 14px;
+  font-size: 10px; letter-spacing: 0.16em;
+  color: rgba(232,240,232,0.55); text-transform: uppercase;
+}
+.fb-mock .fb-globe .stamp .live { color: #4ce674; }
+.fb-mock .fb-globe .lvls {
+  position: absolute; bottom: 14px; left: 14px;
+  display: flex; gap: 8px;
+  font-size: 10px; letter-spacing: 0.12em;
+  color: rgba(232,240,232,0.6); text-transform: uppercase;
+}
+.fb-mock .fb-globe .lvls .on { color: #4ce674; border-bottom: 1px solid #4ce674; }
+
+.fb-mock .fb-side {
+  border-left: 1px solid rgba(80,200,120,0.18);
+  display: flex; flex-direction: column;
+}
+.fb-mock .fb-side .h {
+  padding: 18px; border-bottom: 1px solid rgba(80,200,120,0.18);
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.fb-mock .fb-side .h .ttl {
+  font-family: 'Fraunces', serif; font-style: italic; font-weight: 400;
+  font-size: 22px; color: #e8f0e8;
+}
+.fb-mock .fb-side .h .live { color: #4ce674; font-size: 10px; letter-spacing: 0.2em; }
+.fb-mock .match {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 12px; padding: 14px 18px;
+  border-bottom: 1px solid rgba(80,200,120,0.12);
+  align-items: center;
+}
+.fb-mock .match.on { background: rgba(76,230,116,0.06); border-left: 2px solid #4ce674; padding-left: 16px; }
+.fb-mock .match .min {
+  font-size: 22px; font-weight: 700; color: #4ce674;
+  font-family: 'Fraunces', serif; font-style: italic;
+}
+.fb-mock .match .min .l {
+  display: block; font-family: var(--font-mono); font-style: normal;
+  font-size: 9px; letter-spacing: 0.18em; color: rgba(232,240,232,0.55);
+  margin-top: 2px;
+}
+.fb-mock .match .teams {
+  font-family: var(--font-mono); font-size: 13px; line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+.fb-mock .match .teams .city {
+  font-family: 'Fraunces', serif; font-style: italic; font-weight: 400;
+  color: rgba(232,240,232,0.7); font-size: 11px;
+  margin-top: 2px; display: block;
+}
+.fb-mock .match .score {
+  font-family: var(--font-mono); font-size: 16px; font-weight: 700; color: #e8f0e8;
+  letter-spacing: 0.04em;
+}
+.fb-mock .match.approx .city::before {
+  content: '~ '; color: rgba(232,240,232,0.4);
+}
+.fb-mock .fb-side .more {
+  margin-top: auto; padding: 14px 18px;
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(232,240,232,0.5);
+  border-top: 1px solid rgba(80,200,120,0.18);
+}
+.fb-mock .cap {
+  margin-top: 14px; font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-faint); letter-spacing: 0.08em;
+  text-transform: uppercase; text-align: center;
+}
+.fb-mock .cap em { color: var(--fg-dim); font-style: italic; text-transform: none; }
+@media (max-width: 880px) {
+  .fb-mock .fb-frame { grid-template-columns: 1fr; }
+  .fb-mock .fb-globe { min-height: 280px; }
+  .fb-mock .fb-side { border-left: 0; border-top: 1px solid rgba(80,200,120,0.18); }
+}
+</style>
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="cs-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><a href="/receipts">receipts</a><span class="sep">/</span><span>futbolis.live</span></div>
+    <h1>futbolis<span class="heat">.</span>live</h1>
+    <p class="deck">a real-time pub-finder for football fans. macro-to-micro map. $19/mo flat at 100k concurrent. 4-tier geocoding fallback. mobile built from scratch.</p>
+    <div class="meta-row">
+      <span><span class="dot">●</span> RECEIPT 002 · 2026-02</span>
+      <span>3 WEEKS · NIGHTS &amp; WEEKENDS</span>
+      <span>LIVE</span>
+    </div>
+  </div>
+</section>
+
+<div class="col">
+  <div class="fb-mock">
+    <div class="fb-frame">
+      <div class="fb-globe">
+        <div class="stamp"><span class="live">●</span> LIVE · 47 MATCHES IN PLAY</div>
+
+        <!-- Europe -->
+        <span class="pulse lg" style="left: 52%; top: 38%;"></span>
+        <span class="lbl" style="left: 55%; top: 42%;">EUROPE · 18</span>
+
+        <!-- South America -->
+        <span class="pulse" style="left: 35%; top: 65%;"></span>
+        <span class="pulse" style="left: 33%; top: 70%;"></span>
+        <span class="pulse dim" style="left: 38%; top: 60%;"></span>
+        <span class="lbl" style="left: 28%; top: 75%;">CONMEBOL · 12</span>
+
+        <!-- North America -->
+        <span class="pulse dim" style="left: 22%; top: 38%;"></span>
+        <span class="lbl" style="left: 18%; top: 32%;">CONCACAF · 5</span>
+
+        <!-- Africa -->
+        <span class="pulse" style="left: 54%; top: 56%;"></span>
+        <span class="lbl" style="left: 57%; top: 60%;">CAF · 4</span>
+
+        <!-- Asia -->
+        <span class="pulse" style="left: 72%; top: 45%;"></span>
+        <span class="pulse dim" style="left: 78%; top: 50%;"></span>
+        <span class="lbl" style="left: 75%; top: 40%;">AFC · 8</span>
+
+        <div class="lvls">
+          <span class="on">WORLD</span>
+          <span>REGION</span>
+          <span>CITY</span>
+        </div>
+      </div>
+      <div class="fb-side">
+        <div class="h">
+          <span class="ttl">Now Kicking</span>
+          <span class="live">● 47 LIVE</span>
+        </div>
+        <div class="match on">
+          <div class="min">67'<span class="l">2ND HALF</span></div>
+          <div class="teams">FLU 1 — 2 BOT<span class="city">Maracanã, Rio de Janeiro</span></div>
+          <div class="score">1 : 2</div>
+        </div>
+        <div class="match">
+          <div class="min">34'<span class="l">1ST HALF</span></div>
+          <div class="teams">SPO 4 — 1 RAS<span class="city approx">Spišské Podhradie, SK</span></div>
+          <div class="score">4 : 1</div>
+        </div>
+        <div class="match approx">
+          <div class="min">12'<span class="l">1ST HALF</span></div>
+          <div class="teams">CAP 0 — 0 OLI<span class="city">Capiatá, Paraguay</span></div>
+          <div class="score">0 : 0</div>
+        </div>
+        <div class="match">
+          <div class="min">HT<span class="l">HALFTIME</span></div>
+          <div class="teams">STR 2 — 1 RBS<span class="city">Red Bull Arena, Salzburg</span></div>
+          <div class="score">2 : 1</div>
+        </div>
+        <div class="match">
+          <div class="min">81'<span class="l">2ND HALF</span></div>
+          <div class="teams">JEO 1 — 0 ULSAN<span class="city">Jeonju World Cup, KR</span></div>
+          <div class="score">1 : 0</div>
+        </div>
+        <div class="more">↓ 42 MORE · TAP A PIN ZOOMS THE GLOBE</div>
+      </div>
+    </div>
+    <div class="cap">↑ futbolis.live · world view · <em>swipe a card to fly the globe to the host city</em></div>
+  </div>
+
+  <div class="cs-stats">
+    <div><div class="stat-num">$19/mo</div><div class="stat-label">flat infra cost at 100k concurrent users</div></div>
+    <div><div class="stat-num">3 weeks</div><div class="stat-label">solo build, nights &amp; weekends</div></div>
+    <div><div class="stat-num">4-tier</div><div class="stat-label">geocoding fallback, 95%+ accuracy</div></div>
+  </div>
+</div>
+
+<div class="col col-narrow prose">
+  <h2>the problem</h2>
+  <h3>geographic disconnect</h3>
+  <p>Modern football apps — FlashScore, FotMob, ESPN — present matches as data rows. Optimized for speed and density, but they strip away something fundamental: the sense that football is a global, living phenomenon. At any given moment there are 50+ professional matches happening across the planet. A user checking scores sees:</p>
+
+<pre><code>Slovakia 3. Liga - East
+SPO 4 - 1 RAS</code></pre>
+
+  <p>What they don't feel is that this match is happening in <em>Spišské Podhradie</em>, a town of 3,800 people at the foot of a medieval castle in eastern Slovakia.</p>
+
+  <blockquote>What if scores weren't consumed — they were explored? What if checking live matches felt like surveying a living, breathing planet of football activity?</blockquote>
+
+  <h2>the solution — macro to micro</h2>
+  <ul>
+    <li><strong>World view (macro)</strong> — entire globe with clustered match markers. South America glows during evening kickoffs, Europe during afternoon matches.</li>
+    <li><strong>Region view (meso)</strong> — individual match markers, team codes (e.g., "STR vs OLI"), pulsing for live status.</li>
+    <li><strong>City view (micro)</strong> — selecting a match triggers a fly-to that drops the user into the host city. Bold environmental typography overlays the city name (<em>"Capiata, Paraguay"</em> in 120px white text).</li>
+  </ul>
+
+  <h3>mobile: a complete rethink, not a shrunk-down desktop</h3>
+  <p>Solution: a bottom-sheet carousel. Horizontal swipeable cards anchored to the bottom of the screen. Swiping a card into center focus triggers a map fly-to automatically. Tapping an active card expands it to a full detail view, hiding others to reduce cognitive load.</p>
+
+  <blockquote>Building mobile as a separate architecture (a distinct MobileCarousel component, not a media-query on the sidebar) is the decision that made the phone experience feel native. It's more code. It was the right call.</blockquote>
+
+  <h2>the $19/month fix — intelligent edge caching</h2>
+  <p>The football data API charges per request. A viral World Cup moment could mean 100,000 users hitting simultaneously — thousands of dollars in overage fees per hour. On a solo, ad-free project, that is bankruptcy.</p>
+
+<pre><code>// app/api/matches/route.ts
+export const revalidate = 60
+
+export async function GET() {
+  const response = await fetch(
+    'https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all',
+    {
+      headers: {
+        'X-RapidAPI-Key': process.env.RAPIDAPI_KEY!,
+        'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+      },
+      next: { revalidate: 60 },
+    }
+  )
+  return Response.json(transformFixtures(await response.json()))
+}</code></pre>
+
+  <p>Every user hits the Vercel Edge cache, not the upstream API. At 100,000 concurrent users, the upstream API sees one request per minute. Cost scales with time, not traffic.</p>
+
+  <div class="aside">
+    <span class="label">WHY NOT REDIS</span>
+    Most engineers would reach for a Redis cache or a Cloudflare Worker. I specifically chose Next.js's built-in revalidate because it's the minimum viable caching layer — no extra infrastructure, no new failure mode, no additional bill.
+  </div>
+
+  <h2>the 4-tier geocoding fallback</h2>
+  <p>The API provides stadium names but not coordinates. <em>"Estadio Erico Galeano"</em> means nothing to Mapbox without lat/lng.</p>
+
+<pre><code>async function resolveMatchLocation(match) {
+  // Tier 1: Stadium coords cache (~500 major venues)
+  const stadium = STADIUM_DATABASE[match.venue.id]
+  if (stadium) return { ...stadium, source: 'stadium', approximate: false }
+
+  // Tier 2: City-level via Mapbox
+  const city = await geocodeCity(match.venue.city, match.country)
+  if (city) return { ...city, source: 'city', approximate: true }
+
+  // Tier 3: Country centroid
+  const country = COUNTRY_CENTROIDS[match.countryCode]
+  if (country) return { ...country, source: 'country', approximate: true }
+
+  // Tier 4: National team logic (international friendlies)
+  if (isNationalTeam(match.homeTeam)) {
+    return { ...CAPITAL_CITIES[match.homeTeam.country], source: 'national-team' }
+  }
+  return { ...FALLBACK_COORDS, source: 'unresolved', approximate: true }
+}</code></pre>
+
+  <p>Each match carries a <code>locationApproximate</code> boolean. The UI displays "Location is approximate / Ubicación aproximada" when true. <em>Lying to the user about precision is worse than admitting imprecision.</em></p>
+
+  <h2>staff-level decisions</h2>
+  <table>
+    <thead><tr><th>decision</th><th>chose</th><th>rejected</th><th>why</th></tr></thead>
+    <tbody>
+      <tr><td>data source</td><td>$19/mo API + caching</td><td>premium $200+/mo</td><td>caching is free; tier is not</td></tr>
+      <tr><td>caching layer</td><td>Next.js revalidate</td><td>Redis, custom</td><td>minimum viable — no new infra</td></tr>
+      <tr><td>geocoding</td><td>4-tier, user-visible</td><td>perfect or nothing</td><td>transparent imprecision &gt; silent failure</td></tr>
+      <tr><td>mobile arch</td><td>separate carousel</td><td>responsive sidebar</td><td>mobile-as-native &gt; mobile-as-compromise</td></tr>
+      <tr><td>monetization</td><td>none, ever</td><td>display ads</td><td>the product's promise is ad-free</td></tr>
+    </tbody>
+  </table>
+
+  <h2>performance</h2>
+  <ul>
+    <li>Edge caching — flat cost regardless of traffic.</li>
+    <li>Bundle size — ~180KB gzipped initial load. Critical path ~85KB.</li>
+    <li>Mobile Lighthouse — 92 Perf · 98 A11y · 100 Best Practices.</li>
+    <li>FCP — ~1.1s on median mobile connection.</li>
+  </ul>
+
+  <blockquote>The product is small. The craft is not. That is the point.</blockquote>
+</div>
+
+<section class="cs-foot">
+  <div class="col col-narrow">
+    <div class="next-up">
+      <a href="/receipts/hot-cold" class="nx">
+        <div class="label">NEXT — RCPT-003</div>
+        <div class="title">hot &amp; cold →</div>
+      </a>
+      <a href="/receipts" class="nx">
+        <div class="label">↩ INDEX</div>
+        <div class="title">all receipts</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="/site.js"></script>
+</body>
+</html>

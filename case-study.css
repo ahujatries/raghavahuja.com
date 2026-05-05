@@ -1,0 +1,157 @@
+/* case-study.css — long-form primitives shared across /work/* */
+
+.cs-hero {
+  padding: var(--s-7) 0 var(--s-6);
+  border-bottom: 1px solid var(--rule);
+}
+.cs-hero h1 {
+  font-family: var(--font-mono);
+  font-size: clamp(48px, 9vw, 132px);
+  font-weight: 700; letter-spacing: -0.05em;
+  line-height: 0.9; margin: 0;
+}
+.cs-hero h1 .heat { color: var(--heat); }
+.cs-hero .deck {
+  margin-top: var(--s-5);
+  font-size: 20px; line-height: 1.55;
+  max-width: 62ch; color: var(--fg);
+}
+.cs-hero .meta-row {
+  display: flex; gap: var(--s-5); flex-wrap: wrap;
+  margin-top: var(--s-5);
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.cs-hero .meta-row span { display: inline-flex; align-items: center; gap: 8px; }
+.cs-hero .meta-row .dot { color: var(--heat); }
+
+/* numbered chapter */
+.chapter {
+  padding: var(--s-7) 0 var(--s-2);
+  border-top: 1px solid var(--rule);
+}
+.chapter .chapter-num {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--heat); margin-bottom: var(--s-3);
+  display: flex; align-items: center; gap: 12px;
+}
+.chapter .chapter-num::after {
+  content: ''; flex: 1; height: 1px; background: var(--rule);
+  max-width: 280px;
+}
+.chapter h2 {
+  font-family: var(--font-mono);
+  font-size: clamp(34px, 5.2vw, 60px);
+  font-weight: 600; letter-spacing: -0.04em;
+  margin: 0 0 var(--s-4); line-height: 1;
+  max-width: 18ch;
+}
+
+/* TOC */
+.toc {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--s-3);
+  padding: var(--s-5) 0;
+  border-bottom: 1px solid var(--rule);
+}
+.toc a {
+  font-family: var(--font-mono); font-size: 12.5px;
+  color: var(--fg-dim); text-decoration: none;
+  display: flex; gap: 12px; padding: 8px 0;
+  border-top: 1px solid var(--rule);
+  transition: color 200ms var(--ease);
+}
+.toc a:hover { color: var(--heat); }
+.toc a .n { color: var(--fg-faint); }
+
+/* in-line marginalia */
+.aside {
+  margin: var(--s-4) 0;
+  padding: var(--s-3) var(--s-4);
+  border-left: 2px solid var(--heat);
+  background: rgba(255,122,43,0.04);
+  font-family: var(--font-mono); font-size: 13px; line-height: 1.55;
+  color: var(--fg-dim); letter-spacing: -0.005em;
+  max-width: 60ch;
+}
+.aside .label {
+  font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--heat); display: block; margin-bottom: 6px; font-weight: 600;
+}
+
+/* cs-stats — bigger than .stats */
+.cs-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--s-5);
+  margin: var(--s-6) 0;
+  padding: var(--s-5) 0;
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+}
+.cs-stats .stat-num {
+  font-family: var(--font-mono);
+  font-size: clamp(44px, 6vw, 76px);
+  font-weight: 700; letter-spacing: -0.045em; line-height: 1;
+  color: var(--heat);
+}
+.cs-stats .stat-label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--fg-dim); margin-top: 10px;
+  max-width: 24ch; line-height: 1.5;
+}
+
+/* deliberately-not section */
+.didnt {
+  background: var(--bg-deeper);
+  padding: var(--s-5);
+  margin: var(--s-5) 0;
+  border-left: 2px solid var(--rule-strong);
+}
+.didnt h4 {
+  margin-top: 0 !important;
+  color: var(--fg) !important;
+}
+.didnt ul { padding-left: 0; list-style: none; }
+.didnt li {
+  padding: 10px 0; border-top: 1px solid var(--rule);
+  font-size: 15px; line-height: 1.5; color: var(--fg-dim);
+  position: relative; padding-left: 26px;
+}
+.didnt li::before {
+  content: '×'; position: absolute; left: 0; top: 8px;
+  color: var(--heat); font-weight: 700; font-size: 18px;
+  font-family: var(--font-mono);
+}
+
+/* footer / next-up nav */
+.cs-foot {
+  padding: var(--s-7) 0 var(--s-7);
+  border-top: 1px solid var(--rule);
+  background: var(--bg-deeper);
+}
+.cs-foot .next-up {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4);
+  margin-top: var(--s-4);
+}
+.cs-foot .nx {
+  padding: var(--s-4); border: 1px solid var(--rule);
+  text-decoration: none; color: var(--fg);
+  transition: border-color 200ms var(--ease), background 200ms var(--ease);
+}
+.cs-foot .nx:hover { border-color: var(--heat); background: var(--bg); }
+.cs-foot .nx .label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--fg-faint); margin-bottom: 8px;
+}
+.cs-foot .nx .title {
+  font-family: var(--font-mono); font-size: 22px; font-weight: 600;
+  letter-spacing: -0.025em;
+}
+@media (max-width: 880px) {
+  .cs-foot .next-up { grid-template-columns: 1fr; }
+}

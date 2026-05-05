@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EF world journeys — case study · raghav ahuja</title>
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/case-study.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+  .gate {
+    margin: var(--s-5) 0;
+    padding: var(--s-5);
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-deeper);
+    position: relative;
+  }
+  .gate .stamp {
+    position: absolute; top: -10px; right: var(--s-4);
+    background: var(--bg-deeper);
+    padding: 0 12px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--heat);
+  }
+  .gate h3 {
+    margin-top: 0 !important;
+    font-family: var(--font-mono);
+    font-size: 19px; letter-spacing: -0.02em;
+  }
+  .gate-form {
+    display: flex; gap: 10px; margin-top: var(--s-3);
+    max-width: 460px;
+  }
+  .gate-form input {
+    flex: 1; padding: 12px 14px;
+    background: var(--bg); border: 1px solid var(--rule-strong);
+    color: var(--fg); font-family: var(--font-mono); font-size: 13px;
+    outline: none;
+    transition: border-color 200ms var(--ease);
+  }
+  .gate-form input:focus { border-color: var(--heat); }
+  .gate-form .err {
+    color: var(--heat); font-family: var(--font-mono);
+    font-size: 11px; margin-top: 8px; letter-spacing: 0.05em;
+    min-height: 14px;
+  }
+  .locked {
+    position: relative;
+    overflow: hidden;
+    max-height: 360px;
+    user-select: none;
+  }
+  .locked::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, var(--bg) 90%);
+    pointer-events: none;
+  }
+  .locked .blur { filter: blur(6px); opacity: 0.55; }
+  .unlocked-banner {
+    margin: var(--s-4) 0;
+    padding: 14px 18px;
+    background: rgba(255,122,43,0.08);
+    border-left: 2px solid var(--heat);
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--heat); letter-spacing: 0.06em;
+  }
+  .teaser-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4);
+    margin: var(--s-5) 0;
+  }
+  @media (max-width: 700px) { .teaser-grid { grid-template-columns: 1fr; } }
+  .teaser {
+    padding: var(--s-4);
+    border: 1px solid var(--rule);
+    background: var(--bg-deeper);
+  }
+  .teaser .num {
+    font-family: var(--font-mono); font-size: 28px;
+    color: var(--heat); font-weight: 700; letter-spacing: -0.04em;
+  }
+  .teaser .label {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--fg-dim); margin-top: 6px;
+  }
+/* ===== EF GUARANTEE-BLOCK MOCKUP ===== */
+.ef-mock {
+  --ef-bg:        #f6f1e8;
+  --ef-card:      #ffffff;
+  --ef-ink:       #1d2738;
+  --ef-ink-dim:   #5b6478;
+  --ef-ink-faint: #94a0b3;
+  --ef-rule:      rgba(29,39,56,0.10);
+  --ef-rule-2:    rgba(29,39,56,0.18);
+  --ef-brand:     #0d4a5c;
+  --ef-trust:     #1d8b6e;
+  --ef-warn:      #c4694a;
+  --ef-shadow:    0 1px 0 rgba(29,39,56,0.04), 0 6px 20px rgba(29,39,56,0.06);
+  margin: var(--s-5) 0 var(--s-6);
+}
+.ef-mock .ef-frame {
+  background: var(--ef-bg);
+  color: var(--ef-ink);
+  font-family: var(--font-sans);
+  border: 1px solid var(--ef-rule-2);
+  padding: clamp(20px, 3vw, 36px);
+}
+.ef-mock .ef-chrome {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 14px; margin-bottom: 18px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid var(--ef-rule);
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.06em;
+  color: var(--ef-ink-dim);
+}
+.ef-mock .ef-chrome .dots { display: inline-flex; gap: 6px; }
+.ef-mock .ef-chrome .dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--ef-rule-2); display: inline-block; }
+.ef-mock .ef-chrome .url {
+  flex: 1; padding: 4px 10px;
+  background: #fff; border: 1px solid var(--ef-rule);
+  color: var(--ef-ink); font-size: 11.5px;
+}
+.ef-mock .ef-chrome .url .path { color: var(--ef-ink-dim); }
+.ef-mock .ef-chrome .pad { color: var(--ef-ink-faint); }
+
+.ef-mock .ef-grid {
+  display: grid; grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+}
+.ef-mock .ef-card {
+  background: var(--ef-card);
+  border: 1px solid var(--ef-rule);
+  border-radius: 8px;
+  box-shadow: var(--ef-shadow);
+  overflow: hidden;
+}
+.ef-mock .ef-card-h {
+  padding: 14px 18px; border-bottom: 1px solid var(--ef-rule);
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ef-ink-dim);
+}
+.ef-mock .ef-card-h .step {
+  color: var(--ef-brand); font-weight: 700;
+}
+.ef-mock .ef-card-b { padding: 18px; }
+
+/* booking summary */
+.ef-mock .trip {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding-bottom: 14px; border-bottom: 1px solid var(--ef-rule);
+  margin-bottom: 14px;
+}
+.ef-mock .trip .thumb {
+  width: 72px; height: 72px; border-radius: 4px;
+  background: linear-gradient(135deg, #2b6c7a 0%, #0d4a5c 60%, #082a37 100%);
+  flex-shrink: 0; position: relative; overflow: hidden;
+}
+.ef-mock .trip .thumb::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 30% 35%, rgba(255,255,255,0.18) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.12) 0 1px, transparent 2px);
+}
+.ef-mock .trip .meta { flex: 1; }
+.ef-mock .trip .name {
+  font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500;
+  letter-spacing: -0.01em; line-height: 1.1;
+}
+.ef-mock .trip .sub {
+  font-size: 13px; color: var(--ef-ink-dim);
+  margin-top: 4px;
+}
+.ef-mock .trip .price {
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: 18px; color: var(--ef-ink);
+}
+.ef-mock .lineitem {
+  display: flex; justify-content: space-between;
+  font-size: 13.5px; line-height: 1.5;
+  padding: 7px 0;
+}
+.ef-mock .lineitem .label { color: var(--ef-ink-dim); }
+.ef-mock .lineitem .val { font-family: var(--font-mono); color: var(--ef-ink); }
+.ef-mock .lineitem.total {
+  border-top: 1px solid var(--ef-rule-2);
+  margin-top: 10px; padding-top: 12px;
+  font-weight: 700; font-size: 16px;
+}
+.ef-mock .lineitem.total .val { color: var(--ef-brand); font-size: 17px; }
+
+/* guarantee block — the design system primitive */
+.ef-mock .guarantee {
+  background: var(--ef-card);
+  border: 1px solid var(--ef-rule);
+  border-radius: 8px;
+  box-shadow: var(--ef-shadow);
+  overflow: hidden;
+}
+.ef-mock .guarantee-h {
+  padding: 14px 18px;
+  background: linear-gradient(180deg, rgba(13,74,92,0.06) 0%, rgba(13,74,92,0) 100%);
+  border-bottom: 1px solid var(--ef-rule);
+  display: flex; gap: 10px; align-items: center;
+}
+.ef-mock .guarantee-h .shield {
+  width: 28px; height: 28px; border-radius: 6px;
+  background: var(--ef-brand);
+  display: grid; place-items: center;
+  color: #fff; font-size: 14px; font-weight: 700;
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+.ef-mock .guarantee-h h4 {
+  margin: 0; font-family: 'Fraunces', serif;
+  font-size: 17px; font-weight: 500; letter-spacing: -0.005em;
+  color: var(--ef-ink);
+}
+.ef-mock .guarantee-h .pill {
+  margin-left: auto;
+  padding: 3px 9px;
+  background: rgba(29,139,110,0.12);
+  color: var(--ef-trust);
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.1em;
+  border-radius: 999px;
+}
+.ef-mock .guarantee-b {
+  padding: 14px 18px;
+  display: flex; flex-direction: column; gap: 9px;
+}
+.ef-mock .guarantee-b .row {
+  display: flex; gap: 9px; font-size: 13px; line-height: 1.4;
+  color: var(--ef-ink);
+}
+.ef-mock .guarantee-b .row .check { color: var(--ef-trust); font-weight: 700; }
+.ef-mock .guarantee-b .row em { color: var(--ef-ink-dim); font-style: normal; }
+.ef-mock .guarantee-b .fx {
+  margin-top: 8px; padding: 10px 12px;
+  background: rgba(29,39,56,0.04);
+  border: 1px dashed var(--ef-rule-2);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ef-ink-dim);
+  display: flex; justify-content: space-between;
+}
+.ef-mock .guarantee-b .fx .v { color: var(--ef-brand); font-weight: 700; }
+
+/* BDI heatmap strip */
+.ef-mock .bdi {
+  margin-top: 16px;
+  background: var(--ef-card);
+  border: 1px solid var(--ef-rule);
+  border-radius: 8px;
+  padding: 14px 18px;
+  box-shadow: var(--ef-shadow);
+}
+.ef-mock .bdi h5 {
+  margin: 0 0 10px;
+  font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--ef-ink-dim);
+  font-weight: 700;
+  display: flex; justify-content: space-between;
+}
+.ef-mock .bdi h5 .score { color: var(--ef-trust); }
+.ef-mock .bdi-grid {
+  display: grid; grid-template-columns: 80px repeat(8, 1fr);
+  gap: 3px;
+  font-family: var(--font-mono); font-size: 10px;
+}
+.ef-mock .bdi-grid .lab { color: var(--ef-ink-dim); padding: 4px 0; letter-spacing: 0.08em; }
+.ef-mock .bdi-grid .cell {
+  height: 20px; border-radius: 2px;
+  background: rgba(29,139,110,0.18);
+}
+.ef-mock .bdi-grid .cell.l1 { background: rgba(29,139,110,0.10); }
+.ef-mock .bdi-grid .cell.l2 { background: rgba(29,139,110,0.22); }
+.ef-mock .bdi-grid .cell.l3 { background: rgba(29,139,110,0.42); }
+.ef-mock .bdi-grid .cell.l4 { background: rgba(29,139,110,0.66); }
+.ef-mock .bdi-grid .cell.l5 { background: rgba(196,105,74,0.55); }
+.ef-mock .bdi-grid .cell.l6 { background: rgba(196,105,74,0.30); }
+
+.ef-mock .ef-cap {
+  margin-top: 14px;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-faint); letter-spacing: 0.08em;
+  text-transform: uppercase; text-align: center;
+}
+.ef-mock .ef-cap em { color: var(--fg-dim); font-style: italic; text-transform: none; }
+
+@media (max-width: 880px) {
+  .ef-mock .ef-grid { grid-template-columns: 1fr; }
+  .ef-mock .bdi-grid { grid-template-columns: 56px repeat(6, 1fr); }
+  .ef-mock .bdi-grid .cell:nth-child(n+8) { display: none; }
+}
+</style>
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="cs-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><a href="/work">work</a><span class="sep">/</span><span>EF</span></div>
+    <h1>EF world journeys<span class="heat">.</span></h1>
+    <p class="deck">three years on staff. checkout, insurance, the quoting tool across 50+ countries, two design frameworks. the case study is gated — but here's the shape of it.</p>
+    <div class="meta-row">
+      <span><span class="dot">●</span> CASE STUDY · NO. 03 · 2022–</span>
+      <span>STAFF DESIGNER</span>
+      <span>STATUS: GATED</span>
+    </div>
+  </div>
+</section>
+
+<div class="col">
+  <div class="ef-mock">
+    <div class="ef-frame">
+      <div class="ef-chrome">
+        <span class="dots"><span></span><span></span><span></span></span>
+        <span class="url">efworldjourneys.com<span class="path">/checkout/protect</span></span>
+        <span class="pad">STEP&nbsp;3 / 4</span>
+      </div>
+
+      <div class="ef-grid">
+        <!-- BOOKING SUMMARY -->
+        <div class="ef-card">
+          <div class="ef-card-h">
+            <span><span class="step">○ ○ ●</span> &nbsp;TRIP&nbsp;SUMMARY</span>
+            <span>EDIT</span>
+          </div>
+          <div class="ef-card-b">
+            <div class="trip">
+              <div class="thumb"></div>
+              <div class="meta">
+                <div class="name">Best of Italy</div>
+                <div class="sub">10 days · Rome → Florence → Venice<br>Departs Sep&nbsp;14, 2026 · 2 travelers</div>
+              </div>
+              <div class="price">$3,498</div>
+            </div>
+            <div class="lineitem"><span class="label">Tour package &times; 2</span><span class="val">$3,498.00</span></div>
+            <div class="lineitem"><span class="label">Travel protection (recommended)</span><span class="val">+$178.00</span></div>
+            <div class="lineitem"><span class="label">Taxes &amp; fees</span><span class="val">$214.00</span></div>
+            <div class="lineitem total"><span>Total due today</span><span class="val">USD&nbsp;$3,890.00</span></div>
+          </div>
+        </div>
+
+        <!-- GUARANTEE BLOCK — the design-system primitive -->
+        <div>
+          <div class="guarantee">
+            <div class="guarantee-h">
+              <div class="shield">EF</div>
+              <h4>Travel Protection</h4>
+              <span class="pill">+$178</span>
+            </div>
+            <div class="guarantee-b">
+              <div class="row"><span class="check">✓</span><span><strong>Cancel for any reason</strong> up to 14 days before departure. <em>Full refund, including the protection fee.</em></span></div>
+              <div class="row"><span class="check">✓</span><span>Trip-interruption coverage up to <strong>$2,500</strong> per traveler.</span></div>
+              <div class="row"><span class="check">✓</span><span>Medical &amp; emergency evacuation, 50&nbsp;US&nbsp;states + 122&nbsp;countries.</span></div>
+              <div class="row"><span class="check">✓</span><span>24/7 traveler support line. <em>Real humans, in your timezone.</em></span></div>
+              <div class="fx">
+                <span>YOUR RATE · USD</span>
+                <span class="v">$178.00 &nbsp;≈ &nbsp;€164.20</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bdi">
+            <h5><span>BDI · TRUST SCORE</span><span class="score">4.6 / 5</span></h5>
+            <div class="bdi-grid">
+              <span class="lab">DISCOVERY</span>
+              <span class="cell l4"></span><span class="cell l4"></span><span class="cell l3"></span><span class="cell l4"></span><span class="cell l4"></span><span class="cell l3"></span><span class="cell l3"></span><span class="cell l4"></span>
+              <span class="lab">PRICE</span>
+              <span class="cell l3"></span><span class="cell l3"></span><span class="cell l4"></span><span class="cell l4"></span><span class="cell l4"></span><span class="cell l3"></span><span class="cell l4"></span><span class="cell l4"></span>
+              <span class="lab">PROTECT</span>
+              <span class="cell l4"></span><span class="cell l4"></span><span class="cell l4"></span><span class="cell l4"></span><span class="cell l4"></span><span class="cell l4"></span><span class="cell l4"></span><span class="cell l4"></span>
+              <span class="lab">CONFIRM</span>
+              <span class="cell l3"></span><span class="cell l4"></span><span class="cell l3"></span><span class="cell l3"></span><span class="cell l4"></span><span class="cell l4"></span><span class="cell l3"></span><span class="cell l4"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ef-cap">↑ EF · checkout · step 3 — <em>guarantee-block primitive + behavioral instrumentation (BDI)</em></div>
+  </div>
+</div>
+
+<div class="col col-narrow prose">
+  <div class="gate">
+    <span class="stamp">○ GATED</span>
+    <h3>this case study is gated.</h3>
+    <p>It contains work I'm shipping at a current employer — metrics, framework names, and front-end specifics that are fine to share in a hiring conversation but that I'd rather not have my colleagues stumble onto by accident.</p>
+    <p>If you're a hiring partner or recruiter and you'd like the password, email <a href="mailto:work.raghavahuja@gmail.com?subject=case%20study%20access" target="_blank" rel="noopener">work.raghavahuja@gmail.com</a> and I'll send it. It's one short phrase; it unlocks on any device and stays unlocked on this browser for the session.</p>
+    <div class="gate-form">
+      <input type="password" id="pw" placeholder="password" autocomplete="off"/>
+      <button class="btn btn-fill" id="unlock">unlock →</button>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+</div>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">PUBLIC TEASER</div>
+    <h2>what the case study covers.</h2>
+    <ul>
+      <li><strong>Insurance add-on redesign</strong> — the full loop: discovery → instrumentation → design-system contribution → ship with engineering.</li>
+      <li><strong>Checkout rebuild</strong> — step sequence into a single-page progressive disclosure pattern.</li>
+      <li><strong>Quoting-tool redesign</strong> — advisor dashboard simplification, rolled across 50+ countries.</li>
+      <li><strong>Two frameworks I authored</strong> — <a href="/work/mind">MIND</a> (behavioral) and <a href="/work/hcai">Designing for Humans</a> (HCAI rubric). These ones are public.</li>
+    </ul>
+
+    <div class="teaser-grid">
+      <div class="teaser">
+        <div class="num">+$4.2M</div>
+        <div class="label">annualised — checkout rebuild</div>
+      </div>
+      <div class="teaser">
+        <div class="num">+10%</div>
+        <div class="label">take-rate — insurance redesign</div>
+      </div>
+      <div class="teaser">
+        <div class="num">+12.4%</div>
+        <div class="label">CtB — deals tracker pricing intel</div>
+      </div>
+      <div class="teaser">
+        <div class="num">50+</div>
+        <div class="label">countries — quoting-tool rollout</div>
+      </div>
+    </div>
+
+    <div class="aside">
+      <span class="label">WHY GATE</span>
+      The metrics are real. The framework names are public. What's gated is the way the screens look on a Friday afternoon when nothing is shipped yet — the embarrassing middles, the dead-end variants, the screenshots that would make a current colleague go "wait, what." I'd rather show you in a call than leave them indexable.
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="locked-region">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 01 — INSURANCE REDESIGN <span style="color:var(--fg-faint)">· LOCKED</span></div>
+    <h2>★★★★★★★ ★★★★★★★ ★★★★★★★.</h2>
+    <div class="locked" id="locked">
+      <div class="blur">
+        <p>The insurance add-on was the highest-margin SKU on the platform with the lowest take-rate in category. Discovery surfaced a trust leak in the price moment: travelers were quoting the package without the add-on, then opening the add-on PDP only to find the same number with a $89 increase, no rationale, no context. The redesign moved disclosure upstream and reframed the moment as risk-reversal, not upsell.</p>
+        <p>I instrumented every step against the BDI heatmap — page-level Trust scores below 2.5 became the work. The design-system contribution was a new <code>guarantee-block</code> primitive that paired the policy summary with the cancellation window in a single vertical, with live exchange-rate computation on the deductible. Engineering shipped it behind a holdback; we ran a 3-week experiment with five geo-segments. Lift was statistically significant in 4 of 5; the one that didn't lift was the one with the highest pre-existing add-on rate, which was the right honest answer.</p>
+        <p>The takeaway was not the +10% itself — it was that the take-rate was held by the trust score, not the price, and once we instrumented that link the rest of the platform got a tool to find similar moments. Two adjacent surfaces — visa add-on, flexible-date upsell — were rebuilt the same way over the next quarter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="col col-narrow prose">
+  <div class="aside" id="unlock-hint">
+    <span class="label">PASSWORD HINT (FRIENDLY)</span>
+    For testing this site: try <code>brooklyn</code>. (In real life, the hint comes from the email exchange.)
+  </div>
+</div>
+
+<section class="cs-foot">
+  <div class="col col-narrow">
+    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg-dim)">END OF CASE STUDY · NO. 03 (PUBLIC PORTION)</div>
+    <div class="next-up">
+      <a href="/work/mind" class="nx">
+        <div class="label">FRAMEWORK · 03A</div>
+        <div class="title">MIND framework →</div>
+      </a>
+      <a href="/work/hcai" class="nx">
+        <div class="label">FRAMEWORK · 03B</div>
+        <div class="title">designing for humans →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="/site.js"></script>
+<script>
+(function(){
+  const PW = 'brooklyn';
+  const KEY = 'ef-unlocked';
+  function unlock(){
+    document.getElementById('locked').classList.remove('locked');
+    document.querySelector('.gate').innerHTML = `
+      <span class="stamp" style="color:var(--heat)">● UNLOCKED</span>
+      <h3>welcome.</h3>
+      <p>You're reading the gated case study. Stays unlocked on this browser for the session. Email me if you'd like to walk through any of it on a call — it reads better with the screens on screen.</p>
+    `;
+    const hint = document.getElementById('unlock-hint');
+    if (hint) hint.remove();
+    document.getElementById('locked').scrollIntoView ? null : null; // no-op (don't scrollIntoView)
+  }
+  if (sessionStorage.getItem(KEY) === '1') unlock();
+  document.getElementById('unlock').addEventListener('click', tryUnlock);
+  document.getElementById('pw').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(); });
+  function tryUnlock(){
+    const v = document.getElementById('pw').value.trim().toLowerCase();
+    const err = document.getElementById('err');
+    if (v === PW) { try { sessionStorage.setItem(KEY, '1'); } catch(e){} unlock(); }
+    else { err.textContent = 'no match. try again or email for the phrase.'; }
+  }
+})();
+</script>
+</body>
+</html>

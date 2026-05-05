@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hot &amp; cold — receipt · raghav ahuja</title>
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/case-study.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+.hc-mock { margin: var(--s-5) 0 var(--s-6); }
+.hc-mock .hc-frame {
+  font-family: var(--font-mono);
+  border: 1px solid rgba(255,255,255,0.10);
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 480px;
+  position: relative;
+  overflow: hidden;
+}
+.hc-mock .hc-half {
+  position: relative; padding: 28px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.hc-mock .hot {
+  background: linear-gradient(160deg, #c4543c 0%, #8a3520 60%, #4f1f12 100%);
+  color: #fff5ec;
+}
+.hc-mock .cold {
+  background: linear-gradient(160deg, #2a4ea8 0%, #143577 60%, #0a1f4a 100%);
+  color: #e6efff;
+}
+.hc-mock .hc-half .l {
+  font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.18em; opacity: 0.7; text-transform: uppercase;
+}
+.hc-mock .hc-half .place {
+  font-family: 'Fraunces', serif; font-style: italic; font-weight: 400;
+  font-size: clamp(28px, 4vw, 44px); line-height: 1; letter-spacing: -0.01em;
+  margin-top: 6px;
+}
+.hc-mock .hc-half .place .country { display: block; font-style: normal; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; opacity: 0.6; margin-top: 8px; text-transform: uppercase; }
+.hc-mock .hc-half .temp {
+  font-family: 'Fraunces', serif; font-weight: 300;
+  font-size: clamp(80px, 13vw, 168px);
+  line-height: 0.9; letter-spacing: -0.04em;
+  margin: auto 0 0;
+}
+.hc-mock .hc-half .temp .deg { font-size: 0.4em; vertical-align: 0.45em; opacity: 0.7; }
+.hc-mock .hc-half .feels {
+  font-family: var(--font-mono); font-size: 11.5px;
+  letter-spacing: 0.06em; opacity: 0.85;
+}
+.hc-mock .hc-half .feels span { opacity: 0.6; margin-right: 8px; }
+.hc-mock .hc-half .stamp {
+  position: absolute; top: 18px; right: 22px;
+  font-size: 10px; letter-spacing: 0.18em; opacity: 0.6;
+  text-transform: uppercase;
+}
+.hc-mock .hc-half .sparks {
+  display: flex; gap: 3px; align-items: flex-end; height: 30px;
+}
+.hc-mock .hc-half .sparks span {
+  width: 7px; background: currentColor; opacity: 0.55;
+  border-radius: 1px;
+}
+.hc-mock .hc-tabs {
+  position: absolute; left: 50%; top: 14px; transform: translateX(-50%);
+  display: flex; gap: 0;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.18);
+  font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  z-index: 2;
+}
+.hc-mock .hc-tabs span {
+  padding: 7px 14px; color: rgba(255,255,255,0.55);
+  border-right: 1px solid rgba(255,255,255,0.12);
+}
+.hc-mock .hc-tabs span:last-child { border-right: 0; }
+.hc-mock .hc-tabs span.on { color: #fff; background: rgba(255,255,255,0.10); }
+.hc-mock .hc-tabs span.lock { opacity: 0.4; }
+.hc-mock .hc-foot {
+  grid-column: 1 / -1;
+  display: flex; justify-content: space-between;
+  padding: 10px 22px;
+  background: #060708; color: rgba(255,255,255,0.5);
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+.hc-mock .cap {
+  margin-top: 14px; font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-faint); letter-spacing: 0.08em;
+  text-transform: uppercase; text-align: center;
+}
+.hc-mock .cap em { color: var(--fg-dim); font-style: italic; text-transform: none; }
+@media (max-width: 700px) {
+  .hc-mock .hc-frame { grid-template-columns: 1fr; }
+  .hc-mock .hc-tabs { top: auto; bottom: 14px; }
+}
+</style>
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="cs-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><a href="/receipts">receipts</a><span class="sep">/</span><span>hot &amp; cold</span></div>
+    <h1>hot &amp; cold<span class="heat">.</span></h1>
+    <p class="deck">a live moodpiece showing the hottest and coldest places on earth, right now. open-meteo, GH Action, static JSON. one afternoon. dropped the live feeds for honesty.</p>
+    <div class="meta-row">
+      <span><span class="dot">●</span> RECEIPT 003 · 2026-01</span>
+      <span>1 AFTERNOON</span>
+      <span>LIVE</span>
+    </div>
+  </div>
+</section>
+
+<div class="col">
+  <div class="hc-mock">
+    <div class="hc-frame">
+      <div class="hc-tabs">
+        <span class="on">TEMP</span>
+        <span class="lock">WIND · SOON</span>
+        <span class="lock">RAIN · SOON</span>
+        <span class="lock">UV · SOON</span>
+      </div>
+
+      <div class="hc-half hot">
+        <div class="stamp">HOTTEST · NOW</div>
+        <div class="l">CONTINENT — ASIA</div>
+        <div class="place">Lut Desert<span class="country">IRAN · 30.4°N&nbsp;·&nbsp;58.4°E</span></div>
+        <div class="temp">54<span class="deg">°C</span></div>
+        <div class="feels"><span>FEELS</span>62°C&nbsp;·&nbsp;HUMIDITY&nbsp;3%</div>
+        <div class="sparks">
+          <span style="height:38%"></span><span style="height:46%"></span><span style="height:52%"></span>
+          <span style="height:58%"></span><span style="height:62%"></span><span style="height:68%"></span>
+          <span style="height:74%"></span><span style="height:82%"></span><span style="height:90%"></span>
+          <span style="height:96%"></span><span style="height:100%"></span><span style="height:88%"></span>
+          <span style="height:78%"></span><span style="height:62%"></span><span style="height:48%"></span>
+          <span style="height:42%"></span><span style="height:38%"></span><span style="height:36%"></span>
+        </div>
+        <div class="l">↑ LAST 24H · OPEN-METEO ERA5</div>
+      </div>
+
+      <div class="hc-half cold">
+        <div class="stamp">COLDEST · NOW</div>
+        <div class="l">CONTINENT — ANTARCTICA</div>
+        <div class="place">Vostok Station<span class="country">ANTARCTICA · 78.5°S&nbsp;·&nbsp;106.8°E</span></div>
+        <div class="temp">−71<span class="deg">°C</span></div>
+        <div class="feels"><span>WIND CHILL</span>−89°C&nbsp;·&nbsp;WIND&nbsp;14&nbsp;m/s</div>
+        <div class="sparks">
+          <span style="height:88%"></span><span style="height:84%"></span><span style="height:78%"></span>
+          <span style="height:72%"></span><span style="height:68%"></span><span style="height:64%"></span>
+          <span style="height:58%"></span><span style="height:54%"></span><span style="height:48%"></span>
+          <span style="height:42%"></span><span style="height:38%"></span><span style="height:34%"></span>
+          <span style="height:38%"></span><span style="height:46%"></span><span style="height:52%"></span>
+          <span style="height:62%"></span><span style="height:68%"></span><span style="height:78%"></span>
+        </div>
+        <div class="l">↑ LAST 24H · OPEN-METEO ERA5</div>
+      </div>
+
+      <div class="hc-foot">
+        <span>14 EXTREMES · 7 CONTINENTS</span>
+        <span>REFRESHED · 4 MIN AGO · GH ACTION</span>
+        <span>STATIC JSON · 0 PER-USER API CALLS</span>
+      </div>
+    </div>
+    <div class="cap">↑ hot &amp; cold · split-screen moodpiece · <em>open-meteo + a github action, redeployed every 15 min</em></div>
+  </div>
+
+  <div class="cs-stats">
+    <div><div class="stat-num">14</div><div class="stat-label">canonical extreme locations queried per cron run</div></div>
+    <div><div class="stat-num">15 min</div><div class="stat-label">refresh — gh action commits json, vercel redeploys</div></div>
+    <div><div class="stat-num">0</div><div class="stat-label">per-visitor api calls — viral-safe by construction</div></div>
+  </div>
+</div>
+
+<div class="col col-narrow prose">
+  <h2>the brief</h2>
+  <p>"What's the temperature, right now, at the most extreme places on earth?" Lut Desert. Vostok Station. Death Valley. Oymyakon. Places most people will never go and most reporting never reaches. The page surfaces them as a moodpiece — not a weather forecast. The job is to make the numbers <em>feel</em> as extreme as they are.</p>
+
+  <h2>the decision that mattered: dropping the live feeds</h2>
+  <p>The original concept paired each extreme with the <em>nearest watchable live feed</em> — a YouTube Live stream or Windy webcam from the closest populated place. Three things killed it:</p>
+  <ul>
+    <li><strong>YouTube Live URLs die.</strong> Streams go offline, channels get rate-limited, embeds get age-gated.</li>
+    <li><strong>Windy needs a key + has TOU constraints</strong> on embedding outside their ecosystem.</li>
+    <li><strong>Honesty.</strong> The placeholder feed handles I'd designed with were illustrative — none of them existed. Shipping illustrative handles in production-looking chrome is the opposite of receipts.</li>
+  </ul>
+
+  <blockquote>The cleanest version of an idea is usually the one you arrive at by removing things, not adding.</blockquote>
+
+  <h2>architecture</h2>
+  <p>Three parts. None of them complicated.</p>
+
+  <h3>1 · the cron — open-meteo as the data source</h3>
+  <p>Open-Meteo's ERA5 forecast endpoint is free, has no auth, and gives current temperature plus the last 24 hours of hourly readings for any lat/lon. A Node script walks 14 canonical extremes (one hot + one cold per continent) and pulls live numbers. Fourteen API calls, ~1.4 seconds.</p>
+
+<pre><code>const u = new URL('https://api.open-meteo.com/v1/forecast');
+u.searchParams.set('latitude',  lat);
+u.searchParams.set('longitude', lon);
+u.searchParams.set('current',   'temperature_2m');
+u.searchParams.set('hourly',    'temperature_2m');
+u.searchParams.set('past_hours', '24');</code></pre>
+
+  <h3>2 · the schedule — github actions, every 15 minutes</h3>
+
+<pre><code>on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch: {}</code></pre>
+
+  <p>Commits the JSON if it changed, pushes. Vercel auto-redeploys. Zero dollars, zero per-visitor API calls — page loads a static JSON file like any other static asset, so it can't get rate-limited even if it goes viral.</p>
+
+  <h3>3 · the page — vanilla js, mapbox gl, no framework</h3>
+  <p>Standalone <code>hot-cold.html</code> + <code>.css</code> + <code>.js</code>. No build step, no React, no bundler. On load, fetches the cached JSON; on failure falls back to an embedded fixture so the UI never breaks. Total wire weight under a hundred kilobytes excluding Mapbox tiles.</p>
+
+  <h2>design system</h2>
+  <p>Cobalt — the second of the two systems on raghavahuja.com. Type pairing is Fraunces (italic display) × Geist (body) × JetBrains Mono (chrome). Accent <code>#5b8cff</code> on paper <code>#0c0c0e</code>. Hot uses ember <code>#c8553d</code>; cold reuses cobalt as its color. One warm accent in the whole palette.</p>
+
+  <h2>what's next</h2>
+  <ul>
+    <li><strong>Extensible to other extremes.</strong> Top tabs already render <em>wind / rain / uv</em> as "soon." Adding them is render variation, not new infra.</li>
+    <li><strong>Bigger candidate registry.</strong> Twenty per continent would catch true daily winners.</li>
+    <li><strong>OG image.</strong> The split red/blue is unusually well-suited to a static OG.</li>
+  </ul>
+
+  <h2>receipts</h2>
+  <p>Live: <a href="https://raghavahuja.com/hot-cold">raghavahuja.com/hot-cold</a></p>
+</div>
+
+<section class="cs-foot">
+  <div class="col col-narrow">
+    <div class="next-up">
+      <a href="/receipts" class="nx">
+        <div class="label">↩ INDEX</div>
+        <div class="title">all receipts</div>
+      </a>
+      <a href="/work" class="nx">
+        <div class="label">SHIFT GEARS</div>
+        <div class="title">the long stuff →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jmnpr labs — case study · raghav ahuja</title>
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/case-study.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+/* ===== JMNPR STUDIO MANIFEST MOCKUP ===== */
+.jm-mock {
+  --jm-paper:    #efe7d3;
+  --jm-ink:      #1c1810;
+  --jm-ink-dim:  #5a4f3a;
+  --jm-rule:     rgba(28,24,16,0.16);
+  --jm-rule-2:   rgba(28,24,16,0.32);
+  --jm-heat:     #b13a1f;
+  --jm-stamp:    #2d3f6e;
+  margin: var(--s-5) 0 var(--s-6);
+}
+.jm-mock .jm-frame {
+  background: var(--jm-paper);
+  color: var(--jm-ink);
+  font-family: var(--font-mono);
+  border: 1px solid var(--jm-rule-2);
+  padding: clamp(20px, 3.2vw, 36px);
+  position: relative;
+  overflow: hidden;
+}
+.jm-mock .jm-frame::before {
+  content: '';
+  position: absolute; inset: 8px;
+  border: 1px solid var(--jm-rule);
+  pointer-events: none;
+}
+.jm-mock .jm-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  border-bottom: 2px solid var(--jm-ink);
+  padding-bottom: 14px; margin-bottom: 18px;
+  flex-wrap: wrap; gap: 16px;
+  position: relative; z-index: 1;
+}
+.jm-mock .jm-head .wm {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 600; letter-spacing: -0.04em;
+  line-height: 0.92; margin: 0;
+}
+.jm-mock .jm-head .wm .it { font-style: italic; font-weight: 300; color: var(--jm-ink-dim); }
+.jm-mock .jm-head .meta {
+  font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--jm-ink-dim);
+  text-align: right;
+}
+.jm-mock .jm-head .meta strong { color: var(--jm-ink); display: block; font-size: 11px; }
+.jm-mock .jm-subhead {
+  display: flex; gap: 22px; flex-wrap: wrap;
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--jm-ink-dim);
+  border-bottom: 1px solid var(--jm-rule);
+  padding-bottom: 12px; margin-bottom: 18px;
+  position: relative; z-index: 1;
+}
+.jm-mock .jm-subhead .on { color: var(--jm-heat); }
+.jm-mock .jm-subhead .grow { flex: 1; text-align: right; color: var(--jm-ink-dim); }
+
+.jm-mock .jm-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  position: relative; z-index: 1;
+}
+.jm-mock .jm-card {
+  border-right: 1px solid var(--jm-rule);
+  border-bottom: 1px solid var(--jm-rule);
+  padding: 18px 16px;
+  display: flex; flex-direction: column; gap: 10px;
+  min-height: 180px;
+  position: relative;
+}
+.jm-mock .jm-grid .jm-card:nth-child(3n) { border-right: 0; }
+.jm-mock .jm-grid .jm-card:nth-last-child(-n+3) { border-bottom: 0; }
+.jm-mock .jm-card .sku {
+  font-size: 10.5px; letter-spacing: 0.16em; color: var(--jm-ink-dim);
+  display: flex; justify-content: space-between;
+}
+.jm-mock .jm-card .sku .n { color: var(--jm-heat); }
+.jm-mock .jm-card .glyph {
+  font-family: 'Fraunces', serif; font-style: italic;
+  font-size: 56px; font-weight: 300;
+  line-height: 1; color: var(--jm-ink);
+  margin: 4px 0 0;
+}
+.jm-mock .jm-card .name {
+  font-size: 14px; font-weight: 700; letter-spacing: -0.01em;
+  text-transform: uppercase; line-height: 1.15;
+}
+.jm-mock .jm-card .desc {
+  font-family: var(--font-sans);
+  font-size: 12.5px; line-height: 1.5;
+  color: var(--jm-ink-dim);
+  flex: 1;
+}
+.jm-mock .jm-card .foot {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--jm-ink-dim);
+  border-top: 1px dashed var(--jm-rule);
+  padding-top: 8px;
+  margin-top: auto;
+}
+.jm-mock .stamp {
+  display: inline-block;
+  padding: 3px 7px; font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.14em;
+  border: 1px solid currentColor;
+}
+.jm-mock .stamp.live    { color: var(--jm-heat); }
+.jm-mock .stamp.beta    { color: var(--jm-stamp); }
+.jm-mock .stamp.build   { color: var(--jm-ink); opacity: 0.65; }
+.jm-mock .stamp.spec    { color: var(--jm-ink-dim); }
+.jm-mock .stamp.deck    { color: var(--jm-ink-dim); }
+
+.jm-mock .jm-foot {
+  display: flex; justify-content: space-between;
+  margin-top: 18px; padding-top: 14px;
+  border-top: 2px solid var(--jm-ink);
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--jm-ink-dim);
+  position: relative; z-index: 1;
+}
+.jm-mock .jm-watermark {
+  position: absolute; right: -10%; top: 50%;
+  transform: translateY(-50%) rotate(-90deg); transform-origin: center;
+  font-family: 'Fraunces', serif; font-style: italic;
+  font-size: 22vw; line-height: 1; font-weight: 300;
+  color: rgba(28,24,16,0.04);
+  pointer-events: none; user-select: none;
+  white-space: nowrap;
+}
+.jm-mock .cap {
+  margin-top: 14px;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-faint); letter-spacing: 0.08em;
+  text-transform: uppercase; text-align: center;
+}
+.jm-mock .cap em { color: var(--fg-dim); font-style: italic; text-transform: none; }
+
+@media (max-width: 880px) {
+  .jm-mock .jm-grid { grid-template-columns: 1fr 1fr; }
+  .jm-mock .jm-grid .jm-card { border-right: 1px solid var(--jm-rule) !important; }
+  .jm-mock .jm-grid .jm-card:nth-child(2n) { border-right: 0 !important; }
+  .jm-mock .jm-grid .jm-card:nth-last-child(-n+2) { border-bottom: 0; }
+  .jm-mock .jm-watermark { display: none; }
+}
+@media (max-width: 560px) {
+  .jm-mock .jm-grid { grid-template-columns: 1fr; }
+  .jm-mock .jm-grid .jm-card { border-right: 0 !important; }
+}
+</style>
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="cs-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><a href="/work">work</a><span class="sep">/</span><span>jmnpr labs</span></div>
+    <h1>jmnpr<span class="heat">.</span></h1>
+    <p class="deck">a one-person tools studio. one shipped, five on deck. self-serve, PPP-priced, no sales motion. named for the other side of the yamuna — and the other side of a different river.</p>
+    <div class="meta-row">
+      <span><span class="dot">●</span> CASE STUDY · NO. 02 · 2025–</span>
+      <span>SOLO STUDIO</span>
+      <span>STATUS: OPEN</span>
+    </div>
+  </div>
+</section>
+
+<div class="col">
+  <div class="jm-mock">
+    <div class="jm-frame">
+      <div class="jm-watermark">jamanapaar</div>
+      <div class="jm-head">
+        <h2 class="wm">JMNPR <span class="it">Labs</span></h2>
+        <div class="meta">
+          <strong>STUDIO MANIFEST · 2026</strong>
+          ONE BRAND · MANY VERTICALS<br>
+          BROOKLYN ⇄ EAST DELHI
+        </div>
+      </div>
+      <div class="jm-subhead">
+        <span class="on">CATALOG · 6</span>
+        <span>LIVE · 1</span>
+        <span>BETA · 1</span>
+        <span>BUILD · 3</span>
+        <span>SPEC · 1</span>
+        <span class="grow">SELF-SERVE · PPP-INDEXED</span>
+      </div>
+
+      <div class="jm-grid">
+        <div class="jm-card">
+          <div class="sku"><span class="n">SKU&nbsp;001</span><span>v1.4</span></div>
+          <div class="glyph">S</div>
+          <div class="name">JMNPR Story Kit</div>
+          <div class="desc">14 worktables, 4 craft worksheets, a showrunner-grade bible, a wired Obsidian vault. Three tiers, Lemon Squeezy.</div>
+          <div class="foot"><span class="stamp live">● LIVE</span><span>$29 / $79 / $149</span></div>
+        </div>
+        <div class="jm-card">
+          <div class="sku"><span class="n">SKU&nbsp;002</span><span>v0.3</span></div>
+          <div class="glyph">A</div>
+          <div class="name">Arqo</div>
+          <div class="desc">Mobile-first screenwriting. AST-as-OS. Three synchronized views on the phone. Consumer surface of the studio.</div>
+          <div class="foot"><span class="stamp beta">○ BETA</span><span>INVITE</span></div>
+        </div>
+        <div class="jm-card">
+          <div class="sku"><span class="n">SKU&nbsp;003</span><span>v0.1</span></div>
+          <div class="glyph">R</div>
+          <div class="name">Realtime Viz Starter</div>
+          <div class="desc">Edge cache, marker lifecycle, geocoding fallback — extracted from Futbolis at 100k concurrent on $19/mo. Next.js starter.</div>
+          <div class="foot"><span class="stamp build">▸ BUILD</span><span>NPM SOON</span></div>
+        </div>
+        <div class="jm-card">
+          <div class="sku"><span class="n">SKU&nbsp;004</span><span>v0.2</span></div>
+          <div class="glyph">T</div>
+          <div class="name">Token Lab</div>
+          <div class="desc">Figma plugin + CLI + drift dashboard. Keeps design tokens honest across Figma and code. The plugin you wish your design system had.</div>
+          <div class="foot"><span class="stamp build">▸ BUILD</span><span>PRIVATE β</span></div>
+        </div>
+        <div class="jm-card">
+          <div class="sku"><span class="n">SKU&nbsp;005</span><span>v0.1</span></div>
+          <div class="glyph">B</div>
+          <div class="name">Stripboard</div>
+          <div class="desc">Real-time scheduling for indie 1st ADs. Constraint solver with cast-hold logic and simulated annealing. Movie Magic, replaced.</div>
+          <div class="foot"><span class="stamp build">▸ BUILD</span><span>SOLVER ✓</span></div>
+        </div>
+        <div class="jm-card">
+          <div class="sku"><span class="n">SKU&nbsp;006</span><span>spec</span></div>
+          <div class="glyph">.j</div>
+          <div class="name">.jmpr Format</div>
+          <div class="desc">Open container for end-to-end filmmaking projects. Script, beats, shot list, schedule, assets — one signed, spec'd container. Free.</div>
+          <div class="foot"><span class="stamp spec">◇ SPEC</span><span>OPEN STD</span></div>
+        </div>
+      </div>
+
+      <div class="jm-foot">
+        <span>JMNPR LABS · BROOKLYN, NY</span>
+        <span>NO ENTERPRISE · NO SALES MOTION · NO NDA TO LOOK</span>
+      </div>
+    </div>
+    <div class="cap">↑ jmnpr labs · studio manifest · <em>one shipped, five on deck</em></div>
+  </div>
+
+  <div class="cs-stats">
+    <div><div class="stat-num">1</div><div class="stat-label">shipped tool in market — JMNPR Story Kit</div></div>
+    <div><div class="stat-num">5</div><div class="stat-label">flagship tools on deck — infra built, GTM next</div></div>
+    <div><div class="stat-num">$0</div><div class="stat-label">enterprise deals, by design</div></div>
+  </div>
+</div>
+
+<div class="col col-narrow prose">
+  <p><strong>JMNPR Labs is a one-person studio</strong> I started in my evenings, after thirteen years of shipping inside other people's roadmaps. The thesis is narrow and the catalog is broad: production-grade, self-serve tools for the creators and craftspeople the category has under-served. One brand. Many verticals. Honest pricing. No sales motion.</p>
+
+  <p>Arqo is one expression of the studio — the consumer surface. This case study is about everything else. What's live, what's on deck, and the architectural bet underneath the whole thing: that a single solo operator, with AI-native tooling and fifteen years of accumulated taste, can now ship the kind of product catalog that previously required a twelve-person company.</p>
+
+  <div class="aside">
+    <span class="label">ON THE NAME</span>
+    The studio is named <em>Jamanapaar</em> — Hindi for "the other side of the Yamuna." East Delhi, where I grew up, and the side of the river outsiders looked down on. Brooklyn, where I live now, on the other side of a different river. The studio is named for the posture.
+  </div>
+</div>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 01 — THE THESIS</div>
+    <h2>single brand, many verticals.</h2>
+    <p>Every tools studio I respect — Obsidian, Linear, Pieter Levels' catalog, Ghost, early Figma — shares one trait: a single brand that can carry many products, because the brand is the <em>worldview</em>, not the SKU.</p>
+    <p>JMNPR Labs is built the same way. The consumer sees one studio with a consistent posture: craft-forward, self-serve, PPP-priced, honest about what's shipped. The catalog underneath can span screenwriting, scheduling, design tokens, realtime infra, and standards work — and still read as one coherent thing. Because it is.</p>
+
+    <h3>self-serve, by design.</h3>
+    <p>No enterprise contracts. No sales calls. No discovery decks. Every tool is live, priced, and checkout-ready. Every asset downloadable. Every spec public. The studio's operating leverage comes from <em>not</em> running a sales motion — not from replacing one.</p>
+
+    <blockquote>This is a deliberate constraint. A one-person studio that sells enterprise is a one-person studio that stops shipping. The moment the catalog needs sales, the catalog stops growing. I'd rather ship ten more tools than close one six-figure contract.</blockquote>
+
+    <h3>ai-native velocity.</h3>
+    <p>Every tool in the catalog is built with Claude Code, Cursor, and v0 in agentic-dev workflows. This is not decoration. It is the reason the catalog can exist. Solo-velocity at studio-quality is a very recent possibility, and the studio is built to press on that edge rather than pretend it doesn't exist.</p>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 02 — IN MARKET</div>
+    <h2>jmnpr story kit.</h2>
+    <p>A showrunner-grade toolkit for writers who want to move from blank page to shootable draft without buying a $500 masterclass or subscribing to yet another Notion template farm.</p>
+    <p>Fourteen story-structure worktables. Four craft worksheets. A showrunner-grade bible, a prompt deck, a craft drills set, and a fully wired Obsidian vault. Three tiers at <strong>$29 / $79 / $149</strong>, sold through Lemon Squeezy, rendered out of a typed React-PDF pipeline that reads from a published <code>@jmnpr/craft</code> package.</p>
+
+    <div class="aside">
+      <span class="label">THE REUSABLE BIT</span>
+      The pipeline is the reusable bit. Every future PDF-native tool in the catalog ships off the same infrastructure. Story Kit happens to be the first.
+    </div>
+
+    <h4>at a glance</h4>
+<pre><code>price        $29 · $79 · $149 (PPP-indexed)
+format       typed React-PDF · Obsidian vault · Lemon Squeezy
+status       live · v1.4</code></pre>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 03 — ON DECK</div>
+    <h2>five flagships.</h2>
+    <p>These are the five products the studio is shipping next. Infra is built or mostly-built on all of them. GTM is the next step. I'm naming them here because the catalog's credibility depends on telling you what's coming, not just what's done.</p>
+
+    <h3>01 — realtime viz starter</h3>
+    <p>The infra that ran Futbolis.live at 100k concurrent users on $19/month, extracted as an npm starter. Edge caching, marker lifecycle, geocoding fallback, mobile-first architecture — packaged as a Next.js starter with a full case-study writeup.</p>
+    <ul>
+      <li><strong>For</strong> — solo devs and small teams shipping realtime dashboards without a cloud bill.</li>
+      <li><strong>Status</strong> — infra live, starter extraction in progress.</li>
+    </ul>
+
+    <h3>02 — token lab</h3>
+    <p>A Figma plugin + CLI + drift dashboard that keeps design tokens honest across Figma and code. The plugin you wish your design system had. Built after replacing Storybook in-house at a global EdTech platform and realizing the token layer was the actual bottleneck, not the component one.</p>
+    <ul>
+      <li><strong>For</strong> — design systems teams, multi-brand product orgs, the founder who's tired of token drift PRs.</li>
+      <li><strong>Status</strong> — plugin live in private beta, public Q2.</li>
+    </ul>
+
+    <h3>03 — stripboard</h3>
+    <p>A real-time scheduling app for indie 1st ADs, built on a constraint solver with cast-hold logic and simulated annealing. Movie Magic should have been replaced ten years ago. Nobody did it. Stripboard does.</p>
+    <ul>
+      <li><strong>For</strong> — indie 1st ADs, production coordinators, line producers on projects that can't justify Movie Magic's enterprise pricing.</li>
+      <li><strong>Status</strong> — constraint solver shipped, UI in build.</li>
+    </ul>
+
+    <h3>04 — beats</h3>
+    <p>A hosted beat-board with Yjs CRDT collab, presence, and first-class motion. Studio-quality real-time editor for writers' rooms and solo writers alike. Shares the collab stack with Arqo; same engine, different surface.</p>
+    <ul>
+      <li><strong>For</strong> — writers' rooms, indie teams, solo writers who want a beat-board that doesn't fight them.</li>
+      <li><strong>Status</strong> — collab layer battle-tested in Arqo, standalone surface in build.</li>
+    </ul>
+
+    <h3>05 — .jmpr</h3>
+    <p>An open container format for end-to-end filmmaking projects. Script, beats, shot list, schedule, assets, manifests — one signed, spec'd container. The format the industry has been missing and nobody's been willing to publish. Standards-layer work, given away free.</p>
+    <ul>
+      <li><strong>For</strong> — every tool in the filmmaking pipeline, starting with JMNPR's own — but open on purpose.</li>
+      <li><strong>Status</strong> — spec drafted, reference implementation in build.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 04 — STAFF-LEVEL DECISIONS</div>
+    <h2>the table.</h2>
+    <table>
+      <thead><tr><th>decision</th><th>chose</th><th>rejected</th><th>why</th></tr></thead>
+      <tbody>
+        <tr><td>business model</td><td>self-serve, PPP-indexed</td><td>enterprise + sales</td><td>sales motion kills catalog velocity</td></tr>
+        <tr><td>brand strategy</td><td>single brand, many verts</td><td>sub-brand per product</td><td>one worldview scales further than one SKU</td></tr>
+        <tr><td>tooling</td><td>claude code + cursor + v0</td><td>classic solo-dev stack</td><td>agentic-dev is the reason the catalog exists</td></tr>
+        <tr><td>distribution</td><td>free tools + free spec</td><td>paywall everything</td><td>public goods seed every paid conversation</td></tr>
+        <tr><td>infra</td><td>shared @jmnpr/* packages</td><td>per-product codebases</td><td>the pipelines are the product</td></tr>
+        <tr><td>standards</td><td>publish .jmpr openly</td><td>keep the format private</td><td>standards grow the category; the category grows me</td></tr>
+        <tr><td>customer</td><td>creators + indies + DEs</td><td>studios + enterprises</td><td>under-served audiences ship faster than bureaucracies</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 05 — WHAT I'M NOT BUILDING</div>
+    <h2>by design.</h2>
+    <div class="didnt">
+      <h4>OFF-LIMITS</h4>
+      <ul>
+        <li>No enterprise contracts. No SSO-gated pricing. No sales calls.</li>
+        <li>No AI-generates-your-script tools. JMNPR does not ship one-click generation of human creative work. Ever.</li>
+        <li>No subscription-by-default. Some tools are one-time. Some are subscription where it earns the model. No subscription as lock-in.</li>
+        <li>No studio deals that require an NDA to look at the product.</li>
+        <li>No competing with my own employer. EF's surface stays EF's.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 06 — WHY NOW</div>
+    <h2>the window is open.</h2>
+    <p>Solo-velocity at studio-quality is a new thing. It's been possible for maybe eighteen months and it'll be the default in five years. The window where a single operator with taste and agentic-dev tooling can ship a tools catalog that would've required a Series A team is open right now. JMNPR Labs is built to ride that window.</p>
+
+    <blockquote>If you're building something that touches creators, filmmaking, design tokens, realtime infra, or standards work — I'd love fifteen minutes. <a href="mailto:work.raghavahuja@gmail.com?subject=JMNPR" target="_blank" rel="noopener">work.raghavahuja@gmail.com</a>.</blockquote>
+  </div>
+</section>
+
+<section class="cs-foot">
+  <div class="col col-narrow">
+    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg-dim)">END OF CASE STUDY · NO. 02</div>
+    <div class="next-up">
+      <a href="/work/ef" class="nx">
+        <div class="label">NEXT — NO. 03</div>
+        <div class="title">EF world journeys →</div>
+      </a>
+      <a href="/work" class="nx">
+        <div class="label">↩ INDEX</div>
+        <div class="title">all work</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="/site.js"></script>
+</body>
+</html>
