@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>zulily — case study · raghav ahuja</title>
+<meta name="description" content="zulily — algorithmic logic for a personalized email ecosystem at 16M sends/day. +14% CTR, +45s session, zero manual curation.">
+<meta name="theme-color" content="#1a1814">
+<link rel="canonical" href="https://raghavahuja.com/work/zulily">
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/case-study.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+/* ===== ZULILY — INBOX MOCKUP ===== */
+.zu-mock {
+  --zu-paper:    #faf7f1;
+  --zu-ink:      #1a1d2c;
+  --zu-ink-dim:  #5a5f72;
+  --zu-rule:     rgba(26,29,44,0.10);
+  --zu-rule-2:   rgba(26,29,44,0.20);
+  --zu-brand:    #c8159a;
+  --zu-accent:   #4a3aff;
+  margin: var(--s-5) 0 var(--s-6);
+}
+.zu-mock .zu-frame {
+  background: var(--zu-paper);
+  color: var(--zu-ink);
+  font-family: var(--font-sans);
+  border: 1px solid var(--zu-rule-2);
+  padding: clamp(20px, 3vw, 32px);
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 18px;
+  min-height: 480px;
+}
+.zu-mock .zu-side {
+  border-right: 1px solid var(--zu-rule);
+  padding-right: 16px;
+}
+.zu-mock .zu-side h5 {
+  font-family: var(--font-mono); margin: 0 0 8px;
+  font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--zu-ink-dim);
+}
+.zu-mock .zu-side .nav-item {
+  display: flex; justify-content: space-between;
+  font-size: 13px; padding: 7px 8px;
+  border-radius: 4px; color: var(--zu-ink-dim);
+  margin: 0 -8px;
+}
+.zu-mock .zu-side .nav-item.on {
+  background: rgba(200,21,154,0.08); color: var(--zu-brand); font-weight: 600;
+}
+.zu-mock .zu-side .nav-item .n { font-family: var(--font-mono); font-size: 11px; }
+.zu-mock .zu-side hr { border: 0; border-top: 1px solid var(--zu-rule); margin: 14px 0; }
+.zu-mock .zu-side .stat {
+  display: flex; flex-direction: column; gap: 2px;
+  margin-bottom: 12px;
+}
+.zu-mock .zu-side .stat .v {
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: 22px; color: var(--zu-ink); letter-spacing: -0.03em;
+}
+.zu-mock .zu-side .stat .l {
+  font-family: var(--font-mono); font-size: 9.5px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--zu-ink-dim);
+}
+.zu-mock .zu-main { display: flex; flex-direction: column; gap: 12px; }
+.zu-mock .zu-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  border-bottom: 1px solid var(--zu-rule); padding-bottom: 10px;
+}
+.zu-mock .zu-head .title {
+  font-family: 'Fraunces', serif; font-size: 22px;
+  font-weight: 500; letter-spacing: -0.01em;
+}
+.zu-mock .zu-head .when {
+  font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.12em; color: var(--zu-ink-dim);
+}
+.zu-mock .send-batch {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  font-family: var(--font-mono);
+}
+.zu-mock .send-batch .col {
+  border: 1px solid var(--zu-rule);
+  padding: 10px 12px; border-radius: 4px;
+  background: #fff;
+}
+.zu-mock .send-batch .col .l {
+  font-size: 9.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--zu-ink-dim);
+}
+.zu-mock .send-batch .col .v {
+  font-size: 16px; font-weight: 700; color: var(--zu-ink);
+  margin-top: 4px; letter-spacing: -0.02em;
+}
+.zu-mock .send-batch .col .v.brand { color: var(--zu-brand); }
+.zu-mock .preview-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+}
+.zu-mock .preview-grid h6 {
+  grid-column: 1 / -1; margin: 6px 0 -2px;
+  font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--zu-ink-dim);
+}
+.zu-mock .email {
+  background: #fff;
+  border: 1px solid var(--zu-rule);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  font-size: 11.5px; min-height: 200px;
+}
+.zu-mock .email .from {
+  display: flex; justify-content: space-between;
+  padding: 8px 10px; border-bottom: 1px solid var(--zu-rule);
+  font-size: 10px; color: var(--zu-ink-dim);
+  font-family: var(--font-mono); letter-spacing: 0.04em;
+}
+.zu-mock .email .from .seg {
+  font-weight: 700; color: var(--zu-brand);
+  text-transform: uppercase; letter-spacing: 0.12em;
+}
+.zu-mock .email .subj {
+  padding: 9px 10px;
+  font-weight: 700; font-size: 12.5px;
+  border-bottom: 1px solid var(--zu-rule);
+  line-height: 1.3;
+}
+.zu-mock .email .body {
+  padding: 10px; flex: 1;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+}
+.zu-mock .email .tile {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  position: relative;
+  display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: 9px;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.08em; text-align: center;
+  padding: 6px;
+}
+.zu-mock .email .tile.t1 { background: linear-gradient(135deg, #d65f8d, #b13a6c); }
+.zu-mock .email .tile.t2 { background: linear-gradient(135deg, #4a8aa0, #2d5b6e); }
+.zu-mock .email .tile.t3 { background: linear-gradient(135deg, #c8915a, #8b5e2f); }
+.zu-mock .email .tile.t4 { background: linear-gradient(135deg, #6b9b6b, #3e6b3e); }
+.zu-mock .email .ctr {
+  padding: 8px 10px; border-top: 1px solid var(--zu-rule);
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--zu-ink-dim); letter-spacing: 0.04em;
+}
+.zu-mock .email .ctr .v { color: var(--zu-brand); font-weight: 700; }
+
+.zu-mock .cap {
+  margin-top: 14px;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-faint); letter-spacing: 0.08em;
+  text-transform: uppercase; text-align: center;
+}
+.zu-mock .cap em { color: var(--fg-dim); font-style: italic; text-transform: none; }
+
+@media (max-width: 880px) {
+  .zu-mock .zu-frame { grid-template-columns: 1fr; }
+  .zu-mock .zu-side { border-right: 0; border-bottom: 1px solid var(--zu-rule); padding-right: 0; padding-bottom: 14px; }
+  .zu-mock .send-batch { grid-template-columns: repeat(2, 1fr); }
+  .zu-mock .preview-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="cs-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><a href="/work">work</a><span class="sep">/</span><span>zulily</span></div>
+    <h1>zulily<span class="heat">.</span></h1>
+    <p class="deck">two years on a personalization engine that sent sixteen million unique emails a day. algorithmic logic for the customer-segment subject line, the hero block, the three lower stories, and the CTA. zero manual curation.</p>
+    <div class="meta-row">
+      <span><span class="dot">●</span> CASE STUDY · NO. 04 · 2021–22</span>
+      <span>SENIOR · GROWTH</span>
+      <span>STATUS: ARCHIVED</span>
+    </div>
+  </div>
+</section>
+
+<div class="col">
+  <div class="zu-mock">
+    <div class="zu-frame">
+      <aside class="zu-side">
+        <h5>SEND · 09:14 PT</h5>
+        <div class="nav-item on"><span>Daily Hero</span><span class="n">16.0M</span></div>
+        <div class="nav-item"><span>Re-engage 30d</span><span class="n">3.4M</span></div>
+        <div class="nav-item"><span>Cart drop</span><span class="n">820k</span></div>
+        <div class="nav-item"><span>Brand drop</span><span class="n">1.2M</span></div>
+        <div class="nav-item"><span>Wishlist back</span><span class="n">410k</span></div>
+        <hr>
+        <div class="stat"><span class="v">+14%</span><span class="l">CTR · 90D</span></div>
+        <div class="stat"><span class="v">+45s</span><span class="l">SESSION · 90D</span></div>
+        <div class="stat"><span class="v">0</span><span class="l">MANUAL EDITS / DAY</span></div>
+      </aside>
+
+      <div class="zu-main">
+        <div class="zu-head">
+          <span class="title">Daily Hero — 16.0M sends</span>
+          <span class="when">2022-04-14 · 09:14 PT</span>
+        </div>
+
+        <div class="send-batch">
+          <div class="col"><div class="l">SEGMENT POOL</div><div class="v">42</div></div>
+          <div class="col"><div class="l">SUBJECTS</div><div class="v">28</div></div>
+          <div class="col"><div class="l">HERO VARIANTS</div><div class="v">96</div></div>
+          <div class="col"><div class="l">PROJECTED CTR</div><div class="v brand">3.81%</div></div>
+        </div>
+
+        <div class="preview-grid">
+          <h6>RENDERED PREVIEWS · 3 OF 16,000,000</h6>
+          <div class="email">
+            <div class="from"><span>To: maria@…</span><span class="seg">SEG · NEW MOMS</span></div>
+            <div class="subj">"the wrap that lives in the diaper bag"</div>
+            <div class="body">
+              <div class="tile t1">SOFT<br>WRAP<br>$24</div>
+              <div class="tile t2">DIAPER<br>BAG<br>$48</div>
+              <div class="tile t3">BIB<br>SET<br>$14</div>
+              <div class="tile t4">SLEEP<br>SACK<br>$32</div>
+            </div>
+            <div class="ctr"><span>SCORE 0.84</span><span class="v">CTR ↗ 4.2%</span></div>
+          </div>
+          <div class="email">
+            <div class="from"><span>To: jess@…</span><span class="seg">SEG · HOME · LAPSED 60D</span></div>
+            <div class="subj">"the brand you wishlisted in march, back today"</div>
+            <div class="body">
+              <div class="tile t2">CERAMIC<br>VASE<br>$36</div>
+              <div class="tile t3">RUG<br>RUNNER<br>$78</div>
+              <div class="tile t4">PLANT<br>STAND<br>$42</div>
+              <div class="tile t1">LAMP<br>BRASS<br>$58</div>
+            </div>
+            <div class="ctr"><span>SCORE 0.71</span><span class="v">CTR ↗ 3.6%</span></div>
+          </div>
+          <div class="email">
+            <div class="from"><span>To: priya@…</span><span class="seg">SEG · WOMEN · CART</span></div>
+            <div class="subj">"the dress is still in your bag — &amp; 12% off"</div>
+            <div class="body">
+              <div class="tile t1">MIDI<br>DRESS<br>$54</div>
+              <div class="tile t3">SANDAL<br>HEEL<br>$38</div>
+              <div class="tile t2">DENIM<br>JACKET<br>$72</div>
+              <div class="tile t4">TOTE<br>BAG<br>$28</div>
+            </div>
+            <div class="ctr"><span>SCORE 0.92</span><span class="v">CTR ↗ 4.8%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cap">↑ zulily · daily-hero send-builder · <em>16,000,000 emails, none of them assembled by a human</em></div>
+  </div>
+
+  <div class="cs-stats">
+    <div><div class="stat-num">16M</div><div class="stat-label">unique emails per day, fully algorithmic</div></div>
+    <div><div class="stat-num">+14%</div><div class="stat-label">CTR · 90-day post-launch</div></div>
+    <div><div class="stat-num">+45s</div><div class="stat-label">session — re-engaged users stayed longer</div></div>
+  </div>
+</div>
+
+<div class="col col-narrow prose">
+  <p><strong>Zulily was the personalization-engine job</strong> in disguise as an email-marketing job. The brand sent ~16 million emails a day across the US, UK, AU, NZ, and DE. None of them were authored by a human. Every send — subject line, hero block, three lower stories, CTA, even the order of brand logos in the footer — was assembled per-recipient from a deterministic pipeline that read from inventory, segments, and a per-user click-history vector.</p>
+
+  <p>I was a designer on a team of ~9 across product, engineering, and data science. The work was finding the seams in the rendering pipeline where human judgement still mattered — copy templates, tile layouts, the 28 subject-line strategies — and making those primitives expressive enough that the algorithm had a wide range of well-formed sends to choose from. The mockup above is the operator's view: 42 segment pools × 28 subjects × 96 hero variants × 4 lower stories per recipient, scored, ranked, and sent.</p>
+
+  <h2>the work</h2>
+  <ul>
+    <li><strong>The hero-block kit.</strong> A composable visual system for the top of every email: 12 layout primitives × 4 type pairings × 6 background treatments. The combinatorics gave the engine a wide selection space without any send looking off-brand.</li>
+    <li><strong>The 28 subject-line strategies.</strong> Authored as templates with named variables (<code>{seg.label}</code>, <code>{wishlisted_brand}</code>, <code>{cart_item.title}</code>). The engine picked the strategy whose embedding was closest to the recipient's recent click vector.</li>
+    <li><strong>Tier signals.</strong> Lapsed 30/60/90, new mom, home category, wishlisted brand back-in-stock, abandoned cart at $30 / $50 / $100 thresholds. Each tier surfaced a different visual primitive for the same product feed.</li>
+    <li><strong>The QA dashboard.</strong> The view above. Operators ran a <em>simulated send</em> at 09:00 PT every morning, eyeballed 16 random recipients per segment cohort, flagged any send that read off, and the engine retrained against the flag.</li>
+  </ul>
+
+  <h2>the result</h2>
+  <p>+14% CTR, +45 seconds median session, and a steady drop in the operator headcount needed to ship a daily send to zero. The team that used to spend three hours a morning drafting hero blocks moved to designing the next set of primitives.</p>
+
+  <blockquote>The brief was "make the email more personal." The actual work was making the personalization pipeline more <em>composable</em>, then trusting it.</blockquote>
+
+  <h2>archived</h2>
+  <p>Zulily wound down its US operation in 2023. The personalization engine survives in the codebase the buyer acquired; the work above is the version that shipped between 2021 and 2022 against a 16M/day load.</p>
+</div>
+
+<section class="cs-foot">
+  <div class="col col-narrow">
+    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg-dim)">END OF CASE STUDY · NO. 04 · ARCHIVED</div>
+    <div class="next-up">
+      <a href="/work/ef" class="nx">
+        <div class="label">↩ NO. 03</div>
+        <div class="title">EF world journeys</div>
+      </a>
+      <a href="/work" class="nx">
+        <div class="label">↩ INDEX</div>
+        <div class="title">all work</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="/site.js"></script>
+</body>
+</html>

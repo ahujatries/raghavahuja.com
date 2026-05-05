@@ -8,6 +8,97 @@
 <link rel="stylesheet" href="/site.css">
 <link rel="stylesheet" href="/case-study.css">
 <link rel="stylesheet" href="/cmdk.css">
+<style>
+.hc-mock { margin: var(--s-5) 0 var(--s-6); }
+.hc-mock .hc-frame {
+  font-family: var(--font-mono);
+  border: 1px solid rgba(255,255,255,0.10);
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 480px;
+  position: relative;
+  overflow: hidden;
+}
+.hc-mock .hc-half {
+  position: relative; padding: 28px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.hc-mock .hot {
+  background: linear-gradient(160deg, #c4543c 0%, #8a3520 60%, #4f1f12 100%);
+  color: #fff5ec;
+}
+.hc-mock .cold {
+  background: linear-gradient(160deg, #2a4ea8 0%, #143577 60%, #0a1f4a 100%);
+  color: #e6efff;
+}
+.hc-mock .hc-half .l {
+  font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.18em; opacity: 0.7; text-transform: uppercase;
+}
+.hc-mock .hc-half .place {
+  font-family: 'Fraunces', serif; font-style: italic; font-weight: 400;
+  font-size: clamp(28px, 4vw, 44px); line-height: 1; letter-spacing: -0.01em;
+  margin-top: 6px;
+}
+.hc-mock .hc-half .place .country { display: block; font-style: normal; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; opacity: 0.6; margin-top: 8px; text-transform: uppercase; }
+.hc-mock .hc-half .temp {
+  font-family: 'Fraunces', serif; font-weight: 300;
+  font-size: clamp(80px, 13vw, 168px);
+  line-height: 0.9; letter-spacing: -0.04em;
+  margin: auto 0 0;
+}
+.hc-mock .hc-half .temp .deg { font-size: 0.4em; vertical-align: 0.45em; opacity: 0.7; }
+.hc-mock .hc-half .feels {
+  font-family: var(--font-mono); font-size: 11.5px;
+  letter-spacing: 0.06em; opacity: 0.85;
+}
+.hc-mock .hc-half .feels span { opacity: 0.6; margin-right: 8px; }
+.hc-mock .hc-half .stamp {
+  position: absolute; top: 18px; right: 22px;
+  font-size: 10px; letter-spacing: 0.18em; opacity: 0.6;
+  text-transform: uppercase;
+}
+.hc-mock .hc-half .sparks {
+  display: flex; gap: 3px; align-items: flex-end; height: 30px;
+}
+.hc-mock .hc-half .sparks span {
+  width: 7px; background: currentColor; opacity: 0.55;
+  border-radius: 1px;
+}
+.hc-mock .hc-tabs {
+  position: absolute; left: 50%; top: 14px; transform: translateX(-50%);
+  display: flex; gap: 0;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.18);
+  font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  z-index: 2;
+}
+.hc-mock .hc-tabs span {
+  padding: 7px 14px; color: rgba(255,255,255,0.55);
+  border-right: 1px solid rgba(255,255,255,0.12);
+}
+.hc-mock .hc-tabs span:last-child { border-right: 0; }
+.hc-mock .hc-tabs span.on { color: #fff; background: rgba(255,255,255,0.10); }
+.hc-mock .hc-tabs span.lock { opacity: 0.4; }
+.hc-mock .hc-foot {
+  grid-column: 1 / -1;
+  display: flex; justify-content: space-between;
+  padding: 10px 22px;
+  background: #060708; color: rgba(255,255,255,0.5);
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+.hc-mock .cap {
+  margin-top: 14px; font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-faint); letter-spacing: 0.08em;
+  text-transform: uppercase; text-align: center;
+}
+.hc-mock .cap em { color: var(--fg-dim); font-style: italic; text-transform: none; }
+@media (max-width: 700px) {
+  .hc-mock .hc-frame { grid-template-columns: 1fr; }
+  .hc-mock .hc-tabs { top: auto; bottom: 14px; }
+}
+</style>
 </head>
 <body>
 <div id="topbar-slot"></div>
@@ -26,6 +117,58 @@
 </section>
 
 <div class="col">
+  <div class="hc-mock">
+    <div class="hc-frame">
+      <div class="hc-tabs">
+        <span class="on">TEMP</span>
+        <span class="lock">WIND · SOON</span>
+        <span class="lock">RAIN · SOON</span>
+        <span class="lock">UV · SOON</span>
+      </div>
+
+      <div class="hc-half hot">
+        <div class="stamp">HOTTEST · NOW</div>
+        <div class="l">CONTINENT — ASIA</div>
+        <div class="place">Lut Desert<span class="country">IRAN · 30.4°N&nbsp;·&nbsp;58.4°E</span></div>
+        <div class="temp">54<span class="deg">°C</span></div>
+        <div class="feels"><span>FEELS</span>62°C&nbsp;·&nbsp;HUMIDITY&nbsp;3%</div>
+        <div class="sparks">
+          <span style="height:38%"></span><span style="height:46%"></span><span style="height:52%"></span>
+          <span style="height:58%"></span><span style="height:62%"></span><span style="height:68%"></span>
+          <span style="height:74%"></span><span style="height:82%"></span><span style="height:90%"></span>
+          <span style="height:96%"></span><span style="height:100%"></span><span style="height:88%"></span>
+          <span style="height:78%"></span><span style="height:62%"></span><span style="height:48%"></span>
+          <span style="height:42%"></span><span style="height:38%"></span><span style="height:36%"></span>
+        </div>
+        <div class="l">↑ LAST 24H · OPEN-METEO ERA5</div>
+      </div>
+
+      <div class="hc-half cold">
+        <div class="stamp">COLDEST · NOW</div>
+        <div class="l">CONTINENT — ANTARCTICA</div>
+        <div class="place">Vostok Station<span class="country">ANTARCTICA · 78.5°S&nbsp;·&nbsp;106.8°E</span></div>
+        <div class="temp">−71<span class="deg">°C</span></div>
+        <div class="feels"><span>WIND CHILL</span>−89°C&nbsp;·&nbsp;WIND&nbsp;14&nbsp;m/s</div>
+        <div class="sparks">
+          <span style="height:88%"></span><span style="height:84%"></span><span style="height:78%"></span>
+          <span style="height:72%"></span><span style="height:68%"></span><span style="height:64%"></span>
+          <span style="height:58%"></span><span style="height:54%"></span><span style="height:48%"></span>
+          <span style="height:42%"></span><span style="height:38%"></span><span style="height:34%"></span>
+          <span style="height:38%"></span><span style="height:46%"></span><span style="height:52%"></span>
+          <span style="height:62%"></span><span style="height:68%"></span><span style="height:78%"></span>
+        </div>
+        <div class="l">↑ LAST 24H · OPEN-METEO ERA5</div>
+      </div>
+
+      <div class="hc-foot">
+        <span>14 EXTREMES · 7 CONTINENTS</span>
+        <span>REFRESHED · 4 MIN AGO · GH ACTION</span>
+        <span>STATIC JSON · 0 PER-USER API CALLS</span>
+      </div>
+    </div>
+    <div class="cap">↑ hot &amp; cold · split-screen moodpiece · <em>open-meteo + a github action, redeployed every 15 min</em></div>
+  </div>
+
   <div class="cs-stats">
     <div><div class="stat-num">14</div><div class="stat-label">canonical extreme locations queried per cron run</div></div>
     <div><div class="stat-num">15 min</div><div class="stat-label">refresh — gh action commits json, vercel redeploys</div></div>

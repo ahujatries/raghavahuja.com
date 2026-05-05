@@ -204,6 +204,409 @@
   .arqo-mock .formatbar .pill-group { display: none; }
   .arqo-mock .page-area { padding: 16px 14px; }
 }
+
+/* ===== ARQO MOBILE PHONE MOCKUPS (Inspire / Export / Profile) ===== */
+.aq-phone-wrap {
+  margin: var(--s-5) 0 var(--s-4);
+  display: flex; justify-content: center;
+}
+.aq-phone-cap {
+  text-align: center;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-faint); letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 var(--s-5);
+}
+.aq-phone-cap em { color: var(--fg-dim); font-style: italic; text-transform: none; }
+.aq-phone {
+  width: 360px; max-width: 100%;
+  border-radius: 36px;
+  background: #0a0c08;
+  padding: 10px;
+  box-shadow:
+    0 0 0 1px rgba(168,200,140,0.12),
+    0 28px 72px rgba(0,0,0,0.6),
+    0 4px 14px rgba(0,0,0,0.5);
+}
+.aq-phone .aq-app {
+  border-radius: 28px; overflow: hidden;
+  display: flex; flex-direction: column;
+  min-height: 660px;
+  font-family: var(--font-mono);
+}
+
+/* ----- INSPIRE / DRILLS ----- */
+.aq-app.inspire {
+  --p-paper: #efe8d6;
+  --p-ink:   #18170f;
+  --p-dim:   #8d8775;
+  --p-rule:  rgba(24,23,15,0.18);
+  --p-lime:  #c0e656;
+  --p-flame: #c8a04c;
+  background: var(--p-paper); color: var(--p-ink);
+  font-family: var(--font-sans);
+}
+.aq-app.inspire .ph-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 18px 14px; border-bottom: 1px solid var(--p-rule);
+}
+.aq-app.inspire .ph-head .h {
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: 14px; letter-spacing: 0.1em;
+}
+.aq-app.inspire .chips { display: flex; gap: 8px; }
+.aq-app.inspire .chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 10px; border-radius: 999px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  border: 1px solid var(--p-ink);
+}
+.aq-app.inspire .chip.flame { background: rgba(200,160,76,0.15); color: var(--p-flame); border-color: rgba(200,160,76,0.5); }
+.aq-app.inspire .chip.xp { background: var(--p-lime); }
+.aq-app.inspire .tabs {
+  display: flex; gap: 8px; padding: 14px 18px 12px;
+  flex-wrap: wrap;
+}
+.aq-app.inspire .tab {
+  padding: 7px 14px; border-radius: 999px;
+  font-family: var(--font-mono); font-size: 11.5px;
+  font-weight: 700; letter-spacing: 0.06em;
+  border: 1px solid var(--p-rule); color: var(--p-ink);
+}
+.aq-app.inspire .tab.on { background: var(--p-ink); color: var(--p-paper); border-color: var(--p-ink); }
+.aq-app.inspire .tab.lock { color: var(--p-dim); }
+.aq-app.inspire .week {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 6px; padding: 4px 18px 14px;
+}
+.aq-app.inspire .day {
+  width: 32px; height: 32px; border-radius: 6px;
+  border: 1px solid var(--p-rule);
+  display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  color: var(--p-dim);
+  margin: 0 auto;
+}
+.aq-app.inspire .day.now {
+  border-style: dashed; border-color: var(--p-flame);
+  color: var(--p-flame);
+}
+.aq-app.inspire .week-l {
+  font-family: var(--font-mono); font-size: 9.5px; text-align: center;
+  color: var(--p-dim); margin-top: 4px; letter-spacing: 0.06em;
+}
+.aq-app.inspire .unit-banner {
+  margin: 0 18px; padding: 14px 16px;
+  background: var(--p-ink); color: var(--p-paper);
+  border-radius: 14px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.aq-app.inspire .unit-banner .l {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.16em; opacity: 0.7;
+}
+.aq-app.inspire .unit-banner .t {
+  font-weight: 700; font-size: 17px; letter-spacing: 0.04em;
+  margin-top: 4px;
+}
+.aq-app.inspire .unit-banner .pill {
+  background: var(--p-lime); color: var(--p-ink);
+  padding: 5px 12px; border-radius: 999px;
+  font-family: var(--font-mono); font-weight: 700; font-size: 11.5px;
+}
+.aq-app.inspire .ladder {
+  padding: 18px; flex: 1;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.aq-app.inspire .step {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  gap: 10px; align-items: center;
+}
+.aq-app.inspire .step.r { direction: rtl; }
+.aq-app.inspire .step.r > * { direction: ltr; }
+.aq-app.inspire .step .lbl {
+  font-family: var(--font-sans); font-weight: 700;
+  font-size: 13px; letter-spacing: 0.04em;
+  text-transform: uppercase; line-height: 1.1;
+}
+.aq-app.inspire .step .lbl .meta {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--p-dim); font-weight: 500;
+  display: block; margin-top: 4px;
+  text-transform: none; letter-spacing: 0;
+}
+.aq-app.inspire .step.r .lbl { text-align: right; }
+.aq-app.inspire .step.l .lbl { text-align: left; grid-column: 3; grid-row: 1; }
+.aq-app.inspire .step.r .lbl { grid-column: 1; }
+.aq-app.inspire .step.l .node, .aq-app.inspire .step.r .node { grid-column: 2; }
+.aq-app.inspire .node {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(24,23,15,0.10);
+  display: grid; place-items: center;
+  color: rgba(24,23,15,0.45);
+  font-size: 18px;
+}
+.aq-app.inspire .node.done { background: var(--p-lime); color: var(--p-ink); border: 3px solid var(--p-ink); }
+.aq-app.inspire .node.now {
+  background: var(--p-paper); border: 3px solid var(--p-ink);
+  color: var(--p-ink); font-size: 18px;
+  outline: 2px dashed var(--p-ink); outline-offset: 4px;
+}
+.aq-app.inspire .start-here {
+  display: inline-block;
+  background: var(--p-paper); color: var(--p-ink);
+  padding: 4px 9px; font-size: 10px;
+  font-family: var(--font-mono); font-weight: 700;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--p-ink);
+  border-radius: 4px;
+  margin-left: 4px;
+}
+.aq-app.inspire .cta {
+  margin: 0 18px 14px; padding: 16px;
+  background: var(--p-lime); color: var(--p-ink);
+  border-radius: 16px; text-align: center;
+  font-family: var(--font-mono); font-weight: 700;
+  letter-spacing: 0.1em; font-size: 13px;
+  box-shadow: 0 4px 0 var(--p-ink);
+  border: 1px solid var(--p-ink);
+}
+.aq-app.inspire .botnav {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--p-rule);
+  padding: 10px 0 14px;
+}
+.aq-app.inspire .botnav .it {
+  text-align: center; color: var(--p-dim);
+  font-family: var(--font-mono); font-size: 9.5px;
+  letter-spacing: 0.08em;
+}
+.aq-app.inspire .botnav .it span { font-size: 18px; display: block; margin-bottom: 3px; }
+.aq-app.inspire .botnav .it.on { color: var(--p-ink); font-weight: 700; }
+.aq-app.inspire .botnav .it.on span {
+  background: var(--p-lime); border-radius: 4px;
+  padding: 2px 8px; display: inline-block;
+}
+
+/* ----- EXPORT MODAL ----- */
+.aq-app.export {
+  --x-bg:   #08090a;
+  --x-fg:   #f3f4ed;
+  --x-dim:  #8a9078;
+  --x-rule: rgba(168,200,140,0.18);
+  --x-lime: #c0e656;
+  background: var(--x-bg); color: var(--x-fg);
+}
+.aq-app.export .grab {
+  width: 36px; height: 4px; background: rgba(255,255,255,0.3);
+  border-radius: 2px; margin: 10px auto 18px;
+}
+.aq-app.export .x-head {
+  padding: 0 22px 18px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.aq-app.export .x-head h4 {
+  margin: 0; font-family: var(--font-sans);
+  font-size: 22px; font-weight: 700; letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.aq-app.export .x-head .sub {
+  margin: 4px 0 0; color: var(--x-dim);
+  font-family: var(--font-sans); font-size: 13.5px;
+}
+.aq-app.export .x-head .close { color: var(--x-fg); font-size: 16px; }
+.aq-app.export .x-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--x-rule);
+  border-bottom: 1px solid var(--x-rule);
+  padding: 16px 0;
+  margin: 0 22px;
+}
+.aq-app.export .x-stats div { text-align: center; }
+.aq-app.export .x-stats .v {
+  font-family: var(--font-sans); font-weight: 700; font-size: 22px;
+  letter-spacing: -0.02em;
+}
+.aq-app.export .x-stats .l {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--x-dim); letter-spacing: 0.16em;
+  margin-top: 4px; text-transform: uppercase;
+}
+.aq-app.export .x-section {
+  padding: 18px 22px; border-top: 1px solid var(--x-rule);
+}
+.aq-app.export .x-section.first { border-top: 0; padding-top: 18px; }
+.aq-app.export .x-section h6 {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--x-dim);
+  margin: 0 0 12px; font-weight: 600;
+}
+.aq-app.export .fmt-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.aq-app.export .fmt {
+  border: 1px solid var(--x-rule);
+  border-radius: 10px; padding: 14px 14px;
+  display: flex; flex-direction: column; gap: 6px;
+  position: relative;
+  font-family: var(--font-sans);
+}
+.aq-app.export .fmt.on { border-color: var(--x-lime); background: rgba(192,230,86,0.05); }
+.aq-app.export .fmt .icon {
+  width: 22px; height: 22px;
+  border: 1.5px solid var(--x-fg); border-radius: 3px;
+  position: relative;
+}
+.aq-app.export .fmt .icon::after {
+  content: ''; position: absolute; right: -1.5px; top: -1.5px;
+  width: 6px; height: 6px;
+  border-left: 1.5px solid var(--x-fg);
+  border-bottom: 1.5px solid var(--x-fg);
+  background: var(--x-bg);
+}
+.aq-app.export .fmt .new {
+  position: absolute; top: 12px; right: 12px;
+  font-family: var(--font-mono); font-size: 8.5px;
+  letter-spacing: 0.14em;
+  border: 1px solid var(--x-rule);
+  padding: 2px 5px; border-radius: 3px; color: var(--x-dim);
+}
+.aq-app.export .fmt .name { font-weight: 700; font-size: 15px; }
+.aq-app.export .fmt .desc { font-size: 11.5px; color: var(--x-dim); line-height: 1.35; }
+.aq-app.export .options {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.aq-app.export .opt {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-sans); font-size: 14px;
+}
+.aq-app.export .toggle {
+  width: 38px; height: 22px; border-radius: 999px;
+  background: var(--x-lime); position: relative;
+  border: 1px solid var(--x-fg);
+}
+.aq-app.export .toggle::after {
+  content: ''; position: absolute; right: 2px; top: 2px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #08090a;
+}
+.aq-app.export .toggle.off { background: rgba(168,200,140,0.18); }
+.aq-app.export .toggle.off::after { left: 2px; right: auto; }
+.aq-app.export .x-foot {
+  margin-top: auto; padding: 16px 22px 22px;
+}
+.aq-app.export .export-btn {
+  background: var(--x-lime); color: var(--x-bg);
+  font-family: var(--font-sans); font-weight: 700; font-size: 14px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  border: 2px solid var(--x-fg); border-radius: 14px;
+  padding: 14px; text-align: center;
+}
+
+/* ----- PROFILE / ACTIVITY ----- */
+.aq-app.profile {
+  --r-bg:   #08090a;
+  --r-fg:   #f3f4ed;
+  --r-dim:  #8a9078;
+  --r-rule: rgba(168,200,140,0.18);
+  --r-lime: #c0e656;
+  --r-tile: #d8d2bd;
+  background: var(--r-bg); color: var(--r-fg);
+}
+.aq-app.profile .top-tabs {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--r-rule);
+}
+.aq-app.profile .top-tabs .t {
+  text-align: center; padding: 14px 0;
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: 14px; letter-spacing: 0.1em;
+  color: var(--r-dim);
+}
+.aq-app.profile .top-tabs .t.on { background: var(--r-lime); color: var(--r-bg); }
+.aq-app.profile .sub-tabs {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--r-rule);
+  font-family: var(--font-mono); font-size: 12px;
+}
+.aq-app.profile .sub-tabs .t {
+  padding: 12px 0; text-align: center;
+  color: var(--r-dim); letter-spacing: 0.1em;
+  position: relative;
+}
+.aq-app.profile .sub-tabs .t.on { color: var(--r-fg); font-weight: 700; }
+.aq-app.profile .sub-tabs .t.on::after {
+  content: ''; position: absolute; left: 16px; right: 16px; bottom: -1px;
+  height: 2px; background: var(--r-lime);
+}
+.aq-app.profile .who {
+  padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.aq-app.profile .who .at {
+  font-family: var(--font-mono); font-size: 13px; color: var(--r-dim);
+}
+.aq-app.profile .signout {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border: 2px solid var(--r-fg); border-radius: 12px;
+  font-family: var(--font-sans); font-weight: 700;
+  font-size: 12px; letter-spacing: 0.08em;
+  align-self: flex-start;
+}
+.aq-app.profile .heatmap {
+  margin: 6px 18px; padding: 14px;
+  border: 1px solid var(--r-rule); border-radius: 14px;
+}
+.aq-app.profile .heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(22, 1fr);
+  gap: 3px;
+}
+.aq-app.profile .heatmap-grid .c {
+  aspect-ratio: 1; background: var(--r-tile); border-radius: 2px; opacity: 0.85;
+}
+.aq-app.profile .heatmap-grid .c.last { outline: 1.5px solid #c47540; outline-offset: -1px; }
+.aq-app.profile .recent {
+  margin: 10px 18px 0; padding: 16px;
+  border: 1px solid var(--r-rule); border-radius: 14px;
+}
+.aq-app.profile .recent h6 {
+  margin: 0 0 12px; font-family: var(--font-mono);
+  font-size: 12px; letter-spacing: 0.16em; color: var(--r-fg);
+  font-weight: 700;
+}
+.aq-app.profile .row {
+  display: grid; grid-template-columns: 90px 1fr;
+  gap: 12px; padding: 10px 0;
+  border-top: 1px dashed var(--r-rule);
+}
+.aq-app.profile .row:first-of-type { border-top: 0; }
+.aq-app.profile .row .when {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--r-dim); letter-spacing: 0.08em;
+  text-transform: uppercase; padding-top: 2px;
+}
+.aq-app.profile .row .what { font-family: var(--font-sans); font-size: 13px; line-height: 1.45; }
+.aq-app.profile .hl { background: var(--r-lime); color: var(--r-bg); padding: 1px 6px; border-radius: 3px; font-weight: 700; }
+.aq-app.profile .botnav {
+  margin-top: auto;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--r-rule);
+  padding: 10px 0 14px;
+}
+.aq-app.profile .botnav .it {
+  text-align: center; color: var(--r-dim);
+  font-family: var(--font-mono); font-size: 9.5px;
+  letter-spacing: 0.08em;
+}
+.aq-app.profile .botnav .it span { font-size: 18px; display: block; margin-bottom: 3px; }
+.aq-app.profile .botnav .it.on { color: var(--r-bg); font-weight: 700; }
+.aq-app.profile .botnav .it.on span {
+  background: var(--r-lime); border-radius: 4px;
+  padding: 2px 8px; display: inline-block; color: var(--r-bg);
+}
 </style>
 </head>
 <body>
@@ -404,6 +807,87 @@
     <p><strong>Pages</strong> — the industry-format view. Courier 12, 55 lines/page, MORE/CONT'D, dual dialogue, locked scene numbers + A/B, revision marks in the Blue → Pink → Yellow → Green → Goldenrod → Buff → Salmon → Cherry rotation. What prints and what exports.</p>
     <p>All three on mobile. All three on the same document. No competitor ships this combination anywhere, let alone on phones.</p>
 
+  </div>
+</section>
+
+<div class="aq-phone-wrap">
+  <div class="aq-phone">
+    <div class="aq-app inspire">
+      <div class="ph-head">
+        <div class="h">INSPIRE</div>
+        <div class="chips">
+          <span class="chip flame">🔥 1</span>
+          <span class="chip xp">⚡ 20</span>
+        </div>
+      </div>
+      <div class="tabs">
+        <span class="tab on">FEATURE</span>
+        <span class="tab">TV</span>
+        <span class="tab lock">PLAY 🔒</span>
+        <span class="tab lock">PROSE 🔒</span>
+      </div>
+      <div class="week">
+        <div><div class="day">M</div><div class="week-l">M</div></div>
+        <div><div class="day now">?</div><div class="week-l">T</div></div>
+        <div><div class="day">W</div><div class="week-l">W</div></div>
+        <div><div class="day">T</div><div class="week-l">T</div></div>
+        <div><div class="day">F</div><div class="week-l">F</div></div>
+        <div><div class="day">S</div><div class="week-l">S</div></div>
+        <div><div class="day">S</div><div class="week-l">S</div></div>
+      </div>
+      <div class="unit-banner">
+        <div>
+          <div class="l">UNIT 2 · FEATURE FILM</div>
+          <div class="t">BUILDING THE SCENE</div>
+        </div>
+        <div class="pill">1 / 7</div>
+      </div>
+      <div class="ladder">
+        <div class="step r">
+          <div class="lbl">OPEN ON CONFLICT<span class="meta">4 min · +40 XP</span></div>
+          <div class="node done">✓<span class="start-here" style="position:absolute;margin-left:60px">START HERE ▾</span></div>
+        </div>
+        <div class="step l">
+          <div class="node now">▶</div>
+          <div class="lbl">SHOW DON'T TELL<span class="meta">5 min · +60 XP</span></div>
+        </div>
+        <div class="step r">
+          <div class="lbl">BURY THE BACKSTORY<span class="meta">6 min · +60 XP</span></div>
+          <div class="node">🔒</div>
+        </div>
+        <div class="step l">
+          <div class="node">🔒</div>
+          <div class="lbl">THE SILENT SCENE<span class="meta">5 min · +80 XP</span></div>
+        </div>
+        <div class="step r">
+          <div class="lbl">REVERSE THE POWER<span class="meta">7 min · +80 XP</span></div>
+          <div class="node">🔒</div>
+        </div>
+        <div class="step l">
+          <div class="node">🔒</div>
+          <div class="lbl">LAND THE BUTTON<span class="meta">5 min · +80 XP</span></div>
+        </div>
+        <div class="step l">
+          <div class="node">🔒</div>
+          <div class="lbl">PAGES 1–10<span class="meta">12 min · +200 XP</span></div>
+        </div>
+      </div>
+      <div class="cta">▷ START TODAY'S DRILL</div>
+      <div class="botnav">
+        <div class="it"><span>✎</span>WRITE</div>
+        <div class="it"><span>📁</span>FILES</div>
+        <div class="it"><span>▥</span>LIBRARY</div>
+        <div class="it on"><span>✦</span>INSPIRE</div>
+        <div class="it"><span>◔</span>PROFILE</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="aq-phone-cap">↑ inspire · creator-tier daily drill ladder, <em>building the scene</em> unit</p>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 02 — CONT'D</div>
     <h3>3. professional and creator tiers in one product</h3>
     <p>Same codebase, same document model, different feature surfacing. A WGA screenwriter uses Pages, FDX export, revision marks, locked scene numbers, and collab. A YouTuber uses Flow, teleprompter, shot list, NLE export, and Creator AI. The underlying engine is identical. The tier surfaces what each audience needs. This is the single architectural bet that lets a solo-to-lean team serve a 7–14M TAM.</p>
 
@@ -492,6 +976,70 @@ Paginator responsibilities:
     <h3>6. PDF generation — industry-standard output</h3>
     <p>Agents reject non-standard PDFs. "Close to Final Draft" will bounce. The bar is: Courier 12, exact margins (1.5" left, 1" elsewhere), 55 lines per page, proper element positioning, MORE/CONT'D at breaks, page numbers in header, scene numbers in both gutters for production scripts. Courier embedded as a Type 1 font (not system Courier — output must be identical across OS).</p>
 
+  </div>
+</section>
+
+<div class="aq-phone-wrap">
+  <div class="aq-phone">
+    <div class="aq-app export">
+      <div class="grab"></div>
+      <div class="x-head">
+        <div>
+          <h4>Export Script</h4>
+          <p class="sub">Still Life With Daggers</p>
+        </div>
+        <span class="close">✕</span>
+      </div>
+      <div class="x-stats">
+        <div><div class="v">8</div><div class="l">SCENES</div></div>
+        <div><div class="v">1,013</div><div class="l">WORDS</div></div>
+        <div><div class="v">5</div><div class="l">EST. PAGES</div></div>
+      </div>
+      <div class="x-section first">
+        <h6>SCRIPT FORMAT</h6>
+        <div class="fmt-grid">
+          <div class="fmt">
+            <div class="icon"></div>
+            <span class="new">NEW</span>
+            <div class="name">Arqo (.arq)</div>
+            <div class="desc">Native · round-trips everything</div>
+          </div>
+          <div class="fmt on">
+            <div class="icon"></div>
+            <div class="name">PDF</div>
+            <div class="desc">Courier 12 · coloured pages on issue</div>
+          </div>
+          <div class="fmt">
+            <div class="icon"></div>
+            <div class="name">FDX</div>
+            <div class="desc">Final Draft · lossless</div>
+          </div>
+          <div class="fmt">
+            <div class="icon"></div>
+            <div class="name">DOCX</div>
+            <div class="desc">Word · Docs · Pages</div>
+          </div>
+        </div>
+      </div>
+      <div class="x-section">
+        <h6>OPTIONS</h6>
+        <div class="options">
+          <div class="opt"><span>Include title page</span><span class="toggle"></span></div>
+          <div class="opt"><span>Include scene notes</span><span class="toggle"></span></div>
+          <div class="opt"><span>Coloured revision pages</span><span class="toggle off"></span></div>
+        </div>
+      </div>
+      <div class="x-foot">
+        <div class="export-btn">⬇ &nbsp;EXPORT PDF</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="aq-phone-cap">↑ export sheet · <em>Arqo (.arq) · PDF · FDX · DOCX</em> — same AST, four targets</p>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 04 — CONT'D</div>
     <h3>7. ai architecture with pgvector</h3>
     <p>AI works on what the writer has already written. No AI surface generates content from scratch. Every AI interaction is an interview the writer chooses to accept, reject, or edit.</p>
     <ul>
@@ -587,8 +1135,60 @@ Paginator responsibilities:
       <li>Initial load (web): ~85KB critical path gzipped. Editor code lazy-loaded.</li>
       <li>Mobile Lighthouse target: ≥90 Perf, A11y, Best Practices.</li>
     </ul>
+    <p>The performance budget exists for the feel, not the spec sheet. Every keystroke fires off the paginator, the autosave, and the activity-log emitter — and none of them are allowed to stall the editor. The activity log is what powers the writer's habit feedback loop, shown opposite.</p>
   </div>
 </section>
+
+<div class="aq-phone-wrap">
+  <div class="aq-phone">
+    <div class="aq-app profile">
+      <div class="top-tabs">
+        <div class="t on">PROFILE</div>
+        <div class="t">FRIENDS</div>
+      </div>
+      <div class="sub-tabs">
+        <div class="t on">ACTIVITY</div>
+        <div class="t">ACCOUNT</div>
+        <div class="t">WRITING</div>
+        <div class="t">DISPLAY</div>
+      </div>
+      <div class="who">
+        <div class="at">@raghava</div>
+        <div class="signout">⎋ &nbsp;SIGN OUT</div>
+      </div>
+      <div class="heatmap">
+        <div class="heatmap-grid" id="heat-grid"></div>
+      </div>
+      <div class="recent">
+        <h6>RECENT ACTIVITY</h6>
+        <div class="row"><span class="when">12M AGO</span><span class="what">Wrote 1,013 words on <span class="hl">Still Life With Daggers</span></span></div>
+        <div class="row"><span class="when">2H AGO</span><span class="what">Resolved a thread on <span class="hl">The Last Pattern</span></span></div>
+        <div class="row"><span class="when">YESTERDAY</span><span class="what">Started a new short, <span class="hl">Quiet Streets</span></span></div>
+        <div class="row"><span class="when">3 DAYS AGO</span><span class="what">Imported a PDF to library: <span class="hl">Chinatown.pdf</span></span></div>
+        <div class="row"><span class="when">5 DAYS AGO</span><span class="what">Reached scene 8 of <span class="hl">Still Life With Daggers</span></span></div>
+      </div>
+      <div class="botnav">
+        <div class="it"><span>✎</span>WRITE</div>
+        <div class="it"><span>📁</span>FILES</div>
+        <div class="it"><span>▥</span>LIBRARY</div>
+        <div class="it"><span>✦</span>INSPIRE</div>
+        <div class="it on"><span>◔</span>PROFILE</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="aq-phone-cap">↑ profile · activity · <em>habit feedback drives the writer's loop, quietly</em></p>
+<script>
+(function(){
+  var g = document.getElementById('heat-grid'); if (!g) return;
+  var rows = 7, cols = 22, total = rows*cols;
+  var html = '';
+  for (var i=0; i<total; i++) {
+    html += '<div class="c' + (i === total-1 ? ' last' : '') + '"></div>';
+  }
+  g.innerHTML = html;
+})();
+</script>
 
 <section class="chapter" id="compete">
   <div class="col col-narrow prose">
