@@ -52,6 +52,9 @@
           </div>
         </header>
 
+        <figure class="cs-canvas" id="cs-canvas" hidden></figure>
+        <div class="case-bigstats" id="cs-bigstats" hidden></div>
+
         <article class="case-body" id="cs-body"></article>
 
         <nav class="case-nav" id="cs-nav" aria-label="case study nav"></nav>
@@ -1431,6 +1434,86 @@ u.searchParams.set('past_hours', '24');</code></pre>
         `<div class="case-stack-row"><span class="dep">${dep}</span><span class="ver">${ver}</span></div>`
       ).join('');
       stackWrap.hidden = false;
+    }
+
+    // hero figure (canvas) + big-stats strip — per-case, opt-in
+    const HERO = {
+      arqo: {
+        canvas: {
+          file: 'arqo / scripts / scene_04.fountain',
+          stamp: 'saved · 2s ago',
+          script: [
+            ['12', 'scene', 'int. apartment — night'],
+            ['13', 'action', 'Rain on the kitchen window. MAYA, 28, watches her phone light up.'],
+            ['14', 'character', 'MAYA'],
+            ['15', 'dialogue', 'You shot all of this on the train?'],
+            ['16', 'character', 'DEV (V.O.)'],
+            ['17', 'dialogue', 'Between Newark and Trenton. Forty-one minutes.'],
+            ['18', 'action', 'She smiles. Tap. The script becomes a shot list.'],
+          ],
+          phone: {
+            title: 'Scene 04 — Apartment',
+            sub: '7 SHOTS · 4 MIN ESTIMATED',
+          },
+        },
+        bigstats: [
+          ['build velocity', '9', 'days', 'solo · MVP engine to public beta'],
+          ['codebase', '42', 'k', 'lines · TS-only · 0 untyped'],
+          ['platforms', '3', '', 'iOS · Android · Web · one core'],
+          ['closed beta', '1,240', '', 'writers, directors, students'],
+        ],
+      },
+    };
+
+    const hero = HERO[slug];
+    if (hero && hero.canvas) {
+      const cv = hero.canvas;
+      const canvasEl = document.getElementById('cs-canvas');
+      const lines = cv.script.map(([n, kind, text]) =>
+        `<div class="cs-canvas-line"><span class="ln">${n}</span><span class="txt ${kind}">${text}</span></div>`
+      ).join('');
+      canvasEl.innerHTML = `
+        <div class="cs-canvas-head">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="file">${cv.file}</div>
+          <div class="stamp">${cv.stamp}</div>
+        </div>
+        <div class="cs-canvas-body">
+          <div class="cs-canvas-script">${lines}</div>
+          <div class="cs-canvas-phone-wrap">
+            <div class="cs-phone">
+              <div class="cs-phone-head"><span>9:41</span><span>● ● ●</span></div>
+              <div class="cs-phone-title">${cv.phone.title}</div>
+              <div class="cs-phone-sub">${cv.phone.sub}</div>
+              <div class="cs-phone-stack">
+                <div class="cs-phone-line m"></div>
+                <div class="cs-phone-line s"></div>
+                <div class="cs-phone-line accent"></div>
+                <div class="cs-phone-line m"></div>
+                <div class="cs-phone-line s"></div>
+                <div class="cs-phone-line m"></div>
+              </div>
+              <div class="cs-phone-foot">
+                <div class="chip"></div>
+                <div class="chip on"></div>
+                <div class="chip"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      canvasEl.hidden = false;
+    }
+    if (hero && hero.bigstats) {
+      const statsEl = document.getElementById('cs-bigstats');
+      statsEl.innerHTML = hero.bigstats.map(([label, num, unit, sub]) =>
+        `<div class="bigstat">
+          <div class="k">${label}</div>
+          <div class="n">${num}${unit ? `<em>${unit}</em>` : ''}</div>
+          <div class="s">${sub}</div>
+        </div>`
+      ).join('');
+      statsEl.hidden = false;
     }
 
     // body — clone the template
