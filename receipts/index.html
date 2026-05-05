@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>receipts — raghav ahuja</title>
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+  .rgrid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-4);
+    padding: var(--s-6) 0 var(--s-7);
+  }
+  @media (max-width: 700px) { .rgrid { grid-template-columns: 1fr; } }
+  .r {
+    padding: var(--s-5); border: 1px solid var(--rule);
+    text-decoration: none; color: var(--fg);
+    transition: border-color 200ms var(--ease), transform 200ms var(--ease);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .r:hover { border-color: var(--heat); transform: translateY(-3px); }
+  .r .stamp {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-faint);
+    display: flex; justify-content: space-between;
+  }
+  .r .stamp .num { color: var(--heat); }
+  .r .t { font-family: var(--font-mono); font-size: 28px; font-weight: 600; letter-spacing: -0.025em; }
+  .r .d { font-size: 14.5px; color: var(--fg-dim); line-height: 1.55; }
+  .r .ticket {
+    margin-top: auto; padding-top: var(--s-3);
+    border-top: 1px dashed var(--rule);
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-faint); letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .r .ticket .heat { color: var(--heat); }
+</style>
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="page-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><span>receipts</span></div>
+    <h1>receipts.</h1>
+    <p class="lede">weekend builds. a couple of evenings. one afternoon. small enough to ship; honest enough to keep the receipt.</p>
+    <p class="lede dim">a receipt is the opposite of a portfolio piece — it's not selling you on the project, it's just saying "yes, this is real, here's where it lives, here's what it cost."</p>
+  </div>
+</section>
+
+<div class="col">
+  <div class="rgrid">
+    <a href="/receipts/mamdani-mapper" class="r">
+      <div class="stamp"><span class="num">RCPT-001</span><span>2026-04 · ONE NIGHT</span></div>
+      <div class="t">mamdani mapper</div>
+      <div class="d">every public stop the mayor has made, plus the credibly pre-announced ones, on a cobalt map. press receipts only — no real-time tracking. two scrapers, one GH Action, one static page.</div>
+      <div class="ticket"><span>5 HRS · ONE SESSION</span><span class="heat">$1.30/MO</span></div>
+    </a>
+    <a href="/receipts/futbolis" class="r">
+      <div class="stamp"><span class="num">RCPT-002</span><span>2026-02 · 3 WKS</span></div>
+      <div class="t">futbolis.live</div>
+      <div class="d">a real-time pub-finder for football fans. macro-to-micro map navigation, $19/mo flat at 100k concurrent, 4-tier geocoding fallback, mobile carousel built from scratch.</div>
+      <div class="ticket"><span>3 WEEKS · NIGHTS</span><span class="heat">$19/MO @ 100K</span></div>
+    </a>
+    <a href="/receipts/hot-cold" class="r">
+      <div class="stamp"><span class="num">RCPT-003</span><span>2026-01 · 1 DAY</span></div>
+      <div class="t">hot &amp; cold</div>
+      <div class="d">hottest and coldest places on earth, right now. open-meteo, GH Action, static JSON. one afternoon. dropped the live feeds for honesty.</div>
+      <div class="ticket"><span>1 AFTERNOON</span><span class="heat">$0/MO</span></div>
+    </a>
+    <a href="#" class="r" style="opacity:0.55; pointer-events:none">
+      <div class="stamp"><span class="num">RCPT-004</span><span>SOON</span></div>
+      <div class="t">[ on deck ]</div>
+      <div class="d">there is always a next one. when it ships, it'll show up here.</div>
+      <div class="ticket"><span>—</span><span>—</span></div>
+    </a>
+  </div>
+</div>
+
+<script src="/site.js"></script>
+</body>
+</html>

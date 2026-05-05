@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>arqo — case study · raghav ahuja</title>
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/case-study.css">
+<link rel="stylesheet" href="/cmdk.css">
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="cs-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><a href="/work">work</a><span class="sep">/</span><span>arqo</span></div>
+    <h1>arqo<span class="heat">.</span></h1>
+    <p class="deck">the mobile-first, script-led filmmaking tool for every creator on the planet. nine days of after-work building, agentic-dev workflow, one person.</p>
+    <div class="meta-row">
+      <span><span class="dot">●</span> CASE STUDY · NO. 01 · 2026</span>
+      <span>SOLO BUILD</span>
+      <span>9 DAYS · MVP</span>
+      <span>STATUS: SHIPPED</span>
+    </div>
+  </div>
+</section>
+
+<div class="col">
+  <div class="cs-stats">
+    <div><div class="stat-num">9d</div><div class="stat-label">mvp engine, after-work sprints</div></div>
+    <div><div class="stat-num">777</div><div class="stat-label">scripts in the voice-tuned ai library</div></div>
+    <div><div class="stat-num">7–14M</div><div class="stat-label">paying creators · 9 languages · real tam</div></div>
+  </div>
+</div>
+
+<div class="col col-narrow prose">
+  <div class="toc">
+    <a href="#problem"><span class="n">01</span> the problem</a>
+    <a href="#solution"><span class="n">02</span> the solution</a>
+    <a href="#architecture"><span class="n">03</span> product architecture</a>
+    <a href="#engineering"><span class="n">04</span> engineering deep-dives</a>
+    <a href="#ai"><span class="n">05</span> ai design philosophy</a>
+    <a href="#decisions"><span class="n">06</span> staff-level decisions</a>
+    <a href="#didnt"><span class="n">07</span> what i didn't build</a>
+    <a href="#pivots"><span class="n">08</span> pivots &amp; trade-offs</a>
+    <a href="#perf"><span class="n">09</span> performance</a>
+    <a href="#compete"><span class="n">10</span> competitive grid</a>
+    <a href="#different"><span class="n">11</span> what i'd do differently</a>
+  </div>
+
+  <p><strong>Arqo is a mobile-first screenwriting app</strong> I shipped solo in nine days of after-work building, using an agentic-dev workflow with Claude Code. It's a custom contenteditable screenplay editor, a deterministic line-by-line paginator running in a web worker, a lossless FDX v2 parser and writer that round-trips against the Final Draft and WriterDuet fixtures, an offline-first IndexedDB architecture with an autosave outbox, a real-time collaboration layer built on Liveblocks + Yjs CRDTs, three synchronized editor surfaces on mobile (Flow, Beats, Pages), a 777-script Library embedded with pgvector for Voice Fingerprint and Continuity Reader AI, a Tauri desktop shell, and Capacitor mobile scaffolding.</p>
+
+  <p>Arqo is not a Final Draft clone with AI stapled on. It is a re-architecture of the entire pre-production workflow — writing, structure, shot-listing, teleprompter, NLE export — around the premise that every film, in every language, starts with a script, and no existing tool treats the script as the source of truth across the full pipeline.</p>
+
+  <p>This case study documents the architectural decisions, the trade-offs I made explicit before writing code, the pivots I made when reality pushed back, and the things I deliberately did not build — because the product's discipline is at least as important as its feature list.</p>
+
+  <p>co-founded with <a href="https://isabellavizetta.com">isabella vizetta</a>.</p>
+</div>
+
+<section class="chapter" id="problem">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 01 — THE PROBLEM</div>
+    <h2>screenwriting software is stuck in 1992.</h2>
+
+    <p>Final Draft has shipped the same mental model for thirty years: one view of the document, one file format (FDX), desktop-only, $250 one-time, UI that reads like a 1999 newsroom tool. ~150K active users globally, ~$30M ARR — a genuinely good business on a category that has stopped evolving.</p>
+
+    <p>WriterDuet moved to the browser but punted on mobile. Arc Studio ships a beautiful beatboard but can't export a studio-grade PDF. Celtx has effectively abandoned modern UX. Highland 2 is Mac-only. Sudowrite Muse is AI-first but not actually a screenwriting tool.</p>
+
+    <div class="aside">
+      <span class="label">MARGINALIA</span>
+      none of them serve the writing partner in mumbai whose collaborator is in los angeles. the category has a fifteen-year feature debt.
+    </div>
+
+    <h3>the mobile gap is where the next generation lives</h3>
+    <p>~150K professional screenwriters. 2–4M paying filmmaking creators. That second number is the real TAM. Every existing tool treats the phone as a review surface, never a writing surface — and that's where a whole generation of creators is already working.</p>
+
+    <h3>the multilingual gap is larger than the english gap</h3>
+    <p>Every competitor ships English-first, with locale packs as an afterthought. The real addressable creator base across nine languages (EN, ES, FR, PT, Hindi, Indonesian, Turkish, Mandarin-diaspora, Cantonese) is 7–14M paying users, not 2–4M. Hindi, Spanish, and Portuguese alone are ~4–7M of that.</p>
+
+    <h3>the ai gap is a values question, not a feature question</h3>
+    <p>Every AI screenwriting product I looked at frames AI as a replacement — paste a prompt, get a scene, copy it into your document, watch your voice vanish into GPT mean. That is the easiest product to build and the worst product to ship, because creators know it flattens voice and because without humans there is no product. The opportunity is AI as an amplifier — operating on what the human wrote, surfacing craft patterns, proposing alternatives in the writer's own voice.</p>
+
+    <blockquote>What if the script were the operating system of the filmmaking workflow, not just a deliverable? What if every downstream surface — shot list, teleprompter, edit, thumbnail, production schedule — traced back to a line in the script, with zero double-entry and zero loss of fidelity?</blockquote>
+  </div>
+</section>
+
+<section class="chapter" id="solution">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 02 — THE SOLUTION</div>
+    <h2>script as the source of truth.</h2>
+
+    <h3>1. the script as single source of truth</h3>
+    <p>Every Arqo document is a structured AST, not a blob of text. Each element (scene heading, action, character, parenthetical, dialogue, transition) has a typed node. Every downstream artefact — shot list entry, teleprompter line, NLE export marker, production report row — is a projection of the AST, not a parallel representation. Edit a line of dialogue, the shot list updates. Move a scene, every downstream report updates.</p>
+
+    <div class="placeholder">SCREENS — flow / beats / pages, mobile</div>
+
+    <h3>2. three synchronized editor surfaces on mobile</h3>
+    <p><strong>Flow</strong> — the beatboard. Cards for every beat, draggable, filterable, colour-coded by act. Where the story is shaped.</p>
+    <p><strong>Beats</strong> — the structure view. The same document mapped against a chosen framework (Save the Cat, Story Circle, Three-Act, Hero's Journey, 8 more) with live percentage markers. Where structure is audited.</p>
+    <p><strong>Pages</strong> — the industry-format view. Courier 12, 55 lines/page, MORE/CONT'D, dual dialogue, locked scene numbers + A/B, revision marks in the Blue → Pink → Yellow → Green → Goldenrod → Buff → Salmon → Cherry rotation. What prints and what exports.</p>
+    <p>All three on mobile. All three on the same document. No competitor ships this combination anywhere, let alone on phones.</p>
+
+    <h3>3. professional and creator tiers in one product</h3>
+    <p>Same codebase, same document model, different feature surfacing. A WGA screenwriter uses Pages, FDX export, revision marks, locked scene numbers, and collab. A YouTuber uses Flow, teleprompter, shot list, NLE export, and Creator AI. The underlying engine is identical. The tier surfaces what each audience needs. This is the single architectural bet that lets a solo-to-lean team serve a 7–14M TAM.</p>
+
+    <h3>4. global from day one</h3>
+    <p>i18n is not an afterthought. Editor, paginator, PDF generator, FDX layer all accept locale presets. PPP-indexed pricing from launch. Stripe, Razorpay (India), PIX (Brazil), Mada (Gulf, deferred).</p>
+  </div>
+</section>
+
+<section class="chapter" id="architecture">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 03 — PRODUCT ARCHITECTURE</div>
+    <h2>document model.</h2>
+
+<pre><code>ScreenplayDocument
+├── meta (title, author, draft version, revision colour, locked flag)
+├── structure
+│   ├── acts[]
+│   ├── beats[]        → references to nodes
+│   └── framework      (optional — Save the Cat, Story Circle, etc.)
+├── elements[]
+│   ├── SceneHeading   { int_ext, location, time, number, locked }
+│   ├── Action         { text: RichText }
+│   ├── Character      { name, extension }
+│   ├── Parenthetical  { text }
+│   ├── Dialogue       { text: RichText, dual: DialogueRef | null }
+│   └── Transition     { text }
+├── revisions[]        // immutable revision stamps
+├── shotList[]         → references to elements
+└── production         (DOOD, locations, characters, actors)</code></pre>
+
+    <p>Every element carries a stable ID. Revisions are immutable — a revision doesn't mutate the element, it creates a stamp that layers over it. The FDX exporter walks the AST and emits valid Final Draft XML. The PDF exporter walks the same AST through the paginator.</p>
+
+    <h3>view composition</h3>
+    <p>Each of Flow, Beats, and Pages is a stateless projection of the AST. Opening a second view doesn't duplicate state — it subscribes to the same document store. Edits propagate through a single write path; every view re-derives its render. This is the "one state, many views" pattern most apps pay lip service to and then violate. Arqo enforces it at the type level.</p>
+
+    <h3>sync layer</h3>
+    <p>Editor state lives locally (Zustand store), mirrored into IndexedDB (offline), and for shared projects into a Yjs CRDT running through a Liveblocks provider. Writes are local-first; a background queue reconciles with the server when online. Conflict resolution is handled by the CRDT — no manual merge UI required for element-level edits.</p>
+  </div>
+</section>
+
+<section class="chapter" id="engineering">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 04 — ENGINEERING DEEP-DIVES</div>
+    <h2>the eight things that took the time.</h2>
+
+    <h3>1. the custom contenteditable editor</h3>
+    <h4>why custom, not lexical / prosemirror / slate</h4>
+    <p>I evaluated all three. ProseMirror's collaborative model is excellent, but its schema ergonomics for a fixed set of screenplay element types felt over-general and under-tuned. Lexical's plugin model is better but its paginator story is weak — pagination requires deterministic layout knowledge the editor doesn't natively expose. Slate is too unopinionated for the kind of input-mode cycling I needed. The screenplay-element input grammar — TAB on empty line cycles SCENE→ACTION→CHARACTER→DIALOGUE→TRANSITION; ENTER after CHARACTER goes to DIALOGUE; ENTER after DIALOGUE goes to ACTION — is idiosyncratic enough that I wanted direct control over the keydown pipeline.</p>
+
+    <blockquote>The cost is ~2,000 lines of editor code I now own forever. The benefit is a deterministic contract between editor and paginator that will save orders of magnitude of bugs downstream.</blockquote>
+
+    <h3>2. the deterministic line-by-line paginator</h3>
+    <p>Every production-grade screenwriting peer ships a line-by-line paginator. My original <code>words ÷ 250</code> shortcut worked for prototypes and broke on real scripts. Scene headings, dialogue blocks, and dual-dialogue tables each have their own line-budgeting rules that word-count approximations destroy.</p>
+
+<pre><code>AST → Paginator Worker → Laid-out Pages → Renderer
+
+Paginator responsibilities:
+1. Walk every element in order
+2. Apply Courier-12 metrics (60 chars/line body, per-type widths)
+3. Element-specific layout rules:
+   - Scene headings: 1 line, no break
+   - Action: word-wrap at 60, break allowed
+   - Character: 1 line, NEVER break before next dialogue
+   - Dialogue: wrap at 34, break emits (MORE)/(CONT'D)
+   - Dual dialogue: two cols, budgeted separately
+   - Parentheticals: 26 char wrap
+4. Budget against 55 lines/page
+5. Widow/orphan suppression
+6. Emit (MORE) at page bottom, (CONT'D) at next page top
+7. Emit page numbers, scene numbers, revision marks</code></pre>
+
+    <div class="aside"><span class="label">WHY A WORKER</span>The paginator runs on every keystroke in a long document. On a 120-page script with 2,000+ elements, running on the main thread drops frames. Offloading to a worker — with transferable AST snapshots — keeps the editor at 60fps even during cold-start re-pagination.</div>
+
+    <h3>3. lossless FDX v2 round-trip</h3>
+    <p>FDX is the XML format every studio accepts. Like most XML formats that matured over 20 years, it is a minefield of undocumented edge cases. Arqo's parser and writer preserve formatting runs (bold, italic, underline) nested inside elements, <code>&lt;DualDialogue&gt;</code> pairs with correct column assignment and turn order, <code>&lt;SceneProperties Locked Number&gt;</code> for production scripts including A/B/AA/AB scene numbers, <code>&lt;Text RevisionID&gt;</code> stamps that cite the revision colour they belong to, title page metadata, character extensions (V.O., O.S., CONT'D), custom transitions, action-line images, and inline notes.</p>
+
+    <p>The round-trip test: Arqo document → FDX export → parse back → diff against original AST. If the diff is non-empty, the round-trip failed.</p>
+
+    <h3>4. real-time collaboration: liveblocks + yjs</h3>
+    <p>Liveblocks provides the infrastructure I didn't want to build — WebSocket server, auth, presence primitives, room lifecycle. Yjs provides the CRDT guarantees. Liveblocks has native Yjs integration, so I get both without writing the provider from scratch.</p>
+    <p><strong>Presence without leaking context:</strong> cursor position is a Liveblocks presence update. Current selection is presence. <em>Current view</em> (Flow / Beats / Pages) is presence — so when a collaborator is in Beats mode, their cursor is shown as a beat-card highlight, not a phantom cursor in Pages. This cross-view presence model is unique to Arqo and only works because the document is a single AST, not three parallel representations.</p>
+
+    <h3>5. offline-first architecture</h3>
+    <p>Writers write on planes. Writers write on subways. Writers write in cafés with bad WiFi. Any tool that's online-only immediately fails a real-world usability test. Every write goes to IndexedDB first. A background autosave outbox reconciles with the server when online. For NDA-grade scripts that the server is never allowed to see, I shipped a "Private Draft" project type — local-only, encrypted at rest, never synced.</p>
+
+    <h3>6. PDF generation — industry-standard output</h3>
+    <p>Agents reject non-standard PDFs. "Close to Final Draft" will bounce. The bar is: Courier 12, exact margins (1.5" left, 1" elsewhere), 55 lines per page, proper element positioning, MORE/CONT'D at breaks, page numbers in header, scene numbers in both gutters for production scripts. Courier embedded as a Type 1 font (not system Courier — output must be identical across OS).</p>
+
+    <h3>7. ai architecture with pgvector</h3>
+    <p>AI works on what the writer has already written. No AI surface generates content from scratch. Every AI interaction is an interview the writer chooses to accept, reject, or edit.</p>
+    <ul>
+      <li><strong>Voice Fingerprint</strong> — Embeds every scene the writer has written into pgvector. When the writer asks for a rewrite, retrieve the 20 most voice-similar scenes as context. Output stays in the writer's register.</li>
+      <li><strong>Continuity Reader</strong> — whole-script pass that flags character inconsistencies, missing setups/payoffs, timeline violations.</li>
+      <li><strong>Scene Surgeon</strong> — targeted beat-level rewrites that preserve character voice and act position.</li>
+      <li><strong>Creator Mode AI</strong> — hook generator, retention-beat analyzer (flags 30s/60s/90s drops), CTA optimiser. All operate on the script; none generate from scratch.</li>
+    </ul>
+
+    <h3>8. multi-platform — tauri + capacitor</h3>
+    <p>Same codebase, four surfaces. Web (Next.js on Vercel). Mac + Windows (Tauri, signed). iOS + Android (Capacitor). <strong>Why Tauri over Electron:</strong> 10MB binary vs. 150MB. <strong>Why Capacitor over React Native:</strong> I already have a web app; React Native means re-implementing the editor in a different rendering model.</p>
+  </div>
+</section>
+
+<section class="chapter" id="ai">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 05 — AI DESIGN PHILOSOPHY</div>
+    <h2>amplify, never author.</h2>
+    <blockquote>The script comes first. Everything else follows. AI amplifies, never authors.</blockquote>
+    <p>Not marketing copy — product constraint:</p>
+    <ul>
+      <li>No one-click "generate my script." Ever. The day Arqo ships that, we have abandoned the human-led ethos and become a commodity LLM wrapper.</li>
+      <li>No auto-apply on AI suggestions. Every AI output is a proposal the human accepts, rejects, or edits.</li>
+      <li>No AI-authored content in Library examples. The 777-script Library is all human-written work, curated.</li>
+      <li>Cost caps enforced at the route layer. Not in prompts. Not in UI. Hard limits the user cannot accidentally bypass.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="decisions">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 06 — STAFF-LEVEL DECISIONS</div>
+    <h2>the table.</h2>
+    <table>
+      <thead><tr><th>decision</th><th>chose</th><th>rejected</th><th>why</th></tr></thead>
+      <tbody>
+        <tr><td>collab infra</td><td>Liveblocks wrapping Yjs</td><td>in-house Yjs provider day 1</td><td>shipping in weeks; migration path pre-designed</td></tr>
+        <tr><td>rich-text editor</td><td>custom contenteditable</td><td>Lexical / ProseMirror / Slate</td><td>element-cycling + paginator contract need direct keydown control</td></tr>
+        <tr><td>pagination</td><td>deterministic web-worker</td><td>approximate words ÷ 250</td><td>every downstream artefact depends on page math</td></tr>
+        <tr><td>offline</td><td>first-class day 1</td><td>online-only v1</td><td>writers write offline — shipping online-only is category failure</td></tr>
+        <tr><td>AI</td><td>RAG on user's own writing</td><td>generic LLM prompting</td><td>generic prompts flatten voice; Voice Fingerprint is the moat</td></tr>
+        <tr><td>multi-platform</td><td>Tauri + Capacitor day 1</td><td>web-only MVP</td><td>studio IT demands installables; creators demand real mobile</td></tr>
+        <tr><td>languages</td><td>9-language plan with i18n infra</td><td>English-first, localise later</td><td>localising after launch is 10× the effort</td></tr>
+        <tr><td>pricing</td><td>PPP-indexed Wave 1</td><td>flat-USD $9 global</td><td>flat kills India, LatAm, SEA — Netflix playbook</td></tr>
+        <tr><td>AI content</td><td>amplify, never author</td><td>full generation features</td><td>without humans, no product — the discipline is the product</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="chapter" id="didnt">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 07 — WHAT I DELIBERATELY DIDN'T BUILD</div>
+    <h2>the brand holds because of what it says no to.</h2>
+    <div class="didnt">
+      <h4>NOT IN SCOPE</h4>
+      <ul>
+        <li>No thumbnail image generation. Wrong category. Creators who care already have Photoshop / Canva.</li>
+        <li>No video editing inside Arqo. We stop at the edit's front door — NLE export. The user opens Premiere / FCP / Resolve / CapCut for the cut itself.</li>
+        <li>No one-click scene generation. Ever.</li>
+        <li>No auto-apply on AI suggestions. Every output is a proposal.</li>
+        <li>No Arabic / mainland China through 2030. RTL + dialectal complexity is a 3–4 week tax per feature; mainland China is a parallel legal + infrastructure build. Both deferred deliberately.</li>
+        <li>No native CapCut project writer. Undocumented format, against ToS. Clipboard-friendly export instead.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="pivots">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 08 — PIVOTS &amp; TRADE-OFFS</div>
+    <h2>where reality pushed back.</h2>
+    <ol>
+      <li><strong>Paginator off the main thread.</strong> Built main-thread first. At ~40 pages it dropped frames. Moved to a web worker with transferable AST snapshots. Cost: 3 days. Benefit: smooth typing on 120-page scripts.</li>
+      <li><strong>FDX writer emits FDX 12 always.</strong> Originally tried to round-trip each version's quirks. Switched to "parse anything, emit current."</li>
+      <li><strong>Presence across views, not just Pages.</strong> First version had presence only in Pages. Collaborators in Beats were invisible. Rewrote presence as a cross-view concept.</li>
+      <li><strong>Creator tier pulled from "phase 3" to next sprint.</strong> The TAM math made the priority obvious.</li>
+      <li><strong>Global from day 1, not English-first.</strong> Retrofitting i18n after English launch is 10× the cost.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="chapter" id="perf">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 09 — PERFORMANCE</div>
+    <h2>the numbers behind the feel.</h2>
+    <ul>
+      <li>Editor latency: &lt; 16ms per keystroke on a 2,000-element doc (60fps maintained).</li>
+      <li>Paginator cold start: ~200ms on a 120-page doc, runs in worker.</li>
+      <li>PDF export: ~1.2s for 120 pages including embedded Courier rendering.</li>
+      <li>FDX round-trip: ~80ms for a full parse + re-emit on 120 pages.</li>
+      <li>Offline → online sync: ~300ms median for a 50-edit backlog.</li>
+      <li>Initial load (web): ~85KB critical path gzipped. Editor code lazy-loaded.</li>
+      <li>Mobile Lighthouse target: ≥90 Perf, A11y, Best Practices.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="compete">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 10 — COMPETITIVE GRID</div>
+    <h2>where the category is.</h2>
+    <table>
+      <thead><tr><th>dimension</th><th>arqo</th><th>final draft</th><th>writerduet</th><th>arc studio</th><th>celtx</th><th>highland 2</th><th>sudowrite</th></tr></thead>
+      <tbody>
+        <tr><td>industry PDF</td><td>✓</td><td>✓</td><td>✓</td><td>—</td><td>✓</td><td>✓</td><td>—</td></tr>
+        <tr><td>lossless FDX</td><td>✓</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>✓</td><td>—</td></tr>
+        <tr><td>revision marks</td><td>✓</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>structure view</td><td>✓</td><td>—</td><td>—</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>beatboard</td><td>✓</td><td>—</td><td>—</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>real-time collab</td><td>✓</td><td>—</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>offline-first</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>—</td></tr>
+        <tr><td>mobile (real)</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>three views on mobile</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>voice-tuned AI</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>creator-tier features</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>9-language i18n</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="chapter" id="different">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 11 — WHAT I'D DO DIFFERENTLY</div>
+    <h2>four things, written down.</h2>
+    <ol>
+      <li><strong>Ship the Creator tier on day one.</strong> I built Pro-first and bolted Creator on. Had I started with Creator, product-market-fit signals would have come faster.</li>
+      <li><strong>PPP pricing in the first launch, not as a patch.</strong> Hard to retrofit pricing tables cleanly after launch.</li>
+      <li><strong>Talk to three WGA writers and three YouTubers before writing the first line of code.</strong> Most of my strong opinions were right. Some were wrong in expensive ways that interviews would have caught.</li>
+      <li><strong>Write the ADRs before writing the code, not as I went.</strong> The 40% of decisions I made without writing them down are the ones I revisit and second-guess now.</li>
+    </ol>
+
+    <blockquote>The surface is production-grade. The discipline is staff-grade. The ambition is to be the category-winner in a space that has not had one for a decade.</blockquote>
+  </div>
+</section>
+
+<section class="cs-foot">
+  <div class="col col-narrow">
+    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg-dim)">END OF CASE STUDY · NO. 01</div>
+    <div class="next-up">
+      <a href="/work/jmnpr" class="nx">
+        <div class="label">NEXT — NO. 02</div>
+        <div class="title">jmnpr labs →</div>
+      </a>
+      <a href="/work" class="nx">
+        <div class="label">↩ INDEX</div>
+        <div class="title">all work</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="/site.js"></script>
+</body>
+</html>

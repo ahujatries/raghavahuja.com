@@ -1,68 +1,103 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="contact raghav ahuja — design engineer & senior product designer.">
-  <meta name="theme-color" content="#0c0c0e">
-  <title>contact · raghav ahuja</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="site.css">
-  <link rel="canonical" href="https://raghavahuja.com/contact">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://raghavahuja.com/contact">
-  <meta property="og:title" content="contact · raghav ahuja">
-  <meta property="og:description" content="The line is open. Same-day replies on weekdays.">
-  <meta property="og:image" content="https://raghavahuja.com/og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:site_name" content="raghavahuja.com">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@ahujatries">
-  <meta name="twitter:creator" content="@ahujatries">
-  <meta name="twitter:title" content="contact · raghav ahuja">
-  <meta name="twitter:description" content="The line is open. Same-day replies on weekdays.">
-  <meta name="twitter:image" content="https://raghavahuja.com/og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%235b8cff%22%3Er%3C/text%3E%3Crect x=%2245%22 y=%2222%22 width=%2212%22 height=%2265%22 fill=%22%235b8cff%22%3E%3Canimate attributeName=%22opacity%22 values=%221;1;0;0%22 keyTimes=%220;0.5;0.51;1%22 dur=%221s%22 repeatCount=%22indefinite%22/%3E%3C/rect%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>contact — raghav ahuja</title>
+<meta name="description" content="say hi. work.raghavahuja@gmail.com. or hit ⌘K from anywhere on the site.">
+<meta name="theme-color" content="#1a1814">
+<link rel="canonical" href="https://raghavahuja.com/contact">
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 96px);
+    padding: var(--s-6) 0 var(--s-7);
+    align-items: start;
+  }
+  .contact-l h2 {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--heat); margin: 0 0 var(--s-3); font-weight: 600;
+  }
+  .contact-l p.big {
+    font-family: var(--font-mono);
+    font-size: clamp(28px, 3.6vw, 44px);
+    font-weight: 600; letter-spacing: -0.035em;
+    line-height: 1.05; margin: 0 0 var(--s-4);
+    max-width: 14ch;
+  }
+  .contact-r .row {
+    display: grid; grid-template-columns: 140px 1fr;
+    gap: var(--s-3); padding: var(--s-3) 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .contact-r .row .h {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+  .contact-r .row .b { font-size: 16px; line-height: 1.55; color: var(--fg); }
+  .contact-r .row .b a { color: var(--heat); text-decoration: none; border-bottom: 1px solid var(--rule-strong); }
+  .contact-r .row .b a:hover { border-bottom-color: var(--heat); }
+  .contact-r .row .b em { color: var(--fg-dim); font-style: italic; }
+  @media (max-width: 880px) { .contact-grid { grid-template-columns: 1fr; gap: var(--s-4); } }
+</style>
 </head>
-<body data-page="contact">
-  <script>try { var s = localStorage.getItem('theme'); if (s) document.documentElement.setAttribute('data-theme', s); } catch (e) {}</script>
+<body>
+<div id="topbar-slot"></div>
 
-  <a href="#main" class="skip-link">skip to content</a>
-
-  <div class="wrap">
-    <div id="nav-mount"></div>
-
-    <main id="main">
-      <div class="folio-strip">folio 07 — contact · the line is open</div>
-
-      <section style="padding: 80px 0;">
-        <h1 class="hero-tall">Contact.</h1>
-        <div class="hero-ctas" style="margin-top: 32px;">
-          <a href="mailto:work.raghavahuja@gmail.com" class="cta cta-primary">work.raghavahuja@gmail.com</a>
-          <button class="cta" id="copy-email" type="button">copy →</button>
-        </div>
-        <div style="margin-top: 40px; font-family: var(--font-mono); font-size: var(--fs-small); color: var(--dim); letter-spacing: 0.04em;">
-          <a href="https://github.com/ahujatries" style="color: inherit;">github</a> ·
-          <a href="https://www.linkedin.com/in/raghav-ahuja-140b4aa9/" style="color: inherit;">linkedin</a>
-        </div>
-        <div style="margin-top: 24px; font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--mute); text-transform: lowercase; letter-spacing: 0.04em;">
-          brooklyn, ny.
-        </div>
-      </section>
-    </main>
-
-    <div id="footer-mount"></div>
+<section class="page-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><span>contact</span></div>
+    <h1>contact.</h1>
+    <p class="lede">one inbox. one phrase in the subject line. one promise: i read everything, and i answer the ones that aren't recruiter mass-mail.</p>
   </div>
+</section>
 
-  <script>
-    document.getElementById('copy-email')?.addEventListener('click', function () {
-      navigator.clipboard?.writeText('work.raghavahuja@gmail.com');
-      this.textContent = 'copied ✓';
-      setTimeout(() => { this.textContent = 'copy →'; }, 1800);
-    });
-  </script>
-  <script src="site.js" defer></script>
+<div class="col">
+  <div class="contact-grid">
+    <div class="contact-l">
+      <h2>SAY HI</h2>
+      <p class="big">subject line is the whole interface.</p>
+      <p style="font-size:15px;line-height:1.6;color:var(--fg-dim);max-width:48ch">put <em>hiring</em>, <em>arqo</em>, <em>jmnpr</em>, <em>case study</em>, or <em>just hi</em> in the subject. i triage by it.</p>
+      <div style="margin-top:var(--s-4);display:flex;gap:14px;flex-wrap:wrap">
+        <a href="mailto:work.raghavahuja@gmail.com?subject=hiring" class="btn btn-fill">email →</a>
+        <a href="/now" class="btn btn-ghost">/now</a>
+      </div>
+    </div>
+    <div class="contact-r">
+      <div class="row">
+        <div class="h">EMAIL</div>
+        <div class="b"><a href="mailto:work.raghavahuja@gmail.com">work.raghavahuja@gmail.com</a></div>
+      </div>
+      <div class="row">
+        <div class="h">CALENDAR</div>
+        <div class="b"><em>by email — i don't keep a public booking link.</em></div>
+      </div>
+      <div class="row">
+        <div class="h">LOCATION</div>
+        <div class="b">brooklyn · EST · IST when i'm with family</div>
+      </div>
+      <div class="row">
+        <div class="h">RESPONSE</div>
+        <div class="b">~24h on weekdays, slower on weekends. <em>recruiters: please specify role and comp band up front.</em></div>
+      </div>
+      <div class="row">
+        <div class="h">SOCIAL</div>
+        <div class="b"><a href="https://www.linkedin.com/in/raghavahuja/">linkedin</a> · <a href="https://github.com/raghavahuja">github</a> · <a href="https://twitter.com/ahujatries">twitter</a></div>
+      </div>
+      <div class="row">
+        <div class="h">⌘K</div>
+        <div class="b"><em>everything else.</em></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/site.js"></script>
 </body>
 </html>

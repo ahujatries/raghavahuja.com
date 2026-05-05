@@ -1,0 +1,229 @@
+/* ============================================================
+   RaghavA Design System — colors, type, and semantic styles
+   Single source of truth. Import into every surface.
+   ============================================================ */
+
+/* ---------- 1. FONTS --------------------------------------- */
+/* Geist Sans (body) — real */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+/* JetBrains Mono — SUBSTITUTE for Berkeley Mono. Replace when license arrives. */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+/* Caveat — SUBSTITUTE for the author's handwriting. Replace with Calligraphr-scanned face. */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&display=swap');
+
+:root {
+  /* ---------- 2. COLOR SYSTEM -------------------------------
+     Three colors + warm dark + off-white. That's the rule. */
+
+  /* Base — warm, never pure */
+  --bg:           #1a1814;   /* warm dark. ink on cold paper. */
+  --bg-deeper:    #0e0c0a;   /* alternate, slightly deeper */
+  --fg:           #ece6d8;   /* bone / off-white */
+  --fg-dim:       #8a8478;   /* meta, captions, ~60% on warm dark */
+  --fg-faint:     #4d4940;   /* hairline label text */
+  --rule:         #2a2620;   /* 1px hairlines */
+  --rule-strong:  #3a352d;   /* hover-state hairline */
+
+  /* Brand heat — pick one per site, not all three */
+  --heat:           #ff7a2b;   /* sodium-lamp orange (default) */
+  --heat-pressed:   #e0651c;   /* press state */
+  --heat-iodine:    #d83a2a;   /* alternate: iodine red */
+  --heat-sienna:    #c45a2e;   /* alternate: burnt sienna */
+
+  /* Accent — barely usable, 2–3 uses entire site */
+  --accent:         #e8ff5a;   /* yellow highlighter (default) */
+  --accent-mint:    #7af0c4;   /* alternate: electric mint */
+  --accent-uv:      #a78bff;   /* alternate: ultraviolet */
+
+  /* Functional aliases */
+  --fg-on-heat:     #1a1814;   /* text on heat fill */
+  --link:           var(--fg);
+  --link-hover:     var(--heat);
+
+  /* ---------- 3. TYPE SYSTEM ------------------------------- */
+  --font-mono:  'JetBrains Mono', 'Berkeley Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans:  'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand:  'Caveat', 'Bradley Hand', cursive;
+
+  /* Sizes — huge or small, not pyramid */
+  --t-hero:     clamp(64px, 14vw, 220px);   /* the rude headline */
+  --t-display:  clamp(40px, 7vw, 96px);     /* secondary big */
+  --t-h1:       clamp(28px, 4vw, 44px);
+  --t-h2:       22px;
+  --t-body:     17px;
+  --t-body-sm:  15px;
+  --t-caption:  12px;
+  --t-label:    10.5px;     /* uppercase mono labels */
+  --t-margin:   15px;       /* handwriting marginalia */
+
+  /* Line heights */
+  --lh-tight:   1.0;
+  --lh-snug:    1.15;
+  --lh-body:    1.55;
+  --lh-loose:   1.7;
+
+  /* Tracking */
+  --track-mono-tight:   -0.02em;   /* mono headlines */
+  --track-label:        0.08em;    /* tiny labels */
+  --track-body:         0;
+
+  /* ---------- 4. SPACING (generous) ------------------------ */
+  --s-1:   4px;
+  --s-2:   8px;
+  --s-3:   16px;
+  --s-4:   24px;
+  --s-5:   40px;
+  --s-6:   64px;
+  --s-7:   96px;
+  --s-8:   160px;
+  --s-9:   240px;
+
+  /* ---------- 5. RADII (mostly zero) ----------------------- */
+  --r-0:   0;       /* default */
+  --r-pill: 999px;  /* rare, only for chips/avatars */
+  --r-quirk: 24px;  /* the one off-system corner on the loud card */
+
+  /* ---------- 6. MOTION ------------------------------------ */
+  --ease:        cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast:    80ms;
+  --dur:         200ms;
+  --dur-slow:    400ms;
+
+  /* ---------- 7. LAYOUT ------------------------------------ */
+  --max-w:       1280px;
+  --gutter:      var(--s-5);
+  --baseline:    8px;        /* strict baseline. Violate 5–10% intentionally. */
+
+  /* ---------- 8. Z-INDEX ----------------------------------- */
+  --z-base:     0;
+  --z-margin:   10;   /* marginalia float above baseline */
+  --z-overlay:  100;
+  --z-cmdk:     1000;
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT STYLES
+   Apply to bare HTML for sane defaults.
+   ============================================================ */
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  font-feature-settings: "ss01", "cv11", "tnum";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--heat); color: var(--fg-on-heat); }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: var(--track-mono-tight);
+  line-height: var(--lh-snug);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--t-hero);    line-height: var(--lh-tight); font-weight: 600; }
+h2 { font-size: var(--t-display); }
+h3 { font-size: var(--t-h1); }
+h4 { font-size: var(--t-h2); }
+
+p {
+  margin: 0 0 1.2em 0;
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color var(--dur) var(--ease), text-decoration-color var(--dur) var(--ease);
+}
+a:hover { color: var(--link-hover); text-decoration-color: var(--heat); }
+a:focus-visible {
+  outline: 2px solid var(--heat);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* tiny UI labels — uppercase mono */
+.label, [data-label] {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+/* numbers, meta, dates */
+.mono, .meta, time, .num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* marginalia — handwriting, anchored to body */
+.margin, .marginalia {
+  font-family: var(--font-hand);
+  font-size: var(--t-margin);
+  font-weight: 500;
+  color: var(--fg-dim);
+  line-height: 1.25;
+  transform: rotate(-1.5deg);
+  display: inline-block;
+}
+
+/* code — same mono, slight bg */
+code, pre, kbd {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+code {
+  background: var(--rule);
+  padding: 2px 6px;
+}
+kbd {
+  background: var(--rule);
+  border: 1px solid var(--rule-strong);
+  padding: 1px 6px;
+  font-size: 0.85em;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: var(--s-5) 0;
+}
+
+/* utility: the page baseline grid (only visible if you want it) */
+.show-baseline {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--baseline) - 1px),
+    rgba(255, 122, 43, 0.08) calc(var(--baseline) - 1px),
+    rgba(255, 122, 43, 0.08) var(--baseline)
+  );
+}
+
+/* containers */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* the ONE quirky corner — applied to one card per page */
+.quirk-corner {
+  border-radius: 0 var(--r-quirk) 0 0;
+}
+.quirk-tilt {
+  transform: rotate(-1.2deg);
+}

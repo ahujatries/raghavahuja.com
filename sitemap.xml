@@ -2,18 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://raghavahuja.com/</loc><priority>1.0</priority></url>
   <url><loc>https://raghavahuja.com/work</loc><priority>0.9</priority></url>
-  <url><loc>https://raghavahuja.com/case-study?slug=arqo</loc><priority>0.8</priority></url>
-  <url><loc>https://raghavahuja.com/case-study?slug=jmnpr-labs</loc><priority>0.8</priority></url>
-  <url><loc>https://raghavahuja.com/case-study?slug=ef</loc><priority>0.8</priority></url>
-  <url><loc>https://raghavahuja.com/case-study?slug=futbolis</loc><priority>0.7</priority></url>
-  <url><loc>https://raghavahuja.com/docs</loc><priority>0.8</priority></url>
-  <url><loc>https://raghavahuja.com/docs?d=ctb</loc><priority>0.7</priority></url>
-  <url><loc>https://raghavahuja.com/docs?d=mind</loc><priority>0.7</priority></url>
-  <url><loc>https://raghavahuja.com/docs?d=colophon</loc><priority>0.7</priority></url>
-  <url><loc>https://raghavahuja.com/docs?d=adr-edge-cache</loc><priority>0.7</priority></url>
+  <url><loc>https://raghavahuja.com/work/arqo</loc><priority>0.9</priority></url>
+  <url><loc>https://raghavahuja.com/work/jmnpr</loc><priority>0.8</priority></url>
+  <url><loc>https://raghavahuja.com/work/ef</loc><priority>0.8</priority></url>
+  <url><loc>https://raghavahuja.com/receipts</loc><priority>0.8</priority></url>
+  <url><loc>https://raghavahuja.com/receipts/mamdani-mapper</loc><priority>0.7</priority></url>
+  <url><loc>https://raghavahuja.com/receipts/futbolis</loc><priority>0.7</priority></url>
+  <url><loc>https://raghavahuja.com/receipts/hot-cold</loc><priority>0.7</priority></url>
   <url><loc>https://raghavahuja.com/about</loc><priority>0.8</priority></url>
-  <url><loc>https://raghavahuja.com/contact</loc><priority>0.8</priority></url>
-  <url><loc>https://raghavahuja.com/lab</loc><priority>0.6</priority></url>
+  <url><loc>https://raghavahuja.com/now</loc><priority>0.6</priority></url>
+  <url><loc>https://raghavahuja.com/stack</loc><priority>0.6</priority></url>
+  <url><loc>https://raghavahuja.com/contact</loc><priority>0.7</priority></url>
   <url><loc>https://raghavahuja.com/hot-cold</loc><priority>0.7</priority></url>
   <url><loc>https://raghavahuja.com/mamdani-mapper</loc><priority>0.7</priority></url>
 </urlset>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>stack — raghav ahuja</title>
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+  .stack-grid {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: var(--s-3); padding: var(--s-4) 0;
+    border-top: 1px solid var(--rule);
+  }
+  .stack-grid .head {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-dim);
+    padding-top: 4px;
+  }
+  .stack-grid .body { font-size: 15.5px; line-height: 1.65; color: var(--fg); }
+  .stack-grid .body code {
+    background: var(--rule); padding: 2px 7px; font-size: 13px;
+    color: var(--heat);
+  }
+  .stack-grid .body em { color: var(--fg-dim); font-style: italic; }
+  @media (max-width: 700px) { .stack-grid { grid-template-columns: 1fr; gap: 6px; } }
+</style>
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="page-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><span>stack</span></div>
+    <h1>stack.</h1>
+    <p class="lede">what i actually use, with reasons. the list is short on purpose. <em>tools are not a personality.</em></p>
+  </div>
+</section>
+
+<div class="col col-prose" style="padding-bottom: var(--s-7)">
+  <div class="stack-grid">
+    <div class="head">DESIGN</div>
+    <div class="body"><code>figma</code> for everything. <code>linear</code> for tickets. <code>obsidian</code> for thinking. <em>used to use sketch — i miss the principles, not the app.</em></div>
+  </div>
+  <div class="stack-grid">
+    <div class="head">CODE</div>
+    <div class="body"><code>typescript</code>, <code>next.js</code>, <code>react</code>, <code>tauri</code>, <code>capacitor</code>. plain html when the task wants plain html. <code>vite</code> when next is overkill.</div>
+  </div>
+  <div class="stack-grid">
+    <div class="head">EDITORS</div>
+    <div class="body"><code>cursor</code> + <code>claude code</code>. agentic-dev workflows are the reason solo-velocity at studio-quality is a real thing in 2026. <em>vs code as fallback.</em></div>
+  </div>
+  <div class="stack-grid">
+    <div class="head">DATA · INFRA</div>
+    <div class="body"><code>postgres</code> + <code>pgvector</code>. <code>vercel</code> + <code>cloudflare</code>. <code>liveblocks</code> wrapping <code>yjs</code> for collab. <code>mapbox gl</code> when there's a map. <em>no kafka. no kubernetes. no tears.</em></div>
+  </div>
+  <div class="stack-grid">
+    <div class="head">PAYMENTS</div>
+    <div class="body"><code>stripe</code> for the english-speaking world. <code>razorpay</code> for india. <code>lemon squeezy</code> for one-time digital goods.</div>
+  </div>
+  <div class="stack-grid">
+    <div class="head">TYPE</div>
+    <div class="body"><code>berkeley mono</code> when the license is in. <code>jetbrains mono</code> when it isn't. <code>fraunces</code> for italic display. <code>caveat</code> standing in for handwriting; one day it'll be <em>my</em> handwriting.</div>
+  </div>
+  <div class="stack-grid">
+    <div class="head">HARDWARE</div>
+    <div class="body">m4 macbook pro 14". secondary 27" display. <code>iphone 16</code>. <code>ipad pro</code>. one mechanical keyboard i refuse to discuss in public.</div>
+  </div>
+  <div class="stack-grid">
+    <div class="head">RITUAL</div>
+    <div class="body">pourover. paper notebook. dual-clock app on my menubar (brooklyn / mumbai). a list of things i'm <em>not</em> doing pinned above the desk.</div>
+  </div>
+</div>
+
+<script src="/site.js"></script>
+</body>
+</html>

@@ -1,6 +1,17 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/case-study", "has": [{ "type": "query", "key": "slug", "value": "arqo" }], "destination": "/work/arqo", "permanent": true },
+    { "source": "/case-study", "has": [{ "type": "query", "key": "slug", "value": "jmnpr-labs" }], "destination": "/work/jmnpr", "permanent": true },
+    { "source": "/case-study", "has": [{ "type": "query", "key": "slug", "value": "ef" }], "destination": "/work/ef", "permanent": true },
+    { "source": "/case-study", "has": [{ "type": "query", "key": "slug", "value": "futbolis" }], "destination": "/receipts/futbolis", "permanent": true },
+    { "source": "/case-study", "has": [{ "type": "query", "key": "slug", "value": "hot-cold" }], "destination": "/receipts/hot-cold", "permanent": true },
+    { "source": "/case-study", "destination": "/work", "permanent": true },
+    { "source": "/lab", "destination": "/receipts", "permanent": true },
+    { "source": "/docs", "destination": "/about", "permanent": true },
+    { "source": "/mamdani-mapper-case", "destination": "/receipts/mamdani-mapper", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",

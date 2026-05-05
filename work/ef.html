@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EF world journeys — case study · raghav ahuja</title>
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/case-study.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+  .gate {
+    margin: var(--s-5) 0;
+    padding: var(--s-5);
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-deeper);
+    position: relative;
+  }
+  .gate .stamp {
+    position: absolute; top: -10px; right: var(--s-4);
+    background: var(--bg-deeper);
+    padding: 0 12px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--heat);
+  }
+  .gate h3 {
+    margin-top: 0 !important;
+    font-family: var(--font-mono);
+    font-size: 19px; letter-spacing: -0.02em;
+  }
+  .gate-form {
+    display: flex; gap: 10px; margin-top: var(--s-3);
+    max-width: 460px;
+  }
+  .gate-form input {
+    flex: 1; padding: 12px 14px;
+    background: var(--bg); border: 1px solid var(--rule-strong);
+    color: var(--fg); font-family: var(--font-mono); font-size: 13px;
+    outline: none;
+    transition: border-color 200ms var(--ease);
+  }
+  .gate-form input:focus { border-color: var(--heat); }
+  .gate-form .err {
+    color: var(--heat); font-family: var(--font-mono);
+    font-size: 11px; margin-top: 8px; letter-spacing: 0.05em;
+    min-height: 14px;
+  }
+  .locked {
+    position: relative;
+    overflow: hidden;
+    max-height: 360px;
+    user-select: none;
+  }
+  .locked::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, var(--bg) 90%);
+    pointer-events: none;
+  }
+  .locked .blur { filter: blur(6px); opacity: 0.55; }
+  .unlocked-banner {
+    margin: var(--s-4) 0;
+    padding: 14px 18px;
+    background: rgba(255,122,43,0.08);
+    border-left: 2px solid var(--heat);
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--heat); letter-spacing: 0.06em;
+  }
+  .teaser-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4);
+    margin: var(--s-5) 0;
+  }
+  @media (max-width: 700px) { .teaser-grid { grid-template-columns: 1fr; } }
+  .teaser {
+    padding: var(--s-4);
+    border: 1px solid var(--rule);
+    background: var(--bg-deeper);
+  }
+  .teaser .num {
+    font-family: var(--font-mono); font-size: 28px;
+    color: var(--heat); font-weight: 700; letter-spacing: -0.04em;
+  }
+  .teaser .label {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--fg-dim); margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="cs-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><a href="/work">work</a><span class="sep">/</span><span>EF</span></div>
+    <h1>EF world journeys<span class="heat">.</span></h1>
+    <p class="deck">three years on staff. checkout, insurance, the quoting tool across 50+ countries, two design frameworks. the case study is gated — but here's the shape of it.</p>
+    <div class="meta-row">
+      <span><span class="dot">●</span> CASE STUDY · NO. 03 · 2022–25</span>
+      <span>STAFF DESIGNER</span>
+      <span>STATUS: GATED</span>
+    </div>
+  </div>
+</section>
+
+<div class="col col-narrow prose">
+  <div class="gate">
+    <span class="stamp">○ GATED</span>
+    <h3>this case study is gated.</h3>
+    <p>It contains work I'm shipping at a current employer — metrics, framework names, and front-end specifics that are fine to share in a hiring conversation but that I'd rather not have my colleagues stumble onto by accident.</p>
+    <p>If you're a hiring partner or recruiter and you'd like the password, email <a href="mailto:work.raghavahuja@gmail.com?subject=case%20study%20access">work.raghavahuja@gmail.com</a> and I'll send it. It's one short phrase; it unlocks on any device and stays unlocked on this browser for the session.</p>
+    <div class="gate-form">
+      <input type="password" id="pw" placeholder="password" autocomplete="off"/>
+      <button class="btn btn-fill" id="unlock">unlock →</button>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+</div>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">PUBLIC TEASER</div>
+    <h2>what the case study covers.</h2>
+    <ul>
+      <li><strong>Insurance add-on redesign</strong> — the full loop: discovery → instrumentation → design-system contribution → ship with engineering.</li>
+      <li><strong>Checkout rebuild</strong> — step sequence into a single-page progressive disclosure pattern.</li>
+      <li><strong>Quoting-tool redesign</strong> — advisor dashboard simplification, rolled across 50+ countries.</li>
+      <li><strong>Two frameworks I authored</strong> — <a href="/work/mind">MIND</a> (behavioral) and <a href="/work/hcai">Designing for Humans</a> (HCAI rubric). These ones are public.</li>
+    </ul>
+
+    <div class="teaser-grid">
+      <div class="teaser">
+        <div class="num">+$4.2M</div>
+        <div class="label">annualised — checkout rebuild</div>
+      </div>
+      <div class="teaser">
+        <div class="num">+10%</div>
+        <div class="label">take-rate — insurance redesign</div>
+      </div>
+      <div class="teaser">
+        <div class="num">+12.4%</div>
+        <div class="label">CtB — deals tracker pricing intel</div>
+      </div>
+      <div class="teaser">
+        <div class="num">50+</div>
+        <div class="label">countries — quoting-tool rollout</div>
+      </div>
+    </div>
+
+    <div class="aside">
+      <span class="label">WHY GATE</span>
+      The metrics are real. The framework names are public. What's gated is the way the screens look on a Friday afternoon when nothing is shipped yet — the embarrassing middles, the dead-end variants, the screenshots that would make a current colleague go "wait, what." I'd rather show you in a call than leave them indexable.
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="locked-region">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 01 — INSURANCE REDESIGN <span style="color:var(--fg-faint)">· LOCKED</span></div>
+    <h2>★★★★★★★ ★★★★★★★ ★★★★★★★.</h2>
+    <div class="locked" id="locked">
+      <div class="blur">
+        <p>The insurance add-on was the highest-margin SKU on the platform with the lowest take-rate in category. Discovery surfaced a trust leak in the price moment: travelers were quoting the package without the add-on, then opening the add-on PDP only to find the same number with a $89 increase, no rationale, no context. The redesign moved disclosure upstream and reframed the moment as risk-reversal, not upsell.</p>
+        <p>I instrumented every step against the BDI heatmap — page-level Trust scores below 2.5 became the work. The design-system contribution was a new <code>guarantee-block</code> primitive that paired the policy summary with the cancellation window in a single vertical, with live exchange-rate computation on the deductible. Engineering shipped it behind a holdback; we ran a 3-week experiment with five geo-segments. Lift was statistically significant in 4 of 5; the one that didn't lift was the one with the highest pre-existing add-on rate, which was the right honest answer.</p>
+        <p>The takeaway was not the +10% itself — it was that the take-rate was held by the trust score, not the price, and once we instrumented that link the rest of the platform got a tool to find similar moments. Two adjacent surfaces — visa add-on, flexible-date upsell — were rebuilt the same way over the next quarter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="col col-narrow prose">
+  <div class="aside" id="unlock-hint">
+    <span class="label">PASSWORD HINT (FRIENDLY)</span>
+    For testing this site: try <code>brooklyn</code>. (In real life, the hint comes from the email exchange.)
+  </div>
+</div>
+
+<section class="cs-foot">
+  <div class="col col-narrow">
+    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg-dim)">END OF CASE STUDY · NO. 03 (PUBLIC PORTION)</div>
+    <div class="next-up">
+      <a href="/work/mind" class="nx">
+        <div class="label">FRAMEWORK · 03A</div>
+        <div class="title">MIND framework →</div>
+      </a>
+      <a href="/work/hcai" class="nx">
+        <div class="label">FRAMEWORK · 03B</div>
+        <div class="title">designing for humans →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="/site.js"></script>
+<script>
+(function(){
+  const PW = 'brooklyn';
+  const KEY = 'ef-unlocked';
+  function unlock(){
+    document.getElementById('locked').classList.remove('locked');
+    document.querySelector('.gate').innerHTML = `
+      <span class="stamp" style="color:var(--heat)">● UNLOCKED</span>
+      <h3>welcome.</h3>
+      <p>You're reading the gated case study. Stays unlocked on this browser for the session. Email me if you'd like to walk through any of it on a call — it reads better with the screens on screen.</p>
+    `;
+    const hint = document.getElementById('unlock-hint');
+    if (hint) hint.remove();
+    document.getElementById('locked').scrollIntoView ? null : null; // no-op (don't scrollIntoView)
+  }
+  if (sessionStorage.getItem(KEY) === '1') unlock();
+  document.getElementById('unlock').addEventListener('click', tryUnlock);
+  document.getElementById('pw').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(); });
+  function tryUnlock(){
+    const v = document.getElementById('pw').value.trim().toLowerCase();
+    const err = document.getElementById('err');
+    if (v === PW) { try { sessionStorage.setItem(KEY, '1'); } catch(e){} unlock(); }
+    else { err.textContent = 'no match. try again or email for the phrase.'; }
+  }
+})();
+</script>
+</body>
+</html>

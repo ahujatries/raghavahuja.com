@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>now — raghav ahuja</title>
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+  .now-list { padding: var(--s-5) 0 var(--s-7); }
+  .now-row {
+    display: grid; grid-template-columns: 140px 1fr;
+    gap: var(--s-4); padding: var(--s-4) 0;
+    border-top: 1px solid var(--rule);
+  }
+  .now-row .when {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+  .now-row .what { font-size: 16px; line-height: 1.55; color: var(--fg); }
+  .now-row .what a { color: var(--heat); text-decoration: none; }
+  .now-row .what em { color: var(--fg-dim); font-style: italic; }
+  .now-row .what .live {
+    display: inline-block; width: 7px; height: 7px;
+    background: var(--heat); border-radius: 50%; margin-right: 8px;
+    vertical-align: middle;
+    animation: pulse 2s infinite;
+  }
+</style>
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="page-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><span>now</span></div>
+    <h1>now.</h1>
+    <p class="lede">a /now page in the <a href="https://nownownow.com/about" style="color:var(--heat);text-decoration:none;border-bottom:1px solid var(--rule-strong)">derek-sivers</a> sense — what i'm doing right now, updated when it's actually true.</p>
+    <p class="lede dim">last refreshed: tuesday morning, 11:14am EST. brooklyn weather: cold, honest, raining.</p>
+  </div>
+</section>
+
+<div class="col col-prose">
+  <div class="now-list">
+    <div class="now-row">
+      <div class="when">SHIPPING</div>
+      <div class="what"><span class="live"></span><strong>arqo v0.4</strong> — paginator running on a worker, FDX round-trip clean against four studio fixtures. <em>next: invite-only beta with three writers and three creators.</em></div>
+    </div>
+    <div class="now-row">
+      <div class="when">WRITING</div>
+      <div class="what">a piece called <em>"the brand color is the streetlamp at 2am"</em> — about why brand colors should be a single decision, not a system.</div>
+    </div>
+    <div class="now-row">
+      <div class="when">READING</div>
+      <div class="what">susan sontag's <em>against interpretation</em>. the back catalog of <em>increment</em> magazine. design-systems trade gossip on private slacks.</div>
+    </div>
+    <div class="now-row">
+      <div class="when">JOB-WISE</div>
+      <div class="what">finishing my last quarter at EF, and quietly open to <a href="mailto:work.raghavahuja@gmail.com?subject=hiring">staff design-engineer / founding designer roles</a>. brooklyn-based or remote-friendly. not relocating again.</div>
+    </div>
+    <div class="now-row">
+      <div class="when">WATCHING</div>
+      <div class="what">the back half of <em>severance s2</em>. <em>past lives</em> (third time). whatever <em>fortnight</em> is doing on letterboxd.</div>
+    </div>
+    <div class="now-row">
+      <div class="when">EATING</div>
+      <div class="what">too many bagels from the place on bedford. trying to make rajma at home. failing nicely.</div>
+    </div>
+    <div class="now-row">
+      <div class="when">NOT DOING</div>
+      <div class="what">attending conferences. answering recruiter mass-emails. shipping anything with "ai-powered" in the headline.</div>
+    </div>
+  </div>
+</div>
+
+<script src="/site.js"></script>
+</body>
+</html>

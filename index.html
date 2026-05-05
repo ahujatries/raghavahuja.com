@@ -1,144 +1,636 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="raghav ahuja — design engineer & senior product designer. The code is part of the craft, not a handoff. 13 years shipping conversion-critical products.">
-  <meta name="theme-color" content="#0c0c0e">
-  <title>raghav ahuja · design engineer &amp; senior product designer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="site.css">
-  <link rel="canonical" href="https://raghavahuja.com/">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://raghavahuja.com/">
-  <meta property="og:title" content="raghav ahuja — design engineer & senior product designer">
-  <meta property="og:description" content="The code is part of the craft, not a handoff. 13 years shipping conversion-critical products.">
-  <meta property="og:image" content="https://raghavahuja.com/og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:site_name" content="raghavahuja.com">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@ahujatries">
-  <meta name="twitter:creator" content="@ahujatries">
-  <meta name="twitter:title" content="raghav ahuja — design engineer & senior product designer">
-  <meta name="twitter:description" content="The code is part of the craft, not a handoff. 13 years shipping conversion-critical products.">
-  <meta name="twitter:image" content="https://raghavahuja.com/og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%235b8cff%22%3Er%3C/text%3E%3Crect x=%2245%22 y=%2222%22 width=%2212%22 height=%2265%22 fill=%22%235b8cff%22%3E%3Canimate attributeName=%22opacity%22 values=%221;1;0;0%22 keyTimes=%220;0.5;0.51;1%22 dur=%221s%22 repeatCount=%22indefinite%22/%3E%3C/rect%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>raghav ahuja — design engineer</title>
+<meta name="description" content="design engineer. brooklyn. i ship the whole loop — figma to codebase to live url. fifteen years inside other people's roadmaps; now mostly inside my own.">
+<meta name="theme-color" content="#1a1814">
+<link rel="canonical" href="https://raghavahuja.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://raghavahuja.com/">
+<meta property="og:title" content="raghav ahuja — design engineer">
+<meta property="og:description" content="design engineer. brooklyn. i ship the whole loop — figma to codebase to live url.">
+<meta property="og:image" content="https://raghavahuja.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="raghavahuja.com">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@ahujatries">
+<meta name="twitter:creator" content="@ahujatries">
+<meta name="twitter:title" content="raghav ahuja — design engineer">
+<meta name="twitter:description" content="design engineer. brooklyn. i ship the whole loop — figma to codebase to live url.">
+<meta name="twitter:image" content="https://raghavahuja.com/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%23ff7a2b%22%3Er%3C/text%3E%3Crect x=%2245%22 y=%2222%22 width=%2212%22 height=%2265%22 fill=%22%23ff7a2b%22%3E%3Canimate attributeName=%22opacity%22 values=%221;1;0;0%22 keyTimes=%220;0.5;0.51;1%22 dur=%221s%22 repeatCount=%22indefinite%22/%3E%3C/rect%3E%3C/svg%3E">
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+  /* ===== HERO ===== */
+  .hero {
+    padding: clamp(56px, 9vw, 120px) 0 clamp(64px, 10vw, 140px);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vw, 72px);
+  }
+  .hero h1 {
+    font-family: var(--font-mono);
+    font-size: clamp(40px, 6.4vw, 92px);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 0.96;
+    margin: 0;
+    max-width: 18ch;
+  }
+  .hero h1 .heat { color: var(--heat); }
+  .hero h1 .it {
+    font-family: 'Fraunces', 'Caveat', serif;
+    font-style: italic; font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .hero-side {
+    display: flex; flex-direction: row; gap: var(--s-5);
+    align-items: flex-start; flex-wrap: wrap;
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--rule);
+  }
+  .hero-side .lede {
+    font-size: 17px; line-height: 1.55;
+    color: var(--fg);
+    max-width: 48ch; flex: 1 1 360px;
+    margin: 0;
+  }
+  .hero-side .lede em { color: var(--fg-dim); font-style: normal; }
+  .hero-side .lede a { color: var(--heat); text-decoration: none; border-bottom: 1px solid var(--rule-strong); }
+  .hero-side .lede a:hover { border-bottom-color: var(--heat); }
+  .hero-meta {
+    display: flex; flex-direction: column; gap: 8px;
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-faint);
+    flex: 0 0 auto;
+  }
+  .hero-meta .dot { color: var(--heat); }
+
+  .marg {
+    position: absolute;
+    right: calc(var(--gutter) + 4vw);
+    top: 22%;
+    max-width: 220px;
+    font-family: 'Caveat', 'Bradley Hand', cursive;
+    font-weight: 500;
+    font-size: 24px; color: var(--heat);
+    transform: rotate(-3deg);
+    line-height: 1.25;
+    pointer-events: none;
+  }
+  .marg em { font-family: inherit; font-style: italic; }
+  .marg::before {
+    content: '↘'; display: inline-block;
+    margin-right: 6px; font-size: 16px;
+    opacity: 0.6;
+  }
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .marg { display: none; }
+  }
+
+  /* ===== NOW TICKER ===== */
+  .now {
+    border-bottom: 1px solid var(--rule);
+    background: transparent;
+    padding: var(--s-4) 0;
+  }
+  .now-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1fr 1fr;
+    gap: var(--s-4);
+    align-items: baseline;
+  }
+  .now-row .h {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--heat); font-weight: 600;
+  }
+  .now-cell {
+    font-size: 14px; line-height: 1.5; color: var(--fg);
+    display: flex; gap: 10px; align-items: baseline;
+  }
+  .now-cell .lbl {
+    font-family: var(--font-mono); font-size: 9.5px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-faint);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .now-cell .live {
+    display: inline-block; width: 6px; height: 6px;
+    background: var(--heat); border-radius: 50%;
+    margin-right: 6px; flex-shrink: 0;
+    align-self: center;
+    animation: pulse 2s infinite;
+  }
+  .now-cell em { color: var(--fg-dim); font-style: italic; }
+  .now-cell a { color: var(--heat); text-decoration: none; }
+  @media (max-width: 880px) {
+    .now-row { grid-template-columns: 1fr; gap: var(--s-3); }
+  }
+
+  /* ===== WORK ===== */
+  .work-section { padding: clamp(72px, 10vw, 140px) 0; border-bottom: 1px solid var(--rule); }
+  .sec-h {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: var(--s-5);
+    padding-bottom: var(--s-3);
+    border-bottom: 1px solid var(--rule);
+  }
+  .sec-h-l { display: flex; align-items: baseline; gap: 18px; }
+  .sec-h h2 {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--fg); margin: 0; font-weight: 600;
+  }
+  .sec-h .count {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.14em; color: var(--heat);
+  }
+  .sec-h .more {
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--fg-dim); text-decoration: none;
+    transition: color 200ms var(--ease);
+  }
+  .sec-h .more:hover { color: var(--heat); }
+
+  /* asymmetric work grid */
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--s-4);
+  }
+  .wcard {
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column;
+    background: var(--bg-deeper);
+    border: 1px solid var(--rule);
+    transition: border-color 220ms var(--ease), transform 220ms var(--ease);
+    overflow: hidden;
+  }
+  .wcard:hover { border-color: var(--heat); transform: translateY(-3px); }
+  .wcard:hover .wcard-arrow { color: var(--heat); transform: translateX(4px); }
+  .wcard-art {
+    aspect-ratio: 16/10;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+  .wcard-body {
+    padding: var(--s-4);
+    display: flex; flex-direction: column; gap: 12px;
+    flex: 1;
+  }
+  .wcard-meta {
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+  .wcard-meta .num { color: var(--heat); }
+  .wcard-title {
+    font-family: var(--font-mono);
+    font-size: clamp(28px, 3.4vw, 44px);
+    font-weight: 600; letter-spacing: -0.035em;
+    line-height: 1; margin: 0;
+  }
+  .wcard-desc {
+    font-size: 15px; line-height: 1.55;
+    color: var(--fg-dim);
+    text-wrap: pretty;
+  }
+  .wcard-foot {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-top: auto; padding-top: var(--s-3);
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+  .wcard-arrow {
+    color: var(--fg-dim); font-size: 20px;
+    transition: color 220ms var(--ease), transform 220ms var(--ease);
+  }
+  .wcard.feat { grid-column: span 7; }
+  .wcard.std { grid-column: span 5; }
+  .wcard.half { grid-column: span 6; }
+  .wcard.feat .wcard-art { aspect-ratio: 16/9; }
+
+  /* iodine card — breaks the system */
+  .wcard.iodine {
+    background: #b82c1f;
+    border-color: #b82c1f;
+    color: #fff5ed;
+  }
+  .wcard.iodine .wcard-art { background: #a02619; border-bottom-color: #6f1c12; }
+  .wcard.iodine .wcard-meta,
+  .wcard.iodine .wcard-foot { color: rgba(255,245,237,0.6); border-color: #6f1c12; }
+  .wcard.iodine .wcard-meta .num { color: #fff5ed; }
+  .wcard.iodine .wcard-desc { color: rgba(255,245,237,0.85); }
+  .wcard.iodine .wcard-arrow { color: #fff5ed; }
+  .wcard.iodine:hover { transform: translateY(-3px) rotate(-0.6deg); border-color: #fff5ed; }
+
+  /* art placeholders — visually distinctive per card */
+  .art-arqo {
+    background:
+      linear-gradient(135deg, #c83626 0%, #a02619 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .art-arqo::before {
+    content: 'ARQO'; font-family: var(--font-mono); font-weight: 700;
+    font-size: clamp(48px, 7vw, 96px); letter-spacing: -0.05em;
+    color: rgba(255,245,237,0.16);
+  }
+  .art-arqo::after {
+    content: 'INT. WRITERS\' ROOM — DAY'; position: absolute;
+    bottom: 16px; left: 16px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.18em; color: rgba(255,245,237,0.6);
+  }
+  .art-jmnpr {
+    background: var(--bg);
+    background-image:
+      linear-gradient(var(--rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+    background-size: 24px 24px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .art-jmnpr::before {
+    content: 'जमुनापार'; font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 4.5vw, 64px);
+    font-style: italic; font-weight: 300;
+    color: var(--fg);
+  }
+  .art-ef {
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .art-ef::before {
+    content: '◯ ◯ ◯ ◯ ◯ ◯ ◯ ◯'; font-family: var(--font-mono);
+    font-size: 16px; color: var(--fg-faint);
+    letter-spacing: 0.4em;
+  }
+  .art-ef::after {
+    content: 'GATED · EMAIL FOR PASSWORD';
+    position: absolute; bottom: 16px; left: 16px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.18em; color: var(--fg-dim);
+  }
+  .art-zulily {
+    background: var(--bg-deeper);
+    background-image: repeating-linear-gradient(
+      0deg, transparent 0 22px, var(--rule) 22px 23px
+    );
+    position: relative;
+  }
+  .art-zulily::before {
+    content: '16M / DAY'; position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-family: var(--font-mono); font-weight: 700;
+    font-size: clamp(28px, 4vw, 56px); letter-spacing: -0.03em;
+    color: var(--fg);
+  }
+
+  @media (max-width: 980px) {
+    .work-grid { grid-template-columns: 1fr; }
+    .wcard.feat, .wcard.std, .wcard.half { grid-column: 1 / -1; }
+  }
+
+  /* ===== RECEIPTS ===== */
+  .rec-section { padding: clamp(72px, 10vw, 140px) 0; border-bottom: 1px solid var(--rule); background: var(--bg-deeper); }
+  .rec-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-4);
+  }
+  .rec {
+    text-decoration: none; color: var(--fg);
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    padding: var(--s-4);
+    display: flex; flex-direction: column; gap: 14px;
+    transition: border-color 220ms var(--ease), transform 220ms var(--ease);
+    position: relative;
+  }
+  .rec:hover { border-color: var(--heat); transform: translateY(-3px); }
+  .rec-stamp {
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+  .rec-stamp .num { color: var(--heat); }
+  .rec-title {
+    font-family: var(--font-mono); font-size: 24px;
+    font-weight: 600; letter-spacing: -0.025em; line-height: 1.05;
+  }
+  .rec-desc {
+    font-size: 14.5px; line-height: 1.55;
+    color: var(--fg-dim);
+    text-wrap: pretty;
+  }
+  .rec-foot {
+    margin-top: auto; padding-top: var(--s-3);
+    border-top: 1px dashed var(--rule);
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+  .rec-foot .price { color: var(--heat); }
+  @media (max-width: 880px) { .rec-grid { grid-template-columns: 1fr; } }
+
+  /* ===== ABOUT BLURB ===== */
+  .about-blurb { padding: clamp(72px, 10vw, 140px) 0; border-bottom: 1px solid var(--rule); }
+  .ab-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: clamp(40px, 6vw, 96px); align-items: start;
+  }
+  .ab-l h2 {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--heat); margin: 0 0 var(--s-3); font-weight: 600;
+  }
+  .ab-l .ab-headline {
+    font-family: var(--font-mono);
+    font-size: clamp(28px, 3.6vw, 44px);
+    font-weight: 600; letter-spacing: -0.035em;
+    line-height: 1.05; margin: 0;
+    max-width: 14ch;
+  }
+  .ab-l .ab-headline .it {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 400;
+  }
+  .ab-r p {
+    font-size: 17px; line-height: 1.65; margin: 0 0 var(--s-3);
+    color: var(--fg);
+    text-wrap: pretty; max-width: 56ch;
+  }
+  .ab-r p:last-child { color: var(--fg-dim); }
+  .ab-r a { color: var(--heat); text-decoration: none; border-bottom: 1px solid var(--rule-strong); }
+  .ab-cta {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    margin-top: var(--s-4);
+  }
+  @media (max-width: 880px) {
+    .ab-grid { grid-template-columns: 1fr; gap: var(--s-4); }
+  }
+
+  /* ===== FOOTER ===== */
+  footer.text-msg {
+    padding: clamp(64px, 9vw, 120px) 0 var(--s-6);
+    background: var(--bg);
+  }
+  .text-thread {
+    max-width: 540px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .text-meta {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-faint); margin-bottom: 8px;
+  }
+  .bub {
+    background: var(--rule); color: var(--fg);
+    padding: 11px 16px; border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    max-width: 440px;
+    font-size: 15.5px; line-height: 1.45;
+  }
+  .bub.heat {
+    background: var(--heat); color: var(--fg-on-heat);
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 4px;
+    margin-left: auto;
+  }
+  .bub a { color: inherit; border-bottom: 1px solid currentColor; text-decoration: none; }
+  .bub em { font-style: italic; }
+  .colophon {
+    margin-top: var(--s-6); padding-top: var(--s-4);
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-faint); letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+</style>
 </head>
-<body data-page="home">
-  <script>
-    try { var s = localStorage.getItem('theme'); if (s) document.documentElement.setAttribute('data-theme', s); } catch (e) {}
-  </script>
+<body>
+<div id="topbar-slot"></div>
 
-  <a href="#main" class="skip-link">skip to content</a>
+<!-- ============== HERO ============== -->
+<section class="hero">
+  <div class="col">
+    <div class="hero-grid">
+      <h1>
+        design <span class="heat">engineer</span>. i ship the whole loop &mdash; figma <span class="it">to</span> codebase <span class="it">to</span> live url.
+      </h1>
+      <div class="hero-side">
+        <p class="lede">
+          <em>raghav ahuja, brooklyn.</em> currently building
+          <a href="/work/arqo">arqo</a> &amp;
+          <a href="/work/jmnpr">jmnpr labs</a>,
+          finishing my last quarter at EF World Journeys.
+        </p>
+        <div class="hero-meta">
+          <span><span class="dot">●</span> OPEN — STAFF DE</span>
+          <span>BROOKLYN · IST · EST</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="marg">
+    pretty sure i should be<br>
+    finishing <em>this</em> website<br>
+    instead of writing this
+  </div>
+</section>
 
-  <div class="wrap">
-    <div id="nav-mount"></div>
+<!-- ============== NOW TICKER ============== -->
+<section class="now">
+  <div class="col">
+    <div class="now-row">
+      <span class="h">NOW —</span>
+      <div class="now-cell">
+        <span class="lbl">SHIP</span>
+        <span><span class="live"></span>arqo v0.4 — paginator on a worker, FDX clean</span>
+      </div>
+      <div class="now-cell">
+        <span class="lbl">WRITE</span>
+        <span><em>"the brand color is the streetlamp at 2am"</em></span>
+      </div>
+      <div class="now-cell">
+        <span class="lbl">OPEN</span>
+        <span><a href="mailto:work.raghavahuja@gmail.com?subject=hiring">staff DE / founding designer →</a></span>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <main id="main">
-      <div class="folio-strip">folio 01 — the design engineer · read after dark</div>
+<!-- ============== WORK ============== -->
+<section class="work-section">
+  <div class="col">
+    <div class="sec-h">
+      <div class="sec-h-l">
+        <h2>SELECTED WORK</h2>
+        <span class="count">2024 — 2026 · 4 OF 8</span>
+      </div>
+      <a href="/work" class="more">all work →</a>
+    </div>
 
-      <section class="hero-grid" style="grid-template-columns: 1fr;">
-        <div>
-          <h1>
-            Raghav Ahuja.<br>
-            I design and build<br>
-            <span class="em-accent">end-to-end.</span>
-          </h1>
-          <p class="lead">
-            The code is part of the craft, not a handoff. Thirteen years shipping end-to-end —
-            research, visual system, front-end, back-end, and the decisions that don't make it into tickets.
-          </p>
-          <p class="hero-now" style="font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--mute); text-transform: lowercase; letter-spacing: 0.04em; margin: 24px 0 0;">
-            now · arqo · jmnpr labs · brooklyn
-          </p>
-          <div class="hero-ctas">
-            <a href="work.html" class="cta cta-primary">read the case studies →</a>
-            <a href="mailto:work.raghavahuja@gmail.com" class="cta">get in touch</a>
-            <span class="cta-hint">or press <span class="kbd">⌘K</span></span>
+    <div class="work-grid">
+      <a href="/work/arqo" class="wcard iodine feat">
+        <div class="wcard-art art-arqo"></div>
+        <div class="wcard-body">
+          <div class="wcard-meta">
+            <span class="num">001 · 2026</span>
+            <span>SOLO · 9 DAYS · LIVE</span>
+          </div>
+          <h3 class="wcard-title">arqo</h3>
+          <p class="wcard-desc">mobile-first screenwriting. AST-as-OS. three synchronized views on the phone, shipped solo in nine days using an agentic-dev workflow.</p>
+          <div class="wcard-foot">
+            <span>CONTENTEDITABLE · CRDT · TAURI · PGVECTOR</span>
+            <span class="wcard-arrow">→</span>
           </div>
         </div>
-      </section>
+      </a>
 
-      <section class="section" aria-labelledby="work-heading">
-        <div class="section-head">
-          <h2 id="work-heading">Selected work</h2>
-          <a href="work.html">index → /work</a>
+      <a href="/work/jmnpr" class="wcard std">
+        <div class="wcard-art art-jmnpr"></div>
+        <div class="wcard-body">
+          <div class="wcard-meta">
+            <span class="num">002 · 2025–</span>
+            <span>STUDIO · OPEN</span>
+          </div>
+          <h3 class="wcard-title">jmnpr labs</h3>
+          <p class="wcard-desc">a one-person tools studio. one shipped, five on deck. self-serve, PPP-priced, no sales motion.</p>
+          <div class="wcard-foot">
+            <span>REACT-PDF · LEMON SQUEEZY</span>
+            <span class="wcard-arrow">→</span>
+          </div>
         </div>
-        <div class="work-list">
-          <a href="case-study.html?slug=arqo" class="work-row">
-            <span class="n">01</span>
-            <div>
-              <h3>Arqo</h3>
-              <div class="meta">sole design engineer · 9-day MVP · ongoing</div>
-            </div>
-            <p class="blurb">A mobile-first, script-led filmmaking tool — shipped solo in 9 days. Custom editor, deterministic paginator, lossless FDX, offline-first, CRDT collab, pgvector voice-tuned AI.</p>
-            <div class="year">2026 →</div>
-          </a>
-          <a href="case-study.html?slug=jmnpr-labs" class="work-row">
-            <span class="n">02</span>
-            <div>
-              <h3>JMNPR Labs</h3>
-              <div class="meta">founder · design engineer · 2026 · ongoing</div>
-            </div>
-            <p class="blurb">A one-person studio. Production-grade tools for creators, indie filmmakers, and design engineers. Story Kit live. Five flagships on deck.</p>
-            <div class="year">2026 →</div>
-          </a>
-          <a href="case-study.html?slug=ef" class="work-row">
-            <span class="n">03</span>
-            <div>
-              <h3>EF Education First <span class="locked-chip">🔒 gated</span></h3>
-              <div class="meta">senior product designer · 2022 — present</div>
-            </div>
-            <p class="blurb">Insurance, checkout, quoting — and an in-house design system tool supporting three brands across the org. Metrics &amp; specifics behind a password.</p>
-            <div class="year">2022 →</div>
-          </a>
-        </div>
-      </section>
+      </a>
 
-      <section class="section" aria-labelledby="lab-heading">
-        <div class="section-head">
-          <h2 id="lab-heading">From the lab</h2>
-          <a href="lab.html">all experiments → /lab</a>
+      <a href="/work/ef" class="wcard half">
+        <div class="wcard-art art-ef"></div>
+        <div class="wcard-body">
+          <div class="wcard-meta">
+            <span class="num">003 · 2022–25</span>
+            <span>STAFF · GATED</span>
+          </div>
+          <h3 class="wcard-title">EF world journeys</h3>
+          <p class="wcard-desc">checkout rebuild, insurance redesign, quoting tool across 50+ countries, two design frameworks (MIND, HCAI). gated — email for the password.</p>
+          <div class="wcard-foot">
+            <span>+$4.2M ARR · +10% TAKE-RATE</span>
+            <span class="wcard-arrow">→</span>
+          </div>
         </div>
-        <div class="lab-grid">
-          <a href="case-study.html?slug=futbolis" class="lab-card span-3 h-280">
-            <div class="lc-bg" style="background: #0a1a2a url(lab-images/futbolis.png) center/cover no-repeat;"></div>
-            <div class="lc-foot">
-              <div class="lc-title">Futbolis.live — the global pulse of football</div>
-              <div class="lc-sub">every live match on a 3d globe. 100k users on a $19/mo api. read →</div>
-            </div>
-          </a>
-          <a href="/hot-cold" class="lab-card span-3 h-280">
-            <div class="lc-bg" style="background: #0a0a0a url(lab-images/hot-cold.png) center/cover no-repeat;"></div>
-            <div class="lc-foot">
-              <div class="lc-title">Hot & Cold — the extremes of earth, right now</div>
-              <div class="lc-sub">live temperatures from open-meteo. cycle by continent. live →</div>
-            </div>
-          </a>
-          <a href="mamdani-mapper-case.html" class="lab-card span-3 h-280">
-            <div class="lc-bg" style="background: #1a1a1a url(lab-images/mamdani.png) center/cover no-repeat;"></div>
-            <div class="lc-foot">
-              <div class="lc-title">The Mamdani Mapper — every public stop, mapped</div>
-              <div class="lc-sub">a cobalt map of every stop nyc mayor mamdani has made. read →</div>
-            </div>
-          </a>
-          <a href="case-study.html?slug=jmnpr-labs" class="lab-card span-3 h-280">
-            <div class="lc-bg" style="background: #f5f0e6 url(lab-images/jmnpr.png) center/cover no-repeat;"></div>
-            <div class="lc-foot">
-              <div class="lc-title">JMNPR Labs — a one-person studio</div>
-              <div class="lc-sub">story kit live, five flagships on deck. read →</div>
-            </div>
-          </a>
+      </a>
+
+      <a href="/work/zulily" class="wcard half">
+        <div class="wcard-art art-zulily"></div>
+        <div class="wcard-body">
+          <div class="wcard-meta">
+            <span class="num">004 · 2021–22</span>
+            <span>GROWTH · ARCHIVED</span>
+          </div>
+          <h3 class="wcard-title">zulily</h3>
+          <p class="wcard-desc">algorithmic logic for a personalized email ecosystem at 16M sends/day. +14% CTR, +45s session, zero manual curation.</p>
+          <div class="wcard-foot">
+            <span>PERSONALIZATION · ML</span>
+            <span class="wcard-arrow">→</span>
+          </div>
         </div>
-      </section>
-
-    </main>
-
-    <div id="footer-mount"></div>
+      </a>
+    </div>
   </div>
+</section>
 
-  <script src="site.js" defer></script>
+<!-- ============== RECEIPTS ============== -->
+<section class="rec-section">
+  <div class="col">
+    <div class="sec-h">
+      <div class="sec-h-l">
+        <h2>RECEIPTS</h2>
+        <span class="count">WEEKEND BUILDS · 3 OF 4</span>
+      </div>
+      <a href="/receipts" class="more">all receipts →</a>
+    </div>
+    <div class="rec-grid">
+      <a href="/receipts/mamdani-mapper" class="rec">
+        <div class="rec-stamp"><span class="num">RCPT-001</span><span>2026·04</span></div>
+        <div class="rec-title">mamdani mapper</div>
+        <p class="rec-desc">every public stop the mayor has made, plus credibly pre-announced ones. press receipts only — no real-time tracking.</p>
+        <div class="rec-foot"><span>5 HRS · ONE NIGHT</span><span class="price">$1.30/MO</span></div>
+      </a>
+      <a href="/receipts/futbolis" class="rec">
+        <div class="rec-stamp"><span class="num">RCPT-002</span><span>2026·02</span></div>
+        <div class="rec-title">futbolis.live</div>
+        <p class="rec-desc">a real-time pub-finder for football fans. macro-to-micro map, $19/mo flat at 100k concurrent.</p>
+        <div class="rec-foot"><span>3 WKS · NIGHTS</span><span class="price">$19/MO</span></div>
+      </a>
+      <a href="/receipts/hot-cold" class="rec">
+        <div class="rec-stamp"><span class="num">RCPT-003</span><span>2026·01</span></div>
+        <div class="rec-title">hot &amp; cold</div>
+        <p class="rec-desc">hottest and coldest places on earth, right now. open-meteo, GH Action, static JSON. one afternoon.</p>
+        <div class="rec-foot"><span>1 DAY</span><span class="price">$0/MO</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== ABOUT BLURB ============== -->
+<section class="about-blurb">
+  <div class="col">
+    <div class="ab-grid">
+      <div class="ab-l">
+        <h2>POSTURE</h2>
+        <p class="ab-headline">self-serve <span class="it">over</span> enterprise. receipts <span class="it">over</span> portfolios.</p>
+      </div>
+      <div class="ab-r">
+        <p>i'm a design engineer — discovery, figma, codebase, shipped url, post-launch instrumentation. fifteen years of shipping inside other people's roadmaps; now, mostly, inside my own.</p>
+        <p>last three years on staff at <a href="/work/ef">EF world journeys</a>. before that, two years at zulily on a 16M-sends-a-day personalization engine. before that, four as creative director in mumbai. on the side, building <a href="/work/jmnpr">JMNPR labs</a> — a one-person tools studio.</p>
+        <div class="ab-cta">
+          <a href="/about" class="btn btn-ghost">more about</a>
+          <a href="mailto:work.raghavahuja@gmail.com?subject=hiring" class="btn btn-fill">email →</a>
+          <a href="/now" class="btn btn-ghost">/now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="text-msg">
+  <div class="col">
+    <div class="text-thread">
+      <div class="text-meta">— a friend, last tuesday, 11:47pm —</div>
+      <div class="bub">oye नमस्ते. saw the arqo thing. you actually shipped it??</div>
+      <div class="bub heat">ya in 9 days lol. i think the website you're on rn is older than the app.</div>
+      <div class="bub">ok so what do i do if i wanna hire you</div>
+      <div class="bub heat"><a href="mailto:work.raghavahuja@gmail.com?subject=hiring">work.raghavahuja@gmail.com</a> — subject line <em>hiring</em>. or hit ⌘K.</div>
+    </div>
+    <div class="colophon">
+      <span>BROOKLYN · IST/EST DUAL CLOCK</span>
+      <span>BUILT WITH HTML, CARE, AND DREAD · ©2026</span>
+      <span>v5 — STILL AVOIDING THIS</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/site.js"></script>
 </body>
 </html>
