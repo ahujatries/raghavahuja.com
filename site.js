@@ -160,55 +160,92 @@
   ];
   const groupLabels = { go: 'NAVIGATE', mail: 'EMAIL', social: 'SOCIAL', file: 'FILES', sys: 'SYSTEM' };
 
+  function isExt(it){ return it && (it.kind === 'mail' || it.kind === 'social' || it.kind === 'file'); }
   function filtered(){
-    const q = cmdkQ.toLowerCase();
+    const q = cmdkQ.toLowerCase().trim();
     return ITEMS.filter(i => !q || i.label.toLowerCase().includes(q) || i.hint.toLowerCase().includes(q));
   }
-  function renderCmdk(){
+
+  // Build the palette chrome once. Input listener attaches once, so caret/IME state survives every list re-render.
+  function mountCmdk(){
     const el = document.getElementById('cmdk-overlay');
     if (!el) return;
-    const items = filtered();
-    if (cmdkSel >= items.length) cmdkSel = Math.max(0, items.length-1);
-    const groups = {};
-    items.forEach(it => { (groups[it.kind] = groups[it.kind] || []).push(it); });
-    let idx = -1;
-    const inner = `
+    el.innerHTML = `
       <div class="cmdk-pal" onclick="event.stopPropagation()">
         <div class="cmdk-input">
           <span style="color:var(--heat);font-size:14px;font-weight:600">›</span>
-          <input id="cmdk-q" placeholder="type a thing — work · arqo · email · resume · tweaks" value="${cmdkQ.replace(/"/g,'&quot;')}"/>
+          <input id="cmdk-q" placeholder="type a thing — work · arqo · email · resume · tweaks" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
           <span class="cmdk-esc">ESC</span>
         </div>
-        <div class="cmdk-list">
-          ${items.length === 0 ? '<div style="padding:24px 20px;color:var(--fg-dim);font-size:13px;font-style:italic">nothing matches. that is the honest answer.</div>' : ''}
-          ${Object.keys(groups).map(k => `
-            <div class="cmdk-group">${groupLabels[k] || k.toUpperCase()}</div>
-            ${groups[k].map(it => { idx++; const sel = idx === cmdkSel; const ext = (it.kind === 'mail' || it.kind === 'social' || it.kind === 'file'); return `
-              <a class="cmdk-row${sel?' sel':''}" data-idx="${idx}" href="${it.href || '#'}" data-action="${it.action || ''}"${ext ? ' target="_blank" rel="noopener"' : ''}>
-                <span>${it.label}</span><span class="cmdk-hint">${it.hint}</span>
-              </a>
-            `;}).join('')}
-          `).join('')}
-        </div>
-        <div class="cmdk-foot"><span>↑↓ NAVIGATE · ↵ SELECT</span><span>${items.length} ITEMS</span></div>
+        <div class="cmdk-list" id="cmdk-list"></div>
+        <div class="cmdk-foot" id="cmdk-foot"></div>
       </div>`;
-    el.innerHTML = inner;
     const inp = document.getElementById('cmdk-q');
-    if (inp) {
-      inp.focus();
-      inp.addEventListener('input', (e) => { cmdkQ = e.target.value; cmdkSel = 0; renderCmdk(); });
-    }
-    el.querySelectorAll('.cmdk-row').forEach(row => {
-      row.addEventListener('mouseenter', () => { cmdkSel = +row.dataset.idx; renderCmdk(); });
+    inp.value = cmdkQ;
+    inp.focus();
+    // Caret to end so re-opens feel natural.
+    try { inp.setSelectionRange(cmdkQ.length, cmdkQ.length); } catch (_) {}
+    inp.addEventListener('input', () => {
+      cmdkQ = inp.value;
+      cmdkSel = 0;
+      renderList();
+    });
+    renderList();
+  }
+
+  function renderList(){
+    const list = document.getElementById('cmdk-list');
+    const foot = document.getElementById('cmdk-foot');
+    if (!list) return;
+    const items = filtered();
+    if (cmdkSel >= items.length) cmdkSel = Math.max(0, items.length - 1);
+    const groups = {};
+    items.forEach(it => { (groups[it.kind] = groups[it.kind] || []).push(it); });
+    let idx = -1;
+    list.innerHTML = items.length === 0
+      ? '<div style="padding:24px 20px;color:var(--fg-dim);font-size:13px;font-style:italic">nothing matches. that is the honest answer.</div>'
+      : Object.keys(groups).map(k => `
+          <div class="cmdk-group">${groupLabels[k] || k.toUpperCase()}</div>
+          ${groups[k].map(it => { idx++; const sel = idx === cmdkSel; const ext = isExt(it); return `
+            <a class="cmdk-row${sel?' sel':''}" data-idx="${idx}" href="${it.href || '#'}" data-action="${it.action || ''}"${ext ? ' target="_blank" rel="noopener"' : ''}>
+              <span>${it.label}</span><span class="cmdk-hint">${it.hint}</span>
+            </a>
+          `;}).join('')}
+        `).join('');
+    foot.innerHTML = `<span>↑↓ NAVIGATE · ↵ SELECT · ESC CLOSE</span><span>${items.length} ITEM${items.length===1?'':'S'}</span>`;
+    const rows = list.querySelectorAll('.cmdk-row');
+    rows.forEach(row => {
+      // Hover only toggles .sel — no DOM rebuild, no focus loss while typing.
+      row.addEventListener('mouseenter', () => {
+        const next = +row.dataset.idx;
+        if (next === cmdkSel) return;
+        cmdkSel = next;
+        rows.forEach(r => r.classList.toggle('sel', +r.dataset.idx === cmdkSel));
+      });
       row.addEventListener('click', (e) => {
-        const idx = +row.dataset.idx;
-        const it = items[idx];
+        const it = filtered()[+row.dataset.idx];
+        if (!it) { e.preventDefault(); return; }
         if (it.action === 'tweaks') { e.preventDefault(); closeCmdk(); openTweaks(); return; }
-        if (it.action === 'theme')  { e.preventDefault(); /* no-op, doctrine */ closeCmdk(); return; }
-        if (!it.href || it.href === '#') e.preventDefault();
+        if (it.action === 'theme')  { e.preventDefault(); closeCmdk(); return; }
+        if (!it.href || it.href === '#') { e.preventDefault(); return; }
+        // External (target=_blank) opens a new tab — close the overlay so the current page is usable.
+        // Internal — default <a> handles navigation; close so the overlay doesn't briefly persist.
+        closeCmdk();
       });
     });
   }
+
+  function moveSel(delta){
+    const items = filtered();
+    if (!items.length) return;
+    cmdkSel = Math.max(0, Math.min(items.length - 1, cmdkSel + delta));
+    const list = document.getElementById('cmdk-list');
+    if (!list) return;
+    list.querySelectorAll('.cmdk-row').forEach(r => r.classList.toggle('sel', +r.dataset.idx === cmdkSel));
+    const sel = list.querySelector('.cmdk-row.sel');
+    if (sel && sel.scrollIntoView) sel.scrollIntoView({ block: 'nearest' });
+  }
+
   function openCmdk(){
     if (cmdkOpen) return;
     cmdkOpen = true; cmdkQ = ''; cmdkSel = 0;
@@ -216,7 +253,7 @@
     el.id = 'cmdk-overlay';
     document.body.appendChild(el);
     el.addEventListener('click', closeCmdk);
-    renderCmdk();
+    mountCmdk();
   }
   function closeCmdk(){
     cmdkOpen = false;
@@ -225,26 +262,26 @@
   }
   window.addEventListener('open-cmdk', openCmdk);
   window.addEventListener('keydown', (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); cmdkOpen ? closeCmdk() : openCmdk(); }
-    else if (e.key === 'Escape' && cmdkOpen) closeCmdk();
-    else if (cmdkOpen && (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter')) {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
       e.preventDefault();
-      const items = filtered();
-      if (e.key === 'ArrowDown') cmdkSel = Math.min(items.length-1, cmdkSel+1);
-      if (e.key === 'ArrowUp')   cmdkSel = Math.max(0, cmdkSel-1);
-      if (e.key === 'Enter')     {
-        const it = items[cmdkSel];
-        if (!it) return;
-        if (it.action === 'tweaks') { closeCmdk(); openTweaks(); return; }
-        if (it.action === 'theme')  { closeCmdk(); return; }
-        if (it.href) {
-          const ext = (it.kind === 'mail' || it.kind === 'social' || it.kind === 'file');
-          if (ext) window.open(it.href, '_blank', 'noopener');
-          else location.href = it.href;
-          closeCmdk();
-        }
+      cmdkOpen ? closeCmdk() : openCmdk();
+      return;
+    }
+    if (!cmdkOpen) return;
+    if (e.key === 'Escape')    { e.preventDefault(); closeCmdk(); return; }
+    if (e.key === 'ArrowDown') { e.preventDefault(); moveSel(1);  return; }
+    if (e.key === 'ArrowUp')   { e.preventDefault(); moveSel(-1); return; }
+    if (e.key === 'Enter')     {
+      e.preventDefault();
+      const it = filtered()[cmdkSel];
+      if (!it) return;
+      if (it.action === 'tweaks') { closeCmdk(); openTweaks(); return; }
+      if (it.action === 'theme')  { closeCmdk(); return; }
+      if (it.href && it.href !== '#') {
+        if (isExt(it)) window.open(it.href, '_blank', 'noopener');
+        else location.href = it.href;
+        closeCmdk();
       }
-      renderCmdk();
     }
   });
 })();
