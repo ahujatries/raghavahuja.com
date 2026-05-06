@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>designing for humans · raghav ahuja</title>
+<meta name="description" content="HCAI — a human-centered approach to AI integration. augmenting human capability, not replacing it.">
+<meta name="theme-color" content="#1a1814">
+<link rel="canonical" href="https://raghavahuja.com/work/hcai">
+<meta property="og:title" content="designing for humans · raghav ahuja">
+<meta property="og:description" content="human-centered AI. P.O.N.T.E. evaluation, augmentation over automation, six principles for ethical implementation.">
+<meta property="og:image" content="https://raghavahuja.com/og/hcai.png">
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/case-study.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+  /* ===== HCAI PAGE-SPECIFIC ===== */
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--heat); margin-bottom: var(--s-3);
+    font-weight: 600;
+  }
+  .lede-italic {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 22px; line-height: 1.45;
+    color: var(--fg-dim); max-width: 56ch;
+    margin: var(--s-3) 0 0;
+    font-weight: 300;
+  }
+
+  /* shift diagram — two circular models, side by side */
+  .shift {
+    margin: var(--s-5) 0 var(--s-4);
+    padding: clamp(24px, 4vw, 48px) clamp(16px, 3vw, 32px);
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-deeper);
+  }
+  .shift-grid {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: clamp(12px, 3vw, 36px);
+    align-items: center;
+  }
+  .model {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 16px;
+  }
+  .model .label {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+  .model .label.on { color: var(--heat); }
+  .orbit {
+    --size: clamp(180px, 24vw, 240px);
+    width: var(--size); height: var(--size);
+    position: relative;
+  }
+  .orbit::before {
+    content: ''; position: absolute; inset: 0;
+    border: 1px dashed var(--rule-strong);
+    border-radius: 50%;
+  }
+  .orbit .center {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--rule-strong);
+    display: grid; place-items: center;
+    font-family: var(--font-mono); font-weight: 700;
+    font-size: 18px; letter-spacing: -0.02em;
+    color: var(--fg);
+  }
+  .orbit .node {
+    position: absolute;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--bg-deeper);
+    border: 1px solid var(--rule-strong);
+    display: grid; place-items: center;
+    font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+    color: var(--fg-dim);
+  }
+  .orbit .node.n1 { top: -6px; left: 50%; transform: translateX(-50%); }
+  .orbit .node.n2 { right: -6px; top: 50%; transform: translateY(-50%); }
+  .orbit .node.n3 { bottom: -6px; left: 50%; transform: translateX(-50%); }
+  .orbit .node.n4 { left: -6px; top: 50%; transform: translateY(-50%); }
+  /* HCAI variant — human at center is heat-colored, AI nodes muted */
+  .orbit.hcai .center { background: var(--heat); border-color: var(--heat); color: var(--fg-on-heat); }
+  .orbit.hcai .node { color: var(--fg-faint); }
+  /* Traditional variant — AI at center muted, humans surround */
+  .orbit.trad .center { color: var(--fg-faint); }
+  .orbit.trad .node { color: var(--fg); border-color: var(--rule-strong); }
+
+  .shift-arrow {
+    font-family: var(--font-mono); font-size: 28px;
+    color: var(--heat); text-align: center;
+    font-weight: 600;
+  }
+  .shift-cap {
+    margin-top: var(--s-4); padding-top: var(--s-3);
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 17px; line-height: 1.45; color: var(--fg-dim);
+    max-width: 56ch; margin-left: auto; margin-right: auto;
+  }
+  @media (max-width: 720px) {
+    .shift-grid { grid-template-columns: 1fr; }
+    .shift-arrow { transform: rotate(90deg); padding: 8px 0; }
+  }
+
+  /* P.O.N.T.E. cards — letter-led */
+  .ponte {
+    display: grid; grid-template-columns: 1fr;
+    gap: 0;
+    margin: var(--s-4) 0 var(--s-5);
+    border: 1px solid var(--rule);
+  }
+  .ponte-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    border-top: 1px solid var(--rule);
+  }
+  .ponte-row:first-child { border-top: 0; }
+  .ponte-row .letter {
+    background: var(--bg-deeper);
+    border-right: 1px solid var(--rule);
+    display: grid; place-items: center;
+    font-family: var(--font-mono);
+    font-size: clamp(38px, 5vw, 56px);
+    font-weight: 700; color: var(--heat);
+    letter-spacing: -0.04em;
+  }
+  .ponte-row .body {
+    padding: var(--s-3) var(--s-4);
+  }
+  .ponte-row .name {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-faint); margin-bottom: 4px;
+  }
+  .ponte-row .q {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 17px; color: var(--fg);
+    line-height: 1.4; margin: 0 0 8px;
+  }
+  .ponte-row .desc {
+    font-size: 14px; line-height: 1.6;
+    color: var(--fg-dim); margin: 0;
+  }
+  @media (max-width: 600px) {
+    .ponte-row { grid-template-columns: 56px 1fr; }
+    .ponte-row .letter { font-size: 30px; }
+  }
+
+  /* mini case-study card — google flights */
+  .cs-card {
+    margin: var(--s-4) 0 var(--s-5);
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-deeper);
+    overflow: hidden;
+  }
+  .cs-card .h {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-dim);
+    display: flex; justify-content: space-between;
+  }
+  .cs-card .h .src { color: var(--heat); }
+  .cs-card .b { padding: var(--s-4); }
+  .cs-card .b h4 {
+    margin: 0 0 var(--s-2); font-family: var(--font-mono);
+    font-size: 18px; font-weight: 600; letter-spacing: -0.02em;
+    color: var(--fg);
+  }
+  .cs-card .b p { margin: 0 0 var(--s-3); color: var(--fg-dim); font-size: 14.5px; line-height: 1.55; }
+  .cs-card .b p:last-child { margin-bottom: 0; }
+  .pp {
+    margin: var(--s-3) 0;
+    padding: 14px 18px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--heat);
+    max-width: 460px;
+  }
+  .pp .pp-l {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--heat); margin-bottom: 6px; font-weight: 600;
+  }
+  .pp .pp-h {
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: 18px; color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .pp .pp-d {
+    font-size: 13.5px; color: var(--fg-dim); line-height: 1.5;
+  }
+
+  /* 6 principles */
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0;
+    margin: var(--s-4) 0;
+    border: 1px solid var(--rule);
+  }
+  .principles > div {
+    padding: var(--s-3) var(--s-4);
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .principles h4 {
+    margin: 0 0 6px;
+    font-family: var(--font-mono); font-size: 13px;
+    font-weight: 600; color: var(--heat);
+    letter-spacing: -0.005em;
+  }
+  .principles p {
+    margin: 0; font-size: 13.5px; line-height: 1.55;
+    color: var(--fg-dim);
+  }
+
+  /* closing quote */
+  .closing {
+    margin: var(--s-5) 0;
+    padding: var(--s-5) var(--s-4);
+    border-top: 1px solid var(--rule-strong);
+    border-bottom: 1px solid var(--rule-strong);
+    text-align: center;
+  }
+  .closing blockquote {
+    margin: 0; padding: 0; border: 0;
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: clamp(20px, 2.6vw, 28px); font-weight: 300;
+    line-height: 1.4; color: var(--fg);
+    max-width: 60ch; margin: 0 auto;
+  }
+  .closing .attr {
+    margin-top: var(--s-3);
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+</style>
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="cs-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><a href="/work">work</a><span class="sep">/</span><span>designing for humans</span></div>
+    <div class="eyebrow">Research Framework</div>
+    <h1>designing for humans<span class="heat">.</span></h1>
+    <p class="deck">a human-centered approach to AI integration.</p>
+    <p class="lede-italic">Augmenting human capability, not replacing it.</p>
+    <div class="meta-row">
+      <span><span class="dot">●</span> FRAMEWORK · 03B · 2024 HCAI</span>
+      <span>STATUS: LIVE</span>
+      <span>SIBLING OF /work/mind</span>
+    </div>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">01 — CORE PHILOSOPHY</div>
+    <h2>humans in the group; computers in the loop.</h2>
+    <p>Instead of viewing AI as a replacement for human labor, Human-Centered AI emphasizes AI as a tool for augmenting human capabilities. The shift is small in language and large in everything that follows.</p>
+
+    <div class="shift">
+      <div class="shift-grid">
+        <div class="model">
+          <div class="label">Traditional Model</div>
+          <div class="orbit trad">
+            <div class="center">AI</div>
+            <div class="node n1">H</div>
+            <div class="node n2">H</div>
+            <div class="node n3">H</div>
+            <div class="node n4">H</div>
+          </div>
+          <div class="label">AI at center · humans orbit</div>
+        </div>
+        <div class="shift-arrow">→</div>
+        <div class="model">
+          <div class="label on">HCAI Model</div>
+          <div class="orbit hcai">
+            <div class="center">H</div>
+            <div class="node n1">AI</div>
+            <div class="node n2">AI</div>
+            <div class="node n3">AI</div>
+            <div class="node n4">AI</div>
+          </div>
+          <div class="label on">human at center · AI orbits</div>
+        </div>
+      </div>
+      <div class="shift-cap">"Non-deterministic systems require a human-centered buffer against unpredictability."</div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">02 — THE P.O.N.T.E. EVALUATION FRAMEWORK</div>
+    <h2>does AI add unique value?</h2>
+    <p>A step-by-step model for deciding whether AI belongs in the surface at all. The honest answer is sometimes no — and the rubric is most useful in the moments when the team wants the answer to be yes.</p>
+
+    <div class="ponte">
+      <div class="ponte-row">
+        <div class="letter">P</div>
+        <div class="body">
+          <div class="name">Patterns</div>
+          <p class="q">"Is there a user need and an identifiable pattern of behavior?"</p>
+          <p class="desc">What are the common issues users encounter? Can these be traced to identifiable patterns? Is there data supporting them?</p>
+        </div>
+      </div>
+      <div class="ponte-row">
+        <div class="letter">O</div>
+        <div class="body">
+          <div class="name">Outcome</div>
+          <p class="q">"What is the definition of success?"</p>
+          <p class="desc">What metrics will indicate success? What OKRs will this impact? How is user satisfaction measured?</p>
+        </div>
+      </div>
+      <div class="ponte-row">
+        <div class="letter">N</div>
+        <div class="body">
+          <div class="name">Need</div>
+          <p class="q">"Can a non-AI solution work better?"</p>
+          <p class="desc">What were the limitations with traditional systems? Does AI offer something unique? Or does the solution feel over-engineered?</p>
+        </div>
+      </div>
+      <div class="ponte-row">
+        <div class="letter">T</div>
+        <div class="body">
+          <div class="name">Type</div>
+          <p class="q">"Automation (speed) or augmentation (creativity)?"</p>
+          <p class="desc">Automation replaces human tasks. Augmentation assists humans with tasks they already do, making them better at their jobs.</p>
+        </div>
+      </div>
+      <div class="ponte-row">
+        <div class="letter">E</div>
+        <div class="body">
+          <div class="name">Equity</div>
+          <p class="q">"How do we ensure fairness and reduce bias?"</p>
+          <p class="desc">A tour-suggestion AI should not keep recommending one specific tour and never others. Bias in input becomes bias in output, at scale.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">03 — CASE STUDY · PRICE PREDICTIONS</div>
+    <h2>the AI predicts. the human decides.</h2>
+    <p>How Google Flights uses HCAI to augment, not replace, human decision-making — and why it's the pattern most travel surfaces should be copying.</p>
+
+    <div class="cs-card">
+      <div class="h">
+        <span>EXAMPLE · GOOGLE FLIGHTS</span>
+        <span class="src">DECISION PARALYSIS</span>
+      </div>
+      <div class="b">
+        <h4>The problem</h4>
+        <p>Travelers repeatedly re-check prices, unsure if they're getting the best deal. The anxiety of "what if it gets cheaper?" creates hesitation loops — refreshing the same query, abandoning the cart, returning two days later.</p>
+
+        <h4>The HCAI solution</h4>
+        <p>A small price-confidence card that surfaces a prediction and gets out of the way:</p>
+
+        <div class="pp">
+          <div class="pp-l">PRICE INSIGHT</div>
+          <div class="pp-h">Lower than usual.</div>
+          <div class="pp-d">Prices are currently low for your dates.</div>
+        </div>
+
+        <p>The AI provides a prediction. The human retains full control of the decision.</p>
+
+        <h4>Key takeaway</h4>
+        <p>The AI predicts; the human decides. Augmentation over automation. The same pattern is portable to any high-anxiety commerce moment — insurance add-ons, travel-protection upsells, return windows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">04 — PRINCIPLES</div>
+    <h2>six guardrails.</h2>
+    <p>Ethical guardrails for responsible AI implementation. These are not obstacles to design — they're the conditions under which design earns user trust over time.</p>
+
+    <div class="principles">
+      <div>
+        <h4>Transparency</h4>
+        <p>Explain why the AI made the suggestion. Clear reasoning for decisions and actions.</p>
+      </div>
+      <div>
+        <h4>Accountability</h4>
+        <p>Clear lines of responsibility for AI errors. Organizations stay accountable for impact.</p>
+      </div>
+      <div>
+        <h4>Privacy</h4>
+        <p>Data used ethically and with consent. Strict adherence to privacy standards.</p>
+      </div>
+      <div>
+        <h4>Human Autonomy</h4>
+        <p>Empower users by enhancing abilities. Provide control over AI-assisted processes.</p>
+      </div>
+      <div>
+        <h4>Beneficence</h4>
+        <p>Aim to benefit individuals and society. Actively improve well-being; avoid harm.</p>
+      </div>
+      <div>
+        <h4>Accessibility</h4>
+        <p>Intuitive, user-friendly interfaces that cater to varying abilities and backgrounds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="closing">
+      <blockquote>"Our goal is not to have or use AI but to ensure we all understand it as a tool for solving our problems."</blockquote>
+      <div class="attr">— THE HCAI PRINCIPLE</div>
+    </div>
+
+    <div class="aside">
+      <span class="label">A NOTE ON ORIGIN</span>
+      Designing for Humans is the research framework I authored at EF World Journeys for evaluating where AI belongs in the booking surface. This page documents the conceptual layer; implementation details are available on request.
+    </div>
+  </div>
+</section>
+
+<section class="cs-foot">
+  <div class="col col-narrow">
+    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg-dim)">END · FRAMEWORK 03B</div>
+    <div class="next-up">
+      <a href="/work/mind" class="nx">
+        <div class="label">SIBLING — FRAMEWORK 03A</div>
+        <div class="title">MIND framework →</div>
+      </a>
+      <a href="/work/ef" class="nx">
+        <div class="label">↩ CASE STUDY · 03</div>
+        <div class="title">EF world journeys</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="/site.js"></script>
+</body>
+</html>

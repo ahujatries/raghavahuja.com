@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIND framework · raghav ahuja</title>
+<meta name="description" content="MIND — a behavioral operating system. quantifying user hesitation; deploying interface patterns to resolve it.">
+<meta name="theme-color" content="#1a1814">
+<link rel="canonical" href="https://raghavahuja.com/work/mind">
+<meta property="og:title" content="MIND framework · raghav ahuja">
+<meta property="og:description" content="behavioral operating system. CtB, the 5 pillars, the BDI, and the ethical ethos.">
+<meta property="og:image" content="https://raghavahuja.com/og/mind.png">
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/case-study.css">
+<link rel="stylesheet" href="/cmdk.css">
+<style>
+  /* ===== MIND PAGE-SPECIFIC ===== */
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--heat); margin-bottom: var(--s-3);
+    font-weight: 600;
+  }
+  .lede-italic {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 22px; line-height: 1.45;
+    color: var(--fg-dim); max-width: 56ch;
+    margin: var(--s-4) 0 var(--s-5);
+    font-weight: 300;
+  }
+
+  /* CtB equation block */
+  .eq {
+    margin: var(--s-5) 0 var(--s-4);
+    padding: clamp(20px, 3vw, 36px) clamp(20px, 3vw, 32px);
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-deeper);
+    text-align: center;
+    overflow-x: auto;
+  }
+  .eq .formula {
+    font-family: var(--font-mono);
+    font-size: clamp(20px, 3.4vw, 30px);
+    font-weight: 600; letter-spacing: -0.01em;
+    color: var(--fg);
+    line-height: 1.4;
+  }
+  .eq .formula .heat { color: var(--heat); }
+  .eq .formula .dim { color: var(--fg-faint); }
+  .eq .cap {
+    margin-top: var(--s-3);
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.08em; color: var(--fg-faint);
+    text-transform: uppercase;
+  }
+  .eq .cap em { color: var(--fg-dim); font-style: italic; text-transform: none; }
+
+  /* force / pillar grid */
+  .grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--s-3);
+    margin: var(--s-4) 0 var(--s-5);
+  }
+  .gc {
+    padding: var(--s-4);
+    border: 1px solid var(--rule);
+    background: var(--bg-deeper);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .gc .num {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.14em; color: var(--heat);
+  }
+  .gc .name {
+    font-family: var(--font-mono); font-size: 18px;
+    font-weight: 600; letter-spacing: -0.02em;
+    color: var(--fg);
+  }
+  .gc .q {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 14.5px; color: var(--fg-dim);
+    line-height: 1.45;
+  }
+  .gc .body {
+    font-size: 14px; line-height: 1.55;
+    color: var(--fg-dim);
+  }
+  .gc .body strong { color: var(--fg); font-weight: 600; }
+  .gc .patterns {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px dashed var(--rule);
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.06em; color: var(--fg-faint);
+    line-height: 1.5;
+  }
+
+  /* BDI diagnostic card */
+  .bdi-card {
+    margin: var(--s-4) 0;
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-deeper);
+  }
+  .bdi-card .h {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--rule);
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .bdi-card .h .risk { color: var(--heat); font-weight: 700; }
+  .bdi-card .b { padding: 18px; }
+  .bdi-card .b .row {
+    display: grid; grid-template-columns: 110px 1fr;
+    gap: 14px; padding: 9px 0;
+    border-top: 1px solid var(--rule);
+    font-size: 14px; line-height: 1.5;
+  }
+  .bdi-card .b .row:first-child { border-top: 0; }
+  .bdi-card .b .row .k {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--fg-faint);
+    padding-top: 3px;
+  }
+  .bdi-card .b .row .v { color: var(--fg); }
+  .bdi-card .b .row .v.score {
+    font-family: var(--font-mono); font-weight: 700;
+    color: var(--heat); font-size: 22px; letter-spacing: -0.02em;
+  }
+  .bdi-card .b .row .v em { color: var(--fg-dim); font-style: italic; }
+
+  /* score legend */
+  .legend {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+    margin: var(--s-3) 0 var(--s-4);
+    border: 1px solid var(--rule);
+  }
+  .legend > div {
+    padding: 14px 16px;
+    border-right: 1px solid var(--rule);
+  }
+  .legend > div:last-child { border-right: 0; }
+  .legend .band {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.12em; font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .legend .band.good { color: var(--heat); }
+  .legend .band.mid { color: var(--fg); }
+  .legend .band.bad { color: var(--fg-dim); }
+  .legend .desc {
+    font-size: 13px; color: var(--fg-dim); line-height: 1.5;
+  }
+  @media (max-width: 700px) {
+    .legend { grid-template-columns: 1fr; }
+    .legend > div { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .legend > div:last-child { border-bottom: 0; }
+  }
+
+  /* ethos quad */
+  .ethos {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; margin: var(--s-4) 0;
+    border: 1px solid var(--rule);
+  }
+  .ethos > div {
+    padding: var(--s-4);
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .ethos > div:nth-child(2n) { border-right: 0; }
+  .ethos > div:nth-last-child(-n+2) { border-bottom: 0; }
+  .ethos h4 {
+    margin: 0 0 8px;
+    font-family: var(--font-mono); font-size: 13px;
+    font-weight: 600; letter-spacing: -0.005em;
+    color: var(--heat);
+  }
+  .ethos p {
+    margin: 0; font-size: 14px; line-height: 1.55;
+    color: var(--fg-dim);
+  }
+  @media (max-width: 700px) {
+    .ethos { grid-template-columns: 1fr; }
+    .ethos > div { border-right: 0; }
+  }
+</style>
+</head>
+<body>
+<div id="topbar-slot"></div>
+
+<section class="cs-hero">
+  <div class="col">
+    <div class="crumbs"><a href="/">home</a><span class="sep">/</span><a href="/work">work</a><span class="sep">/</span><span>MIND</span></div>
+    <div class="eyebrow">Behavioral Framework</div>
+    <h1>MIND<span class="heat">.</span></h1>
+    <p class="deck">a behavioral operating system. turning uncertainty into confident decisions — quantifying user hesitation and dynamically deploying interface patterns to resolve it.</p>
+    <div class="meta-row">
+      <span><span class="dot">●</span> FRAMEWORK · 03A · 2024 BEHAVIORAL</span>
+      <span>STATUS: LIVE</span>
+      <span>SIBLING OF /work/hcai</span>
+    </div>
+  </div>
+</section>
+
+<div class="col col-narrow prose">
+  <div class="eq">
+    <div class="formula">CtB = (Clarity + Trust + Motivation) <span class="heat">−</span> (Friction <span class="heat">×</span> 2) <span class="heat">−</span> Risk</div>
+    <div class="cap">CONFIDENCE-TO-BOOK · <em>quantifies a user's readiness to commit</em></div>
+  </div>
+  <p>Friction carries 2× negative weight. That's the core insight — and the reason the formula doesn't reduce to "add more clarity." A clean checkout with a forgivable price still loses to a confusing one with a great deal, because the friction tax compounds at every step.</p>
+</div>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">01 — THE PHYSICS OF DECISION MAKING</div>
+    <h2>three forces.</h2>
+    <p>The framework operationalizes three fundamental psychological forces. None of them are new — they're inherited from forty years of behavioral economics. What's new is encoding them as design tokens you can tune.</p>
+    <!-- TODO: add 4th force — original brief promised four; only three were carried over. -->
+
+    <div class="grid-cards">
+      <div class="gc">
+        <div class="num">01</div>
+        <div class="name">Cognitive Efficiency</div>
+        <div class="body">Humans are cognitive misers. We gravitate toward defaults, simple comparisons, and pre-curated options.</div>
+        <div class="patterns"><strong style="color:var(--fg)">DESIGN IMPLICATION</strong><br>Curate the path. Don't just provide choices.</div>
+      </div>
+      <div class="gc">
+        <div class="num">02</div>
+        <div class="name">Loss Aversion</div>
+        <div class="body">Fear of loss is 2–3× more powerful than the desire for gain. The pain of losing outweighs the pleasure of gaining.</div>
+        <div class="patterns"><strong style="color:var(--fg)">DESIGN IMPLICATION</strong><br>Frame around avoiding missed opportunities.</div>
+      </div>
+      <div class="gc">
+        <div class="num">03</div>
+        <div class="name">Social Orientation</div>
+        <div class="body">In moments of uncertainty, humans look to the herd. Social proof resolves ambiguity faster than argument does.</div>
+        <div class="patterns"><strong style="color:var(--fg)">DESIGN IMPLICATION</strong><br>Social proof at the exact moment of hesitation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">02 — THE 5 PILLARS OF INFLUENCE</div>
+    <h2>five questions.</h2>
+    <p>Every pillar addresses a question the user is silently asking. Walk a funnel and listen for the one that isn't being answered — that's where the leak is.</p>
+
+    <div class="grid-cards">
+      <div class="gc">
+        <div class="num">01 · ORIENTATION</div>
+        <div class="q">"Do I understand what this is and why it matters?"</div>
+        <div class="patterns">Clarity Headers · Context Frames · Pricing Anchors · Feature Grids</div>
+      </div>
+      <div class="gc">
+        <div class="num">02 · MOTIVATION</div>
+        <div class="q">"Do I want this?"</div>
+        <div class="patterns">Dynamic Social Proof · Scarcity Signals · Value Highlights · Emotional Content</div>
+      </div>
+      <div class="gc">
+        <div class="num">03 · DECISION ARCHITECTURE</div>
+        <div class="q">"Is this choice easy?"</div>
+        <div class="patterns">Smart Defaults · Comparison Grids · Best-Value Labels · Progressive Commitment</div>
+      </div>
+      <div class="gc">
+        <div class="num">04 · TRUST &amp; REASSURANCE</div>
+        <div class="q">"Do I feel safe committing?"</div>
+        <div class="patterns">Risk-Reversal Guarantees · Transparency Blocks · Review Panels · Authority Signals</div>
+      </div>
+      <div class="gc">
+        <div class="num">05 · ACTION</div>
+        <div class="q">"Is now the right moment to act?"</div>
+        <div class="patterns">Verb-First CTAs · Momentum Locks · Micro-Reassurance · Progress Indicators</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">03 — CODIFIED INTO TOKENS</div>
+    <h2>behavior as a token.</h2>
+    <p>The framework only works if it's not a slide deck. These tokens let developers adjust psychological intensity programmatically — same surface, different funnel depths get different tunings, and the design system stays the source of truth.</p>
+
+<pre><code>// Behavioral Token Definitions
+// Adjust psychological intensity programmatically.
+
+type UrgencyLevel = "high" | "medium" | "low";
+type TrustLevel   = "verified_partner" | "standard";
+type PriceAnchor  = "strike_through" | "comparative";
+type CTAFraming   = "commit" | "risk_free" | "soft_save";
+
+interface BehavioralTokens {
+  // Color intensity + copy phrasing for scarcity
+  "behavioral.urgency": UrgencyLevel;
+
+  // Prominence of validation signals
+  "behavioral.socialproof": 1 | 2 | 3 | 4;
+
+  // Visual weight of guarantees by funnel depth
+  "behavioral.trust": TrustLevel;
+
+  // How value context is displayed
+  "behavioral.price.anchor": PriceAnchor;
+
+  // Linguistic framing of action buttons
+  "behavioral.cta.framing": CTAFraming;
+}
+
+// Example: high-stakes checkout step
+const checkoutTokens: BehavioralTokens = {
+  "behavioral.urgency":      "high",
+  "behavioral.socialproof":  4,
+  "behavioral.trust":        "verified_partner",
+  "behavioral.price.anchor": "strike_through",
+  "behavioral.cta.framing":  "risk_free",
+};</code></pre>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">04 — BEHAVIORAL DROP-OFF INDEX</div>
+    <h2>where the chain breaks.</h2>
+    <p>BDI scores every step of a funnel against the four levers that move CtB. A leaking funnel is rarely all leaking — usually it's one step doing damage. The score finds the step.</p>
+
+    <div class="eq">
+      <div class="formula">BDI(step) = <span class="dim">(</span>Alignment + Motivation + Trust + (5 <span class="heat">−</span> Friction)<span class="dim">)</span> <span class="heat">/</span> 4</div>
+      <div class="cap">PER-STEP DIAGNOSTIC · <em>0 to 5, higher is healthier</em></div>
+    </div>
+
+    <h3>reading the score</h3>
+    <div class="legend">
+      <div>
+        <div class="band good">BDI ≥ 4.0</div>
+        <div class="desc">Strong alignment, low resistance. Don't redesign — instrument.</div>
+      </div>
+      <div>
+        <div class="band mid">BDI 2.5 – 4.0</div>
+        <div class="desc">Optimization opportunity. The pillars to lift are visible in the sub-scores.</div>
+      </div>
+      <div>
+        <div class="band bad">BDI ≤ 2.5</div>
+        <div class="desc">Behavioral leak, high abandon risk. Treat as a P0.</div>
+      </div>
+    </div>
+
+    <h3>diagnostic example</h3>
+    <div class="bdi-card">
+      <div class="h">
+        <span>STEP · CHECKOUT</span>
+        <span class="risk">HIGH RISK</span>
+      </div>
+      <div class="b">
+        <div class="row"><span class="k">BDI Score</span><span class="v score">2.4</span></div>
+        <div class="row"><span class="k">Diagnosis</span><span class="v"><strong>Trust Leak.</strong> User reached payment but exited. Hover maps show hesitation on policy text. <em>(Trust = 1.6, Friction = 4.2.)</em></span></div>
+        <div class="row"><span class="k">Rx</span><span class="v">Surface guarantees. Add "Reserve Risk-Free" microcopy. Ensure total price transparency above the CTA.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">05 — THE ETHICAL ETHOS</div>
+    <h2>four non-negotiables.</h2>
+    <p>Ethics is not a constraint on behavioral design — it's a performance multiplier. Pressure tactics and false urgency lift conversion this quarter and tax retention every quarter after. The framework refuses them by construction.</p>
+
+    <div class="ethos">
+      <div>
+        <h4>Clarity over Persuasion</h4>
+        <p>Users must understand the choice and its consequences. A confused yes is not a yes worth having.</p>
+      </div>
+      <div>
+        <h4>Confidence over Pressure</h4>
+        <p>Nudge toward certainty; reject false urgency. If the timer wouldn't be there with the customer in the room, don't put it on the screen.</p>
+      </div>
+      <div>
+        <h4>Momentum over Friction</h4>
+        <p>Accelerate through smart defaults, not dark patterns. Removing a click is design. Hiding a checkbox is not.</p>
+      </div>
+      <div>
+        <h4>Integrity over Manipulation</h4>
+        <p>Scarcity, social proof, and data must be real. If the "12 people viewing" is fake, the whole framework is fake.</p>
+      </div>
+    </div>
+
+    <div class="aside">
+      <span class="label">A NOTE ON THE NAME</span>
+      MIND — Motivational Interface &amp; Nudge Design. The full framework is documented internally; this is the public conceptual layer. Implementation details are available on request.
+    </div>
+  </div>
+</section>
+
+<section class="cs-foot">
+  <div class="col col-narrow">
+    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg-dim)">END · FRAMEWORK 03A</div>
+    <div class="next-up">
+      <a href="/work/hcai" class="nx">
+        <div class="label">SIBLING — FRAMEWORK 03B</div>
+        <div class="title">designing for humans →</div>
+      </a>
+      <a href="/work/ef" class="nx">
+        <div class="label">↩ CASE STUDY · 03</div>
+        <div class="title">EF world journeys</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="/site.js"></script>
+</body>
+</html>
