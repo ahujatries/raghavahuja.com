@@ -116,6 +116,12 @@
     font-family: var(--font-mono); font-size: 10.5px;
     letter-spacing: 0.18em; text-transform: uppercase;
     color: var(--heat); font-weight: 600;
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .now-row .h .stamp {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-faint); font-weight: 400;
   }
   .now-cell {
     font-size: 14px; line-height: 1.5; color: var(--fg);
@@ -457,7 +463,7 @@
 <section class="now">
   <div class="col">
     <div class="now-row">
-      <span class="h">NOW —</span>
+      <span class="h">NOW —<span class="stamp">updated 2026·05·06</span></span>
       <div class="now-cell">
         <span class="lbl">SHIP</span>
         <span><span class="live"></span>arqo v0.4 — paginator on a worker, FDX clean</span>
