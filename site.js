@@ -8,6 +8,22 @@
     wireTopbar();
   }
 
+  // --- 1b. Inject sitewide footer CTAs ---
+  // Single source of truth for resume / linkedin / email CTAs across every page that loads site.js.
+  // Skipped on the standalone "bulletin" pages (mamdani-mapper, hot-cold) — they don't load site.js.
+  if (!document.querySelector('.site-footer-ctas')) {
+    const ctaWrap = document.createElement('footer');
+    ctaWrap.className = 'site-footer-ctas';
+    ctaWrap.setAttribute('aria-label', 'site contact actions');
+    ctaWrap.innerHTML = `
+      <div class="col">
+        <a href="/resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">[ Resume PDF → ]</a>
+        <a href="https://www.linkedin.com/in/raghavahuja/" class="btn btn-ghost" target="_blank" rel="noopener">[ LinkedIn → ]</a>
+        <a href="mailto:work.raghavahuja@gmail.com" class="btn btn-ghost">[ Email → ]</a>
+      </div>`;
+    document.body.appendChild(ctaWrap);
+  }
+
   // --- 2. Dual clock ---
   function dualClock() {
     const fmt = (tz) => new Intl.DateTimeFormat('en-GB', { hour:'2-digit', minute:'2-digit', hour12:false, timeZone:tz }).format(new Date());
