@@ -40,18 +40,23 @@
   }
   .hero h1 {
     font-family: var(--font-mono);
-    font-size: clamp(34px, 5.2vw, 76px);
+    font-size: clamp(40px, 6vw, 88px);
     font-weight: 600;
     letter-spacing: -0.04em;
     line-height: 1;
     margin: 0;
-    max-width: 22ch;
   }
   .hero h1 .heat { color: var(--heat); }
-  .hero h1 .it {
+  .hero-lede {
+    font-size: clamp(17px, 1.6vw, 22px);
+    line-height: 1.45;
+    color: var(--fg);
+    margin: 0;
+    max-width: 56ch;
+  }
+  .hero-lede .it {
     font-family: 'Fraunces', 'Caveat', serif;
     font-style: italic; font-weight: 400;
-    letter-spacing: -0.02em;
   }
   .hero-sub {
     font-size: clamp(15px, 1.4vw, 18px);
@@ -597,13 +602,12 @@
 <section class="hero">
   <div class="col">
     <div class="hero-stack">
-      <h1>
-        design <span class="heat">engineer</span>. brooklyn.<br>
-        13 years across agency creative leadership, ML at scale, enterprise vertical SaaS, <span class="it">and</span> solo product founding.<br>
-        i ship the whole loop &mdash; figma, codebase, infra, agentic workflows, unit economics.
-      </h1>
+      <h1>design <span class="heat">engineer</span>. brooklyn.</h1>
+      <p class="hero-lede">
+        13 years across agency creative leadership, ML at scale, enterprise vertical SaaS, <span class="it">and</span> solo product founding. i ship the whole loop &mdash; figma, codebase, infra, agentic workflows, unit economics.
+      </p>
       <p class="hero-sub">
-        currently shipping at <a href="/work/ef">EF World Journeys</a> ($200M+ ARR, 50+ countries) and co-founding <a href="/work/arqo">arqo</a> &mdash; vertical SaaS launching aug 17.
+        currently shipping at <a href="/work/ef">EF World Journeys</a> ($200M+ ARR, 100+ countries) and co-founding <a href="/work/arqo">arqo</a> &mdash; vertical SaaS launching aug 17.
       </p>
       <p class="hero-thesis">
         the combination is the moat. each axis at 80%+, compounding.<br>
@@ -689,13 +693,13 @@
             <span>STAFF · LIVE &amp; GATED</span>
           </div>
           <a href="/work/ef" class="wcard-title-link"><h3 class="wcard-title">ef world journeys</h3></a>
-          <p class="wcard-desc">design + engineering at one of the largest privately-held education travel companies. 50+ countries.</p>
+          <p class="wcard-desc">design + engineering at one of the largest privately-held education travel companies. 100+ countries.</p>
           <p class="wcard-desc">shipped the international checkout integration, mobile checkout (opened a new revenue channel), insurance/quoting redesign (+5pp take-rate), and three public-facing AI tools. led the MIND and HCAI design frameworks. built an in-house design-tooling replacement using agentic dev. all live in production today.</p>
           <div class="wcard-ctas">
             <a href="/work/ef" class="wcard-cta">[case study (half-gated) →]</a>
           </div>
           <div class="wcard-foot">
-            <span>+5PP TAKE-RATE · NEW MOBILE REVENUE CHANNEL · 50+ COUNTRIES · 3 AI TOOLS LIVE</span>
+            <span>+5PP TAKE-RATE · NEW MOBILE REVENUE CHANNEL · 100+ COUNTRIES · 3 AI TOOLS LIVE</span>
             <span class="wcard-arrow">→</span>
           </div>
         </div>
@@ -803,12 +807,6 @@
 <!-- ============== FOOTER ============== -->
 <footer class="text-msg">
   <div class="col">
-    <div class="text-thread">
-      <div class="text-meta">— नमस्ते —</div>
-      <div class="bub">work.raghavahuja@gmail.com</div>
-      <div class="bub heat">subject line is the interface. <em>hiring</em>, <em>arqo</em>, <em>jmnpr</em>, <em>case study</em>, or <em>just hi</em>.</div>
-      <div class="bub">or hit ⌘K from anywhere on this site.</div>
-    </div>
     <div class="colophon">
       <span>BROOKLYN · IST/EST DUAL CLOCK</span>
       <span>BUILT WITH HTML &amp; CARE · ©2026</span>
