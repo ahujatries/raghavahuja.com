@@ -170,6 +170,76 @@
   .zu-mock .send-batch { grid-template-columns: repeat(2, 1fr); }
   .zu-mock .preview-grid { grid-template-columns: 1fr; }
 }
+
+/* ===== ZULILY — OWNED LIST ===== */
+.zu-owned { display: grid; gap: var(--s-4); margin: var(--s-4) 0 var(--s-5); }
+.zu-owned .item {
+  display: grid; grid-template-columns: 64px 1fr; gap: var(--s-3);
+  padding: var(--s-3) 0; border-top: 1px solid var(--rule);
+}
+.zu-owned .item:last-child { border-bottom: 1px solid var(--rule); }
+.zu-owned .num {
+  font-family: var(--font-mono); font-size: 22px; font-weight: 700;
+  color: var(--heat); letter-spacing: -0.04em;
+}
+.zu-owned h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-mono); font-size: 13px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--fg);
+}
+.zu-owned p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--fg-dim); }
+
+/* ===== ZULILY — OUTCOMES LIST ===== */
+.zu-outcomes { list-style: none; padding: 0; margin: var(--s-3) 0 var(--s-5); }
+.zu-outcomes li {
+  padding: 12px 0 12px 24px;
+  border-top: 1px solid var(--rule);
+  font-size: 17px; line-height: 1.5; color: var(--fg);
+  position: relative;
+}
+.zu-outcomes li:last-child { border-bottom: 1px solid var(--rule); }
+.zu-outcomes li::before {
+  content: '→'; position: absolute; left: 0; top: 12px;
+  color: var(--heat); font-family: var(--font-mono); font-weight: 700;
+}
+
+/* ===== ZULILY — ARCHITECTURE DIAGRAM ===== */
+.zu-arch {
+  margin: var(--s-5) 0 var(--s-3);
+  padding: var(--s-5) var(--s-4);
+  border: 1px solid var(--rule-strong);
+  background: var(--bg-deeper);
+}
+.zu-arch-flow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px; align-items: center;
+  font-family: var(--font-mono);
+}
+.zu-arch-node {
+  padding: 14px 10px;
+  border: 1px solid var(--rule-strong);
+  background: var(--bg);
+  text-align: center;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--fg);
+}
+.zu-arch-node.terminal { color: var(--heat); border-color: var(--heat); }
+.zu-arch-arrow {
+  text-align: center; font-family: var(--font-mono);
+  color: var(--fg-faint); font-size: 18px;
+}
+.zu-arch figcaption {
+  margin-top: 14px;
+  font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--fg-faint); text-align: center;
+}
+@media (max-width: 700px) {
+  .zu-arch-flow { grid-template-columns: 1fr; }
+  .zu-arch-arrow { transform: rotate(90deg); padding: 4px 0; }
+}
 </style>
 </head>
 <body>
@@ -286,6 +356,73 @@
   <h2>archived</h2>
   <p>Zulily wound down its US operation in 2023. The personalization engine survives in the codebase the buyer acquired; the work above is the version that shipped between 2021 and 2022 against a 16M/day load.</p>
 </div>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">WHAT I OWNED</div>
+    <div class="zu-owned">
+      <div class="item">
+        <div class="num">01</div>
+        <div>
+          <h3>THE SEGMENTATION MODEL</h3>
+          <p>Designed how customers were segmented for personalized email targeting. Worked with the ML team on the model itself, owned the design surface that surfaced the segmentation logic to merchandising and marketing teams.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="num">02</div>
+        <div>
+          <h3>SEND-TIME OPTIMIZATION</h3>
+          <p>Designed the system that determined when each customer received each email. Real-time signals, customer rhythm detection, send-time experimentation framework.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="num">03</div>
+        <div>
+          <h3>CONTENT SELECTION LOGIC</h3>
+          <p>Designed how products were selected for each customer's email. Hundreds of thousands of items in catalog, dozens of slots per email, real-time relevance computation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TODO: real architecture diagram -->
+    <figure class="zu-arch">
+      <div class="zu-arch-flow">
+        <div class="zu-arch-node">signals</div>
+        <div class="zu-arch-arrow">→</div>
+        <div class="zu-arch-node">segmentation</div>
+        <div class="zu-arch-arrow">→</div>
+        <div class="zu-arch-node">send-time</div>
+      </div>
+      <div class="zu-arch-flow" style="margin-top:8px">
+        <div class="zu-arch-node">send-time</div>
+        <div class="zu-arch-arrow">→</div>
+        <div class="zu-arch-node">content selection</div>
+        <div class="zu-arch-arrow">→</div>
+        <div class="zu-arch-node terminal">email</div>
+      </div>
+      <figcaption>personalization architecture · placeholder</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">OUTCOMES</div>
+    <ul class="zu-outcomes">
+      <li>+14% CTR uplift across the email ecosystem</li>
+      <li>+45 seconds average session length post-click</li>
+      <li>zero manual curation required for personalized emails</li>
+      <li>16M sends/day at production scale</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">WHAT THIS TAUGHT ME</div>
+    <p>ML personalization at this scale is a systems-design problem disguised as a content problem. The interesting design work is upstream of what the customer sees — in the rules, the rhythms, and the rubrics that determine relevance. The pixels follow from the system, not the other way around.</p>
+  </div>
+</section>
 
 <section class="cs-foot">
   <div class="col col-narrow">
