@@ -29,6 +29,21 @@
   .r .stamp .num { color: var(--heat); }
   .r .t { font-family: var(--font-mono); font-size: 28px; font-weight: 600; letter-spacing: -0.025em; }
   .r .d { font-size: 14.5px; color: var(--fg-dim); line-height: 1.55; }
+  .r .tie {
+    font-family: var(--font-mono);
+    font-size: 12px; line-height: 1.5;
+    color: var(--fg-faint);
+    padding-top: 8px;
+    border-top: 1px dashed var(--rule);
+  }
+  .position-intro {
+    max-width: 56ch;
+    margin: var(--s-4) 0 0;
+    font-size: 16px; line-height: 1.65;
+    color: var(--fg-dim);
+  }
+  .position-intro p { margin: 0 0 var(--s-3); }
+  .position-intro p:last-child { margin-bottom: 0; }
   .r .ticket {
     margin-top: auto; padding-top: var(--s-3);
     border-top: 1px dashed var(--rule);
@@ -49,6 +64,10 @@
     <h1>receipts.</h1>
     <p class="lede">weekend builds. a couple of evenings. one afternoon. small enough to ship; honest enough to keep the receipt.</p>
     <p class="lede dim">a receipt is the opposite of a portfolio piece — it's not selling you on the project, it's just saying "yes, this is real, here's where it lives, here's what it cost."</p>
+    <div class="position-intro">
+      <p>shipped weekend builds. each one a complete, live, deployed artifact. the framing isn't "side project." the framing is "evidence the agentic-dev workflow produces real output, at real scale, with real unit economics, in real time."</p>
+      <p>each receipt below ships in production. each one has real users, or could. each one is built to be replicable — by me, by anyone with the right toolset.</p>
+    </div>
   </div>
 </section>
 
@@ -58,18 +77,21 @@
       <div class="stamp"><span class="num">RCPT-001</span><span>2026-04 · ONE NIGHT</span></div>
       <div class="t">mamdani mapper</div>
       <div class="d">every public stop the mayor has made, plus the credibly pre-announced ones, on a cobalt map. press receipts only — no real-time tracking. two scrapers, one GH Action, one static page.</div>
+      <div class="tie">civic transparency tooling. one night, $1.30/mo, real users. evidence the agentic-dev workflow scales down to single-night builds.</div>
       <div class="ticket"><span>5 HRS · ONE SESSION</span><span class="heat">$1.30/MO</span></div>
     </a>
     <a href="/receipts/futbolis" class="r">
       <div class="stamp"><span class="num">RCPT-002</span><span>2026-02 · 3 WKS</span></div>
       <div class="t">futbolis.live</div>
       <div class="d">a real-time pub-finder for football fans. macro-to-micro map navigation, $19/mo flat at 100k concurrent, 4-tier geocoding fallback, mobile carousel built from scratch.</div>
+      <div class="tie">real-time pub-finder, $19/mo flat at 100k concurrent. evidence the same workflow handles real backend scale.</div>
       <div class="ticket"><span>3 WEEKS · NIGHTS</span><span class="heat">$19/MO @ 100K</span></div>
     </a>
     <a href="/receipts/hot-cold" class="r">
       <div class="stamp"><span class="num">RCPT-003</span><span>2026-01 · 1 DAY</span></div>
       <div class="t">hot &amp; cold</div>
       <div class="d">hottest and coldest places on earth, right now. open-meteo, GH Action, static JSON. one afternoon. dropped the live feeds for honesty.</div>
+      <div class="tie">static-JSON, GitHub Action, $0/mo. evidence it scales to zero infra when the problem allows.</div>
       <div class="ticket"><span>1 AFTERNOON</span><span class="heat">$0/MO</span></div>
     </a>
     <a href="#" class="r" style="opacity:0.55; pointer-events:none">

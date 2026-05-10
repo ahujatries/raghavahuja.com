@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>raghav ahuja — design engineer</title>
-<meta name="description" content="design engineer. brooklyn. i ship the whole loop — figma to codebase to live url. fifteen years inside other people's roadmaps; now mostly inside my own.">
+<meta name="description" content="design engineer. brooklyn. 13 years across agency creative leadership, ML at scale, enterprise vertical SaaS, and solo product founding. i ship the whole loop — figma, codebase, infra, agentic workflows, unit economics.">
 <meta name="theme-color" content="#1a1814">
 <link rel="canonical" href="https://raghavahuja.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://raghavahuja.com/">
 <meta property="og:title" content="raghav ahuja — design engineer">
-<meta property="og:description" content="design engineer. brooklyn. i ship the whole loop — figma to codebase to live url.">
+<meta property="og:description" content="design engineer. brooklyn. i ship the whole loop — figma, codebase, infra, agentic workflows, unit economics.">
 <meta property="og:image" content="https://raghavahuja.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -19,7 +19,7 @@
 <meta name="twitter:site" content="@ahujatries">
 <meta name="twitter:creator" content="@ahujatries">
 <meta name="twitter:title" content="raghav ahuja — design engineer">
-<meta name="twitter:description" content="design engineer. brooklyn. i ship the whole loop — figma to codebase to live url.">
+<meta name="twitter:description" content="design engineer. brooklyn. i ship the whole loop — figma, codebase, infra, agentic workflows, unit economics.">
 <meta name="twitter:image" content="https://raghavahuja.com/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.92em%22 font-size=%2290%22 fill=%22%23ff7a2b%22%3Er%3C/text%3E%3Crect x=%2245%22 y=%2222%22 width=%2212%22 height=%2265%22 fill=%22%23ff7a2b%22%3E%3Canimate attributeName=%22opacity%22 values=%221;1;0;0%22 keyTimes=%220;0.5;0.51;1%22 dur=%221s%22 repeatCount=%22indefinite%22/%3E%3C/rect%3E%3C/svg%3E">
 <link rel="stylesheet" href="/colors_and_type.css">
@@ -40,18 +40,42 @@
   }
   .hero h1 {
     font-family: var(--font-mono);
-    font-size: clamp(40px, 6.4vw, 92px);
+    font-size: clamp(34px, 5.2vw, 76px);
     font-weight: 600;
-    letter-spacing: -0.045em;
-    line-height: 0.96;
+    letter-spacing: -0.04em;
+    line-height: 1;
     margin: 0;
-    max-width: 18ch;
+    max-width: 22ch;
   }
   .hero h1 .heat { color: var(--heat); }
   .hero h1 .it {
     font-family: 'Fraunces', 'Caveat', serif;
     font-style: italic; font-weight: 400;
     letter-spacing: -0.02em;
+  }
+  .hero-sub {
+    font-size: clamp(15px, 1.4vw, 18px);
+    line-height: 1.55;
+    color: var(--fg-dim);
+    margin: 0;
+    max-width: 60ch;
+  }
+  .hero-sub a { color: var(--heat); text-decoration: none; border-bottom: 1px solid var(--rule-strong); }
+  .hero-sub a:hover { border-bottom-color: var(--heat); }
+  .hero-thesis {
+    font-family: 'Fraunces', serif;
+    font-style: italic; font-weight: 400;
+    font-size: clamp(14px, 1.2vw, 16px);
+    line-height: 1.6;
+    color: var(--fg-faint);
+    margin: 0;
+    max-width: 64ch;
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--rule);
+  }
+  .hero-stack {
+    display: flex; flex-direction: column;
+    gap: clamp(20px, 2.4vw, 32px);
   }
   .hero-side {
     display: flex; flex-direction: row; gap: var(--s-5);
@@ -98,6 +122,52 @@
   @media (max-width: 980px) {
     .hero-grid { grid-template-columns: 1fr; }
     .marg { display: none; }
+  }
+
+  /* ===== CAPABILITY STRIP ===== */
+  .cap-strip {
+    border-bottom: 1px solid var(--rule);
+    padding: var(--s-5) 0;
+  }
+  .cap-strip h2 {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--heat); margin: 0 0 var(--s-4); font-weight: 600;
+  }
+  .cap-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .cap-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: var(--s-4);
+    padding: 14px 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .cap-row:first-child { border-top: none; padding-top: 0; }
+  .cap-row .k {
+    color: var(--heat);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .cap-row .v {
+    color: var(--fg);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  @media (max-width: 720px) {
+    .cap-row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
   }
 
   /* ===== NOW TICKER ===== */
@@ -194,7 +264,23 @@
     border-bottom: 1px solid var(--rule);
     position: relative;
     overflow: hidden;
+    display: block;
+    text-decoration: none;
   }
+  .wcard-title-link { text-decoration: none; color: inherit; display: block; }
+  .wcard-title-link:hover .wcard-title { color: var(--heat); }
+  .wcard-title { transition: color 200ms var(--ease); }
+  .wcard-sub {
+    font-family: var(--font-mono);
+    font-size: 0.5em;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--fg-faint);
+    display: block;
+    margin-top: 8px;
+  }
+  .wcard.iodine .wcard-title-link:hover .wcard-title { color: #fff; }
+  .wcard.iodine .wcard-sub { color: rgba(255,245,237,0.6); }
   .wcard-body {
     padding: var(--s-4);
     display: flex; flex-direction: column; gap: 12px;
@@ -234,6 +320,50 @@
   .wcard.std { grid-column: span 5; }
   .wcard.half { grid-column: span 6; }
   .wcard.feat .wcard-art { aspect-ratio: 16/9; }
+
+  /* CTA row inside wcard */
+  .wcard-ctas {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding-top: 4px;
+  }
+  .wcard-cta {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: lowercase;
+    color: var(--fg); text-decoration: none;
+    padding: 7px 12px;
+    border: 1px solid var(--rule-strong);
+    transition: border-color 200ms var(--ease), color 200ms var(--ease);
+  }
+  .wcard-cta:hover { border-color: var(--heat); color: var(--heat); }
+  .wcard-cta.fill {
+    background: var(--heat); color: var(--fg-on-heat);
+    border-color: var(--heat);
+  }
+  .wcard-cta.fill:hover {
+    background: var(--heat-pressed); border-color: var(--heat-pressed);
+    color: var(--fg-on-heat);
+  }
+  .wcard.iodine .wcard-cta {
+    color: #fff5ed; border-color: rgba(255,245,237,0.3);
+  }
+  .wcard.iodine .wcard-cta:hover { border-color: #fff5ed; color: #fff5ed; }
+  .wcard.iodine .wcard-cta.fill {
+    background: #fff5ed; color: #b82c1f; border-color: #fff5ed;
+  }
+  .wcard.iodine .wcard-cta.fill:hover { background: #fff; border-color: #fff; }
+
+  .work-foot {
+    margin-top: var(--s-5);
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+  .work-foot a {
+    color: var(--fg); text-decoration: none;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .work-foot a:hover { color: var(--heat); border-bottom-color: var(--heat); }
 
   /* iodine card — breaks the system */
   .wcard.iodine {
@@ -296,6 +426,26 @@
     font-family: var(--font-mono); font-size: 10px;
     letter-spacing: 0.18em; color: var(--fg-dim);
   }
+  .art-social-booth {
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255,122,43,0.18) 0, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(255,122,43,0.08) 0, transparent 50%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .art-social-booth::before {
+    content: 'FORD · DUCATI · WENDY\'S';
+    font-family: var(--font-mono); font-weight: 700;
+    font-size: clamp(18px, 2.4vw, 32px); letter-spacing: 0.06em;
+    color: var(--fg-dim);
+  }
+  .art-social-booth::after {
+    content: 'MUMBAI · 2016—2020'; position: absolute;
+    bottom: 16px; left: 16px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.18em; color: var(--fg-faint);
+  }
   .art-zulily {
     background: var(--bg-deeper);
     background-image: repeating-linear-gradient(
@@ -318,6 +468,12 @@
 
   /* ===== RECEIPTS ===== */
   .rec-section { padding: clamp(72px, 10vw, 140px) 0; border-bottom: 1px solid var(--rule); background: var(--bg-deeper); }
+  .rec-intro {
+    font-size: 16px; line-height: 1.55;
+    color: var(--fg-dim);
+    margin: 0 0 var(--s-5);
+    max-width: 60ch;
+  }
   .rec-grid {
     display: grid; grid-template-columns: repeat(3, 1fr);
     gap: var(--s-4);
@@ -440,21 +596,19 @@
 <!-- ============== HERO ============== -->
 <section class="hero">
   <div class="col">
-    <div class="hero-grid">
+    <div class="hero-stack">
       <h1>
-        design <span class="heat">engineer</span>. i ship the whole loop &mdash; figma <span class="it">to</span> codebase <span class="it">to</span> live url.
+        design <span class="heat">engineer</span>. brooklyn.<br>
+        13 years across agency creative leadership, ML at scale, enterprise vertical SaaS, <span class="it">and</span> solo product founding.<br>
+        i ship the whole loop &mdash; figma, codebase, infra, agentic workflows, unit economics.
       </h1>
-      <div class="hero-side">
-        <p class="lede">
-          <em>raghav ahuja, brooklyn.</em> currently on staff at EF World Journeys, and building
-          <a href="/work/arqo">arqo</a> &amp;
-          <a href="/work/jmnpr">jmnpr labs</a> on the side.
-        </p>
-        <div class="hero-meta">
-          <span>SR. PRODUCT DESIGNER · DESIGN ENGINEER</span>
-          <span>BROOKLYN · IST · EST</span>
-        </div>
-      </div>
+      <p class="hero-sub">
+        currently shipping at <a href="/work/ef">EF World Journeys</a> ($200M+ ARR, 50+ countries) and co-founding <a href="/work/arqo">arqo</a> &mdash; vertical SaaS launching aug 17.
+      </p>
+      <p class="hero-thesis">
+        the combination is the moat. each axis at 80%+, compounding.<br>
+        a master of one will out-depth me in their lane. across the lanes, the math changes.
+      </p>
     </div>
   </div>
 </section>
@@ -480,81 +634,114 @@
   </div>
 </section>
 
+<!-- ============== CAPABILITY STRIP ============== -->
+<section class="cap-strip">
+  <div class="col">
+    <h2>CAPABILITIES</h2>
+    <div class="cap-list">
+      <div class="cap-row"><span class="k">DESIGN</span><span class="v">Figma, design systems, design engineering, MIND/HCAI frameworks</span></div>
+      <div class="cap-row"><span class="k">FRONTEND</span><span class="v">Next.js, React, TypeScript, Tailwind, custom contenteditable, CRDT</span></div>
+      <div class="cap-row"><span class="k">BACKEND</span><span class="v">Vercel, Supabase, Postgres, pgvector, Upstash, queue systems</span></div>
+      <div class="cap-row"><span class="k">NATIVE</span><span class="v">Tauri (desktop), Capacitor (mobile)</span></div>
+      <div class="cap-row"><span class="k">AI / AGENTS</span><span class="v">Claude Code, Cursor, v0, custom MCP servers, autonomous agents in production</span></div>
+      <div class="cap-row"><span class="k">LEADERSHIP</span><span class="v">Built and led 8+ designer team. Ford, Ducati, Wendy's launches.</span></div>
+    </div>
+  </div>
+</section>
+
 <!-- ============== WORK ============== -->
 <section class="work-section">
   <div class="col">
     <div class="sec-h">
       <div class="sec-h-l">
         <h2>SELECTED WORK</h2>
-        <span class="count">2024 — 2026 · 4 OF 8</span>
+        <span class="count">2016 — 2026 · 4 OF 8</span>
       </div>
       <a href="/work" class="more">all work →</a>
     </div>
 
     <div class="work-grid">
-      <a href="/work/arqo" class="wcard iodine feat">
-        <div class="wcard-art art-arqo"></div>
+      <div class="wcard iodine feat">
+        <a href="/work/arqo" class="wcard-art art-arqo" aria-label="arqo case study"></a>
         <div class="wcard-body">
           <div class="wcard-meta">
-            <span class="num">001 · 2026</span>
-            <span>SOLO · 9 DAYS · LIVE</span>
+            <span class="num">001 · 2025–26</span>
+            <span>CO-FOUNDER / CTO · LIVE</span>
           </div>
-          <h3 class="wcard-title">arqo</h3>
-          <p class="wcard-desc">mobile-first screenwriting. AST-as-OS. three synchronized views on the phone, shipped solo in nine days using an agentic-dev workflow.</p>
+          <a href="/work/arqo" class="wcard-title-link"><h3 class="wcard-title">arqo</h3></a>
+          <p class="wcard-desc">mobile-first screenwriting that refuses to write for you. continuous-flow editor, AST-as-OS, pgvector story memory, FDX round-trip, offline-first sync. shipped solo on the engineering side — production architecture supporting 5K concurrent users at ~$180/mo infra solo. strategic call: refusing generation as a feature, not a capability.</p>
+          <div class="wcard-ctas">
+            <a href="/work/arqo" class="wcard-cta">[case study →]</a>
+            <a href="https://app.tryarqo.com" class="wcard-cta fill" target="_blank" rel="noopener">[see live: app.tryarqo.com →]</a>
+          </div>
           <div class="wcard-foot">
-            <span>CONTENTEDITABLE · CRDT · TAURI · PGVECTOR</span>
+            <span>CONTENTEDITABLE · YJS CRDT · TAURI · PGVECTOR · NEXT.JS</span>
             <span class="wcard-arrow">→</span>
           </div>
         </div>
-      </a>
+      </div>
 
-      <a href="/work/jmnpr" class="wcard std">
-        <div class="wcard-art art-jmnpr"></div>
+      <div class="wcard std">
+        <a href="/work/ef" class="wcard-art art-ef" aria-label="ef world journeys case study"></a>
         <div class="wcard-body">
           <div class="wcard-meta">
-            <span class="num">002 · 2025–</span>
-            <span>STUDIO · ACTIVE</span>
+            <span class="num">002 · 2022–</span>
+            <span>STAFF · LIVE &amp; GATED</span>
           </div>
-          <h3 class="wcard-title">jmnpr labs</h3>
-          <p class="wcard-desc">a one-person tools studio. one shipped, five on deck. self-serve, PPP-priced, no sales motion.</p>
+          <a href="/work/ef" class="wcard-title-link"><h3 class="wcard-title">ef world journeys</h3></a>
+          <p class="wcard-desc">design + engineering at one of the largest privately-held education travel companies. 50+ countries.</p>
+          <p class="wcard-desc">shipped the international checkout integration, mobile checkout (opened a new revenue channel), insurance/quoting redesign (+5pp take-rate), and three public-facing AI tools. led the MIND and HCAI design frameworks. built an in-house design-tooling replacement using agentic dev. all live in production today.</p>
+          <div class="wcard-ctas">
+            <a href="/work/ef" class="wcard-cta">[case study (half-gated) →]</a>
+          </div>
           <div class="wcard-foot">
-            <span>REACT-PDF · LEMON SQUEEZY</span>
+            <span>+5PP TAKE-RATE · NEW MOBILE REVENUE CHANNEL · 50+ COUNTRIES · 3 AI TOOLS LIVE</span>
             <span class="wcard-arrow">→</span>
           </div>
         </div>
-      </a>
+      </div>
 
-      <a href="/work/ef" class="wcard half">
-        <div class="wcard-art art-ef"></div>
+      <div class="wcard half">
+        <a href="/work/social-booth" class="wcard-art art-social-booth" aria-label="social booth case study"></a>
         <div class="wcard-body">
           <div class="wcard-meta">
-            <span class="num">003 · 2022–</span>
-            <span>STAFF · GATED</span>
+            <span class="num">003 · 2016–2020</span>
+            <span>LEAD / FOUNDATIONAL · ACQUIRED 2023</span>
           </div>
-          <h3 class="wcard-title">EF world journeys</h3>
-          <p class="wcard-desc">checkout rebuild, insurance redesign, quoting tool across 50+ countries, two design frameworks (MIND, HCAI). gated — email for the password.</p>
+          <a href="/work/social-booth" class="wcard-title-link"><h3 class="wcard-title">social booth <span class="wcard-sub">(now vaynermedia india)</span></h3></a>
+          <p class="wcard-desc">foundational creative / head of design. built the design team from zero to 8+. led campaign and launch creative for ford india, ducati india, and wendy's india launch. left 2020. acquired by vaynermedia 2023.</p>
+          <div class="wcard-ctas">
+            <a href="/work/social-booth" class="wcard-cta">[case study →]</a>
+          </div>
           <div class="wcard-foot">
-            <span>+$4.2M ARR · +10% TAKE-RATE</span>
+            <span>8+ DESIGN TEAM · FORD · DUCATI · WENDY'S INDIA LAUNCH</span>
             <span class="wcard-arrow">→</span>
           </div>
         </div>
-      </a>
+      </div>
 
-      <a href="/work/zulily" class="wcard half">
-        <div class="wcard-art art-zulily"></div>
+      <div class="wcard half">
+        <a href="/work/zulily" class="wcard-art art-zulily" aria-label="zulily case study"></a>
         <div class="wcard-body">
           <div class="wcard-meta">
-            <span class="num">004 · 2021–22</span>
+            <span class="num">004 · 2020–22</span>
             <span>GROWTH · ARCHIVED</span>
           </div>
-          <h3 class="wcard-title">zulily</h3>
-          <p class="wcard-desc">algorithmic logic for a personalized email ecosystem at 16M sends/day. +14% CTR, +45s session, zero manual curation.</p>
+          <a href="/work/zulily" class="wcard-title-link"><h3 class="wcard-title">zulily</h3></a>
+          <p class="wcard-desc">designed and shipped the personalization system — segmentation model, send-time optimization, content selection logic. design + engineering at the algorithm layer, not just the UI. 16M sends/day at scale.</p>
+          <div class="wcard-ctas">
+            <a href="/work/zulily" class="wcard-cta">[case study →]</a>
+          </div>
           <div class="wcard-foot">
-            <span>PERSONALIZATION · ML</span>
+            <span>+14% CTR · +45S SESSION · 16M SENDS/DAY</span>
             <span class="wcard-arrow">→</span>
           </div>
         </div>
-      </a>
+      </div>
+    </div>
+
+    <div class="work-foot">
+      <a href="/work">[all work → /work]</a>
     </div>
   </div>
 </section>
@@ -569,6 +756,7 @@
       </div>
       <a href="/receipts" class="more">all receipts →</a>
     </div>
+    <p class="rec-intro">weekend builds. shipped, live, opinionated. the kind of work that compounds with the rest.</p>
     <div class="rec-grid">
       <a href="/receipts/mamdani-mapper" class="rec">
         <div class="rec-stamp"><span class="num">RCPT-001</span><span>2026·04</span></div>
@@ -601,8 +789,7 @@
         <p class="ab-headline">self-serve <span class="it">over</span> enterprise. receipts <span class="it">over</span> portfolios.</p>
       </div>
       <div class="ab-r">
-        <p>i'm a design engineer — discovery, figma, codebase, shipped url, post-launch instrumentation. fifteen years of shipping inside other people's roadmaps; now, mostly, inside my own.</p>
-        <p>last three years on staff at <a href="/work/ef">EF world journeys</a>. before that, two years at zulily on a 16M-sends-a-day personalization engine. before that, four as creative director in mumbai. on the side, building <a href="/work/jmnpr">JMNPR labs</a> — a one-person tools studio.</p>
+        <p>15 years of shipping inside other people's roadmaps. now, mostly, inside my own — and looking for the next team where the design + engineering + AI combination is the whole job, not a stretch role.</p>
         <div class="ab-cta">
           <a href="/about" class="btn btn-ghost">more about</a>
           <a href="mailto:work.raghavahuja@gmail.com" target="_blank" rel="noopener" class="btn btn-fill">email →</a>
