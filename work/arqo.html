@@ -1124,7 +1124,7 @@
   <div class="col">
     <div class="crumbs"><a href="/">home</a><span class="sep">/</span><a href="/work">work</a><span class="sep">/</span><span>arqo</span></div>
     <h1>arqo<span class="heat">.</span></h1>
-    <p class="deck">the mobile-first, script-led filmmaking tool for every creator on the planet. nine days of after-work building, agentic-dev workflow, one person.</p>
+    <p class="deck">the mobile-first, script-led filmmaking tool for every creator on the planet. co-founded with isabella vizetta. mvp engine built in 9 days of after-work building; production architecture, agent ops, and feature surface built out over the months since. shipping aug 17.</p>
     <div class="meta-row">
       <span><span class="dot">●</span> CASE STUDY · NO. 01 · 2026</span>
       <span>SOLO BUILD</span>
@@ -2076,6 +2076,28 @@ Paginator responsibilities:
     </ol>
 
     <blockquote>The surface is production-grade. The discipline is staff-grade. The ambition is to be the category-winner in a space that has not had one for a decade.</blockquote>
+  </div>
+</section>
+
+<section class="chapter" id="agents">
+  <div class="col col-narrow prose">
+    <div class="chapter-num">CH. 12 — OPERATIONS &amp; AGENT INFRASTRUCTURE</div>
+    <h2>the team behind the team.</h2>
+    <p>a 2-person company shouldn't be able to operate like a 6-person team. arqo does — because two custom autonomous agents handle PM, ops, and engineering coordination across slack, linear, github, and email.</p>
+    <p><strong>ALEIDA</strong> — executive assistant agent. owns scheduling, comms triage, status reports, light project management. interfaces with calendar, email, slack. acts as the COO we don't have.</p>
+    <p><strong>JACKIE</strong> — CTO agent. monitors PRs, surfaces deployment-critical migrations, runs daily engineering reports, tracks technical debt and unit-economic burn. interfaces with github, linear, vercel, supabase, anthropic, openai. acts as the staff engineer we don't have.</p>
+    <p>both agents:</p>
+    <ul>
+      <li>run on custom MCP servers i wrote</li>
+      <li>communicate as real teammates (named, voiced, in-channel)</li>
+      <li>read and write to production systems with hard spend caps</li>
+      <li>operate continuously, not on-demand</li>
+    </ul>
+    <p>they let me + isabella ship at a velocity we couldn't otherwise reach. they're the operational lever behind the 50-day output sprint that produced the may 2026 build cycle (27 PRs in a single day, ten product surfaces touched, two new product categories shipped).</p>
+    <figure>
+      <!-- TODO: embed real agent-output screenshot, redacted as needed -->
+    </figure>
+    <p>the agent infrastructure is the part of arqo most people will never see. it's also the part that makes everything else possible.</p>
   </div>
 </section>
 
