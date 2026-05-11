@@ -1,8 +1,25 @@
 {
-  "updatedAt": "2026-05-10T05:35:01.944Z",
+  "updatedAt": "2026-05-11T05:56:09.080Z",
   "source": "open-meteo · archive (era5)",
-  "entryCount": 129,
+  "entryCount": 130,
   "entries": [
+    {
+      "date": "2026-05-10",
+      "hot": {
+        "name": "Death Valley · Furnace Creek",
+        "region": "California, USA",
+        "lat": 36.46,
+        "lon": -116.87,
+        "tempC": 41.7
+      },
+      "cold": {
+        "name": "Vostok Station vicinity",
+        "region": "East Antarctic Plateau",
+        "lat": -78.46,
+        "lon": 106.84,
+        "tempC": -57.5
+      }
+    },
     {
       "date": "2026-05-09",
       "hot": {
